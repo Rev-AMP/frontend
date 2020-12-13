@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Frame } from 'framer';
-import { Form, FormGroup, Label, Input, Button, Col } from 'reactstrap';
+import { Form, FormGroup, Input, Col } from 'reactstrap';
 import './login.styles.css';
 
 class Login extends Component {
