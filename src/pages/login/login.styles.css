@@ -2,7 +2,7 @@ body {
     color: black;
 }
 
-#email,
+#username,
 #password {
     border-radius: 100px;
 }
