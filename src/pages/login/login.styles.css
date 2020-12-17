@@ -14,14 +14,15 @@ input, button {
 }
 
 button {
-    transition: 1s;
+    transition: 0.5s;
     width: 30%;
     padding: 4px;
+    background-color: #61dafb;
     
 }
 
-button:hover, button:active {
+button:hover {
     width: 90%;
-    transition: 1s;
-    background-color: #61dafb;
+    transition: 0.5s;
+    background-color: #39FF14;
 }

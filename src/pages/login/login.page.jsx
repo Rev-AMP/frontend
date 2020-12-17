@@ -34,13 +34,30 @@ class Login extends Component {
         })
             .then(response => {
                 if (!response.ok) {
+                    throw Error(response.json());
+                }
+                return response.json();
+            })
+            .then(token_object => this.setState({ user_auth_token: token_object.access_token }, this.getUser))
+            .catch(error => console.log(`Login Error: ${error.message}`));
+    }
+
+    getUser = () => {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `bearer ${this.state.user_auth_token}`
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
                     console.log(response);
                     throw Error(response);
                 }
                 return response.json()
             })
-            .then(token_object => this.setState({user_auth_token: token_object.access_token}, () => console.log(this.state.user_auth_token)))
-            .catch(error => console.log(error));
+            .then(user=> console.log(`Hey, ${user.full_name}`))
+            .catch(error => console.log(`Auth Error: ${error.message}`));
     }
 
     render() {
