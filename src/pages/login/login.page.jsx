@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Frame } from 'framer';
-import { Form, FormGroup, Input, Col } from 'reactstrap';
 import './login.styles.css';
 
 class Login extends Component {
@@ -9,7 +8,8 @@ class Login extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            user_auth_token: ''
         };
     }
 
@@ -23,7 +23,6 @@ class Login extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        console.log(this.state);
 
         let loginData = new FormData();
         loginData.append('username', this.state.username);
@@ -40,7 +39,7 @@ class Login extends Component {
                 }
                 return response.json()
             })
-            .then(access_token => console.log(access_token))
+            .then(token_object => this.setState({user_auth_token: token_object.access_token}, () => console.log(this.state.user_auth_token)))
             .catch(error => console.log(error));
     }
 
@@ -52,41 +51,13 @@ class Login extends Component {
                 radius={30}
                 animate={{ scale: 1.1 }}
                 transition={{ duration: 2 }}
-                background={"#61DAFB"}
+                background={"#CCCCCC"}
             >
-                <div className="container">
-                    <Form onSubmit={this.handleSubmit}>
-                        <FormGroup row>
-                            <Col>
-                                <Input type="email" id="username" name="username"
-                                    placeholder="Email"
-                                    value={this.state.username}
-                                    onChange={this.handleInputChange} />
-                            </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                            <Col>
-                                <Input type="password" id="password" name="password"
-                                    placeholder="Password"
-                                    value={this.state.password}
-                                    onChange={this.handleInputChange} />
-                            </Col>
-                        </FormGroup>
-                    </Form>
-                    <div className="row">
-                        <div className="col-12" align="center">
-                            <Frame
-                                width={100}
-                                height={30}
-                                onTap={this.handleSubmit}
-                                whileHover={{ scale: 1.2 }}
-                            >
-                                Login
-                            </Frame>
-                        </div>
-                    </div>
+                <div className="flex-container">
+                    <input type="email" name="username" placeholder="Email ID" value={this.state.username} onChange={this.handleInputChange} />
+                    <input type="password" name="password" placeholder={"Password"} value={this.state.password} onChange={this.handleInputChange} />
+                    <button onClick={this.handleSubmit}>Submit</button>
                 </div>
-
             </Frame>
         );
     }
