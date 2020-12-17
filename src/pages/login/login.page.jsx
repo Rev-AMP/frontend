@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Frame } from 'framer';
+import { toast } from 'react-toastify';
 import './login.styles.css';
+
+toast.configure();
 
 class Login extends Component {
     constructor() {
@@ -39,7 +42,9 @@ class Login extends Component {
                 return response.json();
             })
             .then(token_object => this.setState({ user_auth_token: token_object.access_token }, this.getUser))
-            .catch(error => console.log(`Login Error: ${error.message}`));
+            .catch(error => toast.error(`Error 😓: ${error.message}`, {
+                position: toast.POSITION.TOP_CENTER
+            }));
     }
 
     getUser = () => {
@@ -56,8 +61,13 @@ class Login extends Component {
                 }
                 return response.json()
             })
-            .then(user=> console.log(`Hey, ${user.full_name}`))
-            .catch(error => console.log(`Auth Error: ${error.message}`));
+            .then(user => toast.success(`Hey there, ${user.full_name} 🙌`, {
+                position: toast.POSITION.TOP_CENTER
+            })
+            )
+            .catch(error => toast.error(`Error 😓: ${error.message}`, {
+                position: toast.POSITION.TOP_CENTER
+            }));
     }
 
     render() {
@@ -73,7 +83,7 @@ class Login extends Component {
                 <div className="flex-container">
                     <input type="email" name="username" placeholder="Email ID" value={this.state.username} onChange={this.handleInputChange} />
                     <input type="password" name="password" placeholder={"Password"} value={this.state.password} onChange={this.handleInputChange} />
-                    <button onClick={this.handleSubmit}>Submit</button>
+                    <button className="submit--button" onClick={this.handleSubmit}>Submit</button>
                 </div>
             </Frame>
         );
