@@ -40,7 +40,7 @@ class Login extends Component {
                 return response.ok ? json : Promise.reject(json);
             })
             .then(token_object => this.setState({ user_auth_token: token_object.access_token }, this.getUser))
-            .catch(error => toast.error(`Error 😓: ${error['detail']}`, {
+            .catch(error => toast.error(`Error 😓: ${error.detail}`, {
                 position: toast.POSITION.TOP_CENTER
             }));
     }
