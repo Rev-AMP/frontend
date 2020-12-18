@@ -35,14 +35,12 @@ class Login extends Component {
             method: 'POST',
             body: loginData
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw Error(response.json());
-                }
-                return response.json();
+            .then(async response => {
+                const json = await response.json();
+                return response.ok ? json : Promise.reject(json);
             })
             .then(token_object => this.setState({ user_auth_token: token_object.access_token }, this.getUser))
-            .catch(error => toast.error(`Error 😓: ${error.message}`, {
+            .catch(error => toast.error(`Error 😓: ${error['detail']}`, {
                 position: toast.POSITION.TOP_CENTER
             }));
     }
