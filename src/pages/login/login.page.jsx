@@ -34,10 +34,7 @@ class Login extends Component {
 
         const errors = this.state.errors;
 
-        if (errors.username.length !== 0 || errors.password.length !== 0) {
-            console.log('bahhhas');
-            return;
-        }
+        if (errors.username.length !== 0 || errors.password.length !== 0) return;
 
         if (this.state.username.length === 0 || this.state.password.length === 0) {
             toast.error(`Empty Fields 💔`, {
@@ -71,18 +68,14 @@ class Login extends Component {
                 'Authorization': `bearer ${this.state.user_auth_token}`
             }
         })
-            .then(response => {
-                if (!response.ok) {
-                    console.log(response);
-                    throw Error(response);
-                }
-                return response.json()
+            .then(async response => {
+                const json = await response.json();
+                return response.ok ? json : Promise.reject(json);
             })
             .then(user => toast.success(`Hey there, ${user.full_name} 🙌`, {
                 position: toast.POSITION.TOP_CENTER
-            })
-            )
-            .catch(error => toast.error(`Error 😓: ${error.message}`, {
+            }))
+            .catch(error => toast.error(`Error 😓: ${error.detail}`, {
                 position: toast.POSITION.TOP_CENTER
             }));
     }
