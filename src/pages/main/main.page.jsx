@@ -5,6 +5,10 @@ import Login from '../login/login.page';
 class Main extends Component {
     constructor() {
         super();
+
+        this.state = {
+            // TBA    
+        }
     }
 
     render() {
