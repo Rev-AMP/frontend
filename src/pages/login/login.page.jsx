@@ -7,9 +7,8 @@ toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
 
 class Login extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
         this.state = {
             username: '',
             password: '',
@@ -55,7 +54,10 @@ class Login extends Component {
                 const json = await response.json();
                 return response.ok ? json : Promise.reject(json);
             })
-            .then(token_object => this.setState({ user_auth_token: token_object.access_token }, this.getUser))
+            .then(token_object => {
+                this.props.cookies.set('access_token', token_object.access_token, { path: '/' });
+                this.getUser();
+            })
             .catch(error => toast.error(`Error 😓: ${error.detail}`, {
                 position: toast.POSITION.TOP_CENTER
             }));
@@ -65,7 +67,7 @@ class Login extends Component {
         fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
             method: 'GET',
             headers: {
-                'Authorization': `bearer ${this.state.user_auth_token}`
+                'Authorization': `bearer ${this.props.cookies.get('access_token')}`
             }
         })
             .then(async response => {
