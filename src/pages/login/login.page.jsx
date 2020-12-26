@@ -55,7 +55,7 @@ class Login extends Component {
                 return response.ok ? json : Promise.reject(json);
             })
             .then(token_object => {
-                this.props.cookies.set('access_token', token_object.access_token, { path: '/' });
+                this.props.cookies.set('access_token', token_object.access_token, { path: '/', sameSite: 'strict' });
                 this.getUser();
             })
             .catch(error => toast.error(`Error 😓: ${error.detail}`, {
