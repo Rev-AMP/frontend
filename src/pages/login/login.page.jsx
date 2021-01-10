@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import './login.styles.css';
 
 toast.configure();
-const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i);
+const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
 class Login extends Component {
     constructor(props) {
@@ -133,7 +133,7 @@ class Login extends Component {
                         onChange={this.handleInputChange}
                         onBlur={this.validateField}
                     />
-                    {this.state.errors.username.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
+                    {this.state.errors.password.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
 
                     <button className="submit--button" onClick={this.handleSubmit}>Submit</button>
                 </div>
