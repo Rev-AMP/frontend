@@ -1,0 +1,31 @@
+.custom--button {
+    margin: 12px 0px 0px 12px;
+    padding: 12px 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: 0.2s;
+    width: 90%;
+    height: 40px;
+    padding: 4px;
+}
+
+.custom--button:hover {
+    color: white;
+    background-color: #237f52;
+}
+
+.primary {
+    background-color: #61dafb;
+}
+
+.warning {
+    background-color: yellow;
+}
+
+.danger {
+    background-color: red;
+}
+
+.success {
+    background-color: green;
+}

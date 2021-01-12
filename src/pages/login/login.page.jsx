@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Frame } from 'framer';
 import { toast } from 'react-toastify';
+import FormInput from '../../components/FormInput/FormInput.component';
+import Button from '../../components/Button/Button.component';
 import './login.styles.css';
 
 toast.configure();
@@ -115,27 +117,27 @@ class Login extends Component {
                 background={"#CCCCCC"}
             >
                 <div className="flex-container">
-                    <input
+                    <FormInput
                         type="email"
                         name="username"
                         placeholder="Email ID"
                         value={this.state.username}
-                        onChange={this.handleInputChange}
-                        onBlur={this.validateField}
+                        handleChange={this.handleInputChange}
+                        handleBlur={this.validateField}
                     />
                     {this.state.errors.username.length > 0 ? <span className="errors">{this.state.errors.username}</span> : null}
 
-                    <input
+                    <FormInput
                         type="password"
                         name="password"
                         placeholder="Password"
                         value={this.state.password}
-                        onChange={this.handleInputChange}
-                        onBlur={this.validateField}
+                        handleChange={this.handleInputChange}
+                        handleBlur={this.validateField}
                     />
                     {this.state.errors.password.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
 
-                    <button className="submit--button" onClick={this.handleSubmit}>Submit</button>
+                    <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
                 </div>
             </Frame>
         );
