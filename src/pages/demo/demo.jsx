@@ -4,10 +4,10 @@ import {Button } from 'reactstrap';
 import { Increment,Decrement } from 'redux/demo-reducer/action';
 import {withRouter} from 'react-router-dom';
 class Demo extends React.Component {
-    constructor (props){
-        super(props);
+    // constructor (props){
+    //     super(props);
         
-    }
+    // }
     render (){
         return (
             <>
