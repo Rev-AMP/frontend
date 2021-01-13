@@ -4,30 +4,6 @@
     flex-direction: column;
 }
 
-input, .submit--button {
-    width: 90%;
-    margin: 12px 0px 0px 12px;
-    padding: 12px 18px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-}
-
-.submit--button {
-    transition: 0.5s;
-    width: 30%;
-    padding: 4px;
-    background-color: #61dafb;
-    
-}
-
-.submit--button:hover {
-    width: 90%;
-    transition: 0.5s;
-    color: white;
-    background-color: #237f52;
-}
-
 .errors {
     font-size: 0.8em;
     color: red;
