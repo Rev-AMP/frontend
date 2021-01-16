@@ -2,17 +2,18 @@ import {createStore, combineReducers,applyMiddleware} from 'redux';
 import createSagaMiddleWare from 'redux-saga';
 import Logger from 'redux-logger';
 import {all} from 'redux-saga/effects';
-import DemoReducer from './demo-reducer/reducer';
-import DemoSaga from './demo-reducer/saga';
+
+import LoginReducer from './login/reducer';
+import LoginSaga from './login/saga';
 const SagaMiddleware=createSagaMiddleWare();
 
 const store=createStore(
-    combineReducers({DemoReducer}),
+    combineReducers({LoginReducer}),
     applyMiddleware(SagaMiddleware,Logger)
 );
 
 const sagas= function* (){
-    yield all([DemoSaga()]);
+    yield all([LoginSaga()]);
 }
 
 SagaMiddleware.run(sagas);

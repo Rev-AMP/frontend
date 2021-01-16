@@ -4,7 +4,9 @@ import { toast } from 'react-toastify';
 import FormInput from '../../components/FormInput/FormInput.component';
 import Button from '../../components/Button/Button.component';
 import './login.styles.css';
-
+import {Login as InitiateLogin,ClearLoginError} from 'redux/login/action';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -21,7 +23,21 @@ class Login extends Component {
             }
         };
     }
+    
+    componentDidUpdate(prevProps,prevState) {
+        if (prevProps.errorMessage!==this.props.errorMessage && this.props.errorMessage!==''){
+            toast.error(`Error 😓: ${this.props.errorMessage}`, {
+                         position: toast.POSITION.TOP_CENTER,
+                         onClose:()=> this.props.ClearLoginError()
+                     })
+        }
 
+        if(prevProps.isLoggedIn!==this.props.isLoggedIn && this.props.isLoggedIn){
+            this.getUser();
+        }
+    }
+        
+    
     handleInputChange = e => {
         const field = e.target.name;
         const value = e.target.value;
@@ -43,33 +59,15 @@ class Login extends Component {
             });
             return;
         }
-
-        let loginData = new FormData();
-        loginData.append('username', this.state.username);
-        loginData.append('password', this.state.password);
-
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/login/access-token`, {
-            method: 'POST',
-            body: loginData
-        })
-            .then(async response => {
-                const json = await response.json();
-                return response.ok ? json : Promise.reject(json);
-            })
-            .then(token_object => {
-                this.props.cookies.set('access_token', token_object.access_token, { path: '/', sameSite: 'strict' });
-                this.getUser();
-            })
-            .catch(error => toast.error(`Error 😓: ${error.detail}`, {
-                position: toast.POSITION.TOP_CENTER
-            }));
+        this.props.InitiateLogin({username:this.state.username,password:this.state.password});
+        
     }
 
     getUser = () => {
         fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
             method: 'GET',
             headers: {
-                'Authorization': `bearer ${this.props.cookies.get('access_token')}`
+                'Authorization': `bearer ${this.props.accessToken/*.cookies.get('access_token')*/}`
             }
         })
             .then(async response => {
@@ -143,5 +141,11 @@ class Login extends Component {
         );
     }
 }
-
-export default Login;
+const mapStateToProps = (state) =>({
+    errorMessage:state.LoginReducer.errorMessage,
+    accessToken: state.LoginReducer.accessToken,
+    isLoggedIn:state.LoginReducer.isLoggedIn
+});
+export default withRouter(
+    connect(mapStateToProps,{InitiateLogin,ClearLoginError})(Login)
+);
