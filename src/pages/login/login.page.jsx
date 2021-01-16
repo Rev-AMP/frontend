@@ -36,8 +36,8 @@ class Login extends Component {
             this.props.FetchUserMe();
         }
 
-        if (prevProps.user !== this.props.user && this.props.user) {
-            toast.success(`Hey there, ${this.props.user.full_name} 🙌`, {
+        if (prevProps.currentUser !== this.props.currentUser && this.props.currentUser) {
+            toast.success(`Hey there, ${this.props.currentUser.full_name} 🙌`, {
                 position: toast.POSITION.TOP_CENTER
             });
         }
@@ -151,7 +151,7 @@ const mapStateToProps = (state) => ({
     errorMessage: state.login.errorMessage || state.user.errorMessage, //TODO: check if this is fine
     accessToken: state.login.accessToken,
     isLoggedIn: state.login.isLoggedIn,
-    user: state.user.userDetails
+    currentUser: state.user.currentUser
 });
 export default withRouter(
     connect(mapStateToProps, { InitiateLogin, ClearLoginError, FetchUserMe })(Login)
