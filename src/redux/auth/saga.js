@@ -1,9 +1,9 @@
-import LoginActionTypes from './action.types';
+import AuthActionTypes from './action.types';
 import { takeEvery, put } from 'redux-saga/effects';
 import { LoginSuccess, LoginFailure } from './action';
 
 function* Login() {
-    yield takeEvery(LoginActionTypes.LOGIN, function* (action) {
+    yield takeEvery(AuthActionTypes.LOGIN, function* (action) {
         let loginData = new FormData();
         loginData.append("username", action.payload.username);
         loginData.append("password", action.payload.password);

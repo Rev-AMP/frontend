@@ -1,4 +1,4 @@
-import LoginActionTypes from './action.types';
+import AuthActionTypes from './action.types';
 
 const initState = {
     accessToken: "",
@@ -9,13 +9,13 @@ const initState = {
 
 const loginReducer = (state = initState, action) => {
     switch (action.type) {
-        case LoginActionTypes.LOGIN:
+        case AuthActionTypes.LOGIN:
             return { ...state, isLoading: true, errorMessage: '', isLoggedIn: false, accessToken: '' };
-        case LoginActionTypes.LOGIN_SUCCESS:
+        case AuthActionTypes.LOGIN_SUCCESS:
             return { ...state, isLoading: false, errorMessage: '', accessToken: action.payload, isLoggedIn: true };
-        case LoginActionTypes.LOGIN_FAILURE:
+        case AuthActionTypes.LOGIN_FAILURE:
             return { ...state, isLoading: false, errorMessage: action.payload, accessToken: '', isLoggedIn: false };
-        case LoginActionTypes.CLEAR_LOGIN_ERROR:
+        case AuthActionTypes.CLEAR_LOGIN_ERROR:
             return { ...state, errorMessage: '' }
         // case LoginActionTypes.LOGOUT:
         //     return {...state,isLoading:true, errorMessage:'', accessToken:'', isLoggedIn:true};

@@ -1,25 +1,25 @@
-import LoginActionTypes from './action.types';
+import AuthActionTypes from './action.types';
 export const Login = (user) => ({
-    type: LoginActionTypes.LOGIN,
+    type: AuthActionTypes.LOGIN,
     payload: user
 });
 
 export const LoginSuccess = (accessToken) => ({
-    type: LoginActionTypes.LOGIN_SUCCESS,
+    type: AuthActionTypes.LOGIN_SUCCESS,
     payload: accessToken
 });
 
 export const LoginFailure = (error) => ({
-    type: LoginActionTypes.LOGIN_FAILURE,
+    type: AuthActionTypes.LOGIN_FAILURE,
     payload: error
 });
 export const ClearLoginError = () => ({
-    type: LoginActionTypes.CLEAR_LOGIN_ERROR
+    type: AuthActionTypes.CLEAR_LOGIN_ERROR
 });
 export const LogOut = () => ({
-    type: LoginActionTypes.LOGOUT
+    type: AuthActionTypes.LOGOUT
 });
 
 export const LogOutSuccess = () => ({
-    type: LoginActionTypes.LOGOUT_SUCCESS
+    type: AuthActionTypes.LOGOUT_SUCCESS
 });

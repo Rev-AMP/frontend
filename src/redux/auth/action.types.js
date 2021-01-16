@@ -1,4 +1,4 @@
-const LoginActionTypes = {
+const AuthActionTypes = {
     LOGIN: "LOGIN",
     LOGIN_SUCCESS: "LOGIN_SUCCESS",
     LOGIN_FAILURE: "LOGIN_FAILURE",
@@ -7,4 +7,4 @@ const LoginActionTypes = {
     LOGOUT_SUCCESS: "LOGOUT_SUCCESS"
 };
 
-export default LoginActionTypes;
+export default AuthActionTypes;

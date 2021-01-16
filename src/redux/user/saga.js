@@ -5,7 +5,7 @@ import {all, put, select, takeEvery} from "redux-saga/effects";
 function* FetchUserMe() {
     yield takeEvery(UserActionTypes.FETCH_USER_ME, function* (action) {
         try {
-            let token = yield select((state) => state.login.accessToken);
+            let token = yield select((state) => state.auth.accessToken);
             let user = yield fetch(
                 `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`,
                 {
