@@ -5,6 +5,7 @@ import FormInput from '../../components/FormInput/FormInput.component';
 import Button from '../../components/Button/Button.component';
 import './login.styles.css';
 import { Login as InitiateLogin, ClearLoginError } from 'redux/login/action';
+import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 toast.configure();
@@ -27,13 +28,18 @@ class Login extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
             toast.error(`Error 😓: ${this.props.errorMessage}`, {
-                position: toast.POSITION.TOP_CENTER,
-                onClose: () => this.props.ClearLoginError()
+                position: toast.POSITION.TOP_CENTER
             })
         }
 
         if (prevProps.isLoggedIn !== this.props.isLoggedIn && this.props.isLoggedIn) {
-            this.getUser();
+            this.props.FetchUserMe();
+        }
+
+        if (prevProps.user !== this.props.user && this.props.user) {
+            toast.success(`Hey there, ${this.props.user.full_name} 🙌`, {
+                position: toast.POSITION.TOP_CENTER
+            });
         }
     }
 
@@ -142,10 +148,11 @@ class Login extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    errorMessage: state.LoginReducer.errorMessage,
-    accessToken: state.LoginReducer.accessToken,
-    isLoggedIn: state.LoginReducer.isLoggedIn
+    errorMessage: state.login.errorMessage || state.user.errorMessage, //TODO: check if this is fine
+    accessToken: state.login.accessToken,
+    isLoggedIn: state.login.isLoggedIn,
+    user: state.user.userDetails
 });
 export default withRouter(
-    connect(mapStateToProps, { InitiateLogin, ClearLoginError })(Login)
+    connect(mapStateToProps, { InitiateLogin, ClearLoginError, FetchUserMe })(Login)
 );
