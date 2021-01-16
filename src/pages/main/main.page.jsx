@@ -14,7 +14,7 @@ class Main extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path="/login" render={ () => <Login cookies={this.props.cookies} /> } />
+                <Route exact path="/login" render={() => <Login cookies={this.props.cookies} />} />
                 <Redirect to="/login" />
             </Switch>
         );

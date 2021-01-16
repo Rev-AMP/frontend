@@ -4,9 +4,9 @@ import { toast } from 'react-toastify';
 import FormInput from '../../components/FormInput/FormInput.component';
 import Button from '../../components/Button/Button.component';
 import './login.styles.css';
-import {Login as InitiateLogin,ClearLoginError} from 'redux/login/action';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import { Login as InitiateLogin, ClearLoginError } from 'redux/login/action';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -23,21 +23,21 @@ class Login extends Component {
             }
         };
     }
-    
-    componentDidUpdate(prevProps,prevState) {
-        if (prevProps.errorMessage!==this.props.errorMessage && this.props.errorMessage!==''){
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
             toast.error(`Error 😓: ${this.props.errorMessage}`, {
-                         position: toast.POSITION.TOP_CENTER,
-                         onClose:()=> this.props.ClearLoginError()
-                     })
+                position: toast.POSITION.TOP_CENTER,
+                onClose: () => this.props.ClearLoginError()
+            })
         }
 
-        if(prevProps.isLoggedIn!==this.props.isLoggedIn && this.props.isLoggedIn){
+        if (prevProps.isLoggedIn !== this.props.isLoggedIn && this.props.isLoggedIn) {
             this.getUser();
         }
     }
-        
-    
+
+
     handleInputChange = e => {
         const field = e.target.name;
         const value = e.target.value;
@@ -59,8 +59,8 @@ class Login extends Component {
             });
             return;
         }
-        this.props.InitiateLogin({username:this.state.username,password:this.state.password});
-        
+        this.props.InitiateLogin({ username: this.state.username, password: this.state.password });
+
     }
 
     getUser = () => {
@@ -141,11 +141,11 @@ class Login extends Component {
         );
     }
 }
-const mapStateToProps = (state) =>({
-    errorMessage:state.LoginReducer.errorMessage,
+const mapStateToProps = (state) => ({
+    errorMessage: state.LoginReducer.errorMessage,
     accessToken: state.LoginReducer.accessToken,
-    isLoggedIn:state.LoginReducer.isLoggedIn
+    isLoggedIn: state.LoginReducer.isLoggedIn
 });
 export default withRouter(
-    connect(mapStateToProps,{InitiateLogin,ClearLoginError})(Login)
+    connect(mapStateToProps, { InitiateLogin, ClearLoginError })(Login)
 );
