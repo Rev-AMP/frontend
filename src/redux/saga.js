@@ -5,7 +5,7 @@ import UserSaga from './user/saga';
 
 const RootSaga = function* () {
     yield all([
-        AuthSaga(), 
+        AuthSaga(),
         UserSaga()
     ]);
 }
