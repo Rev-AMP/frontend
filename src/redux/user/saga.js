@@ -1,6 +1,6 @@
 import UserActionTypes from "./action.types";
 import {FetchUserMeFailure, FetchUserMeSuccess, FetchUserFailure, FetchUserSuccess} from "./action";
-import {all, call, put, select, takeEvery} from "redux-saga/effects";
+import {all, /*call,*/ put, select, takeEvery} from "redux-saga/effects";
 
 function* FetchUserMe() {
     yield takeEvery(UserActionTypes.FETCH_USER_ME,function* (action) {
