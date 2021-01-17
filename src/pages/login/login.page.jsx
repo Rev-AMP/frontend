@@ -142,7 +142,7 @@ class Login extends Component {
                     {this.state.errors.password.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
 
                     <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
-                    <Button buttonType="danger" handleClick={()=>this.props.LogOut()}>Logout</Button>
+                    <Button buttonType="danger" handleClick={() => this.props.LogOut()}>Logout</Button>
                 </div>
             </Frame>
         );
