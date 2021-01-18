@@ -1,5 +1,5 @@
 import Main from './pages/main/main.page';
-import { /*BrowserRouter,*/HashRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import './App.css';
 

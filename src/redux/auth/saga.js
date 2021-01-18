@@ -9,7 +9,7 @@ function* Login() {
         loginData.append("username", action.payload.username);
         loginData.append("password", action.payload.password);
         try {
-            const response  = yield call (httpClient,
+            const response = yield call(httpClient,
                 `${process.env.REACT_APP_BACKEND_URL}/api/v1/login/access-token`, {
                 method: "post",
                 body: loginData

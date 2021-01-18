@@ -10,13 +10,13 @@ export const FetchUserMeSuccess = (user) => ({
 });
 
 export const FetchUserMeFailure = (error) => ({
-   type: UserActionTypes.FETCH_USER_ME_FAILURE,
-   payload: error
+    type: UserActionTypes.FETCH_USER_ME_FAILURE,
+    payload: error
 });
 
 export const FetchUser = (id) => ({
     type: UserActionTypes.FETCH_USER,
-    payload:id
+    payload: id
 });
 
 export const FetchUserSuccess = (user) => ({
@@ -25,6 +25,6 @@ export const FetchUserSuccess = (user) => ({
 });
 
 export const FetchUserFailure = (error) => ({
-   type: UserActionTypes.FETCH_USER_FAILURE,
-   payload: error
+    type: UserActionTypes.FETCH_USER_FAILURE,
+    payload: error
 });

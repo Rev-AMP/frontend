@@ -1,13 +1,13 @@
 import UserActionTypes from "./action.types";
-import {FetchUserMeFailure, FetchUserMeSuccess, FetchUserFailure, FetchUserSuccess} from "./action";
-import {all, call, put, select, takeEvery} from "redux-saga/effects";
+import { FetchUserMeFailure, FetchUserMeSuccess, FetchUserFailure, FetchUserSuccess } from "./action";
+import { all, call, put, select, takeEvery } from "redux-saga/effects";
 import httpClient from "services/http-client";
 
 function* FetchUserMe() {
-    yield takeEvery(UserActionTypes.FETCH_USER_ME,function* (action) {
+    yield takeEvery(UserActionTypes.FETCH_USER_ME, function* (action) {
         try {
             let token = yield select((state) => state.auth.accessToken);
-            let user = yield call (httpClient,
+            let user = yield call(httpClient,
                 `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`,
                 {
                     method: 'GET',
@@ -16,7 +16,7 @@ function* FetchUserMe() {
                     }
                 }
             );
-                
+
             yield put(FetchUserMeSuccess(user));
         }
         catch (error) {
@@ -25,11 +25,11 @@ function* FetchUserMe() {
     });
 }
 
-function* FetchUser(){
-    yield takeEvery(UserActionTypes.FETCH_USER, function* (action){
+function* FetchUser() {
+    yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
         try {
             let token = yield select((state) => state.auth.accessToken);
-            
+
             let user = yield call(fetch,
                 `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload}`,
                 {
@@ -39,17 +39,17 @@ function* FetchUser(){
                     }
                 }
             );
-                
+
             yield put(FetchUserSuccess(user));
         }
-        catch(error) {
+        catch (error) {
             yield put(FetchUserFailure(error.detail));
         }
     });
 }
 
 function* FetchUserMethods() {
-    yield all([FetchUserMe(),FetchUser()]);
+    yield all([FetchUserMe(), FetchUser()]);
 }
 
 export default FetchUserMethods;
