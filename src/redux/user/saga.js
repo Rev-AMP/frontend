@@ -30,7 +30,7 @@ function* FetchUser() {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
-            let user = yield call(fetch,
+            let user = yield call(httpClient,
                 `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload}`,
                 {
                     method: 'GET',
