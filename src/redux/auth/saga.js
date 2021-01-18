@@ -10,17 +10,16 @@ function* Login() {
         loginData.append("password", action.payload.password);
         try {
             const response = yield call(httpClient,
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/login/access-token`, {
-                method: "post",
-                body: loginData
-            });
+                `${process.env.REACT_APP_BACKEND_URL}/api/v1/login/access-token`,
+                {
+                    method: "post",
+                    body: loginData
+                }
+            );
             yield put(LoginSuccess(response.access_token));
-        }
-        catch (error) {
+        } catch (error) {
             yield put(LoginFailure(error.detail));
         }
-
-
     });
 }
 
