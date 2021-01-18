@@ -73,7 +73,7 @@ class Login extends Component {
         fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
             method: 'GET',
             headers: {
-                'Authorization': `bearer ${this.props.accessToken/*.cookies.get('access_token')*/}`
+                'Authorization': `bearer ${this.props.accessToken}`
             }
         })
             .then(async response => {
