@@ -4,7 +4,10 @@ import { toast } from 'react-toastify';
 import FormInput from '../../components/FormInput/FormInput.component';
 import Button from '../../components/Button/Button.component';
 import './login.styles.css';
-
+import { Login as InitiateLogin, LogOut } from 'redux/auth/action';
+import { FetchUserMe } from "redux/user/action";
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -21,6 +24,25 @@ class Login extends Component {
             }
         };
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
+            toast.error(`Error 😓: ${this.props.errorMessage}`, {
+                position: toast.POSITION.TOP_CENTER
+            })
+        }
+
+        if (prevProps.isLoggedIn !== this.props.isLoggedIn && this.props.isLoggedIn) {
+            this.props.FetchUserMe();
+        }
+
+        if (prevProps.currentUser !== this.props.currentUser && this.props.currentUser) {
+            toast.success(`Hey there, ${this.props.currentUser.full_name} 🙌`, {
+                position: toast.POSITION.TOP_CENTER
+            });
+        }
+    }
+
 
     handleInputChange = e => {
         const field = e.target.name;
@@ -43,33 +65,15 @@ class Login extends Component {
             });
             return;
         }
+        this.props.InitiateLogin({ username: this.state.username, password: this.state.password });
 
-        let loginData = new FormData();
-        loginData.append('username', this.state.username);
-        loginData.append('password', this.state.password);
-
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/login/access-token`, {
-            method: 'POST',
-            body: loginData
-        })
-            .then(async response => {
-                const json = await response.json();
-                return response.ok ? json : Promise.reject(json);
-            })
-            .then(token_object => {
-                this.props.cookies.set('access_token', token_object.access_token, { path: '/', sameSite: 'strict' });
-                this.getUser();
-            })
-            .catch(error => toast.error(`Error 😓: ${error.detail}`, {
-                position: toast.POSITION.TOP_CENTER
-            }));
     }
 
     getUser = () => {
         fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
             method: 'GET',
             headers: {
-                'Authorization': `bearer ${this.props.cookies.get('access_token')}`
+                'Authorization': `bearer ${this.props.accessToken}`
             }
         })
             .then(async response => {
@@ -138,10 +142,19 @@ class Login extends Component {
                     {this.state.errors.password.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
 
                     <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
+                    {this.props.isLoggedIn &&
+                        <Button buttonType="danger" handleClick={() => this.props.LogOut()}>Logout</Button>}
                 </div>
             </Frame>
         );
     }
 }
-
-export default Login;
+const mapStateToProps = (state) => ({
+    errorMessage: state.auth.errorMessage || state.user.errorMessage, //TODO: check if this is fine
+    accessToken: state.auth.accessToken,
+    isLoggedIn: state.auth.isLoggedIn,
+    currentUser: state.user.currentUser
+});
+export default withRouter(
+    connect(mapStateToProps, { InitiateLogin, LogOut, FetchUserMe })(Login)
+);
