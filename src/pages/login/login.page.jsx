@@ -8,6 +8,7 @@ import { Login as InitiateLogin, LogOut } from 'redux/auth/action';
 import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -25,7 +26,7 @@ class Login extends Component {
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
             toast.error(`Error 😓: ${this.props.errorMessage}`, {
                 position: toast.POSITION.TOP_CENTER
@@ -130,12 +131,14 @@ class Login extends Component {
         );
     }
 }
+
 const mapStateToProps = (state) => ({
-    errorMessage: state.auth.errorMessage || state.user.errorMessage, //TODO: check if this is fine
+    errorMessage: state.auth.errorMessage || state.user.errorMessage,
     accessToken: state.auth.accessToken,
     isLoggedIn: state.auth.isLoggedIn,
     currentUser: state.user.currentUser
 });
+
 export default withRouter(
     connect(mapStateToProps, { InitiateLogin, LogOut, FetchUserMe })(Login)
 );
