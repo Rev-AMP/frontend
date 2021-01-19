@@ -69,25 +69,6 @@ class Login extends Component {
 
     }
 
-    getUser = () => {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `bearer ${this.props.accessToken}`
-            }
-        })
-            .then(async response => {
-                const json = await response.json();
-                return response.ok ? json : Promise.reject(json);
-            })
-            .then(user => toast.success(`Hey there, ${user.full_name} 🙌`, {
-                position: toast.POSITION.TOP_CENTER
-            }))
-            .catch(error => toast.error(`Error 😓: ${error.detail}`, {
-                position: toast.POSITION.TOP_CENTER
-            }));
-    }
-
     validateField = e => {
         e.preventDefault();
 
