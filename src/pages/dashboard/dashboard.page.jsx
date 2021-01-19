@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import './dashboard.styles.css';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <h1>Hello {this.currentUser.full_name}</h1>
+            <h1>Hello {this.props.currentUser.full_name}</h1>
         );
     }
 }

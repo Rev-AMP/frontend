@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Frame } from 'framer';
 import { toast } from 'react-toastify';
-import FormInput from '../../components/FormInput/FormInput.component';
-import Button from '../../components/Button/Button.component';
+import FormInput from 'components/FormInput/FormInput.component';
+import Button from 'components/Button/Button.component';
 import './login.styles.css';
 import { Login as InitiateLogin, LogOut } from 'redux/auth/action';
 import { FetchUserMe } from "redux/user/action";
@@ -41,6 +41,8 @@ class Login extends Component {
             toast.success(`Hey there, ${this.props.currentUser.full_name} 🙌`, {
                 position: toast.POSITION.TOP_CENTER
             });
+
+            this.props.history.push("/")
         }
     }
 
