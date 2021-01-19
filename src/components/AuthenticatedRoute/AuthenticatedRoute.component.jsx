@@ -6,9 +6,8 @@ class AuthenticatedRoute extends React.Component {
     render() {
         if (this.props.isLoggedIn) {
             return (<Route {...this.props}/>);
-        } else {
-            return (<Redirect to="/login"/>);
         }
+        return (<Redirect to="/login"/>);
     }
 }
 
