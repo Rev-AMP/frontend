@@ -13,7 +13,7 @@ class Dashboard extends Component {
         };
     }
 
-    switchDrawer = e => {
+    switchDrawer = () => {
         this.setState({
            drawerOpen: !this.state.drawerOpen
         });
