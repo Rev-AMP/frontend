@@ -23,7 +23,7 @@ class Dashboard extends Component {
         return (
             <div>
                 <Header handleMenuButtonClick={this.switchDrawer} />
-                <SideBar open={this.state.drawerOpen} />
+                <SideBar drawerOpen={this.state.drawerOpen} />
                 <h1>Hello {this.props.currentUser.full_name}</h1>
             </div>
         );

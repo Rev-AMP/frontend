@@ -10,17 +10,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-    },
-    menuButton: {
-        marginRight: 36,
-    },
-    hide: {
-        display: 'none',
     },
     drawer: {
         width: drawerWidth,
@@ -28,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
         whiteSpace: 'nowrap',
     },
     drawerOpen: {
-        background: theme.palette.background.paper,
         width: drawerWidth,
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -36,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
         }),
     },
     drawerClose: {
-        background: theme.palette.background.default,
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -55,43 +47,44 @@ const useStyles = makeStyles((theme) => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
 }));
 
-const SideBar = ({ open }) => {
+const SideBar = ({drawerOpen}) => {
     const classes = useStyles();
 
     return (
         <Drawer
             variant="permanent"
             className={clsx(classes.drawer, {
-                [classes.drawerOpen]: open,
-                [classes.drawerClose]: !open,
+                [classes.drawerOpen]: drawerOpen,
+                [classes.drawerClose]: !drawerOpen,
             })}
             classes={{
                 paper: clsx({
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
+                    [classes.drawerOpen]: drawerOpen,
+                    [classes.drawerClose]: !drawerOpen,
                 }),
             }}
         >
-            <div className={classes.toolbar} />
+            <div className={classes.toolbar}/>
+
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemIcon>
+                            {index % 2 === 0 ? <InboxIcon color="secondary" /> : <MailIcon color="secondary" />}
+                        </ListItemIcon>
+                        <ListItemText primary={text}/>
                     </ListItem>
                 ))}
             </List>
-            <Divider />
+            <Divider/>
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                     <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemIcon>
+                            {index % 2 === 0 ? <InboxIcon color="secondary" /> : <MailIcon color="secondary" />}
+                        </ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
                 ))}
