@@ -28,3 +28,17 @@ export const FetchUserFailure = (error) => ({
     type: UserActionTypes.FETCH_USER_FAILURE,
     payload: error
 });
+
+export const FetchUsers = () => ({
+    type: UserActionTypes.FETCH_USERS
+});
+
+export const FetchUsersSuccess = (users) => ({
+    type: UserActionTypes.FETCH_USERS_SUCCESS,
+    payload: users
+});
+
+export const FetchUsersFailure = (error) => ({
+    type: UserActionTypes.FETCH_USERS_FAILURE,
+    payload: error
+});
