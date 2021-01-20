@@ -100,7 +100,8 @@ class Login extends Component {
                 width={450}
                 height={450}
                 radius={30}
-                animate={{ scale: 0.95 }}
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
                 background={"#CCCCCC"}
             >
