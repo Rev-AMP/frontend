@@ -94,8 +94,15 @@ class Login extends Component {
     }
 
     render() {
-        return (
+        if (this.props.isLoading) {
+            return (
+                <Grid container justify="center">
+                    <img src={process.env.PUBLIC_URL + "miscellaneous/loader.gif"} alt="loading"/>
+                </Grid>
+            );
+        }
 
+        return (
             <Grid container justify="center">
                 <Paper className="flex-container" style={{ width: "80vw", maxWidth: 450, height: "70vh", maxHeight: 450 }}>
                     <FormInput
@@ -119,7 +126,6 @@ class Login extends Component {
                     <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
                 </Paper>
             </Grid>
-
         );
     }
 }
@@ -128,7 +134,8 @@ const mapStateToProps = (state) => ({
     errorMessage: state.auth.errorMessage || state.user.errorMessage,
     accessToken: state.auth.accessToken,
     isLoggedIn: state.auth.isLoggedIn,
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    isLoading: state.user.isLoading || state.user.isLoading
 });
 
 export default withRouter(
