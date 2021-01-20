@@ -8,7 +8,8 @@ import { Login as InitiateLogin, LogOut } from 'redux/auth/action';
 import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
+import { Paper } from '@material-ui/core';
+import {borders} from '@material-ui/system';
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -41,7 +42,6 @@ class Login extends Component {
             toast.success(`Hey there, ${this.props.currentUser.full_name} 🙌`, {
                 position: toast.POSITION.TOP_CENTER
             });
-
             this.props.history.push("/")
         }
     }
@@ -99,13 +99,12 @@ class Login extends Component {
             <Frame
                 width={450}
                 height={450}
-                radius={30}
+                
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}
-                background={"#CCCCCC"}
             >
-                <div className="flex-container">
+                <Paper className="flex-container">
                     <FormInput
                         type="email"
                         name="username"
@@ -129,7 +128,7 @@ class Login extends Component {
                     <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
                     {this.props.isLoggedIn &&
                         <Button buttonType="danger" handleClick={() => this.props.LogOut()}>Logout</Button>}
-                </div>
+                </Paper>
             </Frame>
         );
     }

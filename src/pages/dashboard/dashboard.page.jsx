@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './dashboard.styles.css';
-
+import SideBar from 'components/SideBar/SideBar.component';
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +19,10 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <h1>Hello {this.props.currentUser.full_name}</h1>
+            <div>
+                <SideBar/>
+                <h1>Hello {this.props.currentUser.full_name}</h1>
+            </div>
         );
     }
 }
