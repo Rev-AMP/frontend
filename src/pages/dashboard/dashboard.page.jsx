@@ -3,25 +3,27 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './dashboard.styles.css';
 import SideBar from 'components/SideBar/SideBar.component';
+import Header from 'components/Header/Header.component';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
-            password: '',
-            user_auth_token: '',
-            errors: {
-                username: '',
-                password: ''
-            }
+            drawerOpen: false
         };
+    }
+
+    switchDrawer = e => {
+        this.setState({
+           drawerOpen: !this.state.drawerOpen
+        });
     }
 
     render() {
         return (
             <div>
-                <SideBar />
+                <Header handleMenuButtonClick={this.switchDrawer} />
+                <SideBar open={this.state.drawerOpen} />
                 <h1>Hello {this.props.currentUser.full_name}</h1>
             </div>
         );
