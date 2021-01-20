@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import FormInput from 'components/FormInput/FormInput.component';
 import Button from 'components/Button/Button.component';
 import './login.styles.css';
-import { Login as InitiateLogin, LogOut } from 'redux/auth/action';
+import { Login as InitiateLogin } from 'redux/auth/action';
 import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -117,8 +117,6 @@ class Login extends Component {
                     />
                     {this.state.errors.password.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
                     <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
-                    {this.props.isLoggedIn &&
-                        <Button buttonType="danger" handleClick={() => this.props.LogOut()}>Logout</Button>}
                 </Paper>
             </Grid>
 
@@ -134,5 +132,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default withRouter(
-    connect(mapStateToProps, { InitiateLogin, LogOut, FetchUserMe })(Login)
+    connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login)
 );
