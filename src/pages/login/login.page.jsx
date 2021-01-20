@@ -108,7 +108,7 @@ class Login extends Component {
 
             <Grid container justify="center">
                 {/* style={{textAlign:"center"}} */}
-                <Paper className="flex-container" style={{ width: 450, height: 450 }}>
+                <Paper className="flex-container" style={{ width: "80%", maxWidth:450, height: "70vh" }}>
 
                     <FormInput
                         type="email"

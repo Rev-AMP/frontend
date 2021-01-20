@@ -10,8 +10,8 @@
 }
 
 .custom--button:hover {
-    color: white;
-    background-color: #237f52;
+    /* color: white; */
+    background-color: #03fca5/*#237f52;*/
 }
 
 .primary {
