@@ -63,7 +63,10 @@ const Header = ({ handleMenuButtonClick }) => {
                 >
                     <MenuIcon/>
                 </IconButton>
-                <img style={{ height: 50, aspectRatio: 1, padding: 5 }} src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP" />
+                <a href="/">
+                    <img style={{height: 50, aspectRatio: 1, padding: 5}}
+                         src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP"/>
+                </a>
             </Toolbar>
         </AppBar>
     );
