@@ -1,17 +1,16 @@
 .custom--button {
     margin: 12px 10px ;
-    /* border: 1px solid #ccc; */
-    border: 0px;
+    border: 0;
     border-radius: 4px;
     transition: 0.2s;
-    /* width: 90%; */
+    width: available;
+    width: -moz-available;
     height: 40px;
     padding: 4px;
 }
 
 .custom--button:hover {
-    /* color: white; */
-    background-color: #03fca5/*#237f52;*/
+    background-color: #77dd77;
 }
 
 .primary {
@@ -27,5 +26,5 @@
 }
 
 .success {
-    background-color: green;
+    background-color: #77dd77;
 }

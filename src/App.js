@@ -1,7 +1,7 @@
 import Main from './pages/main/main.page';
 import { HashRouter } from 'react-router-dom';
 import './App.css';
-import { createMuiTheme, ThemeProvider, CssBaseline, Paper } from '@material-ui/core'
+import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
 
 const theme = createMuiTheme({
 	palette: {

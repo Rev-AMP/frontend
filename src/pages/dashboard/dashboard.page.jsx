@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './dashboard.styles.css';
 import SideBar from 'components/SideBar/SideBar.component';
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);

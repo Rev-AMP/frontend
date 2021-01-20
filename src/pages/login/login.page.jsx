@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Frame } from 'framer';
 import { toast } from 'react-toastify';
 import FormInput from 'components/FormInput/FormInput.component';
 import Button from 'components/Button/Button.component';
@@ -9,6 +8,7 @@ import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Paper, Grid } from '@material-ui/core';
+
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -94,22 +94,10 @@ class Login extends Component {
     }
 
     render() {
-        // <Frame
-        //         width={450}
-        //         height={450}
-
-        //         initial={{ scale: 1.1 }}
-        //         animate={{ scale: 1 }}
-        //         transition={{ duration: 0.5 }}
-
-        //     >
-        // </Frame>
         return (
 
             <Grid container justify="center">
-                {/* style={{textAlign:"center"}} */}
-                <Paper className="flex-container" style={{ width: "80%", maxWidth:450, height: "70vh" }}>
-
+                <Paper className="flex-container" style={{ width: "80vw", maxWidth: 450, height: "70vh", maxHeight: 450 }}>
                     <FormInput
                         type="email"
                         name="username"
