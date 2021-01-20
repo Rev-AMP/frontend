@@ -9,7 +9,6 @@ import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Paper } from '@material-ui/core';
-import {borders} from '@material-ui/system';
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -99,7 +98,7 @@ class Login extends Component {
             <Frame
                 width={450}
                 height={450}
-                
+
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.5 }}

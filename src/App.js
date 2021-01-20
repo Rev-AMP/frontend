@@ -13,6 +13,7 @@ const theme = createMuiTheme({
 	},
 
 })
+
 function App() {
 	return (
 		<HashRouter>

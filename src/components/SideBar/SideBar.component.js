@@ -1,15 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {Drawer} from '@material-ui/core';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import { Drawer } from '@material-ui/core';
 import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
@@ -135,7 +130,7 @@ export default function MiniDrawer() {
                 }}
             >
                 <div className={classes.toolbar}>
-                    <IconButton onClick={()=>setOpen(!open)}>
+                    <IconButton onClick={() => setOpen(!open)}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </div>
@@ -156,9 +151,9 @@ export default function MiniDrawer() {
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
-                    <ListItem button key={"open"} onClick={()=>handleDrawerOpen()}>
-                    <ListItemIcon><MailIcon /></ListItemIcon>
-                            <ListItemText primary={"text"} />
+                    <ListItem button key={"open"} onClick={() => handleDrawerOpen()}>
+                        <ListItemIcon><MailIcon /></ListItemIcon>
+                        <ListItemText primary={"text"} />
                     </ListItem>
                 </List>
             </Drawer>

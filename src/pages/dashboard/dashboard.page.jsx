@@ -20,7 +20,7 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                <SideBar/>
+                <SideBar />
                 <h1>Hello {this.props.currentUser.full_name}</h1>
             </div>
         );
