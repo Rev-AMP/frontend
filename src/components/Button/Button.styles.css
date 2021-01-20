@@ -1,10 +1,10 @@
 .custom--button {
-    margin: 12px 0 0 12px;
+    margin: 12px 10px ;
     /* border: 1px solid #ccc; */
     border: 0px;
     border-radius: 4px;
     transition: 0.2s;
-    width: 90%;
+    /* width: 90%; */
     height: 40px;
     padding: 4px;
 }

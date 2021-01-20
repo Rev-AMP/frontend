@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Frame } from 'framer';
+// import { Frame } from 'framer';
 import { toast } from 'react-toastify';
 import FormInput from 'components/FormInput/FormInput.component';
 import Button from 'components/Button/Button.component';
@@ -8,7 +8,7 @@ import { Login as InitiateLogin, LogOut } from 'redux/auth/action';
 import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Paper } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -94,16 +94,22 @@ class Login extends Component {
     }
 
     render() {
-        return (
-            <Frame
-                width={450}
-                height={450}
+        // <Frame
+        //         width={450}
+        //         height={450}
 
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5 }}
-            >
-                <Paper className="flex-container">
+        //         initial={{ scale: 1.1 }}
+        //         animate={{ scale: 1 }}
+        //         transition={{ duration: 0.5 }}
+
+        //     >
+        // </Frame>
+        return (
+
+            <Grid container justify="center">
+                {/* style={{textAlign:"center"}} */}
+                <Paper className="flex-container" style={{ width: 450, height: 450 }}>
+
                     <FormInput
                         type="email"
                         name="username"
@@ -113,7 +119,6 @@ class Login extends Component {
                         handleBlur={this.validateField}
                     />
                     {this.state.errors.username.length > 0 ? <span className="errors">{this.state.errors.username}</span> : null}
-
                     <FormInput
                         type="password"
                         name="password"
@@ -123,12 +128,12 @@ class Login extends Component {
                         handleBlur={this.validateField}
                     />
                     {this.state.errors.password.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
-
                     <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
                     {this.props.isLoggedIn &&
                         <Button buttonType="danger" handleClick={() => this.props.LogOut()}>Logout</Button>}
                 </Paper>
-            </Frame>
+            </Grid>
+
         );
     }
 }
