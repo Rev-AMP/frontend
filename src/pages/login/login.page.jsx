@@ -135,7 +135,7 @@ const mapStateToProps = (state) => ({
     accessToken: state.auth.accessToken,
     isLoggedIn: state.auth.isLoggedIn,
     currentUser: state.user.currentUser,
-    isLoading: state.user.isLoading || state.user.isLoading
+    isLoading: state.auth.isLoading || state.user.isLoading
 });
 
 export default withRouter(

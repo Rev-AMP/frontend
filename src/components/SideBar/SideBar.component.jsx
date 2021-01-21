@@ -9,7 +9,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import { LogOut } from 'redux/auth/action';
+import { connect } from 'react-redux';
 const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SideBar = ({drawerOpen}) => {
+const SideBar = ({ drawerOpen, LogOut }) => {
     const classes = useStyles();
 
     return (
@@ -66,7 +68,7 @@ const SideBar = ({drawerOpen}) => {
                 }),
             }}
         >
-            <div className={classes.toolbar}/>
+            <div className={classes.toolbar} />
 
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -74,11 +76,11 @@ const SideBar = ({drawerOpen}) => {
                         <ListItemIcon>
                             {index % 2 === 0 ? <InboxIcon color="secondary" /> : <MailIcon color="secondary" />}
                         </ListItemIcon>
-                        <ListItemText primary={text}/>
+                        <ListItemText primary={text} />
                     </ListItem>
                 ))}
             </List>
-            <Divider/>
+            <Divider />
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                     <ListItem button key={text}>
@@ -89,8 +91,17 @@ const SideBar = ({drawerOpen}) => {
                     </ListItem>
                 ))}
             </List>
+            <Divider />
+            <List>
+                <ListItem button onClick={() => LogOut()}>
+                    <ListItemIcon>
+                        <ExitToAppIcon color="secondary" />
+                    </ListItemIcon>
+                    <ListItemText primary={"Logout"} />
+                </ListItem>
+            </List>
         </Drawer>
     );
 }
 
-export default SideBar;
+export default connect(null, { LogOut })(SideBar);
