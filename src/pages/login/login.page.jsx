@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { Frame } from 'framer';
 import { toast } from 'react-toastify';
-import FormInput from '../../components/FormInput/FormInput.component';
-import Button from '../../components/Button/Button.component';
+import FormInput from 'components/FormInput/FormInput.component';
+import Button from 'components/Button/Button.component';
 import './login.styles.css';
-import { Login as InitiateLogin, LogOut } from 'redux/auth/action';
+import { Login as InitiateLogin } from 'redux/auth/action';
 import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Paper, Grid } from '@material-ui/core';
+
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -25,7 +26,7 @@ class Login extends Component {
         };
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
             toast.error(`Error 😓: ${this.props.errorMessage}`, {
                 position: toast.POSITION.TOP_CENTER
@@ -40,6 +41,7 @@ class Login extends Component {
             toast.success(`Hey there, ${this.props.currentUser.full_name} 🙌`, {
                 position: toast.POSITION.TOP_CENTER
             });
+            this.props.history.push("/")
         }
     }
 
@@ -69,25 +71,6 @@ class Login extends Component {
 
     }
 
-    getUser = () => {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `bearer ${this.props.accessToken}`
-            }
-        })
-            .then(async response => {
-                const json = await response.json();
-                return response.ok ? json : Promise.reject(json);
-            })
-            .then(user => toast.success(`Hey there, ${user.full_name} 🙌`, {
-                position: toast.POSITION.TOP_CENTER
-            }))
-            .catch(error => toast.error(`Error 😓: ${error.detail}`, {
-                position: toast.POSITION.TOP_CENTER
-            }));
-    }
-
     validateField = e => {
         e.preventDefault();
 
@@ -111,16 +94,17 @@ class Login extends Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return (
+                <Grid container justify="center">
+                    <img src={process.env.PUBLIC_URL + "miscellaneous/loader.gif"} alt="loading"/>
+                </Grid>
+            );
+        }
+
         return (
-            <Frame
-                width={450}
-                height={450}
-                radius={30}
-                animate={{ scale: 0.95 }}
-                transition={{ duration: 0.5 }}
-                background={"#CCCCCC"}
-            >
-                <div className="flex-container">
+            <Grid container justify="center">
+                <Paper className="flex-container" style={{ width: "80vw", maxWidth: 450, height: "70vh", maxHeight: 450 }}>
                     <FormInput
                         type="email"
                         name="username"
@@ -130,7 +114,6 @@ class Login extends Component {
                         handleBlur={this.validateField}
                     />
                     {this.state.errors.username.length > 0 ? <span className="errors">{this.state.errors.username}</span> : null}
-
                     <FormInput
                         type="password"
                         name="password"
@@ -140,21 +123,21 @@ class Login extends Component {
                         handleBlur={this.validateField}
                     />
                     {this.state.errors.password.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
-
                     <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
-                    {this.props.isLoggedIn &&
-                        <Button buttonType="danger" handleClick={() => this.props.LogOut()}>Logout</Button>}
-                </div>
-            </Frame>
+                </Paper>
+            </Grid>
         );
     }
 }
+
 const mapStateToProps = (state) => ({
-    errorMessage: state.auth.errorMessage || state.user.errorMessage, //TODO: check if this is fine
+    errorMessage: state.auth.errorMessage || state.user.errorMessage,
     accessToken: state.auth.accessToken,
     isLoggedIn: state.auth.isLoggedIn,
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    isLoading: state.user.isLoading || state.user.isLoading
 });
+
 export default withRouter(
-    connect(mapStateToProps, { InitiateLogin, LogOut, FetchUserMe })(Login)
+    connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login)
 );

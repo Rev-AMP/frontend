@@ -1,17 +1,35 @@
 import Main from './pages/main/main.page';
 import { HashRouter } from 'react-router-dom';
-import { CookiesProvider } from 'react-cookie';
 import './App.css';
+import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
+
+const theme = createMuiTheme({
+	palette: {
+		type: 'dark',
+		background: {
+			default: '#282c34',
+			paper: '#51616e'
+		},
+		primary: {
+			main: '#282c34'
+		},
+		secondary: {
+			main: '#61dafb'
+		}
+	},
+
+})
 
 function App() {
 	return (
-		<CookiesProvider>
-			<HashRouter>
+		<HashRouter>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
 				<div className="App" id="center">
 					<Main />
 				</div>
-			</HashRouter>
-		</CookiesProvider>
+			</ThemeProvider>
+		</HashRouter>
 	);
 }
 

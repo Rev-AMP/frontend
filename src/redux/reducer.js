@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-
 import AuthReducer from './auth/reducer';
 import UserReducer from './user/reducer';
 import AuthActionTypes from './auth/action.types';
+
 const MainReducer = combineReducers({
     auth: AuthReducer,
     user: UserReducer
