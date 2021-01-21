@@ -1,17 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import { Drawer } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import { LogOut } from 'redux/auth/action';
-import { connect } from 'react-redux';
+
 const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
@@ -91,17 +83,8 @@ const SideBar = ({ drawerOpen, LogOut }) => {
                     </ListItem>
                 ))}
             </List>
-            <Divider />
-            <List>
-                <ListItem button onClick={() => LogOut()}>
-                    <ListItemIcon>
-                        <ExitToAppIcon color="secondary" />
-                    </ListItemIcon>
-                    <ListItemText primary={"Logout"} />
-                </ListItem>
-            </List>
         </Drawer>
     );
 }
 
-export default connect(null, { LogOut })(SideBar);
+export default SideBar;
