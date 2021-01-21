@@ -4,7 +4,7 @@ import { AppBar, Box, IconButton, makeStyles, Toolbar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
-import {LogOut} from 'redux/auth/action';
+import { LogOut } from 'redux/auth/action';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,11 +40,11 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
                         className={classes.menuButton}
                         onClick={handleMenuButtonClick}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
                     <a href="/">
-                        <img style={{height: 50, aspectRatio: 1, padding: 5}}
-                             src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP"/>
+                        <img style={{ height: 50, aspectRatio: 1, padding: 5 }}
+                            src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP" />
                     </a>
                 </Box>
                 <IconButton
@@ -52,7 +52,7 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
                     aria-label="logout"
                     onClick={LogOut}
                 >
-                    <ExitToAppIcon/>
+                    <ExitToAppIcon />
                 </IconButton>
             </Toolbar>
         </AppBar>
