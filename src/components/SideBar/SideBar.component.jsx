@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SideBar = ({ drawerOpen, LogOut }) => {
+const SideBar = ({ drawerOpen }) => {
     const classes = useStyles();
 
     return (

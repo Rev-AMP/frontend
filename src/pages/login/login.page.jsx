@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import FormInput from 'components/FormInput/FormInput.component';
-import Button from 'components/Button/Button.component';
-import './login.styles.css';
-import { Login as InitiateLogin } from 'redux/auth/action';
-import { FetchUserMe } from "redux/user/action";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Paper, Grid } from '@material-ui/core';
+
+import './login.styles.css';
+import FormInput from 'components/FormInput/FormInput.component';
+import Button from 'components/Button/Button.component';
+import { Login as InitiateLogin } from 'redux/auth/action';
+import { FetchUserMe } from "redux/user/action";
 
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);

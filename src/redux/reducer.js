@@ -1,8 +1,9 @@
 import { persistCombineReducers } from "redux-persist";
 import storage from 'redux-persist/lib/storage';
-import AuthReducer from './auth/reducer';
-import UserReducer from './user/reducer';
-import AuthActionTypes from './auth/action.types';
+
+import AuthReducer from 'redux/auth/reducer';
+import UserReducer from 'redux/user/reducer';
+import AuthActionTypes from 'redux/auth/action.types';
 
 const persistConfig = {
     key: "auth",
