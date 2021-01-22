@@ -9,6 +9,11 @@ import { Link } from 'react-router-dom';
 const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        "& :hover": {
+            color: "#ffffff"
+        }
+    },
     drawer: {
         width: drawerWidth,
         whiteSpace: 'nowrap',
@@ -45,41 +50,43 @@ const SideBar = ({ drawerOpen }) => {
     const classes = useStyles();
 
     return (
-        <Drawer
-            variant="permanent"
-            className={clsx(classes.drawer, {
-                [classes.drawerOpen]: drawerOpen,
-                [classes.drawerClose]: !drawerOpen,
-            })}
-            classes={{
-                paper: clsx({
+        <div className={classes.root}>
+            <Drawer
+                variant="permanent"
+                className={clsx(classes.drawer, {
                     [classes.drawerOpen]: drawerOpen,
                     [classes.drawerClose]: !drawerOpen,
-                }),
-            }}
-        >
-            <div className={classes.toolbar} />
+                })}
+                classes={{
+                    paper: clsx({
+                        [classes.drawerOpen]: drawerOpen,
+                        [classes.drawerClose]: !drawerOpen,
+                    }),
+                }}
+            >
+                <div className={classes.toolbar} />
 
-            <List>
-                <ListItem component={Link} to="/app/users" key="User">
-                    <ListItemIcon>
-                        <People />
-                    </ListItemIcon>
-                    <ListItemText primary="Users" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
+                <List>
+                    <ListItem button component={Link} underline="none" to="/app/users" key="User">
                         <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon color="secondary" /> : <MailIcon color="secondary" />}
+                            <People color="secondary" />
                         </ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemText primary="Users" />
                     </ListItem>
-                ))}
-            </List>
-        </Drawer>
+                </List>
+                <Divider />
+                <List>
+                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                        <ListItem button key={text}>
+                            <ListItemIcon>
+                                {index % 2 === 0 ? <InboxIcon color="secondary" /> : <MailIcon color="secondary" />}
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
+            </Drawer>
+        </div>
     );
 }
 
