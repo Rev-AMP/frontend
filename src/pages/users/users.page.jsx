@@ -18,7 +18,7 @@ const columns = [
         headerName: 'Profile',
         width: 120,
         renderCell: (params) => (
-            <img src={`${params.value}`} width={100} height={100} alt="Nothing to see here..." />
+            <img src={`${ params.value }`} width={ 100 } height={ 100 } alt="Nothing here" />
         )
     },
     {
@@ -29,6 +29,7 @@ const columns = [
     },
 
 ];
+
 class Users extends React.Component {
     constructor(props) {
         super(props);
@@ -36,18 +37,20 @@ class Users extends React.Component {
             //TODO: Configure for Modal
         }
     }
+
     componentDidMount() {
         this.props.FetchUsers();
     }
+
     render() {
         if (this.props.users) {
             return (
                 <div style={{ minHeight: "70vh" }}>
-                    <DataGrid rows={this.props.users} columns={columns} rowHeight={120} />
+                    <DataGrid rows={ this.props.users } columns={ columns } rowHeight={ 120 } />
                 </div>
             )
         }
-        return null
+        return null;
     }
 }
 
