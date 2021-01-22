@@ -14,13 +14,21 @@ const columns =[
       width: 300
     },
     {
+        field:'profile_picture',
+        headerName:'Profile',
+        width:120,
+        renderCell:(params)=>(
+            <img src={`${params.value}`} width={100} height={100}></img>
+        )
+    },
+    {
       field: 'type',
       headerName: 'Type',
       width:250,
       flex:1.5
     },
+    
   ];
-
 class Users extends React.Component {
     constructor(props){
         super(props);
@@ -35,7 +43,7 @@ class Users extends React.Component {
         if(this.props.users){
             return (
                 <div  style={{minHeight:"70vh"}}>
-                    <DataGrid rows={this.props.users} columns={columns}/>
+                    <DataGrid rows={this.props.users} columns={columns} rowHeight={120}/>
                 </div>
             )
         }

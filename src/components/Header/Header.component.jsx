@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppBar, Box, IconButton, makeStyles, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -42,10 +43,11 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <a href="/">
-                        <img style={{ height: 50, aspectRatio: 1, padding: 5 }}
-                            src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP" />
-                    </a>
+
+                    <Link to="/">
+                        <img style={{height: 50, aspectRatio: 1, padding: 5}}
+                             src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP"/>
+                    </Link>
                 </Box>
                 <IconButton
                     color="secondary"

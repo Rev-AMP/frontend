@@ -4,8 +4,8 @@ import {makeStyles} from '@material-ui/core';
 const useStyles=makeStyles(theme => ({
     customInput: {
         width: "available",
-        margin:"1rem",
-        padding: "0.75rem 1rem",
+        margin:"1em",
+        padding: "0.75em 1em",
         border: "1px solid #ccc",
         borderRadius: "4px",
         backgroundColor: "white",
