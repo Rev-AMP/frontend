@@ -1,15 +1,30 @@
 import React from 'react';
+import { makeStyles, Button as Btn } from '@material-ui/core';
 
-import './Button.styles.css';
+const useStyles = makeStyles(theme =>({
+    customButton:{
+        margin:"1em",
+        border: 0,
+        borderRadius: "4px",
+        transition: "0.2s",
+        width: "available",
+        // width: -moz-available,
+        padding: "0.75em 1em",
+        // backgroundColor:theme.palette.primary.main,
+        fontSize: theme.typography.fontSize,
+        "&:hover":{
+            backgroundColor: "#77dd77",
+        }
+    },
 
-const Button = ({buttonType, handleClick, children, ...otherProps}) => (
-    <button
-        className={`custom--button ${buttonType}`}
-        onClick={handleClick}
-        {...otherProps}
-    >
+}))
+const Button = ({buttonType, handleClick, children, ...otherProps}) => {
+    const classes=useStyles()
+    return (
+    <Btn variant="contained" disableElevation color={buttonType} onClick={handleClick} {...otherProps} className={classes.customButton}>
         {children}
-    </button>
+    </Btn>
 );
+}
 
 export default Button;

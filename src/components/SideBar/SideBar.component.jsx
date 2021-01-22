@@ -7,12 +7,8 @@ import MailIcon from '@material-ui/icons/Mail';
 const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
     drawer: {
         width: drawerWidth,
-        flexShrink: 0,
         whiteSpace: 'nowrap',
     },
     drawerOpen: {

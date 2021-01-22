@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, withStyles } from '@material-ui/core';
 
 import './login.styles.css';
 import FormInput from 'components/FormInput/FormInput.component';
@@ -12,6 +12,18 @@ import { FetchUserMe } from "redux/user/action";
 
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
+
+const styles= theme=>({
+    flexContainer :{
+        flexDirection: "column",width: "80vw", height: "70vh",justifyContent:"center", alignContent:"center",display:'flex'
+    },
+
+    errors: {
+        fontSize: "1em",
+        color: "#e74c3c",
+        margin: "0 12px 5px 12px",
+    }
+})
 
 class Login extends Component {
     constructor(props) {
@@ -95,17 +107,20 @@ class Login extends Component {
     }
 
     render() {
+        const {classes}= this.props;
         if (this.props.isLoading) {
             return (
-                <Grid container justify="center">
+                <Grid container justify="center" alignContent="center">
                     <img src={process.env.PUBLIC_URL + "miscellaneous/loader.gif"} alt="loading"/>
                 </Grid>
             );
         }
 
         return (
-            <Grid container justify="center">
-                <Paper className="flex-container" style={{ width: "80vw", maxWidth: 450, height: "70vh", maxHeight: 450 }}>
+
+                <Paper component={Grid} item  className={classes.flexContainer}
+                    xs={11} md={4}
+                >
                     <FormInput
                         type="email"
                         name="username"
@@ -114,7 +129,7 @@ class Login extends Component {
                         handleChange={this.handleInputChange}
                         handleBlur={this.validateField}
                     />
-                    {this.state.errors.username.length > 0 ? <span className="errors">{this.state.errors.username}</span> : null}
+                    {this.state.errors.username.length > 0 ? <span className={classes.errors}>{this.state.errors.username}</span> : null}
                     <FormInput
                         type="password"
                         name="password"
@@ -123,10 +138,9 @@ class Login extends Component {
                         handleChange={this.handleInputChange}
                         handleBlur={this.validateField}
                     />
-                    {this.state.errors.password.length > 0 ? <span className="errors">{this.state.errors.password}</span> : null}
+                    {this.state.errors.password.length > 0 ? <span className={classes.errors}>{this.state.errors.password}</span> : null}
                     <Button buttonType="primary" handleClick={this.handleSubmit}>Submit</Button>
                 </Paper>
-            </Grid>
         );
     }
 }
@@ -140,5 +154,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default withRouter(
-    connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login)
+    withStyles(styles)(
+    connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login))
 );

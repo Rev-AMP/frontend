@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Switch, Route } from 'react-router-dom';
+import {  withStyles, Grid } from '@material-ui/core';
 
-import './dashboard.styles.css';
 import SideBar from 'components/SideBar/SideBar.component';
 import Header from 'components/Header/Header.component';
 import Users from 'pages/users/users.page';
-// import Grid from '@material-ui/core/Grid'
 
+const useStyles= theme =>({
+
+    toolbar: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+      },
+      content: {
+        padding: theme.spacing(3),
+        flex:2
+      },
+})
 
 class Dashboard extends Component {
     constructor(props) {
@@ -19,21 +33,25 @@ class Dashboard extends Component {
 
     switchDrawer = () => {
         this.setState({
-           drawerOpen: !this.state.drawerOpen
+            drawerOpen: !this.state.drawerOpen
         });
     }
 
     render() {
+
+        const { classes } = this.props;;
         return (
-            <div>
+            <Grid container>
                 <Header handleMenuButtonClick={this.switchDrawer} />
                 <SideBar drawerOpen={this.state.drawerOpen} />
 
+                <Grid item className={classes.content}>
+                <div className={classes.toolbar} />
                 <Switch>
                     <Route component={Users} />
                 </Switch>
-                {/* <h1>Hello {this.props.currentUser.full_name}</h1> */}
-            </div>
+                </Grid>
+            </Grid>
         );
     }
 }
@@ -45,5 +63,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default withRouter(
-    connect(mapStateToProps)(Dashboard)
+    connect(mapStateToProps)(
+        withStyles(useStyles)(Dashboard)
+        )
 );

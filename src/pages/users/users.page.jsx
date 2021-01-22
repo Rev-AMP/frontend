@@ -15,6 +15,8 @@ const columns =[
     {
       field: 'type',
       headerName: 'Type',
+      width:250,
+      flex:1.5
     },
   ];
 class Users extends React.Component {
@@ -30,7 +32,7 @@ class Users extends React.Component {
     render (){
         if(this.props.users){
             return (
-                <div  style={{minWidth:"60vw",minHeight:"70vh",marginLeft:"10vw", marginTop:"5vh"}}>
+                <div  style={{minHeight:"70vh"}}>
                     <DataGrid rows={this.props.users} columns={columns}/>
                 </div>
             )
