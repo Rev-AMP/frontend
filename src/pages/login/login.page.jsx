@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Paper, Grid, withStyles } from '@material-ui/core';
 
-import './login.styles.css';
 import FormInput from 'components/FormInput/FormInput.component';
 import Button from 'components/Button/Button.component';
 import { Login as InitiateLogin } from 'redux/auth/action';
@@ -13,9 +12,9 @@ import { FetchUserMe } from "redux/user/action";
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
-const styles= theme=>({
-    flexContainer :{
-        flexDirection: "column",width: "80vw", height: "70vh",justifyContent:"center", alignContent:"center",display:'flex'
+const styles = theme => ({
+    flexContainer: {
+        flexDirection: "column", width: "80vw", height: "70vh", justifyContent: "center", alignContent: "center", display: 'flex'
     },
 
     errors: {
@@ -107,40 +106,40 @@ class Login extends Component {
     }
 
     render() {
-        const {classes}= this.props;
+        const { classes } = this.props;
         if (this.props.isLoading) {
             return (
                 <Grid container justify="center" alignContent="center">
-                    <img src={process.env.PUBLIC_URL + "miscellaneous/loader.gif"} alt="loading"/>
+                    <img src={process.env.PUBLIC_URL + "miscellaneous/loader.gif"} alt="loading" />
                 </Grid>
             );
         }
 
         return (
 
-                <Paper component={Grid} item  className={classes.flexContainer}
-                    xs={11} md={4}
-                >
-                    <FormInput
-                        type="email"
-                        name="username"
-                        placeholder="Email ID"
-                        value={this.state.username}
-                        handleChange={this.handleInputChange}
-                        handleBlur={this.validateField}
-                    />
-                    {this.state.errors.username.length > 0 ? <span className={classes.errors}>{this.state.errors.username}</span> : null}
-                    <FormInput
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={this.state.password}
-                        handleChange={this.handleInputChange}
-                        handleBlur={this.validateField}
-                    />
-                    {this.state.errors.password.length > 0 ? <span className={classes.errors}>{this.state.errors.password}</span> : null}
-                    <Button buttonType="secondary" handleClick={this.handleSubmit}>Submit</Button>
-                </Paper>
+            <Paper component={Grid} item className={classes.flexContainer}
+                xs={11} md={4}
+            >
+                <FormInput
+                    type="email"
+                    name="username"
+                    placeholder="Email ID"
+                    value={this.state.username}
+                    handleChange={this.handleInputChange}
+                    handleBlur={this.validateField}
+                />
+                {this.state.errors.username.length > 0 ? <span className={classes.errors}>{this.state.errors.username}</span> : null}
+                <FormInput
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    handleChange={this.handleInputChange}
+                    handleBlur={this.validateField}
+                />
+                {this.state.errors.password.length > 0 ? <span className={classes.errors}>{this.state.errors.password}</span> : null}
+                <Button buttonType="secondary" handleClick={this.handleSubmit}>Submit</Button>
+            </Paper>
         );
     }
 }
@@ -155,5 +154,5 @@ const mapStateToProps = (state) => ({
 
 export default withRouter(
     withStyles(styles)(
-    connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login))
+        connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login))
 );

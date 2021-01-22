@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 class AuthenticatedRoute extends React.Component {
     render() {
         if (this.props.isLoggedIn) {
-            return (<Route {...this.props}/>);
+            return (<Route {...this.props} />);
         }
-        return (<Redirect to="/login"/>);
+        return (<Redirect to="/login" />);
     }
 }
 

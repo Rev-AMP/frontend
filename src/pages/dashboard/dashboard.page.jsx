@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Switch } from 'react-router-dom';
-import {  withStyles, Grid } from '@material-ui/core';
+import { withStyles, Grid } from '@material-ui/core';
 
 import SideBar from 'components/SideBar/SideBar.component';
 import Header from 'components/Header/Header.component';
 import Users from 'pages/users/users.page';
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute.component';
 
-const useStyles= theme =>({
+const useStyles = theme => ({
 
     toolbar: {
         display: 'flex',
@@ -17,11 +17,11 @@ const useStyles= theme =>({
         padding: theme.spacing(0, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
-      },
-      content: {
+    },
+    content: {
         padding: theme.spacing(3),
-        flex:2
-      },
+        flex: 2
+    },
 })
 
 class Dashboard extends Component {
@@ -46,11 +46,10 @@ class Dashboard extends Component {
                 <SideBar drawerOpen={this.state.drawerOpen} />
 
                 <Grid item className={classes.content}>
-                <div className={classes.toolbar} />
-                <Switch>
-                    <AuthenticatedRoute  path={`${this.props.match.url}/users`} component={Users} />
-
-                </Switch>
+                    <div className={classes.toolbar} />
+                    <Switch>
+                        <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
+                    </Switch>
                 </Grid>
             </Grid>
         );
@@ -66,5 +65,5 @@ const mapStateToProps = (state) => ({
 export default withRouter(
     connect(mapStateToProps)(
         withStyles(useStyles)(Dashboard)
-        )
+    )
 );
