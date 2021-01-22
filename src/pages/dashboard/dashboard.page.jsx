@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Switch, Route } from 'react-router-dom';
+import { withRouter, Switch } from 'react-router-dom';
 import {  withStyles, Grid } from '@material-ui/core';
 
 import SideBar from 'components/SideBar/SideBar.component';
 import Header from 'components/Header/Header.component';
 import Users from 'pages/users/users.page';
+import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute.component';
 
 const useStyles= theme =>({
 
@@ -38,8 +39,7 @@ class Dashboard extends Component {
     }
 
     render() {
-
-        const { classes } = this.props;;
+        const { classes } = this.props;
         return (
             <Grid container>
                 <Header handleMenuButtonClick={this.switchDrawer} />
@@ -48,7 +48,8 @@ class Dashboard extends Component {
                 <Grid item className={classes.content}>
                 <div className={classes.toolbar} />
                 <Switch>
-                    <Route component={Users} />
+                    <AuthenticatedRoute  path={`${this.props.match.url}/users`} component={Users} />
+
                 </Switch>
                 </Grid>
             </Grid>

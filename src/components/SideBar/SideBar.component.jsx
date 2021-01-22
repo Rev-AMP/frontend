@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import {People} from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 280;
 
@@ -59,14 +61,12 @@ const SideBar = ({ drawerOpen }) => {
             <div className={classes.toolbar} />
 
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
+                    <ListItem component={Link} to="/app/users" key="User">
                         <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon color="secondary" /> : <MailIcon color="secondary" />}
+                            <People />
                         </ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemText primary="Users"/>
                     </ListItem>
-                ))}
             </List>
             <Divider />
             <List>

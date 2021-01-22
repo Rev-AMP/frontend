@@ -18,7 +18,7 @@ const columns =[
         headerName:'Profile',
         width:120,
         renderCell:(params)=>(
-            <img src={`${params.value}`} width={100} height={100}></img>
+            <img src={`${params.value}`} width={100} height={100} alt="No Image"></img>
         )
     },
     {
