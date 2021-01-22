@@ -1,8 +1,9 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { FetchUsers } from 'redux/user/action';
 import {DataGrid} from '@material-ui/data-grid'
+
+import { FetchUsers } from 'redux/user/action';
 
 const columns =[
     { field: 'id', headerName: 'ID', width: 70 },
@@ -19,6 +20,7 @@ const columns =[
       flex:1.5
     },
   ];
+
 class Users extends React.Component {
     constructor(props){
         super(props);
