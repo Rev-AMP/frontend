@@ -1,9 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import { connect } from 'react-redux';
+import { AppBar, Box, IconButton, makeStyles, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
+import { LogOut } from 'redux/auth/action';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Header = ({ handleMenuButtonClick }) => {
+const Header = ({ handleMenuButtonClick, LogOut }) => {
     const classes = useStyles();
 
     return (
@@ -31,22 +32,31 @@ const Header = ({ handleMenuButtonClick }) => {
             className={classes.appBar}
         >
             <Toolbar>
+                <Box display='flex' flexGrow={1}>
+                    <IconButton
+                        color="secondary"
+                        aria-label="open drawer"
+                        edge="start"
+                        className={classes.menuButton}
+                        onClick={handleMenuButtonClick}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <a href="/">
+                        <img style={{ height: 50, aspectRatio: 1, padding: 5 }}
+                            src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP" />
+                    </a>
+                </Box>
                 <IconButton
                     color="secondary"
-                    aria-label="open drawer"
-                    edge="start"
-                    className={classes.menuButton}
-                    onClick={handleMenuButtonClick}
+                    aria-label="logout"
+                    onClick={LogOut}
                 >
-                    <MenuIcon/>
+                    <ExitToAppIcon />
                 </IconButton>
-                <a href="/">
-                    <img style={{height: 50, aspectRatio: 1, padding: 5}}
-                         src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP"/>
-                </a>
             </Toolbar>
         </AppBar>
     );
 }
 
-export default Header;
+export default connect(null, { LogOut })(Header);

@@ -1,10 +1,11 @@
+import { all, call, put, select, takeEvery } from "redux-saga/effects";
+
 import UserActionTypes from "./action.types";
 import { FetchUserMeFailure, FetchUserMeSuccess, FetchUserFailure, FetchUserSuccess } from "./action";
-import { all, call, put, select, takeEvery } from "redux-saga/effects";
 import httpClient from "services/http-client";
 
 function* FetchUserMe() {
-    yield takeEvery(UserActionTypes.FETCH_USER_ME, function* (action) {
+    yield takeEvery(UserActionTypes.FETCH_USER_ME, function* () {
         try {
             let token = yield select((state) => state.auth.accessToken);
             let user = yield call(httpClient,

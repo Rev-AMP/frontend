@@ -1,12 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import { Drawer } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
@@ -49,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SideBar = ({drawerOpen}) => {
+const SideBar = ({ drawerOpen }) => {
     const classes = useStyles();
 
     return (
@@ -66,7 +60,7 @@ const SideBar = ({drawerOpen}) => {
                 }),
             }}
         >
-            <div className={classes.toolbar}/>
+            <div className={classes.toolbar} />
 
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -74,11 +68,11 @@ const SideBar = ({drawerOpen}) => {
                         <ListItemIcon>
                             {index % 2 === 0 ? <InboxIcon color="secondary" /> : <MailIcon color="secondary" />}
                         </ListItemIcon>
-                        <ListItemText primary={text}/>
+                        <ListItemText primary={text} />
                     </ListItem>
                 ))}
             </List>
-            <Divider/>
+            <Divider />
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                     <ListItem button key={text}>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './FormInput.styles.css';
 
 const FormInput = ({ handleChange, handleBlur, ...otherProps }) => (
