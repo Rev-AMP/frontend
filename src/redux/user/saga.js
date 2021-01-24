@@ -95,7 +95,7 @@ function* UpdateUser() {
                     headers: {
                         'Authorization': `bearer ${token}`
                     },
-                    body: action.payload.userUpdate
+                    body: JSON.stringify(action.payload.userUpdate)
                 }
             );
 
@@ -119,7 +119,7 @@ function* CreateUser() {
                     headers: {
                         'Authorization': `bearer ${token}`
                     },
-                    body: action.payload.userCreate
+                    body: JSON.stringify(action.payload)
                 }
             );
 
