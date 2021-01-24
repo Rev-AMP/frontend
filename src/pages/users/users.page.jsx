@@ -18,7 +18,7 @@ const columns = [
         headerName: 'Profile',
         width: 120,
         renderCell: (params) => (
-            <img src={`${ params.value }`} width={ 100 } height={ 100 } alt="Nothing here" />
+            <img src={`${params.value}`} width={100} height={100} alt="Nothing here" />
         )
     },
     {
@@ -46,7 +46,7 @@ class Users extends React.Component {
         if (this.props.users) {
             return (
                 <div style={{ minHeight: "70vh" }}>
-                    <DataGrid rows={ this.props.users } columns={ columns } rowHeight={ 120 } />
+                    <DataGrid rows={this.props.users} columns={columns} rowHeight={120} />
                 </div>
             )
         }
