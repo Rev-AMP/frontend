@@ -42,3 +42,11 @@ export const FetchUsersFailure = (error) => ({
     type: UserActionTypes.FETCH_USERS_FAILURE,
     payload: error
 });
+
+export const UpdateUser = (id, userUpdate) => ({
+    type: UserActionTypes.UPDATE_USER,
+    payload: {
+        id: id,
+        userUpdate: userUpdate
+    }
+});

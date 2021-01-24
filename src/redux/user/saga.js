@@ -72,8 +72,32 @@ function* FetchUsers() {
     })
 }
 
+function* UpdateUser() {
+    yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
+        try {
+            let token = yield select((state) => state.auth.accessToken);
+
+            let user = yield call(httpClient,
+                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload.id}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `bearer ${token}`
+                    },
+                    body: action.payload.updateUser
+                }
+            );
+
+            yield put(FetchUserSuccess(user));
+        }
+        catch (error) {
+            yield put(FetchUserFailure(error.detail));
+        }
+    });
+}
+
 function* FetchUserMethods() {
-    yield all([FetchUserMe(), FetchUser(), FetchUsers()]);
+    yield all([FetchUserMe(), FetchUser(), FetchUsers(), UpdateUser()]);
 }
 
 export default FetchUserMethods;
