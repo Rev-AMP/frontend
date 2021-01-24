@@ -8,7 +8,10 @@ import {
     FetchUserSuccess,
     FetchUsersSuccess,
     FetchUsersFailure,
-    UpdateUserSuccess, UpdateUserFailure
+    UpdateUserSuccess,
+    UpdateUserFailure,
+    CreateUserSuccess,
+    CreateUserFailure
 } from "./action";
 import httpClient from "services/http-client";
 
@@ -81,7 +84,7 @@ function* FetchUsers() {
 }
 
 function* UpdateUser() {
-    yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
+    yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
@@ -92,7 +95,7 @@ function* UpdateUser() {
                     headers: {
                         'Authorization': `bearer ${token}`
                     },
-                    body: action.payload.updateUser
+                    body: action.payload.userUpdate
                 }
             );
 
@@ -104,8 +107,32 @@ function* UpdateUser() {
     });
 }
 
+function* CreateUser() {
+    yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
+        try {
+            let token = yield select((state) => state.auth.accessToken);
+
+            let user = yield call(httpClient,
+                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `bearer ${token}`
+                    },
+                    body: action.payload.userCreate
+                }
+            );
+
+            yield put(CreateUserSuccess(user));
+        }
+        catch (error) {
+            yield put(CreateUserFailure(error.detail));
+        }
+    });
+}
+
 function* FetchUserMethods() {
-    yield all([FetchUserMe(), FetchUser(), FetchUsers(), UpdateUser()]);
+    yield all([FetchUserMe(), FetchUser(), FetchUsers(), UpdateUser(), CreateUser()]);
 }
 
 export default FetchUserMethods;
