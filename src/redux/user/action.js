@@ -50,3 +50,13 @@ export const UpdateUser = (id, userUpdate) => ({
         userUpdate: userUpdate
     }
 });
+
+export const UpdateUserSuccess = (user) => ({
+    type: UserActionTypes.UPDATE_USER_SUCCESS,
+    payload: user
+});
+
+export const UpdateUserFailure = (error) => ({
+    type: UserActionTypes.UPDATE_USER_FAILURE,
+    payload: error
+});

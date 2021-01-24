@@ -1,7 +1,15 @@
 import { all, call, put, select, takeEvery } from "redux-saga/effects";
 
 import UserActionTypes from "./action.types";
-import { FetchUserMeFailure, FetchUserMeSuccess, FetchUserFailure, FetchUserSuccess, FetchUsersSuccess, FetchUsersFailure } from "./action";
+import {
+    FetchUserMeFailure,
+    FetchUserMeSuccess,
+    FetchUserFailure,
+    FetchUserSuccess,
+    FetchUsersSuccess,
+    FetchUsersFailure,
+    UpdateUserSuccess, UpdateUserFailure
+} from "./action";
 import httpClient from "services/http-client";
 
 function* FetchUserMe() {
@@ -88,10 +96,10 @@ function* UpdateUser() {
                 }
             );
 
-            yield put(FetchUserSuccess(user));
+            yield put(UpdateUserSuccess(user));
         }
         catch (error) {
-            yield put(FetchUserFailure(error.detail));
+            yield put(UpdateUserFailure(error.detail));
         }
     });
 }
