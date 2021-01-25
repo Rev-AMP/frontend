@@ -81,11 +81,11 @@ class EditModal extends React.Component {
                 }} component={Grid} item>
                     <FormInput type="text" name="full_name" placeholder="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
                     <FormInput type="email" name="email" placeholder="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
-                    <FormInput type="checkbox" name="is_active" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} />
+                    <FormInput type="checkbox" name="is_active" color="primary" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} />
                     <FormInput type="text" name="type" placeholder="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} />
                     {/* <FormInput type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></FormInput> */}
                     <FormInput type="password" name="password" placeholder="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
-                    <Button onClick={this.handleSubmit} color="secondary" variant="contained">Submit</Button>
+                    <Button onClick={this.handleSubmit} color="primary" variant="contained">Submit</Button>
                 </Paper>
             </Modal>
 

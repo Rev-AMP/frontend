@@ -69,7 +69,7 @@ const SideBar = ({ drawerOpen }) => {
                 <List>
                     <ListItem button component={Link} underline="none" to="/app/users" key="User">
                         <ListItemIcon>
-                            <People color="secondary" />
+                            <People color="primary" />
                         </ListItemIcon>
                         <ListItemText primary="Users" />
                     </ListItem>
@@ -79,7 +79,7 @@ const SideBar = ({ drawerOpen }) => {
                     {['All mail', 'Trash', 'Spam'].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon color="secondary" /> : <MailIcon color="secondary" />}
+                                {index % 2 === 0 ? <InboxIcon color="primary" /> : <MailIcon color="primary" />}
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>

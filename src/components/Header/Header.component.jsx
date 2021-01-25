@@ -35,7 +35,7 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
             <Toolbar>
                 <Box display='flex' flexGrow={1}>
                     <IconButton
-                        color="secondary"
+                        color="primary"
                         aria-label="open drawer"
                         edge="start"
                         className={classes.menuButton}
@@ -50,7 +50,7 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
                     </Link>
                 </Box>
                 <IconButton
-                    color="secondary"
+                    color="primary"
                     aria-label="logout"
                     onClick={LogOut}
                 >

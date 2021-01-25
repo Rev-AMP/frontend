@@ -58,7 +58,7 @@ class Users extends React.Component {
             headerAlign: 'center',
             flex: 1,
             renderCell: (params) => {
-                return <Button color="secondary" onClick={() => this.onEdit(params)}><EditIcon /></Button>
+                return <Button color="primary" onClick={() => this.onEdit(params)}><EditIcon /></Button>
             }
         },
         {
@@ -67,7 +67,7 @@ class Users extends React.Component {
             headerAlign: 'center',
             flex: 1,
             renderCell: (params) => {
-                return <Button color="secondary"><DeleteIcon /></Button>
+                return <Button color="primary"><DeleteIcon /></Button>
             }
         }
     ];

@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 const Button = ({ color, children, ...otherProps }) => {
     const classes = useStyles()
     return (
-        <Btn disableElevation color={color ?? "secondary"} {...otherProps} className={classes.customButton}>
+        <Btn disableElevation color={color ?? "primary"} {...otherProps} className={classes.customButton}>
             {children}
         </Btn>
     );
