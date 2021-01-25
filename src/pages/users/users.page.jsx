@@ -9,7 +9,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import { FetchUsers } from 'redux/user/action';
-import UserModal from './components/UserModel.component';
+import UserModal from './components/UserModal';
 import Button from 'components/Button/Button.component'
 import Loader from "components/Loader";
 
@@ -119,7 +119,7 @@ class Users extends React.Component {
                         this.state.isOpen &&
                         <UserModal isOpen={this.state.isOpen} onClose={this.closeModal} userId={this.state.userId} />
                     }
-                    <DataGrid autoPageSize={true} rows={this.props.users} columns={this.columns} rowHeight={120} />
+                    <DataGrid disableSelectionOnClick={true} autoPageSize={true} rows={this.props.users} columns={this.columns} rowHeight={120} />
                 </Grid>
             )
         }
