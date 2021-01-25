@@ -1,18 +1,29 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import clsx from "clsx";
 import { DataGrid } from '@material-ui/data-grid'
-import { Grid } from '@material-ui/core';
+import { Grid, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import { FetchUsers } from 'redux/user/action';
 import UserModal from './components/UserModel.component';
 import Button from 'components/Button/Button.component'
 import Loader from "components/Loader";
 
-class Users extends React.Component {
+const styles = theme => ({
+    centered: {
+        marginRight: 'auto',
+        marginLeft: 'auto'
+    },
+    green: {
+        color: theme.palette.success.main
+    }
+});
 
+class Users extends React.Component {
     columns = [
         {
             field: 'id',
@@ -39,10 +50,9 @@ class Users extends React.Component {
             field: 'profile_picture',
             headerName: 'Picture',
             headerAlign: 'center',
-            align: 'center',
             width: 250,
             renderCell: (params) => (
-                <img src={`${params.value ?? "/logos/revamp_favicon_transparent.png"}`} width={100} height={100} style={{ marginLeft: "auto", marginRight: "auto" }} alt="Nothing here" />
+                <img className={this.props.classes.centered} src={`${params.value ?? "/logos/revamp_favicon_transparent.png"}`} width={100} height={100} alt="Nothing here" />
             )
         },
         {
@@ -53,21 +63,21 @@ class Users extends React.Component {
             width: 250
         },
         {
+            field: 'is_active',
+            headerName: 'Active',
+            headerAlign: 'center',
+            width: 250,
+            renderCell: (params) => (
+                params.value ? <DoneIcon className={clsx(this.props.classes.centered, this.props.classes.green)} /> : <ClearIcon color="error" className={this.props.classes.centered} />
+            )
+        },
+        {
             field: "Edit",
             headerName: "Edit",
             headerAlign: 'center',
             flex: 1,
             renderCell: (params) => {
-                return <Button color="primary" onClick={() => this.onEdit(params)}><EditIcon /></Button>
-            }
-        },
-        {
-            field: "Delete",
-            headerName: "Delete",
-            headerAlign: 'center',
-            flex: 1,
-            renderCell: (params) => {
-                return <Button color="primary"><DeleteIcon /></Button>
+                return <Button onClick={() => this.onEdit(params)}><EditIcon /></Button>
             }
         }
     ];
@@ -104,7 +114,6 @@ class Users extends React.Component {
 
         if (this.props.users) {
             return (
-
                 <Grid item style={{ minHeight: "70vh" }}>
                     {
                         this.state.isOpen &&
@@ -112,7 +121,6 @@ class Users extends React.Component {
                     }
                     <DataGrid autoPageSize={true} rows={this.props.users} columns={this.columns} rowHeight={120} />
                 </Grid>
-
             )
         }
         return null;
@@ -124,4 +132,8 @@ const mapStateToProps = (state) => ({
     isLoading: state.user.isLoading
 });
 
-export default withRouter(connect(mapStateToProps, { FetchUsers })(Users));
+export default withRouter(
+    withStyles(styles)(
+        connect(mapStateToProps, { FetchUsers })(Users)
+    )
+);
