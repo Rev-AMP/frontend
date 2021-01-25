@@ -12,16 +12,16 @@ const useStyles = makeStyles(theme => ({
         padding: "0.75em 1em",
         // backgroundColor:theme.palette.primary.main,
         fontSize: theme.typography.fontSize,
-        "&:hover": {
-            backgroundColor: "#77dd77",
-        }
+        // "&:hover": {
+        //     backgroundColor: "#77dd77",
+        // } TODO:ADD IT BACK SOMEDAY
     },
 
 }))
-const Button = ({ buttonType, handleClick, children, ...otherProps }) => {
+const Button = ({ color,children, ...otherProps }) => {
     const classes = useStyles()
     return (
-        <Btn variant="contained" disableElevation color={buttonType} onClick={handleClick} {...otherProps} className={classes.customButton}>
+        <Btn disableElevation color={color??"secondary"} {...otherProps} className={classes.customButton}>
             {children}
         </Btn>
     );

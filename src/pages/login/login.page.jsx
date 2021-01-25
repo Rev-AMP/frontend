@@ -138,7 +138,7 @@ class Login extends Component {
                     handleBlur={this.validateField}
                 />
                 {this.state.errors.password.length > 0 ? <span className={classes.errors}>{this.state.errors.password}</span> : null}
-                <Button buttonType="secondary" handleClick={this.handleSubmit}>Submit</Button>
+                <Button variant="contained" onClick={this.handleSubmit}>Submit</Button>
             </Paper>
         );
     }
