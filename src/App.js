@@ -16,7 +16,7 @@ const theme = createMuiTheme({
 			main: '#61dafb'
 		},
 		secondary: {
-			main: '#282d33'
+			main: '#A5F3EF'
 		},
 		success: {
 			main: "#77dd77"
@@ -27,12 +27,14 @@ const theme = createMuiTheme({
 	}
 
 })
+
 const useStyles = makeStyles(theme => ({
 	fullScreen: {
 		height: "100vh",
 		width: "100vw"
 	}
 }))
+
 function App() {
 	const classes = useStyles();
 	return (
