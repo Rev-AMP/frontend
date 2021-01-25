@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { FetchUsers } from 'redux/user/action';
 import UserModal from './components/UserModel.component';
 import Button from 'components/Button/Button.component'
+import Loader from "components/Loader";
 
 class Users extends React.Component {
 
@@ -97,9 +98,7 @@ class Users extends React.Component {
     render() {
         if (this.props.isLoading && !this.state.isOpen) {
             return (
-                <Grid container justify="center" alignContent="center">
-                    <img src={process.env.PUBLIC_URL + "miscellaneous/loader.gif"} alt="loading" />
-                </Grid>
+                <Loader />
             );
         }
 
