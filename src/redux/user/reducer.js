@@ -27,11 +27,11 @@ const UserReducer = (state = initState, action) => {
 
 
         case UserActionTypes.FETCH_USERS:
-            return { ...state, selectedUser: null, errorMessage: '', isLoading: true, users: [] }
+            return { ...state, errorMessage: '', isLoading: true, users: [] }
         case UserActionTypes.FETCH_USERS_SUCCESS:
-            return { ...state, users: action.payload, selectedUser: null, errorMessage: '', isLoading: false }
+            return { ...state, users: action.payload, errorMessage: '', isLoading: false }
         case UserActionTypes.FETCH_USERS_FAILURE:
-            return { ...state, selectedUser: null, errorMessage: action.payload, isLoading: false, users: [] }
+            return { ...state, errorMessage: action.payload, isLoading: false, users: [] }
 
 
         case UserActionTypes.UPDATE_USER:

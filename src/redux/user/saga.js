@@ -1,4 +1,4 @@
-import { all, call, put, select, takeEvery } from "redux-saga/effects";
+import { all, call, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import UserActionTypes from "./action.types";
 import {
@@ -6,6 +6,7 @@ import {
     FetchUserMeSuccess,
     FetchUserFailure,
     FetchUserSuccess,
+    FetchUsers as ActionFetchUsers,
     FetchUsersSuccess,
     FetchUsersFailure,
     UpdateUserSuccess,
@@ -131,8 +132,14 @@ function* CreateUser() {
     });
 }
 
+function* RefreshUserList() {
+    yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS, UserActionTypes.CREATE_USER_SUCCESS], function* (action) {
+        yield put(ActionFetchUsers())
+    });
+}
+
 function* FetchUserMethods() {
-    yield all([FetchUserMe(), FetchUser(), FetchUsers(), UpdateUser(), CreateUser()]);
+    yield all([FetchUserMe(), FetchUser(), FetchUsers(), UpdateUser(), CreateUser(), RefreshUserList()]);
 }
 
 export default FetchUserMethods;
