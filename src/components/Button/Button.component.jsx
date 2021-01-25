@@ -8,9 +8,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "4px",
         transition: "0.2s",
         width: "available",
-        // width: -moz-available,
         padding: "0.75em 1em",
-        // backgroundColor:theme.palette.primary.main,
         fontSize: theme.typography.fontSize,
         // "&:hover": {
         //     backgroundColor: "#77dd77",
@@ -18,10 +16,10 @@ const useStyles = makeStyles(theme => ({
     },
 
 }))
-const Button = ({ color,children, ...otherProps }) => {
+const Button = ({ color, children, ...otherProps }) => {
     const classes = useStyles()
     return (
-        <Btn disableElevation color={color??"secondary"} {...otherProps} className={classes.customButton}>
+        <Btn disableElevation color={color ?? "secondary"} {...otherProps} className={classes.customButton}>
             {children}
         </Btn>
     );

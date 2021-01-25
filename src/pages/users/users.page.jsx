@@ -12,7 +12,6 @@ import Button from 'components/Button/Button.component'
 
 class Users extends React.Component {
 
-
     columns = [
         {
             field: 'id',
@@ -42,7 +41,7 @@ class Users extends React.Component {
             align: 'center',
             width: 250,
             renderCell: (params) => (
-                <img src={`${params.value??"https://media.rev-amp.tech/logo/revamp_favicon_transparent.png"}`} width={100} height={100} style={{ marginLeft: "auto", marginRight: "auto" }} alt="Nothing here" />
+                <img src={`${params.value ?? "/logos/revamp_favicon_transparent.png"}`} width={100} height={100} style={{ marginLeft: "auto", marginRight: "auto" }} alt="Nothing here" />
             )
         },
         {
@@ -54,20 +53,20 @@ class Users extends React.Component {
         },
         {
             field: "Edit",
-            headerName:"Edit",
+            headerName: "Edit",
             headerAlign: 'center',
             flex: 1,
             renderCell: (params) => {
-                return <Button color="secondary" onClick={() => this.onEdit(params)}><EditIcon/></Button>
+                return <Button color="secondary" onClick={() => this.onEdit(params)}><EditIcon /></Button>
             }
         },
         {
             field: "Delete",
-            headerName:"Delete",
+            headerName: "Delete",
             headerAlign: 'center',
             flex: 1,
             renderCell: (params) => {
-                return <Button color="secondary"><DeleteIcon/></Button>
+                return <Button color="secondary"><DeleteIcon /></Button>
             }
         }
     ];
@@ -88,10 +87,10 @@ class Users extends React.Component {
     }
 
     openModal = () => {
-        this.setState({isOpen:true});
+        this.setState({ isOpen: true });
     }
 
-    onEdit= (params) => {
+    onEdit = (params) => {
         this.setState({ isOpen: true, userId: params.row.id })
     }
 
