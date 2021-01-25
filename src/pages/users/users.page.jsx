@@ -3,10 +3,11 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import clsx from "clsx";
 import { DataGrid } from '@material-ui/data-grid'
-import { Grid, withStyles } from '@material-ui/core';
+import { Grid, Typography, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import { FetchUsers } from 'redux/user/action';
 import UserModal from './components/UserModal';
@@ -73,7 +74,7 @@ class Users extends React.Component {
         },
         {
             field: "Edit",
-            headerName: "Edit",
+            headerName: " ",
             headerAlign: 'center',
             flex: 1,
             renderCell: (params) => {
@@ -94,11 +95,11 @@ class Users extends React.Component {
     }
 
     closeModal = () => {
-        this.setState({ isOpen: false });
+        this.setState({ isOpen: false, userId: null });
     }
 
     openModal = () => {
-        this.setState({ isOpen: true });
+        this.setState({ isOpen: true, userId: null });
     }
 
     onEdit = (params) => {
@@ -115,14 +116,21 @@ class Users extends React.Component {
         if (this.props.users) {
             return (
                 <Grid item style={{ minHeight: "70vh" }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography color='primary'><h1>List of Users</h1></Typography>
+                        <Button style={{ maxWidth: 0 }} onClick={this.openModal}><AddCircleIcon fontSize='large' /></Button>
+                    </div>
+
+                    <DataGrid disableSelectionOnClick={true} autoPageSize={true} rows={this.props.users} columns={this.columns} rowHeight={140} />
+
                     {
                         this.state.isOpen &&
                         <UserModal isOpen={this.state.isOpen} onClose={this.closeModal} userId={this.state.userId} />
                     }
-                    <DataGrid disableSelectionOnClick={true} autoPageSize={true} rows={this.props.users} columns={this.columns} rowHeight={120} />
                 </Grid>
-            )
+            );
         }
+
         return null;
     }
 }

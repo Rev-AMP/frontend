@@ -1,10 +1,13 @@
 import React from 'react';
-import { Modal, Paper, Grid, CircularProgress, withStyles } from '@material-ui/core';
+import { Modal, Paper, Grid, CircularProgress, withStyles, Typography, Divider } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import FormInput from 'components/FormInput/FormInput.component';
 import { FetchUser, CreateUser, UpdateUser } from 'redux/user/action'
 import Button from 'components/Button/Button.component';
+
+toast.configure();
 
 const styles = theme => ({
     modalBody: {
@@ -33,11 +36,24 @@ class EditModal extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
+            toast.error(`Error 😓: ${this.props.errorMessage}`, {
+                position: toast.POSITION.TOP_CENTER
+            })
+        }
+
         if (this.props.selectedUser !== prevProps.selectedUser) {
             this.setState({
                 user: { ...this.props.selectedUser } ?? {}
             })
+
+            if (prevProps.selectedUser && this.props.selectedUser) {
+                const action = this.props.userId ? "updated" : "created";
+                toast.success(`User ${this.props.selectedUser.full_name} ${action} successfully 🙌`, {
+                    position: toast.POSITION.TOP_CENTER
+                });
+            }
         }
     }
 
@@ -63,7 +79,8 @@ class EditModal extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, userId } = this.props;
+        const action = userId ? "Update" : "Create";
 
         if (this.props.isLoading) {
             return (
@@ -78,6 +95,12 @@ class EditModal extends React.Component {
         return (
             <Modal open={this.props.isOpen} onClose={this.props.onClose}>
                 <Paper className={classes.modalBody} component={Grid} item>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Typography color='primary'><h1>{action} User</h1></Typography>
+                    </div>
+
+                    <Divider />
+
                     <FormInput type="text" name="full_name" placeholder="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
                     <FormInput type="email" name="email" placeholder="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
                     <FormInput type="checkbox" name="is_active" color="primary" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} />
@@ -95,7 +118,8 @@ class EditModal extends React.Component {
 
 const mapStateToProps = (state) => ({
     selectedUser: state.user.selectedUser,
-    isLoading: state.user.isLoading
+    isLoading: state.user.isLoading,
+    errorMessage: state.user.errorMessage
 })
 
 export default withStyles(styles)(

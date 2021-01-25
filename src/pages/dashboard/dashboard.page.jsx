@@ -9,15 +9,6 @@ import Users from 'pages/users/users.page';
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute.component';
 
 const useStyles = theme => ({
-
-    toolbar: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-    },
     content: {
         padding: theme.spacing(3),
         flex: 2
@@ -46,7 +37,6 @@ class Dashboard extends Component {
                 <SideBar drawerOpen={this.state.drawerOpen} />
 
                 <Grid item className={classes.content}>
-                    <div className={classes.toolbar} />
                     <Switch>
                         <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
                     </Switch>
@@ -57,8 +47,6 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    accessToken: state.auth.accessToken,
-    isLoggedIn: state.auth.isLoggedIn,
     currentUser: state.user.currentUser
 });
 
