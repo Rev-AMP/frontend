@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Paper, Grid, withStyles } from '@material-ui/core';
+import { Paper, Grid, withStyles, Typography } from '@material-ui/core';
 
 import FormInput from 'components/FormInput/FormInput.component';
 import Button from 'components/Button/Button.component';
@@ -15,12 +15,15 @@ const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
 const styles = theme => ({
     flexContainer: {
-        flexDirection: "column", width: "80vw", height: "70vh", justifyContent: "center", alignContent: "center", display: 'flex'
+        flexDirection: "column",
+        width: "80vw",
+        height: "70vh",
+        justifyContent: "center",
+        alignContent: "center",
+        display: 'flex'
     },
-
     errors: {
         fontSize: "1em",
-        color: "#e74c3c",
         margin: "0 12px 5px 12px",
     }
 })
@@ -108,6 +111,7 @@ class Login extends Component {
 
     render() {
         const { classes } = this.props;
+
         if (this.props.isLoading) {
             return (
                 <Loader />
@@ -127,7 +131,7 @@ class Login extends Component {
                     handleChange={this.handleInputChange}
                     handleBlur={this.validateField}
                 />
-                {this.state.errors.username.length > 0 ? <span className={classes.errors}>{this.state.errors.username}</span> : null}
+                {this.state.errors.username.length > 0 ? <Typography color="error" className={classes.errors}>{this.state.errors.username}</Typography> : null}
                 <FormInput
                     type="password"
                     name="password"
@@ -136,7 +140,7 @@ class Login extends Component {
                     handleChange={this.handleInputChange}
                     handleBlur={this.validateField}
                 />
-                {this.state.errors.password.length > 0 ? <span className={classes.errors}>{this.state.errors.password}</span> : null}
+                {this.state.errors.password.length > 0 ? <Typography color="error" className={classes.errors}>{this.state.errors.password}</Typography> : null}
                 <Button variant="contained" onClick={this.handleSubmit}>Submit</Button>
             </Paper>
         );
@@ -153,5 +157,6 @@ const mapStateToProps = (state) => ({
 
 export default withRouter(
     withStyles(styles)(
-        connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login))
+        connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login)
+    )
 );
