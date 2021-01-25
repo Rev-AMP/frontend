@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 const Button = ({ color, variant, children, ...otherProps }) => {
     const classes = useStyles()
-    const buttonClasses = variant === "contained" ? clsx(classes.customButton, classes.customButtonHover) : classes.customButton
+    const buttonClasses = variant === "contained" ? clsx(classes.customButton, classes.customButtonHover) : classes.customButton;
 
     return (
         <Btn disableElevation color={color ?? "primary"} variant={variant} {...otherProps} className={buttonClasses}>

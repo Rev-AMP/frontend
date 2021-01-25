@@ -63,7 +63,7 @@ class EditModal extends React.Component {
                         flexDirection: "column",
                         padding: 100
                     }} component={Grid} item>
-                        <CircularProgress size="7em" />
+                        <CircularProgress size="3em" />
                     </Paper>
                 </Modal>
             );
