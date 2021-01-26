@@ -38,6 +38,14 @@ const theme = createMuiTheme({
 					border: "1px solid #ccc",
 					borderRadius: "4px",
 					backgroundColor: "white"
+				},
+				select: {
+					width: "available",
+					margin: "1em",
+					padding: "0.75em 1em",
+					border: "1px solid #ccc",
+					borderRadius: "4px",
+					backgroundColor: "white"
 				}
 			}
 		}
