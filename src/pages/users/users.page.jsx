@@ -117,7 +117,7 @@ class Users extends React.Component {
 
         if (this.props.users) {
             return (
-                <Grid item style={{ minHeight: "80vh" }}>
+                <Grid item style={{ minHeight: "76vh" }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography color='primary'>
                             <h1>List of Users</h1>

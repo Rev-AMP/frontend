@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
 
 import AuthenticatedRoute from "components/AuthenticatedRoute/AuthenticatedRoute.component";
 import Dashboard from "pages/dashboard/dashboard.page";
@@ -17,13 +16,11 @@ class Main extends Component {
 
     render() {
         return (
-            <Grid container justify="center" alignContent="center">
-                <Switch>
-                    <AuthenticatedRoute path="/app" component={Dashboard} />
-                    <Route exact path="/login" component={Login} />
-                    <Redirect to="/app" />
-                </Switch>
-            </Grid>
+            <Switch>
+                <AuthenticatedRoute path="/app" component={Dashboard} />
+                <Route exact path="/login" component={Login} />
+                <Redirect to="/app" />
+            </Switch>
         );
     }
 }

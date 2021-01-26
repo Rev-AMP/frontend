@@ -3,7 +3,6 @@ import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
 import { Grid, makeStyles } from '@material-ui/core';
 
 import Main from 'pages/main/main.page';
-import 'App.css';
 
 const theme = createMuiTheme({
 	palette: {
@@ -50,10 +49,7 @@ function App() {
 		<HashRouter>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<Grid container
-					alignItems="center"
-					justify="center"
-					className={classes.fullScreen} id="center">
+				<Grid container alignItems="center" justify="center" className={classes.fullScreen}>
 					<Main />
 				</Grid>
 			</ThemeProvider>
