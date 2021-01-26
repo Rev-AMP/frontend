@@ -113,11 +113,14 @@ class EditModal extends React.Component {
                     <input type="text" name="full_name" placeholder="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
                     <input type="email" name="email" placeholder="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
 
-                    <FormControlLabel
-                        control={<Switch name="is_active" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} color="primary" />}
-                        label="Active"
-                        style={{ marginLeft: "auto", marginRight: "auto" }}
-                    />
+                    {
+                        userId &&
+                        <FormControlLabel
+                            control={<Switch name="is_active" checked={this.state.user.is_active ?? false}
+                                             onChange={this.handleInputChange} color="primary"/>}
+                            label="Active" style={{marginLeft: "auto", marginRight: "auto"}}
+                        />
+                    }
 
                     <select name="type" placeholder="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
                         <option hidden={true} disabled={true} value="">User Type</option>
