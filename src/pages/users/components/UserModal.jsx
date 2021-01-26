@@ -63,11 +63,27 @@ class EditModal extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { userId } = this.props;
+
+        const { submit } = this.state;
+        const { userId, selectedUser } = this.props;
+        const submit_keys = Object.keys(submit);
+
         if (userId) {
-            this.props.UpdateUser(userId, this.state.submit);
+            if (submit_keys.length && !submit_keys.every(key => selectedUser[key] === submit[key])) {
+                this.props.UpdateUser(userId, submit);
+            } else {
+                toast.error('Please update some information 😓', {
+                    position: toast.POSITION.TOP_CENTER
+                })
+            }
         } else {
-            this.props.CreateUser(this.state.submit);
+            if (['email', 'type', 'password'].every(key => submit.hasOwnProperty(key) && submit[key])) {
+                this.props.CreateUser(submit);
+            } else {
+                toast.error('Please add email, type and password 😓', {
+                    position: toast.POSITION.TOP_CENTER
+                })
+            }
         }
     }
 
