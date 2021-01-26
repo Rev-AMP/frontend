@@ -115,7 +115,7 @@ class Users extends React.Component {
 
         if (this.props.users) {
             return (
-                <Grid item style={{ minHeight: "70vh" }}>
+                <Grid item style={{ minHeight: "80vh" }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography color='primary'><h1>List of Users</h1></Typography>
                         <Button style={{ maxWidth: 0 }} onClick={this.openModal}><AddCircleIcon fontSize='large' /></Button>
