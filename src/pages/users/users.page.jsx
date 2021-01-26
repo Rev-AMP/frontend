@@ -74,9 +74,10 @@ class Users extends React.Component {
         },
         {
             field: "Edit",
-            headerName: " ",
+            headerName: "Edit",
             headerAlign: 'center',
             flex: 1,
+            sortable: false,
             renderCell: (params) => {
                 return <Button onClick={() => this.onEdit(params)}><EditIcon /></Button>
             }
