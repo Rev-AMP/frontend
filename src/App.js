@@ -26,9 +26,14 @@ const theme = createMuiTheme({
 		}
 	},
 	typography: {
-		fontSize: 14
+		fontSize: 15
 	},
 	overrides: {
+		MuiTextField: {
+			root: {
+				margin: "0 1em 3em 1em"
+			}
+		},
 		MuiCssBaseline: {
 			'@global': {
 				input: {

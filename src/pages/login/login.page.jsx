@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Paper, Grid, withStyles, Typography } from '@material-ui/core';
+import { Paper, Grid, withStyles, TextField } from '@material-ui/core';
 
 import Button from 'components/Button/Button.component';
 import { Login as InitiateLogin } from 'redux/auth/action';
@@ -19,7 +19,8 @@ const styles = theme => ({
         height: "70vh",
         justifyContent: "center",
         alignContent: "center",
-        display: 'flex'
+        display: 'flex',
+        padding: "2em"
     },
     errors: {
         fontSize: "1em",
@@ -122,24 +123,26 @@ class Login extends Component {
             <Paper component={Grid} item className={classes.flexContainer}
                 xs={11} md={4}
             >
-                <input
+                <TextField
                     type="email"
                     name="username"
-                    placeholder="Email ID"
+                    label="Email ID"
                     value={this.state.username}
                     onChange={this.handleInputChange}
                     onBlur={this.validateField}
+                    error={!!this.state.errors.username}
+                    helperText={this.state.errors.username}
                 />
-                {this.state.errors.username.length > 0 ? <Typography color="error" className={classes.errors}>{this.state.errors.username}</Typography> : null}
-                <input
+                <TextField
                     type="password"
                     name="password"
-                    placeholder="Password"
+                    label="Password"
                     value={this.state.password}
                     onChange={this.handleInputChange}
                     onBlur={this.validateField}
+                    error={!!this.state.errors.password}
+                    helperText={this.state.errors.password}
                 />
-                {this.state.errors.password.length > 0 ? <Typography color="error" className={classes.errors}>{this.state.errors.password}</Typography> : null}
                 <Button variant="contained" onClick={this.handleSubmit}>Submit</Button>
             </Paper>
         );
