@@ -120,6 +120,7 @@ class EditModal extends React.Component {
                     />
 
                     <select name="type" placeholder="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
+                        <option hidden={true} disabled={true} value="">User Type</option>
                         <option value="student">Student</option>
                         <option value="professor">Professor</option>
                         <option value="admin">Admin</option>
