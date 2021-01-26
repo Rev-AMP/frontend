@@ -113,7 +113,12 @@ class EditModal extends React.Component {
                     <input type="text" name="full_name" placeholder="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
                     <input type="email" name="email" placeholder="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
                     <input type="checkbox" name="is_active" color="primary" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} />
-                    <input type="text" name="type" placeholder="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} />
+                    <select name="type" placeholder="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
+                        <option value="student">Student</option>
+                        <option value="professor">Professor</option>
+                        <option value="admin">Admin</option>
+                        <option value="superuser">Superuser</option>
+                    </select>
                     {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
                     <input type="password" name="password" placeholder="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
                     <Button onClick={this.handleSubmit} color="primary" variant="contained">Submit</Button>
