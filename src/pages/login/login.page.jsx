@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Paper, Grid, withStyles, Typography } from '@material-ui/core';
 
-import FormInput from 'components/FormInput/FormInput.component';
 import Button from 'components/Button/Button.component';
 import { Login as InitiateLogin } from 'redux/auth/action';
 import { FetchUserMe } from "redux/user/action";
@@ -123,22 +122,22 @@ class Login extends Component {
             <Paper component={Grid} item className={classes.flexContainer}
                 xs={11} md={4}
             >
-                <FormInput
+                <input
                     type="email"
                     name="username"
                     placeholder="Email ID"
                     value={this.state.username}
-                    handleChange={this.handleInputChange}
-                    handleBlur={this.validateField}
+                    onChange={this.handleInputChange}
+                    onBlur={this.validateField}
                 />
                 {this.state.errors.username.length > 0 ? <Typography color="error" className={classes.errors}>{this.state.errors.username}</Typography> : null}
-                <FormInput
+                <input
                     type="password"
                     name="password"
                     placeholder="Password"
                     value={this.state.password}
-                    handleChange={this.handleInputChange}
-                    handleBlur={this.validateField}
+                    onChange={this.handleInputChange}
+                    onBlur={this.validateField}
                 />
                 {this.state.errors.password.length > 0 ? <Typography color="error" className={classes.errors}>{this.state.errors.password}</Typography> : null}
                 <Button variant="contained" onClick={this.handleSubmit}>Submit</Button>

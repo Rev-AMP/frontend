@@ -1,10 +1,12 @@
 import React from 'react';
 import { Modal, Paper, Grid, CircularProgress, withStyles, Typography, Divider } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
-import FormInput from 'components/FormInput/FormInput.component';
 import { FetchUser, CreateUser, UpdateUser } from 'redux/user/action'
 import Button from 'components/Button/Button.component';
+
+toast.configure()
 
 const styles = theme => ({
     modalBody: {
@@ -38,6 +40,13 @@ class EditModal extends React.Component {
             this.setState({
                 user: { ...this.props.selectedUser } ?? {}
             })
+
+            if (prevProps.selectedUser && this.props.selectedUser) {
+                const action = this.props.userId ? "updated" : "created";
+                toast.success(`User ${this.props.selectedUser.full_name} ${action} successfully 🙌`, {
+                    position: toast.POSITION.TOP_CENTER
+                });
+            }
         }
     }
 
@@ -85,12 +94,12 @@ class EditModal extends React.Component {
 
                     <Divider />
 
-                    <FormInput type="text" name="full_name" placeholder="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
-                    <FormInput type="email" name="email" placeholder="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
-                    <FormInput type="checkbox" name="is_active" color="primary" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} />
-                    <FormInput type="text" name="type" placeholder="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} />
-                    {/* <FormInput type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></FormInput> */}
-                    <FormInput type="password" name="password" placeholder="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
+                    <input type="text" name="full_name" placeholder="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
+                    <input type="email" name="email" placeholder="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
+                    <input type="checkbox" name="is_active" color="primary" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} />
+                    <input type="text" name="type" placeholder="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} />
+                    {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
+                    <input type="password" name="password" placeholder="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
                     <Button onClick={this.handleSubmit} color="primary" variant="contained">Submit</Button>
                 </Paper>
             </Modal>

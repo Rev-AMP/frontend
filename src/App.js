@@ -27,8 +27,21 @@ const theme = createMuiTheme({
 	},
 	typography: {
 		fontSize: 14
+	},
+	overrides: {
+		MuiCssBaseline: {
+			'@global': {
+				input: {
+					width: "available",
+					margin: "1em",
+					padding: "0.75em 1em",
+					border: "1px solid #ccc",
+					borderRadius: "4px",
+					backgroundColor: "white"
+				}
+			}
+		}
 	}
-
 })
 
 const useStyles = makeStyles(theme => ({
