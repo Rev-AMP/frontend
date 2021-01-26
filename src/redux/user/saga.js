@@ -88,15 +88,16 @@ function* UpdateUser() {
     yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
         try {
             let token = yield select((state) => state.auth.accessToken);
+            let selectedUser = yield select(state => state.user.selectedUser);
 
             let user = yield call(httpClient,
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload.id}`,
+                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${selectedUser.id}`,
                 {
                     method: 'PUT',
                     headers: {
                         'Authorization': `bearer ${token}`
                     },
-                    body: JSON.stringify(action.payload.userUpdate)
+                    body: JSON.stringify(action.payload)
                 }
             );
 

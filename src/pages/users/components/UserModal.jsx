@@ -70,7 +70,7 @@ class EditModal extends React.Component {
 
         if (userId) {
             if (submit_keys.length && !submit_keys.every(key => selectedUser[key] === submit[key])) {
-                this.props.UpdateUser(userId, submit);
+                this.props.UpdateUser(submit);
             } else {
                 toast.error('Please update some information 😓', {
                     position: toast.POSITION.TOP_CENTER
