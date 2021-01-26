@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Switch } from 'react-router-dom';
 import { withStyles, Grid } from '@material-ui/core';
+import { toast } from 'react-toastify';
 
 import SideBar from 'components/SideBar/SideBar.component';
 import Header from 'components/Header/Header.component';
 import Users from 'pages/users/users.page';
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute.component';
+
+toast.configure();
 
 const useStyles = theme => ({
     content: {
@@ -21,6 +24,14 @@ class Dashboard extends Component {
         this.state = {
             drawerOpen: false
         };
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
+            toast.error(`Error 😓: ${this.props.errorMessage}`, {
+                position: toast.POSITION.TOP_CENTER
+            })
+        }
     }
 
     switchDrawer = () => {
@@ -47,7 +58,8 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    errorMessage: state.user.errorMessage
 });
 
 export default withRouter(

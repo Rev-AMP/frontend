@@ -1,13 +1,10 @@
 import React from 'react';
 import { Modal, Paper, Grid, CircularProgress, withStyles, Typography, Divider } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { toast } from 'react-toastify';
 
 import FormInput from 'components/FormInput/FormInput.component';
 import { FetchUser, CreateUser, UpdateUser } from 'redux/user/action'
 import Button from 'components/Button/Button.component';
-
-toast.configure();
 
 const styles = theme => ({
     modalBody: {
@@ -37,23 +34,10 @@ class EditModal extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
-            toast.error(`Error 😓: ${this.props.errorMessage}`, {
-                position: toast.POSITION.TOP_CENTER
-            })
-        }
-
         if (this.props.selectedUser !== prevProps.selectedUser) {
             this.setState({
                 user: { ...this.props.selectedUser } ?? {}
             })
-
-            if (prevProps.selectedUser && this.props.selectedUser) {
-                const action = this.props.userId ? "updated" : "created";
-                toast.success(`User ${this.props.selectedUser.full_name} ${action} successfully 🙌`, {
-                    position: toast.POSITION.TOP_CENTER
-                });
-            }
         }
     }
 
