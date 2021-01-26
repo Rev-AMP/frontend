@@ -53,7 +53,7 @@ class Users extends React.Component {
             headerAlign: 'center',
             width: 250,
             renderCell: (params) => (
-                <img className={this.props.classes.centered} src={`${params.value ?? "/logos/revamp_favicon_transparent.png"}`} width={100} height={100} alt="Nothing here" />
+                <img className={this.props.classes.centered} src={`${params.value ?? "/logos/revamp_favicon.jpg"}`} width={100} height={100} alt="Nothing here" />
             )
         },
         {
