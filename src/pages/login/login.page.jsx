@@ -25,6 +25,10 @@ const styles = theme => ({
     errors: {
         fontSize: "1em",
         margin: "0 12px 5px 12px",
+    },
+    image: {
+        padding: "1em",
+        marginBottom: "2em"
     }
 })
 
@@ -123,6 +127,8 @@ class Login extends Component {
             <Paper component={Grid} item className={classes.flexContainer}
                 xs={11} md={4}
             >
+                <img className={classes.image} src={process.env.PUBLIC_URL + '/logos/revamp_transparent.png'} alt="" />
+
                 <TextField
                     type="email"
                     name="username"
@@ -143,7 +149,7 @@ class Login extends Component {
                     error={!!this.state.errors.password}
                     helperText={this.state.errors.password}
                 />
-                <Button variant="contained" onClick={this.handleSubmit}>Submit</Button>
+                <Button style={{ marginTop: "3em" }} variant="contained" onClick={this.handleSubmit}>Submit</Button>
             </Paper>
         );
     }
