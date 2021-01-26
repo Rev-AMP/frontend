@@ -1,4 +1,4 @@
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
 import { Grid, makeStyles } from '@material-ui/core';
 
@@ -45,15 +45,16 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
 	const classes = useStyles();
+	console.log(process.env)
 	return (
-		<HashRouter>
+		<BrowserRouter>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
 				<Grid container alignItems="center" justify="center" className={classes.fullScreen}>
 					<Main />
 				</Grid>
 			</ThemeProvider>
-		</HashRouter>
+		</BrowserRouter>
 	);
 }
 

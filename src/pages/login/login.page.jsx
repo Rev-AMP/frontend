@@ -127,7 +127,7 @@ class Login extends Component {
             <Paper component={Grid} item className={classes.flexContainer}
                 xs={11} md={4}
             >
-                <img className={classes.image} src={process.env.PUBLIC_URL + '/logos/revamp_transparent.png'} alt="" />
+                <img className={classes.image} src={"/logos/revamp_transparent.png"} alt="" />
 
                 <TextField
                     type="email"

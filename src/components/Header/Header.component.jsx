@@ -46,7 +46,7 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
 
                     <Link to="/">
                         <img style={{ height: 50, aspectRatio: 1, padding: 5 }}
-                            src={process.env.PUBLIC_URL + "/logos/revamp_transparent.png"} alt="Rev-AMP" />
+                            src={"/logos/revamp_transparent.png"} alt="Rev-AMP" />
                     </Link>
                 </Box>
                 <IconButton
