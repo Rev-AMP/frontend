@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import clsx from "clsx";
 import { DataGrid } from '@material-ui/data-grid'
-import { Grid, Typography, withStyles } from '@material-ui/core';
+import { Grid, Typography, withStyles, IconButton } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -11,7 +11,6 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import { FetchUsers } from 'redux/user/action';
 import UserModal from './components/UserModal';
-import Button from 'components/Button/Button.component'
 import Loader from "components/Loader";
 
 const styles = theme => ({
@@ -78,9 +77,11 @@ class Users extends React.Component {
             headerAlign: 'center',
             flex: 1,
             sortable: false,
-            renderCell: (params) => {
-                return <Button onClick={() => this.onEdit(params)}><EditIcon /></Button>
-            }
+            renderCell: (params) => (
+                <IconButton className={this.props.classes.centered} color={"primary"} onClick={() => this.onEdit(params)}>
+                    <EditIcon />
+                </IconButton>
+            )
         }
     ];
 
@@ -118,8 +119,12 @@ class Users extends React.Component {
             return (
                 <Grid item style={{ minHeight: "80vh" }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography color='primary'><h1>List of Users</h1></Typography>
-                        <Button style={{ maxWidth: 0 }} onClick={this.openModal}><AddCircleIcon fontSize='large' /></Button>
+                        <Typography color='primary'>
+                            <h1>List of Users</h1>
+                        </Typography>
+                        <IconButton color="primary" onClick={this.openModal} style={{ marginBottom: "0.25em" }}>
+                            <AddCircleIcon fontSize='large' />
+                        </IconButton>
                     </div>
 
                     <DataGrid disableSelectionOnClick={true} rows={this.props.users} columns={this.columns} rowHeight={120} />
