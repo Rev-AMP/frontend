@@ -1,7 +1,19 @@
 import React from 'react';
-import { Modal, Paper, Grid, CircularProgress, withStyles, Typography, Divider, FormControlLabel, Switch } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+import {
+    Modal,
+    Paper,
+    Grid,
+    CircularProgress,
+    withStyles,
+    Typography,
+    Divider,
+    FormControlLabel,
+    Switch,
+    TextField,
+    MenuItem
+} from '@material-ui/core';
 
 import { FetchUser, CreateUser, UpdateUser } from 'redux/user/action'
 import Button from 'components/Button/Button.component';
@@ -16,7 +28,7 @@ const styles = theme => ({
         transform: "translate(-50%,-50%)",
         display: "flex",
         flexDirection: "column",
-        padding: 50
+        padding: 30
     }
 });
 
@@ -110,29 +122,24 @@ class EditModal extends React.Component {
 
                     <Divider />
 
-                    <input type="text" name="full_name" placeholder="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
-                    <input type="email" name="email" placeholder="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
-
+                    <TextField type="text" name="full_name" label="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
+                    <TextField type="email" name="email" label="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
+                    <TextField select name="type" label="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
+                        <MenuItem value="student">Student</MenuItem>
+                        <MenuItem value="professor">Professor</MenuItem>
+                        <MenuItem value="admin">Admin</MenuItem>
+                        <MenuItem value="superuser">Superuser</MenuItem>
+                    </TextField>
+                    {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
+                    <TextField type="password" name="password" label="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
                     {
                         userId &&
                         <FormControlLabel
                             control={<Switch name="is_active" checked={this.state.user.is_active ?? false}
-                                             onChange={this.handleInputChange} color="primary"/>}
-                            label="Active" style={{marginLeft: "auto", marginRight: "auto"}}
+                                             onChange={this.handleInputChange} color="primary" />}
+                            label="Active" style={{ marginLeft: "auto", marginRight: "auto" }}
                         />
                     }
-
-                    <select name="type" placeholder="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
-                        <option hidden={true} disabled={true} value="">User Type</option>
-                        <option value="student">Student</option>
-                        <option value="professor">Professor</option>
-                        <option value="admin">Admin</option>
-                        <option value="superuser">Superuser</option>
-                    </select>
-
-                    {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
-
-                    <input type="password" name="password" placeholder="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
 
                     <Button onClick={this.handleSubmit} color="primary" variant="contained">Submit</Button>
                 </Paper>

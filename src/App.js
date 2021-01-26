@@ -31,27 +31,7 @@ const theme = createMuiTheme({
 	overrides: {
 		MuiTextField: {
 			root: {
-				margin: "0 1em 3em 1em"
-			}
-		},
-		MuiCssBaseline: {
-			'@global': {
-				input: {
-					width: "available",
-					margin: "1em",
-					padding: "0.75em 1em",
-					border: "1px solid #ccc",
-					borderRadius: "4px",
-					backgroundColor: "white"
-				},
-				select: {
-					width: "available",
-					margin: "1em",
-					padding: "0.75em 1em",
-					border: "1px solid #ccc",
-					borderRadius: "4px",
-					backgroundColor: "white"
-				}
+				margin: "1em"
 			}
 		}
 	}
