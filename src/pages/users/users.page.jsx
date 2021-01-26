@@ -121,7 +121,7 @@ class Users extends React.Component {
                         <Button style={{ maxWidth: 0 }} onClick={this.openModal}><AddCircleIcon fontSize='large' /></Button>
                     </div>
 
-                    <DataGrid disableSelectionOnClick={true} rows={this.props.users} columns={this.columns} rowHeight={140} />
+                    <DataGrid disableSelectionOnClick={true} rows={this.props.users} columns={this.columns} rowHeight={120} />
 
                     {
                         this.state.isOpen &&
