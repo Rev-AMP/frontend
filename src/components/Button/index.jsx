@@ -19,13 +19,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Button = ({ color, variant, children, ...otherProps }) => {
+const Button = ({ color, variant, children, className, ...otherProps }) => {
     const classes = useStyles();
     const buttonClasses =
         variant === "contained" ? clsx(classes.customButton, classes.customButtonHover) : classes.customButton;
 
     return (
-        <Btn disableElevation color={color ?? "primary"} variant={variant} {...otherProps} className={buttonClasses}>
+        <Btn
+            disableElevation
+            color={color ?? "primary"}
+            variant={variant}
+            {...otherProps}
+            className={clsx(buttonClasses, className)}
+        >
             {children}
         </Btn>
     );

@@ -8,6 +8,7 @@ import SideBar from "components/SideBar";
 import Header from "components/Header";
 import AuthenticatedRoute from "components/AuthenticatedRoute";
 import Users from "pages/users";
+import Homepage from "pages/homepage";
 
 toast.configure();
 
@@ -59,6 +60,7 @@ class Dashboard extends Component {
                     <Grid item className={classes.content}>
                         <Switch>
                             <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
+                            <AuthenticatedRoute exact path={`${this.props.match.url}/`} component={Homepage} />
                         </Switch>
                     </Grid>
                 </Grid>

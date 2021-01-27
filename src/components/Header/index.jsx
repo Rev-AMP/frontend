@@ -35,7 +35,6 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
                     >
                         <Menu />
                     </IconButton>
-
                     <Link to="/">
                         <img
                             style={{ height: 50, aspectRatio: 1, padding: 5 }}
