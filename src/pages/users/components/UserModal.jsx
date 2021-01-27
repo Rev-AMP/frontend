@@ -128,7 +128,7 @@ class EditModal extends React.Component {
             <Modal open={this.props.isOpen} onClose={this.props.onClose}>
                 <Paper className={clsx(classes.modalBody, classes.formModal)} component={Grid} item xs={11} md={4}>
                     <div style={{ textAlign: 'center' }}>
-                        <Typography color='primary'><h1>{action} User</h1></Typography>
+                        <Typography color='primary' variant="h3">{action} User</Typography>
                     </div>
 
                     <Divider style={{ marginBottom: "1rem" }} />
