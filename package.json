@@ -49,8 +49,7 @@
   },
   "prettier": {
     "trailingComma": "es5",
-    "tabWidth": 4,
-    "semi": false
+    "tabWidth": 4
   },
   "devDependencies": {
     "prettier": "^2.2.1"
