@@ -4,20 +4,14 @@ import { connect } from 'react-redux';
 import clsx from "clsx";
 import { DataGrid } from '@material-ui/data-grid'
 import { Grid, Typography, withStyles, IconButton } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import DoneIcon from '@material-ui/icons/Done';
-import ClearIcon from '@material-ui/icons/Clear';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { Edit, Done, Clear, AddCircle } from '@material-ui/icons';
 
 import { FetchUsers } from 'redux/user/action';
 import UserModal from './components/UserModal';
 import Loader from "components/Loader";
 
 const styles = theme => ({
-    centered: {
-        marginRight: 'auto',
-        marginLeft: 'auto'
-    },
+    centerItem: theme.styles.centerItem,
     green: {
         color: theme.palette.success.main
     }
@@ -37,22 +31,22 @@ class Users extends React.Component {
             headerName: 'Full name',
             headerAlign: 'center',
             align: 'center',
-            width: 400
+            width: 350
         },
         {
             field: 'email',
             headerName: 'Email',
             headerAlign: 'center',
             align: 'center',
-            width: 400
+            width: 350
         },
         {
             field: 'profile_picture',
             headerName: 'Picture',
             headerAlign: 'center',
-            width: 250,
+            flex: 1.5,
             renderCell: (params) => (
-                <img className={this.props.classes.centered} src={`${params.value ?? "/logos/revamp_favicon.jpg"}`} width={100} height={100} alt="Nothing here" />
+                <img className={this.props.classes.centerItem} src={`${params.value ?? "/logos/revamp_favicon.jpg"}`} width={100} height={100} alt="Nothing here" />
             )
         },
         {
@@ -60,15 +54,15 @@ class Users extends React.Component {
             headerName: 'Type',
             headerAlign: 'center',
             align: 'center',
-            width: 250
+            flex: 1.5
         },
         {
             field: 'is_active',
             headerName: 'Active',
             headerAlign: 'center',
-            width: 250,
+            flex: 1.2,
             renderCell: (params) => (
-                params.value ? <DoneIcon className={clsx(this.props.classes.centered, this.props.classes.green)} /> : <ClearIcon color="error" className={this.props.classes.centered} />
+                params.value ? <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} /> : <Clear color="error" className={this.props.classes.centerItem} />
             )
         },
         {
@@ -78,8 +72,8 @@ class Users extends React.Component {
             flex: 1,
             sortable: false,
             renderCell: (params) => (
-                <IconButton className={this.props.classes.centered} color={"primary"} onClick={() => this.onEdit(params)}>
-                    <EditIcon />
+                <IconButton className={this.props.classes.centerItem} color={"primary"} onClick={() => this.onEdit(params)}>
+                    <Edit />
                 </IconButton>
             )
         }
@@ -117,17 +111,21 @@ class Users extends React.Component {
 
         if (this.props.users) {
             return (
-                <Grid item style={{ minHeight: "76vh" }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Grid item style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+                    <Grid container direction="row" justify="space-between">
                         <Typography color='primary'>
                             <h1>List of Users</h1>
                         </Typography>
-                        <IconButton color="primary" onClick={this.openModal} style={{ marginBottom: "0.25em" }}>
-                            <AddCircleIcon fontSize='large' />
+                        <IconButton color="primary" onClick={this.openModal} style={{ marginBottom: "0.25rem" }}>
+                            <AddCircle fontSize='large' />
                         </IconButton>
-                    </div>
+                    </Grid>
 
-                    <DataGrid disableSelectionOnClick={true} rows={this.props.users} columns={this.columns} rowHeight={120} />
+                    <div style={{ display: 'flex', height: '100%' }}>
+                        <div style={{ flexGrow: 1 }}>
+                            <DataGrid disableSelectionOnClick={true} rows={this.props.users} columns={this.columns} rowHeight={120} />
+                        </div>
+                    </div>
 
                     {
                         this.state.isOpen &&

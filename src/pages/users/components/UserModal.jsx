@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+import clsx from 'clsx';
 import {
     Modal,
     Paper,
@@ -29,7 +30,17 @@ const styles = theme => ({
         display: "flex",
         flexDirection: "column",
         padding: 30
-    }
+    },
+    formModal: {
+        width: "80vw"
+    },
+    form: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        height: "100%",
+    },
+    centerItem: theme.styles.centerItem
 });
 
 class EditModal extends React.Component {
@@ -106,8 +117,8 @@ class EditModal extends React.Component {
         if (this.props.isLoading) {
             return (
                 <Modal open={this.props.isOpen} onClose={this.props.onClose}>
-                    <Paper className={classes.modalBody} component={Grid} item>
-                        <CircularProgress size="3em" />
+                    <Paper className={classes.modalBody} component={Grid} item justify="center" alignItems="center">
+                        <CircularProgress size="3rem" />
                     </Paper>
                 </Modal>
             );
@@ -115,33 +126,33 @@ class EditModal extends React.Component {
 
         return (
             <Modal open={this.props.isOpen} onClose={this.props.onClose}>
-                <Paper className={classes.modalBody} component={Grid} item>
-                    <div style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
+                <Paper className={clsx(classes.modalBody, classes.formModal)} component={Grid} item xs={11} md={4}>
+                    <div style={{ textAlign: 'center' }}>
                         <Typography color='primary'><h1>{action} User</h1></Typography>
                     </div>
 
-                    <Divider />
+                    <Divider style={{ marginBottom: "1rem" }} />
 
-                    <TextField type="text" name="full_name" label="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
-                    <TextField type="email" name="email" label="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
-                    <TextField select name="type" label="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
-                        <MenuItem value="student">Student</MenuItem>
-                        <MenuItem value="professor">Professor</MenuItem>
-                        <MenuItem value="admin">Admin</MenuItem>
-                        <MenuItem value="superuser">Superuser</MenuItem>
-                    </TextField>
-                    {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
-                    <TextField type="password" name="password" label="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
-                    {
-                        userId &&
-                        <FormControlLabel
-                            control={<Switch name="is_active" checked={this.state.user.is_active ?? false}
-                                             onChange={this.handleInputChange} color="primary" />}
-                            label="Active" style={{ marginLeft: "auto", marginRight: "auto" }}
-                        />
-                    }
-
-                    <Button onClick={this.handleSubmit} color="primary" variant="contained">Submit</Button>
+                    <form onSubmit={this.handleSubmit} className={classes.form}>
+                        <TextField type="text" name="full_name" label="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
+                        <TextField type="email" name="email" label="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
+                        <TextField select name="type" label="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
+                            <MenuItem value="student">Student</MenuItem>
+                            <MenuItem value="professor">Professor</MenuItem>
+                            <MenuItem value="admin">Admin</MenuItem>
+                            <MenuItem value="superuser">Superuser</MenuItem>
+                        </TextField>
+                        {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
+                        <TextField type="password" name="password" label="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
+                        {
+                            userId &&
+                            <FormControlLabel
+                                control={<Switch name="is_active" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} color="primary" />}
+                                label="Active" className={classes.centerItem}
+                            />
+                        }
+                        <Button type="submit" color="primary" variant="contained">Submit</Button>
+                    </form>
                 </Paper>
             </Modal>
 

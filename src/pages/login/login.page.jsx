@@ -16,19 +16,19 @@ const styles = theme => ({
     flexContainer: {
         flexDirection: "column",
         width: "80vw",
-        height: "70vh",
+        minHeight: "70vh",
         justifyContent: "center",
         alignContent: "center",
         display: 'flex',
-        padding: "2em"
-    },
-    errors: {
-        fontSize: "1em",
-        margin: "0 12px 5px 12px",
+        padding: "2rem"
     },
     image: {
-        padding: "1em",
-        marginBottom: "2em"
+        padding: "1rem",
+        marginBottom: "2rem"
+    },
+    form: {
+        display: "flex",
+        flexDirection: "column"
     }
 })
 
@@ -123,34 +123,35 @@ class Login extends Component {
         }
 
         return (
+            <Grid container justify="center" alignItems="center" style={{ height: "100%" }}>
+                <Paper component={Grid} item className={classes.flexContainer} xs={11} md={4}>
+                    <img className={classes.image} src={"/logos/revamp_transparent.png"} alt="" />
 
-            <Paper component={Grid} item className={classes.flexContainer}
-                xs={11} md={4}
-            >
-                <img className={classes.image} src={"/logos/revamp_transparent.png"} alt="" />
-
-                <TextField
-                    type="email"
-                    name="username"
-                    label="Email ID"
-                    value={this.state.username}
-                    onChange={this.handleInputChange}
-                    onBlur={this.validateField}
-                    error={!!this.state.errors.username}
-                    helperText={this.state.errors.username}
-                />
-                <TextField
-                    type="password"
-                    name="password"
-                    label="Password"
-                    value={this.state.password}
-                    onChange={this.handleInputChange}
-                    onBlur={this.validateField}
-                    error={!!this.state.errors.password}
-                    helperText={this.state.errors.password}
-                />
-                <Button style={{ marginTop: "3em" }} variant="contained" onClick={this.handleSubmit}>Submit</Button>
-            </Paper>
+                    <form className={classes.form} onSubmit={this.handleSubmit}>
+                        <TextField
+                            type="email"
+                            name="username"
+                            label="Email ID"
+                            value={this.state.username}
+                            onChange={this.handleInputChange}
+                            onBlur={this.validateField}
+                            error={!!this.state.errors.username}
+                            helperText={this.state.errors.username}
+                        />
+                        <TextField
+                            type="password"
+                            name="password"
+                            label="Password"
+                            value={this.state.password}
+                            onChange={this.handleInputChange}
+                            onBlur={this.validateField}
+                            error={!!this.state.errors.password}
+                            helperText={this.state.errors.password}
+                        />
+                        <Button type="submit" variant="contained">Submit</Button>
+                    </form>
+                </Paper>
+            </Grid>
         );
     }
 }

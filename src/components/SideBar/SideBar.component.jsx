@@ -1,9 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import { People } from '@material-ui/icons';
+import { People, Inbox, Mail } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 280;
@@ -12,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
     root: {
         "& :hover": {
             color: "#ffffff"
+        }
+    },
+    icon: {
+        "& :hover": {
+            color: theme.palette.primary.main
         }
     },
     drawer: {
@@ -37,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     toolbar: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-end",
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
@@ -61,10 +68,10 @@ const SideBar = ({ drawerOpen }) => {
                 }}
             >
                 <div className={classes.toolbar} />
-
+                <Divider />
                 <List>
                     <ListItem button component={Link} underline="none" to="/app/users" key="User">
-                        <ListItemIcon>
+                        <ListItemIcon className={classes.icon}>
                             <People color="primary" />
                         </ListItemIcon>
                         <ListItemText primary="Users" />
@@ -75,7 +82,7 @@ const SideBar = ({ drawerOpen }) => {
                     {['All mail', 'Trash', 'Spam'].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon color="primary" /> : <MailIcon color="primary" />}
+                                {index % 2 === 0 ? <Inbox color="primary" /> : <Mail color="primary" />}
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>

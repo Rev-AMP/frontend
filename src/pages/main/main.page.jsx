@@ -6,14 +6,6 @@ import Dashboard from "pages/dashboard/dashboard.page";
 import Login from 'pages/login/login.page';
 
 class Main extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            // TBA    
-        }
-    }
-
     render() {
         return (
             <Switch>

@@ -4,12 +4,12 @@ import clsx from "clsx";
 
 const useStyles = makeStyles(theme => ({
     customButton: {
-        margin: "1em",
+        margin: "1rem",
         border: 0,
         borderRadius: "4px",
         transition: "0.2s",
         width: "available",
-        padding: "0.75em 1em",
+        padding: "0.75rem 1rem",
         fontSize: theme.typography.fontSize
     },
     customButtonHover: {

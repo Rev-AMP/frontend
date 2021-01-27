@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppBar, Box, IconButton, makeStyles, Toolbar } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Menu, ExitToApp } from "@material-ui/icons";
 
 import { LogOut } from 'redux/auth/action';
 
@@ -14,13 +13,9 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         background: theme.palette.background.default,
         zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
     },
     menuButton: {
-        marginRight: 36,
+        marginRight: "1rem",
     }
 }));
 
@@ -41,20 +36,15 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
                         className={classes.menuButton}
                         onClick={handleMenuButtonClick}
                     >
-                        <MenuIcon />
+                        <Menu />
                     </IconButton>
 
                     <Link to="/">
-                        <img style={{ height: 50, aspectRatio: 1, padding: 5 }}
-                            src={"/logos/revamp_transparent.png"} alt="Rev-AMP" />
+                        <img style={{ height: 50, aspectRatio: 1, padding: 5 }} src={"/logos/revamp_transparent.png"} alt="Rev-AMP" />
                     </Link>
                 </Box>
-                <IconButton
-                    color="primary"
-                    aria-label="logout"
-                    onClick={LogOut}
-                >
-                    <ExitToAppIcon />
+                <IconButton color="primary" aria-label="logout" onClick={LogOut}>
+                    <ExitToApp />
                 </IconButton>
             </Toolbar>
         </AppBar>

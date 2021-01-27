@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
-import { Grid, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 import Main from 'pages/main/main.page';
 
@@ -30,8 +30,14 @@ const theme = createMuiTheme({
 	overrides: {
 		MuiTextField: {
 			root: {
-				margin: "1em"
+				margin: "1rem"
 			}
+		}
+	},
+	styles: {
+		centerItem: {
+			marginLeft: "auto",
+			marginRight: "auto"
 		}
 	}
 })
@@ -50,9 +56,9 @@ function App() {
 		<BrowserRouter>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<Grid container alignItems="center" justify="center" className={classes.fullScreen}>
+				<div className={classes.fullScreen}>
 					<Main />
-				</Grid>
+				</div>
 			</ThemeProvider>
 		</BrowserRouter>
 	);

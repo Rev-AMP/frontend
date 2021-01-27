@@ -14,8 +14,16 @@ toast.configure();
 const useStyles = theme => ({
     content: {
         padding: theme.spacing(3),
-        flex: 2
+        flex: 2,
+        flexGrow: 1,
+        height: "valuemax"
     },
+    offset: theme.mixins.toolbar,
+    fullScreen: {
+        display: "flex",
+        height: "100%",
+        width: "100%"
+    }
 })
 
 class Dashboard extends Component {
@@ -43,16 +51,18 @@ class Dashboard extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Grid container>
+            <div className={classes.fullScreen}>
                 <Header handleMenuButtonClick={this.switchDrawer} />
                 <SideBar drawerOpen={this.state.drawerOpen} />
-
-                <Grid item className={classes.content}>
-                    <Switch>
-                        <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
-                    </Switch>
+                <Grid container direction="column" style={{ height: "100%" }}>
+                    <div className={classes.offset} />
+                    <Grid item className={classes.content}>
+                        <Switch>
+                            <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
+                        </Switch>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </div>
         );
     }
 }
