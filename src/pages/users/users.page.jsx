@@ -113,7 +113,7 @@ class Users extends React.Component {
             return (
                 <Grid item style={{ display: "flex", flexDirection: "column", height: "100%" }}>
                     <Grid container direction="row" justify="space-between">
-                        <Typography color='primary' variant="h2">
+                        <Typography color='primary' variant="h2" style={{ margin: 0 }}>
                             List of Users
                         </Typography>
                         <IconButton color="primary" onClick={this.openModal} style={{ margin: "1rem" }}>

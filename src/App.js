@@ -36,6 +36,9 @@ const theme = createMuiTheme({
 		MuiTypography: {
 			h3: {
 				margin: "1rem"
+			},
+			h2: {
+				margin: "1rem"
 			}
 		}
 	},

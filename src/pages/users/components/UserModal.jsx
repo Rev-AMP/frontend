@@ -1,39 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import clsx from 'clsx';
-import {
-    Modal,
-    Paper,
-    Grid,
-    CircularProgress,
-    withStyles,
-    Typography,
-    Divider,
-    FormControlLabel,
-    Switch,
-    TextField,
-    MenuItem
-} from '@material-ui/core';
+import { withStyles, Typography, Divider, FormControlLabel, Switch, TextField, MenuItem } from '@material-ui/core';
 
 import { FetchUser, CreateUser, UpdateUser } from 'redux/user/action'
 import Button from 'components/Button/Button.component';
+import PopupModal from "components/PopupModal";
 
 toast.configure()
 
 const styles = theme => ({
-    modalBody: {
-        top: "50%",
-        left: "50%",
-        position: "absolute",
-        transform: "translate(-50%,-50%)",
-        display: "flex",
-        flexDirection: "column",
-        padding: 30
-    },
-    formModal: {
-        width: "80vw"
-    },
     form: {
         display: "flex",
         flexDirection: "column",
@@ -43,7 +19,7 @@ const styles = theme => ({
     centerItem: theme.styles.centerItem
 });
 
-class EditModal extends React.Component {
+class UserModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -111,51 +87,38 @@ class EditModal extends React.Component {
     }
 
     render() {
-        const { classes, userId } = this.props;
+        const { classes, userId, isLoading, isOpen, onClose } = this.props;
         const action = userId ? "Update" : "Create";
 
-        if (this.props.isLoading) {
-            return (
-                <Modal open={this.props.isOpen} onClose={this.props.onClose}>
-                    <Paper className={classes.modalBody} component={Grid} item justify="center" alignItems="center">
-                        <CircularProgress size="3rem" />
-                    </Paper>
-                </Modal>
-            );
-        }
-
         return (
-            <Modal open={this.props.isOpen} onClose={this.props.onClose}>
-                <Paper className={clsx(classes.modalBody, classes.formModal)} component={Grid} item xs={11} md={4}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Typography color='primary' variant="h3">{action} User</Typography>
-                    </div>
+            <PopupModal isLoading={isLoading} isOpen={isOpen} onClose={onClose}>
+                <div style={{ textAlign: 'center' }}>
+                    <Typography color='primary' variant="h3">{action} User</Typography>
+                </div>
 
-                    <Divider style={{ marginBottom: "1rem" }} />
+                <Divider style={{ marginBottom: "1rem" }} />
 
-                    <form onSubmit={this.handleSubmit} className={classes.form}>
-                        <TextField type="text" name="full_name" label="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
-                        <TextField type="email" name="email" label="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
-                        <TextField select name="type" label="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
-                            <MenuItem value="student">Student</MenuItem>
-                            <MenuItem value="professor">Professor</MenuItem>
-                            <MenuItem value="admin">Admin</MenuItem>
-                            <MenuItem value="superuser">Superuser</MenuItem>
-                        </TextField>
-                        {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
-                        <TextField type="password" name="password" label="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
-                        {
-                            userId &&
-                            <FormControlLabel
-                                control={<Switch name="is_active" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} color="primary" />}
-                                label="Active" className={classes.centerItem}
-                            />
-                        }
-                        <Button type="submit" color="primary" variant="contained">Submit</Button>
-                    </form>
-                </Paper>
-            </Modal>
-
+                <form onSubmit={this.handleSubmit} className={classes.form}>
+                    <TextField type="text" name="full_name" label="Full Name" value={this.state.user.full_name ?? ""} onChange={this.handleInputChange} />
+                    <TextField type="email" name="email" label="Email" value={this.state.user.email ?? ""} onChange={this.handleInputChange} />
+                    <TextField select name="type" label="User Type" value={this.state.user.type ?? ""} onChange={this.handleInputChange} >
+                        <MenuItem value="student">Student</MenuItem>
+                        <MenuItem value="professor">Professor</MenuItem>
+                        <MenuItem value="admin">Admin</MenuItem>
+                        <MenuItem value="superuser">Superuser</MenuItem>
+                    </TextField>
+                    {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
+                    <TextField type="password" name="password" label="Password" value={this.state.user.password ?? ""} onChange={this.handleInputChange} />
+                    {
+                        userId &&
+                        <FormControlLabel
+                            control={<Switch name="is_active" checked={this.state.user.is_active ?? false} onChange={this.handleInputChange} color="primary" />}
+                            label="Active" className={classes.centerItem}
+                        />
+                    }
+                    <Button type="submit" color="primary" variant="contained">Submit</Button>
+                </form>
+            </PopupModal>
         )
     }
 }
@@ -168,5 +131,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default withStyles(styles)(
-    connect(mapStateToProps, { FetchUser, CreateUser, UpdateUser })(EditModal)
+    connect(mapStateToProps, { FetchUser, CreateUser, UpdateUser })(UserModal)
 );
