@@ -14,13 +14,7 @@ export const LoginFailure = (error) => ({
     type: AuthActionTypes.LOGIN_FAILURE,
     payload: error,
 });
-export const ClearLoginError = () => ({
-    type: AuthActionTypes.CLEAR_LOGIN_ERROR,
-});
+
 export const LogOut = () => ({
     type: AuthActionTypes.LOGOUT,
-});
-
-export const LogOutSuccess = () => ({
-    type: AuthActionTypes.LOGOUT_SUCCESS,
 });

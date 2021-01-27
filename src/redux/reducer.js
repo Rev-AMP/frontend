@@ -19,7 +19,7 @@ const MainReducer = persistCombineReducers(persistConfig, {
 const RootReducer = (state, action) => {
     if (action.type === AuthActionTypes.LOGOUT) {
         storage.removeItem("persist:auth");
-        state = undefined;
+        state.auth = state.user = undefined;
     }
 
     return MainReducer(state, action);

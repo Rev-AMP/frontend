@@ -26,7 +26,7 @@ class AuthenticatedRoute extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    rehydrated: state._persist ? state._persist.rehydrated : false,
+    rehydrated: state._persist.rehydrated,
     isLoggedIn: state.auth.isLoggedIn,
     currentUser: state.user.currentUser,
 });
