@@ -19,7 +19,7 @@ function* Login() {
             );
             yield put(LoginSuccess(response.access_token));
         } catch (error) {
-            yield put(LoginFailure(error.detail));
+            yield put(LoginFailure(error.detail ?? error));
         }
     });
 }
