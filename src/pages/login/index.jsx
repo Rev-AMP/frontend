@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Paper, Grid, withStyles, TextField } from '@material-ui/core';
 
-import Button from 'components/Button/Button.component';
+import Button from 'components/Button';
 import Loader from "components/Loader";
 import CenterContent from "components/CenterContent";
 import { Login as InitiateLogin } from 'redux/auth/action';

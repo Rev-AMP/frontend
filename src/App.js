@@ -2,7 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider, CssBaseline } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core';
 
-import Main from 'pages/main/main.page';
+import Main from 'pages/main';
 
 const theme = createMuiTheme({
 	palette: {

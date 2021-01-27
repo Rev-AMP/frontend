@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { withStyles, Typography, Divider, FormControlLabel, Switch, TextField, MenuItem } from '@material-ui/core';
 
 import { FetchUser, CreateUser, UpdateUser } from 'redux/user/action'
-import Button from 'components/Button/Button.component';
+import Button from 'components/Button';
 import PopupModal from "components/PopupModal";
 
 toast.configure()

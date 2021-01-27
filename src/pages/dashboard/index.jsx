@@ -4,10 +4,10 @@ import { withRouter, Switch } from 'react-router-dom';
 import { withStyles, Grid } from '@material-ui/core';
 import { toast } from 'react-toastify';
 
-import SideBar from 'components/SideBar/SideBar.component';
-import Header from 'components/Header/Header.component';
-import Users from 'pages/users/users.page';
-import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute.component';
+import SideBar from 'components/SideBar';
+import Header from 'components/Header';
+import AuthenticatedRoute from 'components/AuthenticatedRoute';
+import Users from 'pages/users';
 
 toast.configure();
 
