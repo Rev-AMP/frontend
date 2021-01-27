@@ -2,8 +2,8 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import Loader from 'components/Loader';
-import { FetchUserMe } from 'redux/user/action'
+import Loader from "components/Loader";
+import { FetchUserMe } from "redux/user/action";
 
 class AuthenticatedRoute extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -14,21 +14,21 @@ class AuthenticatedRoute extends React.Component {
 
     render() {
         if (!this.props.rehydrated) {
-          return (<Loader />);
+            return <Loader />;
         } else if (this.props.isLoggedIn) {
             if (this.props.currentUser) {
-                return (<Route {...this.props} />);
+                return <Route {...this.props} />;
             }
-            return (<Loader/>);
+            return <Loader />;
         }
-        return (<Redirect to="/login" />);
+        return <Redirect to="/login" />;
     }
 }
 
 const mapStateToProps = (state) => ({
     rehydrated: state._persist ? state._persist.rehydrated : false,
     isLoggedIn: state.auth.isLoggedIn,
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
 });
 
 export default connect(mapStateToProps, { FetchUserMe })(AuthenticatedRoute);

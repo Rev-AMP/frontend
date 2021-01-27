@@ -1,52 +1,52 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Switch } from 'react-router-dom';
-import { withStyles, Grid } from '@material-ui/core';
-import { toast } from 'react-toastify';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter, Switch } from "react-router-dom";
+import { withStyles, Grid } from "@material-ui/core";
+import { toast } from "react-toastify";
 
-import SideBar from 'components/SideBar';
-import Header from 'components/Header';
-import AuthenticatedRoute from 'components/AuthenticatedRoute';
-import Users from 'pages/users';
+import SideBar from "components/SideBar";
+import Header from "components/Header";
+import AuthenticatedRoute from "components/AuthenticatedRoute";
+import Users from "pages/users";
 
 toast.configure();
 
-const useStyles = theme => ({
+const useStyles = (theme) => ({
     content: {
         padding: theme.spacing(3),
         flex: 2,
         flexGrow: 1,
-        height: "valuemax"
+        height: "valuemax",
     },
     offset: theme.mixins.toolbar,
     fullScreen: {
         display: "flex",
         height: "100%",
-        width: "100%"
-    }
-})
+        width: "100%",
+    },
+});
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            drawerOpen: false
+            drawerOpen: false,
         };
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== '') {
+        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== "") {
             toast.error(`Error 😓: ${this.props.errorMessage}`, {
-                position: toast.POSITION.TOP_CENTER
-            })
+                position: toast.POSITION.TOP_CENTER,
+            });
         }
     }
 
     switchDrawer = () => {
         this.setState({
-            drawerOpen: !this.state.drawerOpen
+            drawerOpen: !this.state.drawerOpen,
         });
-    }
+    };
 
     render() {
         const { classes } = this.props;
@@ -69,11 +69,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
-    errorMessage: state.user.errorMessage
+    errorMessage: state.user.errorMessage,
 });
 
-export default withRouter(
-    connect(mapStateToProps)(
-        withStyles(useStyles)(Dashboard)
-    )
-);
+export default withRouter(connect(mapStateToProps)(withStyles(useStyles)(Dashboard)));

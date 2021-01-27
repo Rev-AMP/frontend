@@ -1,41 +1,41 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { People, Inbox, Mail } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
+import React from "react";
+import clsx from "clsx";
+import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { People, Inbox, Mail } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
     root: {
         "& :hover": {
-            color: "#ffffff"
-        }
+            color: "#ffffff",
+        },
     },
     icon: {
         "& :hover": {
-            color: theme.palette.primary.main
-        }
+            color: theme.palette.primary.main,
+        },
     },
     drawer: {
         width: drawerWidth,
-        whiteSpace: 'nowrap',
+        whiteSpace: "nowrap",
     },
     drawerOpen: {
         width: drawerWidth,
-        transition: theme.transitions.create('width', {
+        transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
     drawerClose: {
-        transition: theme.transitions.create('width', {
+        transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        overflowX: 'hidden',
+        overflowX: "hidden",
         width: theme.spacing(7) + 1,
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up("sm")]: {
             width: theme.spacing(9) + 1,
         },
     },
@@ -79,7 +79,7 @@ const SideBar = ({ drawerOpen }) => {
                 </List>
                 <Divider />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    {["All mail", "Trash", "Spam"].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemIcon>
                                 {index % 2 === 0 ? <Inbox color="primary" /> : <Mail color="primary" />}
@@ -91,6 +91,6 @@ const SideBar = ({ drawerOpen }) => {
             </Drawer>
         </div>
     );
-}
+};
 
 export default SideBar;

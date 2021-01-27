@@ -12,7 +12,7 @@ import {
     UpdateUserSuccess,
     UpdateUserFailure,
     CreateUserSuccess,
-    CreateUserFailure
+    CreateUserFailure,
 } from "./action";
 import httpClient from "services/http-client";
 
@@ -20,19 +20,15 @@ function* FetchUserMe() {
     yield takeEvery(UserActionTypes.FETCH_USER_ME, function* () {
         try {
             let token = yield select((state) => state.auth.accessToken);
-            let user = yield call(httpClient,
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `bearer ${token}`
-                    }
-                }
-            );
+            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+                method: "GET",
+                headers: {
+                    Authorization: `bearer ${token}`,
+                },
+            });
 
             yield put(FetchUserMeSuccess(user));
-        }
-        catch (error) {
+        } catch (error) {
             yield put(FetchUserMeFailure(error.detail));
         }
     });
@@ -43,19 +39,15 @@ function* FetchUser() {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
-            let user = yield call(httpClient,
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload}`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `bearer ${token}`
-                    }
-                }
-            );
+            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `bearer ${token}`,
+                },
+            });
 
             yield put(FetchUserSuccess(user));
-        }
-        catch (error) {
+        } catch (error) {
             yield put(FetchUserFailure(error.detail));
         }
     });
@@ -66,44 +58,36 @@ function* FetchUsers() {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
-            let user = yield call(httpClient,
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `bearer ${token}`
-                    }
-                }
-            );
+            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/`, {
+                method: "GET",
+                headers: {
+                    Authorization: `bearer ${token}`,
+                },
+            });
 
             yield put(FetchUsersSuccess(user));
-        }
-        catch (error) {
+        } catch (error) {
             yield put(FetchUsersFailure(error.detail));
         }
-    })
+    });
 }
 
 function* UpdateUser() {
     yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
         try {
             let token = yield select((state) => state.auth.accessToken);
-            let selectedUser = yield select(state => state.user.selectedUser);
+            let selectedUser = yield select((state) => state.user.selectedUser);
 
-            let user = yield call(httpClient,
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${selectedUser.id}`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `bearer ${token}`
-                    },
-                    body: JSON.stringify(action.payload)
-                }
-            );
+            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${selectedUser.id}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `bearer ${token}`,
+                },
+                body: JSON.stringify(action.payload),
+            });
 
             yield put(UpdateUserSuccess(user));
-        }
-        catch (error) {
+        } catch (error) {
             yield put(UpdateUserFailure(error.detail));
         }
     });
@@ -114,20 +98,16 @@ function* CreateUser() {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
-            let user = yield call(httpClient,
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/users`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `bearer ${token}`
-                    },
-                    body: JSON.stringify(action.payload)
-                }
-            );
+            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users`, {
+                method: "POST",
+                headers: {
+                    Authorization: `bearer ${token}`,
+                },
+                body: JSON.stringify(action.payload),
+            });
 
             yield put(CreateUserSuccess(user));
-        }
-        catch (error) {
+        } catch (error) {
             yield put(CreateUserFailure(error.detail));
         }
     });
@@ -135,7 +115,7 @@ function* CreateUser() {
 
 function* RefreshUserList() {
     yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS, UserActionTypes.CREATE_USER_SUCCESS], function* (action) {
-        yield put(ActionFetchUsers())
+        yield put(ActionFetchUsers());
     });
 }
 
