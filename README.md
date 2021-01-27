@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+# Formatting
+
+- The code in here is formatted using `prettier`
+- You can simply run ```prettier --write "./**/*.{js,jsx}"``` before committing, to ensure correct formatting.
+- The configuration used can be found (and modified, if so required) within `package.json`
+- You can setup your editor to use prettier with the help of [this](https://prettier.io/docs/en/editors.html).
+
 ## Available Scripts
 
 In the project directory, you can run:
