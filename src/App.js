@@ -59,7 +59,6 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
 	const classes = useStyles();
-	console.log(process.env)
 	return (
 		<BrowserRouter>
 			<ThemeProvider theme={theme}>
