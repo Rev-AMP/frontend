@@ -1,10 +1,11 @@
-import { Grid } from "@material-ui/core";
 import React from "react";
 
+import CenterContent from "components/CenterContent";
+
 const Loader = () => (
-    <Grid container item justify="center" alignContent="center" style={{ height: "100%" }}>
+    <CenterContent>
         <img src={"/miscellaneous/loader.gif"} alt="loading..." />
-    </Grid>
+    </CenterContent>
 );
 
 export default Loader;

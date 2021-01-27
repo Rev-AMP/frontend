@@ -5,9 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { Paper, Grid, withStyles, TextField } from '@material-ui/core';
 
 import Button from 'components/Button/Button.component';
+import Loader from "components/Loader";
+import CenterContent from "components/CenterContent";
 import { Login as InitiateLogin } from 'redux/auth/action';
 import { FetchUserMe } from "redux/user/action";
-import Loader from "components/Loader";
 
 toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
@@ -123,7 +124,7 @@ class Login extends Component {
         }
 
         return (
-            <Grid container justify="center" alignItems="center" style={{ height: "100%" }}>
+            <CenterContent>
                 <Paper component={Grid} item className={classes.flexContainer} xs={11} md={4}>
                     <img className={classes.image} src={"/logos/revamp_transparent.png"} alt="" />
 
@@ -151,7 +152,7 @@ class Login extends Component {
                         <Button type="submit" variant="contained">Submit</Button>
                     </form>
                 </Paper>
-            </Grid>
+            </CenterContent>
         );
     }
 }
