@@ -17,10 +17,11 @@ const styles = (theme) => ({
     image: {
         maxHeight: "6.9rem",
         maxWidth: "6.9rem",
+        ...theme.styles.centerItem,
     },
-    imageView: {
-        width: "30%",
-        textAlign: "center",
+    imageButton: {
+        width: "min-content",
+        ...theme.styles.centerItem,
     },
     fullScreen: {
         height: "100%",
@@ -47,22 +48,22 @@ class Homepage extends Component {
                             {title}
                         </Typography>
 
-                        <Grid container justify="space-around" alignItems="flex-end">
-                            <div className={classes.imageView}>
+                        {currentUser.is_admin ? (
+                            <Button component="label" hidden={!currentUser.is_admin} className={classes.imageButton}>
                                 <img
                                     className={classes.image}
                                     src={currentUser.profile_picture ?? "/logos/revamp_favicon_transparent.png"}
                                     alt=""
                                 />
-                            </div>
-                            <TextField
-                                className={classes.textField}
-                                type="file"
-                                label="Profile Picture"
-                                name="profile_picture"
-                                hidden={!currentUser.is_admin}
+                                <input type="file" name="profile_picture" hidden />
+                            </Button>
+                        ) : (
+                            <img
+                                className={classes.image}
+                                src={currentUser.profile_picture ?? "/logos/revamp_favicon_transparent.png"}
+                                alt=""
                             />
-                        </Grid>
+                        )}
 
                         <Grid container justify="space-around">
                             <TextField
