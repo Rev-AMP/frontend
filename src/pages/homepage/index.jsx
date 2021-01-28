@@ -1,7 +1,8 @@
-import { Component } from "react";
+import { Component, createRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { withStyles, Grid, TextField, Typography } from "@material-ui/core";
+import { withStyles, Grid, TextField, IconButton } from "@material-ui/core";
+import { AddAPhoto } from "@material-ui/icons";
 import { toast } from "react-toastify";
 
 import CenterContent from "components/CenterContent";
@@ -18,13 +19,10 @@ const styles = (theme) => ({
         ...theme.styles.centerItem,
     },
     image: {
-        maxHeight: "6.9rem",
-        maxWidth: "6.9rem",
-        ...theme.styles.centerItem,
-    },
-    imageButton: {
-        width: "min-content",
-        ...theme.styles.centerItem,
+        maxHeight: "10rem",
+        maxWidth: "10rem",
+        marginBottom: "2rem",
+        borderRadius: "4px",
     },
     fullScreen: {
         height: "100%",
@@ -40,6 +38,14 @@ class Homepage extends Component {
             currentUser: { ...this.props.currentUser },
             submit: {},
         };
+
+        this.fileInput = createRef();
+        this.reader = new FileReader();
+        this.reader.onloadend = () => {
+            let { currentUser, submit } = this.state;
+            submit["profile_picture"] = currentUser["profile_picture"] = this.reader.result;
+            this.setState({ submit, currentUser });
+        };
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -52,7 +58,11 @@ class Homepage extends Component {
 
     handleInputChange = (event) => {
         let { currentUser, submit } = this.state;
-        submit[event.target.name] = currentUser[event.target.name] = event.target.value;
+        if (event.target.type === "file") {
+            this.reader.readAsDataURL(this.fileInput.current.files[0]);
+        } else {
+            submit[event.target.name] = currentUser[event.target.name] = event.target.value;
+        }
         this.setState({ currentUser, submit });
     };
 
@@ -90,7 +100,6 @@ class Homepage extends Component {
         }
 
         const { classes } = this.props;
-        const title = (currentUser.is_admin ? "Update " : "") + "Your Details";
 
         return (
             <CenterContent>
@@ -98,30 +107,28 @@ class Homepage extends Component {
                     <Grid
                         container
                         direction="column"
-                        justify={currentUser.is_admin ? "space-between" : "space-evenly"}
+                        justify="space-evenly"
                         wrap="nowrap"
                         className={classes.fullScreen}
                     >
-                        <Typography color="primary" variant={currentUser.is_admin ? "h2" : "h1"}>
-                            {title}
-                        </Typography>
-
-                        {currentUser.is_admin ? (
-                            <Button component="label" hidden={!currentUser.is_admin} className={classes.imageButton}>
-                                <img
-                                    className={classes.image}
-                                    src={currentUser.profile_picture ?? "/logos/revamp_favicon_transparent.png"}
-                                    alt=""
-                                />
-                                <input type="file" name="profile_picture" hidden />
-                            </Button>
-                        ) : (
+                        <Grid container direction="column" alignItems="center">
                             <img
                                 className={classes.image}
                                 src={currentUser.profile_picture ?? "/logos/revamp_favicon_transparent.png"}
                                 alt=""
                             />
-                        )}
+                            <IconButton color="primary" component="label" hidden={!currentUser.is_admin}>
+                                <AddAPhoto />
+                                <input
+                                    type="file"
+                                    name="profile_picture"
+                                    accept="image/*"
+                                    ref={this.fileInput}
+                                    onChange={this.handleInputChange}
+                                    hidden
+                                />
+                            </IconButton>
+                        </Grid>
 
                         <Grid container justify="space-around">
                             <TextField
