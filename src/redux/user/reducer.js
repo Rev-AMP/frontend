@@ -35,6 +35,29 @@ const UserReducer = (state = initState, action) => {
                 selectedUser: null,
             };
 
+        case UserActionTypes.UPDATE_USER_ME:
+            return {
+                ...state,
+                isLoading: true,
+                errorMessage: "",
+                selectedUser: null,
+            };
+        case UserActionTypes.UPDATE_USER_ME_SUCCESS:
+            return {
+                ...state,
+                currentUser: action.payload,
+                errorMessage: "",
+                isLoading: false,
+                selectedUser: null,
+            };
+        case UserActionTypes.UPDATE_USER_ME_FAILURE:
+            return {
+                ...state,
+                errorMessage: action.payload,
+                isLoading: false,
+                selectedUser: null,
+            };
+
         case UserActionTypes.FETCH_USER:
             return {
                 ...state,
