@@ -2,9 +2,12 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { withStyles, Grid, TextField, Typography } from "@material-ui/core";
+import { toast } from "react-toastify";
 
 import CenterContent from "components/CenterContent";
 import Button from "components/Button";
+import Loader from "components/Loader";
+import { UpdateUserMe } from "redux/user/action";
 
 const styles = (theme) => ({
     textField: {
@@ -31,12 +34,67 @@ const styles = (theme) => ({
 });
 
 class Homepage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentUser: { ...this.props.currentUser },
+            submit: {},
+        };
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.currentUser !== this.props.currentUser) {
+            toast.success(`Updated successfully 🙌`, {
+                position: toast.POSITION.TOP_CENTER,
+            });
+        }
+    }
+
+    handleInputChange = (event) => {
+        let { currentUser, submit } = this.state;
+        submit[event.target.name] = currentUser[event.target.name] = event.target.value;
+        this.setState({ currentUser, submit });
+    };
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        const { submit } = this.state;
+        const { currentUser } = this.props;
+        const submit_keys = Object.keys(submit);
+
+        if (submit_keys.length && !submit_keys.every((key) => currentUser[key] === submit[key])) {
+            if (
+                submit.hasOwnProperty("password") &&
+                !(submit.hasOwnProperty("confirm_password") && submit.password === submit.confirm_password)
+            ) {
+                toast.error("Passwords don't match 😓", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            } else {
+                delete submit.confirm_password;
+                this.props.UpdateUserMe(submit);
+            }
+        } else {
+            toast.error("Please update some information 😓", {
+                position: toast.POSITION.TOP_CENTER,
+            });
+        }
+    };
+
     render() {
-        const { classes, currentUser } = this.props;
+        const { currentUser } = this.state;
+
+        if (this.props.isLoading) {
+            return <Loader />;
+        }
+
+        const { classes } = this.props;
         const title = (currentUser.is_admin ? "Update " : "") + "Your Details";
+
         return (
             <CenterContent>
-                <form className={classes.fullScreen}>
+                <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
                     <Grid
                         container
                         direction="column"
@@ -72,6 +130,7 @@ class Homepage extends Component {
                                 name="full_name"
                                 value={currentUser.full_name}
                                 disabled={!currentUser.is_admin}
+                                onChange={this.handleInputChange}
                             />
                             <TextField
                                 className={classes.textField}
@@ -79,12 +138,25 @@ class Homepage extends Component {
                                 name="email"
                                 value={currentUser.email}
                                 disabled={!currentUser.is_admin}
+                                onChange={this.handleInputChange}
                             />
                         </Grid>
 
                         <Grid container justify="space-around" hidden={!currentUser.is_admin}>
-                            <TextField type="password" className={classes.textField} label="Password" name="password" />
-                            <TextField type="password" className={classes.textField} label="Confirm Password" />
+                            <TextField
+                                type="password"
+                                className={classes.textField}
+                                label="Password"
+                                name="password"
+                                onChange={this.handleInputChange}
+                            />
+                            <TextField
+                                type="password"
+                                className={classes.textField}
+                                label="Confirm Password"
+                                name="confirm_password"
+                                onChange={this.handleInputChange}
+                            />
                         </Grid>
 
                         <Button
@@ -104,6 +176,7 @@ class Homepage extends Component {
 
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
+    isLoading: state.user.isLoading,
 });
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Homepage)));
+export default withRouter(connect(mapStateToProps, { UpdateUserMe })(withStyles(styles)(Homepage)));
