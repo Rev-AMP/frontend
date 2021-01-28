@@ -1,16 +1,10 @@
-import React from 'react';
-import clsx from 'clsx';
-import {
-    Modal,
-    Paper,
-    Grid,
-    CircularProgress,
-    withStyles
-} from '@material-ui/core';
+import React from "react";
+import clsx from "clsx";
+import { Modal, Paper, Grid, CircularProgress, withStyles } from "@material-ui/core";
 
 import CenterContent from "components/CenterContent";
 
-const styles = theme => ({
+const styles = (theme) => ({
     modalBody: {
         top: "50%",
         left: "50%",
@@ -18,11 +12,11 @@ const styles = theme => ({
         transform: "translate(-50%,-50%)",
         display: "flex",
         flexDirection: "column",
-        padding: 30
+        padding: 30,
     },
     fullModal: {
-        width: "80vw"
-    }
+        width: "80vw",
+    },
 });
 
 class PopupModal extends React.Component {
