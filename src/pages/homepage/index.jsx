@@ -122,7 +122,7 @@ class Homepage extends Component {
                                 <input
                                     type="file"
                                     name="profile_picture"
-                                    accept="image/*"
+                                    accept="image/png, image/jpeg"
                                     ref={this.fileInput}
                                     onChange={this.handleInputChange}
                                     hidden
