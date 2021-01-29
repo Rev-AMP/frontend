@@ -42,7 +42,7 @@ class SchoolModal extends React.Component {
 
             if (prevProps.selectedSchool && this.props.selectedSchool) {
                 const action = this.props.schoolId ? "updated" : "created";
-                toast.success(`School ${this.props.selectedSchool.full_name} ${action} successfully 🙌`, {
+                toast.success(`School ${this.props.selectedSchool.name} ${action} successfully 🙌`, {
                     position: toast.POSITION.TOP_CENTER,
                 });
             }
