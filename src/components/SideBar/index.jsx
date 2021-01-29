@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { People } from "@material-ui/icons";
+import { People, School } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;

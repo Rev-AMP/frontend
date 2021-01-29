@@ -56,7 +56,7 @@ function* UpdateSchool() {
     yield takeEvery(SchoolActionTypes.UPDATE_SCHOOL, function* (action) {
         try {
             let token = yield select((state) => state.auth.accessToken);
-            let selectedSchool = yield select((state) => state.user.selectedSchool);
+            let selectedSchool = yield select((state) => state.school.selectedSchool);
 
             let user = yield call(
                 httpClient,
