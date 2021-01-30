@@ -101,6 +101,12 @@ class Homepage extends Component {
 
         const { classes } = this.props;
 
+        if (currentUser.profile_picture) {
+            currentUser.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${currentUser.profile_picture}`;
+        } else {
+            currentUser.profile_picture = "/logos/revamp_favicon_transparent.png";
+        }
+
         return (
             <CenterContent>
                 <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
@@ -112,11 +118,7 @@ class Homepage extends Component {
                         className={classes.fullScreen}
                     >
                         <Grid container direction="column" alignItems="center">
-                            <img
-                                className={classes.image}
-                                src={currentUser.profile_picture ?? "/logos/revamp_favicon_transparent.png"}
-                                alt=""
-                            />
+                            <img className={classes.image} src={currentUser.profile_picture} alt="" />
                             <IconButton color="primary" component="label" hidden={!currentUser.is_admin}>
                                 <AddAPhoto />
                                 <input
