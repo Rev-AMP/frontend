@@ -101,9 +101,7 @@ class Homepage extends Component {
 
         const { classes } = this.props;
 
-        if (currentUser.profile_picture) {
-            currentUser.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${currentUser.profile_picture}`;
-        } else {
+        if (!currentUser.profile_picture) {
             currentUser.profile_picture = "/logos/revamp_favicon_transparent.png";
         }
 
