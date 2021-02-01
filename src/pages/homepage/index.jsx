@@ -61,7 +61,9 @@ class Homepage extends Component {
         if (event.target.type === "file") {
             this.reader.readAsDataURL(this.fileInput.current.files[0]);
         } else {
-            submit[event.target.name] = currentUser[event.target.name] = event.target.value;
+            let field = event.target.name;
+            let value = event.target.value;
+            submit[field] = currentUser[field] = value !== "" ? value : undefined;
         }
         this.setState({ currentUser, submit });
     };
@@ -74,10 +76,7 @@ class Homepage extends Component {
         const submit_keys = Object.keys(submit);
 
         if (submit_keys.length && !submit_keys.every((key) => currentUser[key] === submit[key])) {
-            if (
-                submit.hasOwnProperty("password") &&
-                !(submit.hasOwnProperty("confirm_password") && submit.password === submit.confirm_password)
-            ) {
+            if (submit.password && !(submit.confirm_password && submit.password === submit.confirm_password)) {
                 toast.error("Passwords don't match 😓", {
                     position: toast.POSITION.TOP_CENTER,
                 });
