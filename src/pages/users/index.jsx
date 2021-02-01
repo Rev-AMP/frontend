@@ -48,7 +48,11 @@ class Users extends React.Component {
             renderCell: (params) => (
                 <img
                     className={this.props.classes.centerItem}
-                    src={`${params.value ? `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}` : "/logos/revamp_favicon.jpg"}`}
+                    src={`${
+                        params.value
+                            ? `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}`
+                            : "/logos/revamp_favicon.jpg"
+                    }`}
                     width={100}
                     height={100}
                     alt="Nothing here"

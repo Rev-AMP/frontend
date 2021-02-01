@@ -28,8 +28,9 @@ function* FetchUserMe() {
                     Authorization: `bearer ${token}`,
                 },
             });
-            if (user.profile_picture)
-            user.profile_picture=`${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
+            if (user.profile_picture) {
+                user.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
+            }
             yield put(FetchUserMeSuccess(user));
         } catch (error) {
             yield put(FetchUserMeFailure(error.detail));
@@ -67,8 +68,9 @@ function* FetchUser() {
                     Authorization: `bearer ${token}`,
                 },
             });
-            if (user.profile_picture)
-            user.profile_picture=`${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
+            if (user.profile_picture) {
+                user.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
+            }
             yield put(FetchUserSuccess(user));
         } catch (error) {
             yield put(FetchUserFailure(error.detail));
