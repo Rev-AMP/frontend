@@ -112,6 +112,7 @@ class UserModal extends React.Component {
                         label="Email"
                         value={this.state.user.email ?? ""}
                         onChange={this.handleInputChange}
+                        required={!userId}
                     />
                     <TextField
                         select
@@ -119,6 +120,7 @@ class UserModal extends React.Component {
                         label="User Type"
                         value={this.state.user.type ?? ""}
                         onChange={this.handleInputChange}
+                        required={!userId}
                     >
                         <MenuItem value="student">Student</MenuItem>
                         <MenuItem value="professor">Professor</MenuItem>
@@ -132,6 +134,7 @@ class UserModal extends React.Component {
                         label="Password"
                         value={this.state.user.password ?? ""}
                         onChange={this.handleInputChange}
+                        required={!userId}
                     />
                     {userId && (
                         <FormControlLabel
@@ -141,6 +144,7 @@ class UserModal extends React.Component {
                                     checked={this.state.user.is_active ?? false}
                                     onChange={this.handleInputChange}
                                     color="primary"
+                                    required={!userId}
                                 />
                             }
                             label="Active"
