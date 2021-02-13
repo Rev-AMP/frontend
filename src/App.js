@@ -1,6 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { createMuiTheme, ThemeProvider, CssBaseline } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core";
+import { createMuiTheme, ThemeProvider, CssBaseline, makeStyles } from "@material-ui/core";
 
 import Main from "pages/main";
 
@@ -34,6 +33,9 @@ const theme = createMuiTheme({
             },
         },
         MuiTypography: {
+            root: {
+                textAlign: "center",
+            },
             h3: {
                 margin: "1rem",
             },

@@ -4,6 +4,8 @@ import UserActionTypes from "./action.types";
 import {
     FetchUserMeFailure,
     FetchUserMeSuccess,
+    UpdateUserMeSuccess,
+    UpdateUserMeFailure,
     FetchUserFailure,
     FetchUserSuccess,
     FetchUsers as ActionFetchUsers,
@@ -26,10 +28,31 @@ function* FetchUserMe() {
                     Authorization: `bearer ${token}`,
                 },
             });
-
+            if (user.profile_picture) {
+                user.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
+            }
             yield put(FetchUserMeSuccess(user));
         } catch (error) {
             yield put(FetchUserMeFailure(error.detail));
+        }
+    });
+}
+
+function* UpdateUserMe() {
+    yield takeEvery(UserActionTypes.UPDATE_USER_ME, function* (action) {
+        try {
+            let token = yield select((state) => state.auth.accessToken);
+            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+                method: "Put",
+                headers: {
+                    Authorization: `bearer ${token}`,
+                },
+                body: JSON.stringify(action.payload),
+            });
+
+            yield put(UpdateUserMeSuccess(user));
+        } catch (error) {
+            yield put(UpdateUserMeFailure(error.detail));
         }
     });
 }
@@ -45,7 +68,9 @@ function* FetchUser() {
                     Authorization: `bearer ${token}`,
                 },
             });
-
+            if (user.profile_picture) {
+                user.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
+            }
             yield put(FetchUserSuccess(user));
         } catch (error) {
             yield put(FetchUserFailure(error.detail));
@@ -120,7 +145,15 @@ function* RefreshUserList() {
 }
 
 function* FetchUserMethods() {
-    yield all([FetchUserMe(), FetchUser(), FetchUsers(), UpdateUser(), CreateUser(), RefreshUserList()]);
+    yield all([
+        FetchUserMe(),
+        UpdateUserMe(),
+        FetchUser(),
+        FetchUsers(),
+        UpdateUser(),
+        CreateUser(),
+        RefreshUserList(),
+    ]);
 }
 
 export default FetchUserMethods;
