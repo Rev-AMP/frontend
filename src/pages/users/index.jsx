@@ -106,6 +106,12 @@ class Users extends React.Component {
         this.props.FetchUsers();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.users !== prevProps.users && this.props.users) {
+            this.setState({ modalIsOpen: false });
+        }
+    }
+
     closeModal = () => {
         this.setState({ modalIsOpen: false, userId: null });
     };
