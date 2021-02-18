@@ -1,9 +1,18 @@
-# Getting Started with Create React App
+![REVAMP](https://media.rev-amp.tech/logo/revamp_transparent.png)
+
+[![Website](https://img.shields.io/website?style=for-the-badge&url=https%3A%2F%2Fimg.shields.io%2Fwebsite%2Fhttps%2Frev-amp.tech)](https://rev-amp.tech)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/rev-amp/backend?style=for-the-badge)](https://github.com/Rev-AMP/frontend/pulls?q=is%3Aopen)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/rev-amp/backend?style=for-the-badge)](https://github.com/Rev-AMP/frontend/issues?q=is%3Aclosed)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/rev-amp/frontend?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/rev-amp/frontend?style=for-the-badge)
+<!---![GitHub](https://img.shields.io/github/license/rev-amp/frontend?style=for-the-badge))--->
+
+A web application built as a frontend client for [Rev-AMP](https://github.com/rev-amp/backend).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
-# Formatting
+## Formatting
 
 - The code in here is formatted using `prettier`
 - You can simply run ```prettier --write "./**/*.{js,jsx}"``` before committing, to ensure correct formatting.
@@ -52,27 +61,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
