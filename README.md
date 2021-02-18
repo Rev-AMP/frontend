@@ -1,10 +1,6 @@
 ![REVAMP](https://media.rev-amp.tech/logo/revamp_transparent.png)
 
 [![Website](https://img.shields.io/website?style=for-the-badge&url=https%3A%2F%2Fimg.shields.io%2Fwebsite%2Fhttps%2Frev-amp.tech)](https://rev-amp.tech)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/rev-amp/frontend?style=for-the-badge)](https://github.com/Rev-AMP/frontend/pulls?q=is%3Aopen)
-[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/rev-amp/frontend?style=for-the-badge)](https://github.com/Rev-AMP/frontend/issues?q=is%3Aclosed)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/rev-amp/frontend?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/rev-amp/frontend?style=for-the-badge)
 <!---![GitHub](https://img.shields.io/github/license/rev-amp/frontend?style=for-the-badge))--->
 
 A web application built as a frontend client for [Rev-AMP](https://github.com/rev-amp/backend).
