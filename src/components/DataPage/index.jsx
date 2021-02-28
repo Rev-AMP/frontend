@@ -30,7 +30,7 @@ class DataPage extends React.Component {
             return (
                 <Grid item className={classes.fullScreen}>
                     <Grid container justify="space-between" alignItems="center">
-                        <Typography color="primary" variant="h3" style={{ margin: 0 }}>
+                        <Typography color="primary" variant="h4" style={{ margin: 0 }}>
                             {this.props.title}
                         </Typography>
                         <IconButton color="primary" onClick={this.props.openModal} style={{ margin: "1rem" }}>
