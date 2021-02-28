@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { People, Inbox, Mail } from "@material-ui/icons";
+import { People } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;
@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SideBar = ({ drawerOpen }) => {
     const classes = useStyles();
+    const listItemTextProps = { align: "left", variant: "button" };
+
+    const navigation = [[{ key: "users", to: "/app/users", icon: <People color="primary" /> }]];
 
     return (
         <div className={classes.root}>
@@ -61,26 +64,19 @@ const SideBar = ({ drawerOpen }) => {
                 }}
             >
                 <div className={classes.toolbar} />
-                <Divider />
-                <List>
-                    <ListItem button component={Link} underline="none" to="/app/users" key="User">
-                        <ListItemIcon className={classes.icon}>
-                            <People color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary="Users" />
-                    </ListItem>
-                </List>
-                <Divider />
-                <List>
-                    {["All mail", "Trash", "Spam"].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <Inbox color="primary" /> : <Mail color="primary" />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
+                {navigation.map((links) => (
+                    <>
+                        <Divider />
+                        <List>
+                            {links.map((link) => (
+                                <ListItem button component={Link} underline="none" to={link.to} key={link.key}>
+                                    <ListItemIcon className={classes.icon}>{link.icon}</ListItemIcon>
+                                    <ListItemText primaryTypographyProps={listItemTextProps} primary={link.key} />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </>
+                ))}
             </Drawer>
         </div>
     );
