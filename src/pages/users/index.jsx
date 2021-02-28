@@ -2,10 +2,11 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { IconButton, withStyles } from "@material-ui/core";
+import { IconButton, Typography, withStyles } from "@material-ui/core";
 import { Clear, Done, Edit } from "@material-ui/icons";
 
 import { FetchUsers } from "redux/user/action";
+import { FetchSchools } from "redux/school/action";
 import UserModal from "./components/UserModal";
 import DataPage from "components/DataPage";
 
@@ -24,6 +25,7 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 70,
+            type: "number",
         },
         {
             field: "full_name",
@@ -46,6 +48,11 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
+            renderCell: (params) => (
+                <Typography variant="body2" style={{ width: "100%" }} color={params.value ? "textPrimary" : "error"}>
+                    {params.value ?? "No associated school"}
+                </Typography>
+            ),
         },
         {
             field: "profile_picture",
@@ -107,11 +114,24 @@ class Users extends React.Component {
         super(props);
         this.state = {
             modalIsOpen: false,
+            users: this.props.users,
         };
     }
 
     componentDidMount() {
         this.props.FetchUsers();
+        this.props.FetchSchools();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        let { users, schools } = this.props;
+        if ((prevProps.schools !== schools || prevProps.users !== users) && schools.length && users.length) {
+            for (let i = 0; i < users.length; i++) {
+                const school = schools.find((school) => school.id === users[i].school);
+                users[i].school = school ? school.name : undefined;
+            }
+            this.setState({ users });
+        }
     }
 
     closeModal = () => {
@@ -136,7 +156,7 @@ class Users extends React.Component {
                 PopupModal={
                     <UserModal isOpen={this.state.modalIsOpen} onClose={this.closeModal} userId={this.state.userId} />
                 }
-                objects={this.props.users}
+                objects={this.state.users}
                 columns={this.columns}
             />
         );
@@ -145,7 +165,8 @@ class Users extends React.Component {
 
 const mapStateToProps = (state) => ({
     users: state.user.users,
-    isLoading: state.user.isLoading,
+    isLoading: state.user.isLoading || state.school.isLoading,
+    schools: state.school.schools,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchUsers })(Users)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchUsers, FetchSchools })(Users)));
