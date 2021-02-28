@@ -39,14 +39,7 @@ const useStyles = makeStyles((theme) => ({
             width: theme.spacing(9) + 1,
         },
     },
-    toolbar: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "flex-end",
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-    },
+    toolbar: theme.mixins.toolbar,
 }));
 
 const SideBar = ({ drawerOpen }) => {
