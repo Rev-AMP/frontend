@@ -29,6 +29,7 @@ class SchoolModal extends React.Component {
                 name: "",
                 head: "",
             },
+            formSubmitted: false,
         };
     }
 
@@ -44,11 +45,12 @@ class SchoolModal extends React.Component {
                 school: { ...this.props.selectedSchool } ?? {},
             });
 
-            if (prevProps.selectedSchool && this.props.selectedSchool) {
+            if (this.state.formSubmitted) {
                 const action = this.props.schoolId ? "updated" : "created";
                 toast.success(`${this.props.selectedSchool.name} ${action} successfully 🙌`, {
                     position: toast.POSITION.TOP_CENTER,
                 });
+                this.props.onClose();
             }
         }
     }
@@ -96,6 +98,7 @@ class SchoolModal extends React.Component {
         if (schoolId) {
             if (submit_keys.length && !submit_keys.every((key) => selectedSchool[key] === submit[key])) {
                 this.props.UpdateSchool(submit);
+                this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
                     position: toast.POSITION.TOP_CENTER,
@@ -104,6 +107,7 @@ class SchoolModal extends React.Component {
         } else {
             if (submit.name && submit.head) {
                 this.props.CreateSchool(submit);
+                this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please add School name and Head name 😓", {
                     position: toast.POSITION.TOP_CENTER,

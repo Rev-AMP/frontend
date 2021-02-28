@@ -25,6 +25,7 @@ class UserModal extends React.Component {
         this.state = {
             user: {},
             submit: {},
+            formSubmitted: false,
         };
     }
 
@@ -40,11 +41,12 @@ class UserModal extends React.Component {
                 user: { ...this.props.selectedUser } ?? {},
             });
 
-            if (prevProps.selectedUser && this.props.selectedUser) {
+            if (this.state.formSubmitted) {
                 const action = this.props.userId ? "updated" : "created";
                 toast.success(`User ${this.props.selectedUser.full_name} ${action} successfully 🙌`, {
                     position: toast.POSITION.TOP_CENTER,
                 });
+                this.props.onClose();
             }
         }
     }
@@ -68,6 +70,7 @@ class UserModal extends React.Component {
         if (userId) {
             if (submit_keys.length && !submit_keys.every((key) => selectedUser[key] === submit[key])) {
                 this.props.UpdateUser(submit);
+                this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
                     position: toast.POSITION.TOP_CENTER,
@@ -76,6 +79,7 @@ class UserModal extends React.Component {
         } else {
             if (["email", "type", "password"].every((key) => submit.hasOwnProperty(key) && submit[key])) {
                 this.props.CreateUser(submit);
+                this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please add email, type and password 😓", {
                     position: toast.POSITION.TOP_CENTER,

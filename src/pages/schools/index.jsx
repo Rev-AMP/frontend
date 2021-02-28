@@ -67,12 +67,6 @@ class Schools extends React.Component {
         this.props.FetchSchools();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.schools !== prevProps.schools && this.props.schools) {
-            this.setState({ modalIsOpen: false });
-        }
-    }
-
     closeModal = () => {
         this.setState({ modalIsOpen: false, schoolId: null });
     };
