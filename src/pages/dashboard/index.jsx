@@ -37,10 +37,13 @@ class Dashboard extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== "") {
-            toast.error(`Error 😓: ${this.props.errorMessage}`, {
-                position: toast.POSITION.TOP_CENTER,
-            });
+        // check if any new error message needs to be displayed
+        for (let i = 0; i < this.props.errorMessage.length; i++) {
+            if (prevProps.errorMessage[i] !== this.props.errorMessage[i] && this.props.errorMessage[i]) {
+                toast.error(`Error 😓: ${this.props.errorMessage[i]}`, {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }
         }
     }
 
@@ -73,7 +76,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
-    errorMessage: state.user.errorMessage,
+    errorMessage: [state.user.errorMessage, state.school.errorMessage],
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(useStyles)(Dashboard)));
