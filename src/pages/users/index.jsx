@@ -38,12 +38,20 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
+            hide: true,
+        },
+        {
+            field: "school",
+            headerName: "School",
+            headerAlign: "center",
+            align: "center",
+            width: 350,
         },
         {
             field: "profile_picture",
             headerName: "Picture",
             headerAlign: "center",
-            flex: 1.5,
+            flex: 1,
             renderCell: (params) => (
                 <img
                     className={this.props.classes.centerItem}
@@ -52,11 +60,11 @@ class Users extends React.Component {
                             ? `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}`
                             : "/logos/revamp_favicon.jpg"
                     }`}
-                    width={100}
-                    height={100}
+                    height="100%"
                     alt="Nothing here"
                 />
             ),
+            hide: true,
         },
         {
             field: "type",
@@ -69,7 +77,7 @@ class Users extends React.Component {
             field: "is_active",
             headerName: "Active",
             headerAlign: "center",
-            flex: 1.2,
+            flex: 1,
             renderCell: (params) =>
                 params.value ? (
                     <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />

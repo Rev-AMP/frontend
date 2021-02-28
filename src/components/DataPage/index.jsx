@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { DataGrid } from "@material-ui/data-grid";
+import { DataGrid, GridToolbar } from "@material-ui/data-grid";
 import { Grid, IconButton, Typography, withStyles } from "@material-ui/core";
 import { AddCircle } from "@material-ui/icons";
 
@@ -29,8 +29,8 @@ class DataPage extends React.Component {
         if (this.props.objects) {
             return (
                 <Grid item className={classes.fullScreen}>
-                    <Grid container justify="space-between">
-                        <Typography color="primary" variant="h2" style={{ margin: 0 }}>
+                    <Grid container justify="space-between" alignItems="center">
+                        <Typography color="primary" variant="h3" style={{ margin: 0 }}>
                             {this.props.title}
                         </Typography>
                         <IconButton color="primary" onClick={this.props.openModal} style={{ margin: "1rem" }}>
@@ -44,7 +44,9 @@ class DataPage extends React.Component {
                                 disableSelectionOnClick={true}
                                 rows={this.props.objects}
                                 columns={this.props.columns}
-                                rowHeight={120}
+                                components={{
+                                    Toolbar: GridToolbar,
+                                }}
                             />
                         </div>
                     </div>
