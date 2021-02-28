@@ -25,6 +25,10 @@ class SchoolModal extends React.Component {
         this.state = {
             school: {},
             submit: {},
+            errors: {
+                name: "",
+                head: "",
+            },
         };
     }
 
@@ -42,24 +46,50 @@ class SchoolModal extends React.Component {
 
             if (prevProps.selectedSchool && this.props.selectedSchool) {
                 const action = this.props.schoolId ? "updated" : "created";
-                toast.success(`School ${this.props.selectedSchool.name} ${action} successfully 🙌`, {
+                toast.success(`${this.props.selectedSchool.name} ${action} successfully 🙌`, {
                     position: toast.POSITION.TOP_CENTER,
                 });
             }
         }
     }
 
+    validateInput = (event) => {
+        event.preventDefault();
+
+        let errors = this.state.errors;
+        const { name, value } = event.target;
+
+        // validate input
+        const fieldName = name === "name" ? "School" : "School Head";
+        errors[name] = value ? "" : fieldName + " name cannot be empty";
+
+        this.setState({ errors });
+    };
+
     handleInputChange = (event) => {
         let school = this.state.school;
         let submit = this.state.submit;
-        school[event.target.name] = submit[event.target.name] = event.target.value;
+        const { name, value } = event.target;
+
+        // validate new input value
+        this.validateInput(event);
+        // update value in submit if it is valid
+        if (!this.state.errors[name]) {
+            submit[name] = value;
+        }
+
+        school[name] = value;
         this.setState({ school, submit });
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
 
-        const { submit } = this.state;
+        const { submit, errors } = this.state;
+
+        // make sure there are no errors
+        if (errors.name || errors.head) return;
+
         const { schoolId, selectedSchool } = this.props;
         const submit_keys = Object.keys(submit);
 
@@ -72,10 +102,10 @@ class SchoolModal extends React.Component {
                 });
             }
         } else {
-            if (submit.hasOwnProperty("name") && submit["name"]) {
+            if (submit.name && submit.head) {
                 this.props.CreateSchool(submit);
             } else {
-                toast.error("Please add email, type and password 😓", {
+                toast.error("Please add School name and Head name 😓", {
                     position: toast.POSITION.TOP_CENTER,
                 });
             }
@@ -101,14 +131,21 @@ class SchoolModal extends React.Component {
                         name="name"
                         label="Name"
                         value={this.state.school.name ?? ""}
-                        required={!schoolId}
+                        required={true}
+                        onBlur={this.validateInput}
                         onChange={this.handleInputChange}
+                        error={this.state.errors.name}
+                        helperText={this.state.errors.name}
                     />
                     <TextField
                         name="head"
                         label="Head"
                         value={this.state.school.head ?? ""}
+                        required={true}
+                        onBlur={this.validateInput}
                         onChange={this.handleInputChange}
+                        error={this.state.errors.head}
+                        helperText={this.state.errors.head}
                     />
                     <Button type="submit" color="primary" variant="contained">
                         Submit
