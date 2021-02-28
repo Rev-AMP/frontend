@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { withStyles, Typography, Divider, FormControlLabel, Switch, TextField, MenuItem } from "@material-ui/core";
 
 import { FetchUser, CreateUser, UpdateUser } from "redux/user/action";
+import { FetchSchools } from "redux/school/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 
@@ -32,6 +33,9 @@ class UserModal extends React.Component {
     componentDidMount() {
         if (this.props.userId !== null && this.props.userId !== undefined) {
             this.props.FetchUser(this.props.userId);
+        }
+        if (!this.props.schools) {
+            this.props.FetchSchools();
         }
     }
 
@@ -131,7 +135,17 @@ class UserModal extends React.Component {
                         <MenuItem value="admin">Admin</MenuItem>
                         <MenuItem value="superuser">Superuser</MenuItem>
                     </TextField>
-                    {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
+                    <TextField
+                        select
+                        name="school"
+                        label="School"
+                        value={this.state.user.school ?? null}
+                        onChange={this.handleInputChange}
+                    >
+                        {this.props.schools.map((school) => (
+                            <MenuItem value={school.id}>{school.name}</MenuItem>
+                        ))}
+                    </TextField>
                     <TextField
                         type="password"
                         name="password"
@@ -166,8 +180,10 @@ class UserModal extends React.Component {
 
 const mapStateToProps = (state) => ({
     selectedUser: state.user.selectedUser,
-    isLoading: state.user.isLoading,
-    errorMessage: state.user.errorMessage,
+    isLoading: state.user.isLoading || state.school.isLoading,
+    schools: state.school.schools,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchUser, CreateUser, UpdateUser })(UserModal));
+export default withStyles(styles)(
+    connect(mapStateToProps, { FetchUser, FetchSchools, CreateUser, UpdateUser })(UserModal)
+);
