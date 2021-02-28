@@ -4,7 +4,7 @@ import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText
 import { People, Inbox, Mail } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
-const drawerWidth = 280;
+const drawerWidth = 234;
 
 const useStyles = makeStyles((theme) => ({
     root: {
