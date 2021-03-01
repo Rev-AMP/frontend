@@ -174,6 +174,7 @@ class Homepage extends Component {
 
                         <Grid container justify="center">
                             <TextField
+                                type="text"
                                 className={classes.textField}
                                 label="School"
                                 name="school"
