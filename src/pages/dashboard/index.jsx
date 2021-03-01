@@ -38,13 +38,13 @@ class Dashboard extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         // check if any new error message needs to be displayed
-        for (let i = 0; i < this.props.errorMessage.length; i++) {
-            if (prevProps.errorMessage[i] !== this.props.errorMessage[i] && this.props.errorMessage[i]) {
-                toast.error(`Error 😓: ${this.props.errorMessage[i]}`, {
+        this.props.errorMessage.forEach((error, index) => {
+            if (prevProps.errorMessage[index] !== error && error) {
+                toast.error(`Error 😓: ${error}`, {
                     position: toast.POSITION.TOP_CENTER,
                 });
             }
-        }
+        });
     }
 
     switchDrawer = () => {
