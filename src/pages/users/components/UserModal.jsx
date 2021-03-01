@@ -139,11 +139,13 @@ class UserModal extends React.Component {
                         select
                         name="school"
                         label="School"
-                        value={this.state.user.school ?? null}
+                        value={this.state.user.school ?? ""}
                         onChange={this.handleInputChange}
                     >
                         {this.props.schools.map((school) => (
-                            <MenuItem value={school.id}>{school.name}</MenuItem>
+                            <MenuItem key={school.id} value={school.id}>
+                                {school.name}
+                            </MenuItem>
                         ))}
                     </TextField>
                     <TextField

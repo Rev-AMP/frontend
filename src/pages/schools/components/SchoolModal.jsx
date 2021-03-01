@@ -138,7 +138,7 @@ class SchoolModal extends React.Component {
                         required={true}
                         onBlur={this.validateInput}
                         onChange={this.handleInputChange}
-                        error={this.state.errors.name}
+                        error={!!this.state.errors.name}
                         helperText={this.state.errors.name}
                     />
                     <TextField
@@ -148,7 +148,7 @@ class SchoolModal extends React.Component {
                         required={true}
                         onBlur={this.validateInput}
                         onChange={this.handleInputChange}
-                        error={this.state.errors.head}
+                        error={!!this.state.errors.head}
                         helperText={this.state.errors.head}
                     />
                     <Button type="submit" color="primary" variant="contained">
