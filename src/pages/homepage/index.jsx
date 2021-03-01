@@ -116,7 +116,7 @@ class Homepage extends Component {
                     >
                         <Grid container direction="column" alignItems="center">
                             <img className={classes.image} src={currentUser.profile_picture} alt="" />
-                            <IconButton color="primary" component="label" hidden={!currentUser.is_admin}>
+                            <IconButton color="primary" component="label">
                                 <AddAPhoto />
                                 <input
                                     type="file"
@@ -135,7 +135,6 @@ class Homepage extends Component {
                                 label="Full Name"
                                 name="full_name"
                                 value={currentUser.full_name}
-                                disabled={!currentUser.is_admin}
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -143,12 +142,11 @@ class Homepage extends Component {
                                 label="Email"
                                 name="email"
                                 value={currentUser.email}
-                                disabled={!currentUser.is_admin}
                                 onChange={this.handleInputChange}
                             />
                         </Grid>
 
-                        <Grid container justify="space-around" hidden={!currentUser.is_admin}>
+                        <Grid container justify="space-around">
                             <TextField
                                 type="password"
                                 className={classes.textField}
@@ -165,12 +163,7 @@ class Homepage extends Component {
                             />
                         </Grid>
 
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            className={classes.action}
-                            hidden={!currentUser.is_admin}
-                        >
+                        <Button type="submit" variant="contained" className={classes.action}>
                             Update
                         </Button>
                     </Grid>
