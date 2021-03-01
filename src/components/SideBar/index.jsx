@@ -46,7 +46,10 @@ const SideBar = ({ drawerOpen }) => {
     const classes = useStyles();
     const listItemTextProps = { align: "left", variant: "button" };
 
-    const navigation = [[{ key: "users", to: "/app/users", icon: <People color="primary" /> }]];
+    const navigation = [
+        [{ key: "users", to: "/app/users", icon: <People color="primary" /> }],
+        [{ key: "schools", to: "/app/schools", icon: <School color="primary" /> }],
+    ];
 
     return (
         <div className={classes.root}>
