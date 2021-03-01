@@ -9,6 +9,7 @@ import CenterContent from "components/CenterContent";
 import Button from "components/Button";
 import Loader from "components/Loader";
 import { UpdateUserMe } from "redux/user/action";
+import { FetchSchool } from "redux/school/action";
 
 const styles = (theme) => ({
     textField: {
@@ -48,6 +49,12 @@ class Homepage extends Component {
         };
     }
 
+    componentDidMount() {
+        if (this.props.currentUser.school) {
+            this.props.FetchSchool(this.props.currentUser.school);
+        }
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.currentUser !== this.props.currentUser) {
             toast.success(`Updated successfully 🙌`, {
@@ -71,8 +78,10 @@ class Homepage extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        const { submit } = this.state;
         const { currentUser } = this.props;
+        if (!currentUser.is_admin) return;
+
+        const { submit } = this.state;
         const submit_keys = Object.keys(submit);
 
         if (submit_keys.length && !submit_keys.every((key) => currentUser[key] === submit[key])) {
@@ -98,7 +107,7 @@ class Homepage extends Component {
             return <Loader />;
         }
 
-        const { classes } = this.props;
+        const { classes, selectedSchool } = this.props;
 
         if (!currentUser.profile_picture) {
             currentUser.profile_picture = "/logos/revamp_favicon_transparent.png";
@@ -163,6 +172,17 @@ class Homepage extends Component {
                             />
                         </Grid>
 
+                        <Grid container justify="center">
+                            <TextField
+                                className={classes.textField}
+                                label="School"
+                                name="school"
+                                value={selectedSchool ? selectedSchool.name : "No associated School"}
+                                error={!selectedSchool}
+                                helperText="This cannot be changed from here"
+                            />
+                        </Grid>
+
                         <Button type="submit" variant="contained" className={classes.action}>
                             Update
                         </Button>
@@ -175,7 +195,8 @@ class Homepage extends Component {
 
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
-    isLoading: state.user.isLoading,
+    isLoading: state.user.isLoading || state.school.isLoading,
+    selectedSchool: state.school.selectedSchool,
 });
 
-export default withRouter(connect(mapStateToProps, { UpdateUserMe })(withStyles(styles)(Homepage)));
+export default withRouter(connect(mapStateToProps, { UpdateUserMe, FetchSchool })(withStyles(styles)(Homepage)));
