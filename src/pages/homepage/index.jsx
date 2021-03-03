@@ -22,7 +22,9 @@ const styles = (theme) => ({
     image: {
         height: "12rem",
         width: "12rem",
+        fontSize: "4rem",
         marginBottom: "2rem",
+        ...theme.styles.avatar,
     },
     fullScreen: {
         height: "100%",
@@ -117,8 +119,8 @@ class Homepage extends Component {
                         <Grid container direction="column" alignItems="center">
                             <Avatar
                                 className={classes.image}
-                                src={currentUser.profile_picture}
-                                alt={currentUser.full_name ?? currentUser.email}
+                                src={currentUser.profile_picture ?? "/broken"}
+                                alt={(this.props.currentUser.full_name ?? this.props.currentUser.email).toUpperCase()}
                             />
                             <IconButton color="primary" component="label">
                                 <AddAPhoto />

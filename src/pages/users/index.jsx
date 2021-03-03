@@ -18,6 +18,7 @@ const styles = (theme) => ({
     avatar: {
         height: "5rem",
         width: "5rem",
+        ...theme.styles.avatar,
     },
 });
 
@@ -71,7 +72,7 @@ class Users extends React.Component {
                     <Avatar
                         className={clsx(this.props.classes.centerItem, this.props.classes.avatar)}
                         src={`${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}`}
-                        alt={params.row.full_name ?? params.row.email}
+                        alt={(params.row.full_name ?? params.row.email).toUpperCase()}
                     />
                 );
             },
