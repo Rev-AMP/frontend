@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { withStyles, Grid, TextField, IconButton } from "@material-ui/core";
+import { withStyles, Grid, TextField, IconButton, Avatar } from "@material-ui/core";
 import { AddAPhoto } from "@material-ui/icons";
 import { toast } from "react-toastify";
 
@@ -20,10 +20,9 @@ const styles = (theme) => ({
         ...theme.styles.centerItem,
     },
     image: {
-        maxHeight: "10rem",
-        maxWidth: "10rem",
+        height: "12rem",
+        width: "12rem",
         marginBottom: "2rem",
-        borderRadius: "4px",
     },
     fullScreen: {
         height: "100%",
@@ -105,10 +104,6 @@ class Homepage extends Component {
 
         const { classes, selectedSchool } = this.props;
 
-        if (!currentUser.profile_picture) {
-            currentUser.profile_picture = "/logos/revamp_favicon_transparent.png";
-        }
-
         return (
             <CenterContent>
                 <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
@@ -120,7 +115,11 @@ class Homepage extends Component {
                         className={classes.fullScreen}
                     >
                         <Grid container direction="column" alignItems="center">
-                            <img className={classes.image} src={currentUser.profile_picture} alt="" />
+                            <Avatar
+                                className={classes.image}
+                                src={currentUser.profile_picture}
+                                alt={currentUser.full_name ?? currentUser.email}
+                            />
                             <IconButton color="primary" component="label">
                                 <AddAPhoto />
                                 <input

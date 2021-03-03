@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { IconButton, Typography, withStyles } from "@material-ui/core";
+import { IconButton, Typography, withStyles, Avatar } from "@material-ui/core";
 import { Clear, Done, Edit } from "@material-ui/icons";
 
 import { FetchUsers } from "redux/user/action";
@@ -14,6 +14,10 @@ const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
     green: {
         color: theme.palette.success.main,
+    },
+    avatar: {
+        height: "5rem",
+        width: "5rem",
     },
 });
 
@@ -58,19 +62,19 @@ class Users extends React.Component {
             field: "profile_picture",
             headerName: "Picture",
             headerAlign: "center",
-            flex: 1,
-            renderCell: (params) => (
-                <img
-                    className={this.props.classes.centerItem}
-                    src={`${
-                        params.value
-                            ? `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}`
-                            : "/logos/revamp_favicon.jpg"
-                    }`}
-                    height="100%"
-                    alt="Nothing here"
-                />
-            ),
+            flex: 1.5,
+            sortable: false,
+            filterable: false,
+            renderCell: (params) => {
+                console.log(params);
+                return (
+                    <Avatar
+                        className={clsx(this.props.classes.centerItem, this.props.classes.avatar)}
+                        src={`${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}`}
+                        alt={params.row.full_name ?? params.row.email}
+                    />
+                );
+            },
             hide: true,
         },
         {
@@ -98,6 +102,7 @@ class Users extends React.Component {
             headerAlign: "center",
             flex: 1,
             sortable: false,
+            filterable: false,
             renderCell: (params) => (
                 <IconButton
                     className={this.props.classes.centerItem}
