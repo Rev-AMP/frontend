@@ -16,9 +16,8 @@ import {
     CreateUserSuccess,
     CreateUserFailure,
 } from "./action";
+import { addProfilePictureURL, setProfilePicture } from "./util";
 import httpClient from "services/http-client";
-
-const addProfilePictureURL = (user) => `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
 
 function* FetchUserMe() {
     yield takeEvery(UserActionTypes.FETCH_USER_ME, function* () {
@@ -42,7 +41,7 @@ function* UpdateUserMe() {
     yield takeEvery(UserActionTypes.UPDATE_USER_ME, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
-            const profile_picture = action.payload.profile_picture;
+            const profilePicture = action.payload.profile_picture;
             delete action.payload.profile_picture;
 
             // get token for API calls
@@ -58,21 +57,8 @@ function* UpdateUserMe() {
             });
 
             // update profile picture
-            if (profile_picture) {
-                const formData = new FormData();
-                formData.append("image", profile_picture);
-
-                user = yield call(
-                    httpClient,
-                    `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${user.id}/profile_picture`,
-                    {
-                        method: "Put",
-                        headers: {
-                            Authorization: `bearer ${token}`,
-                        },
-                        body: formData,
-                    }
-                );
+            if (profilePicture) {
+                user = yield setProfilePicture(token, user.id, profilePicture);
             }
 
             user.profile_picture = addProfilePictureURL(user);
@@ -126,9 +112,15 @@ function* FetchUsers() {
 function* UpdateUser() {
     yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
         try {
+            // save profile_picture separately so we don't send a file in body
+            const profilePicture = action.payload.profile_picture;
+            delete action.payload.profile_picture;
+
+            // get token and user to update
             let token = yield select((state) => state.auth.accessToken);
             let selectedUser = yield select((state) => state.user.selectedUser);
 
+            // update user info
             let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${selectedUser.id}`, {
                 method: "PUT",
                 headers: {
@@ -137,7 +129,12 @@ function* UpdateUser() {
                 body: JSON.stringify(action.payload),
             });
 
-            user = addProfilePictureURL(user);
+            // update profile picture
+            if (profilePicture) {
+                user = yield setProfilePicture(token, selectedUser.id, profilePicture);
+            }
+
+            user.profile_picture = addProfilePictureURL(user);
             yield put(UpdateUserSuccess(user));
         } catch (error) {
             yield put(UpdateUserFailure(error.detail));
@@ -148,8 +145,14 @@ function* UpdateUser() {
 function* CreateUser() {
     yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
         try {
+            // save profile_picture separately so we don't send a file in body
+            const profilePicture = action.payload.profile_picture;
+            delete action.payload.profile_picture;
+
+            // get token
             let token = yield select((state) => state.auth.accessToken);
 
+            // create new user
             let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users`, {
                 method: "POST",
                 headers: {
@@ -158,7 +161,12 @@ function* CreateUser() {
                 body: JSON.stringify(action.payload),
             });
 
-            user = addProfilePictureURL(user);
+            // update profile picture
+            if (profilePicture) {
+                user = yield setProfilePicture(token, user.id, profilePicture);
+            }
+
+            user.profile_picture = addProfilePictureURL(user);
             yield put(CreateUserSuccess(user));
         } catch (error) {
             yield put(CreateUserFailure(error.detail));

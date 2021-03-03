@@ -1,12 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { withStyles, Typography, Divider, FormControlLabel, Switch, TextField, MenuItem } from "@material-ui/core";
+import {
+    Avatar,
+    Divider,
+    FormControlLabel,
+    Grid,
+    IconButton,
+    MenuItem,
+    Switch,
+    TextField,
+    Typography,
+    withStyles,
+} from "@material-ui/core";
 
 import { FetchUser, CreateUser, UpdateUser } from "redux/user/action";
 import { FetchSchools } from "redux/school/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
+import { AddAPhoto } from "@material-ui/icons";
 
 toast.configure();
 
@@ -18,6 +30,13 @@ const styles = (theme) => ({
         height: "100%",
     },
     centerItem: theme.styles.centerItem,
+    image: {
+        ...theme.styles.centerItem,
+        ...theme.styles.avatar,
+        height: "9rem",
+        width: "9rem",
+        fontSize: "4rem",
+    },
 });
 
 class UserModal extends React.Component {
@@ -56,11 +75,24 @@ class UserModal extends React.Component {
     }
 
     handleInputChange = (event) => {
-        let user = this.state.user;
-        let submit = this.state.submit;
-        let checkbox = event.target.type === "checkbox";
-        user[event.target.name] = checkbox ? event.target.checked : event.target.value;
-        submit[event.target.name] = user[event.target.name];
+        let { user, submit } = this.state;
+        const { name, type, files } = event.target;
+
+        switch (type) {
+            case "checkbox":
+                user[name] = submit[name] = event.target.checked;
+                break;
+
+            case "file":
+                submit[name] = files[0];
+                user[name] = URL.createObjectURL(files[0]);
+                break;
+
+            default:
+                user[name] = submit[name] = event.target.value;
+                break;
+        }
+
         this.setState({ user, submit });
     };
 
@@ -107,6 +139,23 @@ class UserModal extends React.Component {
                 <Divider style={{ marginBottom: "1rem" }} />
 
                 <form onSubmit={this.handleSubmit} className={classes.form}>
+                    <Avatar
+                        className={classes.image}
+                        src={this.state.user.profile_picture}
+                        alt={(this.state.user.full_name ?? this.state.user.email ?? "").toUpperCase()}
+                    />
+                    <Grid container justify="center" style={{ paddingTop: "0.5rem" }}>
+                        <IconButton color="primary" component="label">
+                            <AddAPhoto />
+                            <input
+                                type="file"
+                                name="profile_picture"
+                                accept="image/png, image/jpeg"
+                                onChange={this.handleInputChange}
+                                hidden
+                            />
+                        </IconButton>
+                    </Grid>
                     <TextField
                         type="text"
                         name="full_name"
