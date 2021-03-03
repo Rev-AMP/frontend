@@ -66,16 +66,13 @@ class Users extends React.Component {
             flex: 1.5,
             sortable: false,
             filterable: false,
-            renderCell: (params) => {
-                console.log(params);
-                return (
-                    <Avatar
-                        className={clsx(this.props.classes.centerItem, this.props.classes.avatar)}
-                        src={`${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}`}
-                        alt={(params.row.full_name ?? params.row.email).toUpperCase()}
-                    />
-                );
-            },
+            renderCell: (params) => (
+                <Avatar
+                    className={clsx(this.props.classes.centerItem, this.props.classes.avatar)}
+                    src={params.value}
+                    alt={(params.row.full_name ?? params.row.email).toUpperCase()}
+                />
+            ),
             hide: true,
         },
         {

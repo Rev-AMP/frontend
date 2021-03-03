@@ -119,7 +119,7 @@ class Homepage extends Component {
                         <Grid container direction="column" alignItems="center">
                             <Avatar
                                 className={classes.image}
-                                src={currentUser.profile_picture ?? "/broken"}
+                                src={currentUser.profile_picture}
                                 alt={(this.props.currentUser.full_name ?? this.props.currentUser.email).toUpperCase()}
                             />
                             <IconButton color="primary" component="label">

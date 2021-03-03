@@ -18,6 +18,8 @@ import {
 } from "./action";
 import httpClient from "services/http-client";
 
+const addProfilePictureURL = (user) => `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
+
 function* FetchUserMe() {
     yield takeEvery(UserActionTypes.FETCH_USER_ME, function* () {
         try {
@@ -28,9 +30,7 @@ function* FetchUserMe() {
                     Authorization: `bearer ${token}`,
                 },
             });
-            if (user.profile_picture) {
-                user.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
-            }
+            user.profile_picture = addProfilePictureURL(user);
             yield put(FetchUserMeSuccess(user));
         } catch (error) {
             yield put(FetchUserMeFailure(error.detail));
@@ -75,9 +75,7 @@ function* UpdateUserMe() {
                 );
             }
 
-            if (user.profile_picture) {
-                user.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
-            }
+            user.profile_picture = addProfilePictureURL(user);
             yield put(UpdateUserMeSuccess(user));
         } catch (error) {
             yield put(UpdateUserMeFailure(error.detail));
@@ -96,9 +94,7 @@ function* FetchUser() {
                     Authorization: `bearer ${token}`,
                 },
             });
-            if (user.profile_picture) {
-                user.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
-            }
+            user.profile_picture = addProfilePictureURL(user);
             yield put(FetchUserSuccess(user));
         } catch (error) {
             yield put(FetchUserFailure(error.detail));
@@ -111,14 +107,16 @@ function* FetchUsers() {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/`, {
+            let users = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/`, {
                 method: "GET",
                 headers: {
                     Authorization: `bearer ${token}`,
                 },
             });
 
-            yield put(FetchUsersSuccess(user));
+            users.forEach((user, index) => (users[index].profile_picture = addProfilePictureURL(user)));
+
+            yield put(FetchUsersSuccess(users));
         } catch (error) {
             yield put(FetchUsersFailure(error.detail));
         }
@@ -139,6 +137,7 @@ function* UpdateUser() {
                 body: JSON.stringify(action.payload),
             });
 
+            user = addProfilePictureURL(user);
             yield put(UpdateUserSuccess(user));
         } catch (error) {
             yield put(UpdateUserFailure(error.detail));
@@ -159,6 +158,7 @@ function* CreateUser() {
                 body: JSON.stringify(action.payload),
             });
 
+            user = addProfilePictureURL(user);
             yield put(CreateUserSuccess(user));
         } catch (error) {
             yield put(CreateUserFailure(error.detail));
