@@ -48,10 +48,14 @@ class Homepage extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!prevProps.errorMessage && this.props.errorMessage) {
+            this.setState({ currentUser: { ...this.props.currentUser } });
+        }
         if (prevProps.currentUser !== this.props.currentUser) {
             toast.success(`Updated successfully 🙌`, {
                 position: toast.POSITION.TOP_CENTER,
             });
+            this.setState({ currentUser: { ...this.props.currentUser } });
         }
     }
 
@@ -189,6 +193,7 @@ const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
     isLoading: state.user.isLoading || state.school.isLoading,
     selectedSchool: state.school.selectedSchool,
+    errorMessage: state.user.errorMessage,
 });
 
 export default withRouter(connect(mapStateToProps, { UpdateUserMe, FetchSchool })(withStyles(styles)(Homepage)));
