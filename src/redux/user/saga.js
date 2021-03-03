@@ -41,7 +41,14 @@ function* FetchUserMe() {
 function* UpdateUserMe() {
     yield takeEvery(UserActionTypes.UPDATE_USER_ME, function* (action) {
         try {
+            // save profile_picture separately so we don't send a file in body
+            const profile_picture = action.payload.profile_picture;
+            delete action.payload.profile_picture;
+
+            // get token for API calls
             let token = yield select((state) => state.auth.accessToken);
+
+            // update user info
             let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
                 method: "Put",
                 headers: {
@@ -50,6 +57,27 @@ function* UpdateUserMe() {
                 body: JSON.stringify(action.payload),
             });
 
+            // update profile picture
+            if (profile_picture) {
+                const formData = new FormData();
+                formData.append("image", profile_picture);
+
+                user = yield call(
+                    httpClient,
+                    `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${user.id}/profile_picture`,
+                    {
+                        method: "Put",
+                        headers: {
+                            Authorization: `bearer ${token}`,
+                        },
+                        body: formData,
+                    }
+                );
+            }
+
+            if (user.profile_picture) {
+                user.profile_picture = `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;
+            }
             yield put(UpdateUserMeSuccess(user));
         } catch (error) {
             yield put(UpdateUserMeFailure(error.detail));

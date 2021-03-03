@@ -1,4 +1,4 @@
-import { Component, createRef } from "react";
+import { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { withStyles, Grid, TextField, IconButton } from "@material-ui/core";
@@ -39,14 +39,6 @@ class Homepage extends Component {
             currentUser: { ...this.props.currentUser },
             submit: {},
         };
-
-        this.fileInput = createRef();
-        this.reader = new FileReader();
-        this.reader.onloadend = () => {
-            let { currentUser, submit } = this.state;
-            submit["profile_picture"] = currentUser["profile_picture"] = this.reader.result;
-            this.setState({ submit, currentUser });
-        };
     }
 
     componentDidMount() {
@@ -65,12 +57,12 @@ class Homepage extends Component {
 
     handleInputChange = (event) => {
         let { currentUser, submit } = this.state;
+        let { name, value, files } = event.target;
         if (event.target.type === "file") {
-            this.reader.readAsDataURL(this.fileInput.current.files[0]);
+            submit[name] = files[0];
+            currentUser[name] = URL.createObjectURL(files[0]);
         } else {
-            let field = event.target.name;
-            let value = event.target.value;
-            submit[field] = currentUser[field] = value !== "" ? value : undefined;
+            submit[name] = currentUser[name] = value !== "" ? value : undefined;
         }
         this.setState({ currentUser, submit });
     };
@@ -131,7 +123,6 @@ class Homepage extends Component {
                                     type="file"
                                     name="profile_picture"
                                     accept="image/png, image/jpeg"
-                                    ref={this.fileInput}
                                     onChange={this.handleInputChange}
                                     hidden
                                 />
