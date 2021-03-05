@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { IconButton, Typography, withStyles, Avatar } from "@material-ui/core";
+import { IconButton, withStyles, Avatar } from "@material-ui/core";
 import { Clear, Done, Edit } from "@material-ui/icons";
 
 import { FetchUsers } from "redux/user/action";
@@ -53,11 +53,7 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
-            renderCell: (params) => (
-                <Typography variant="body2" style={{ width: "100%" }} color={params.value ? "textPrimary" : "error"}>
-                    {params.value ?? "No associated school"}
-                </Typography>
-            ),
+            valueFormatter: (params) => params.value ?? "No associated school",
         },
         {
             field: "profile_picture",
