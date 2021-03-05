@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { People } from "@material-ui/icons";
+import { People, School } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;
@@ -46,7 +46,10 @@ const SideBar = ({ drawerOpen }) => {
     const classes = useStyles();
     const listItemTextProps = { align: "left", variant: "button" };
 
-    const navigation = [[{ key: "users", to: "/app/users", icon: <People color="primary" /> }]];
+    const navigation = [
+        [{ key: "users", to: "/app/users", icon: <People color="primary" /> }],
+        [{ key: "schools", to: "/app/schools", icon: <School color="primary" /> }],
+    ];
 
     return (
         <div className={classes.root}>

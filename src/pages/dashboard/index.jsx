@@ -8,6 +8,7 @@ import SideBar from "components/SideBar";
 import Header from "components/Header";
 import AuthenticatedRoute from "components/AuthenticatedRoute";
 import Users from "pages/users";
+import Schools from "pages/schools";
 import Homepage from "pages/homepage";
 
 toast.configure();
@@ -36,11 +37,14 @@ class Dashboard extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.errorMessage !== this.props.errorMessage && this.props.errorMessage !== "") {
-            toast.error(`Error 😓: ${this.props.errorMessage}`, {
-                position: toast.POSITION.TOP_CENTER,
-            });
-        }
+        // check if any new error message needs to be displayed
+        this.props.errorMessage.forEach((error, index) => {
+            if (prevProps.errorMessage[index] !== error && error) {
+                toast.error(`Error 😓: ${error}`, {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }
+        });
     }
 
     switchDrawer = () => {
@@ -60,6 +64,7 @@ class Dashboard extends Component {
                     <Grid item className={classes.content}>
                         <Switch>
                             <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
+                            <AuthenticatedRoute exact path={`${this.props.match.url}/schools`} component={Schools} />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/`} component={Homepage} />
                         </Switch>
                     </Grid>
@@ -71,7 +76,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
-    errorMessage: state.user.errorMessage,
+    errorMessage: [state.user.errorMessage, state.school.errorMessage],
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(useStyles)(Dashboard)));

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { withStyles, Typography, Divider, FormControlLabel, Switch, TextField, MenuItem } from "@material-ui/core";
 
 import { FetchUser, CreateUser, UpdateUser } from "redux/user/action";
+import { FetchSchools } from "redux/school/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 
@@ -25,12 +26,16 @@ class UserModal extends React.Component {
         this.state = {
             user: {},
             submit: {},
+            formSubmitted: false,
         };
     }
 
     componentDidMount() {
         if (this.props.userId !== null && this.props.userId !== undefined) {
             this.props.FetchUser(this.props.userId);
+        }
+        if (!this.props.schools) {
+            this.props.FetchSchools();
         }
     }
 
@@ -40,11 +45,12 @@ class UserModal extends React.Component {
                 user: { ...this.props.selectedUser } ?? {},
             });
 
-            if (prevProps.selectedUser && this.props.selectedUser) {
+            if (this.state.formSubmitted) {
                 const action = this.props.userId ? "updated" : "created";
                 toast.success(`User ${this.props.selectedUser.full_name} ${action} successfully 🙌`, {
                     position: toast.POSITION.TOP_CENTER,
                 });
+                this.props.onClose();
             }
         }
     }
@@ -68,6 +74,7 @@ class UserModal extends React.Component {
         if (userId) {
             if (submit_keys.length && !submit_keys.every((key) => selectedUser[key] === submit[key])) {
                 this.props.UpdateUser(submit);
+                this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
                     position: toast.POSITION.TOP_CENTER,
@@ -76,6 +83,7 @@ class UserModal extends React.Component {
         } else {
             if (["email", "type", "password"].every((key) => submit.hasOwnProperty(key) && submit[key])) {
                 this.props.CreateUser(submit);
+                this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please add email, type and password 😓", {
                     position: toast.POSITION.TOP_CENTER,
@@ -112,6 +120,7 @@ class UserModal extends React.Component {
                         label="Email"
                         value={this.state.user.email ?? ""}
                         onChange={this.handleInputChange}
+                        required={!userId}
                     />
                     <TextField
                         select
@@ -119,19 +128,33 @@ class UserModal extends React.Component {
                         label="User Type"
                         value={this.state.user.type ?? ""}
                         onChange={this.handleInputChange}
+                        required={!userId}
                     >
                         <MenuItem value="student">Student</MenuItem>
                         <MenuItem value="professor">Professor</MenuItem>
                         <MenuItem value="admin">Admin</MenuItem>
                         <MenuItem value="superuser">Superuser</MenuItem>
                     </TextField>
-                    {/* <input type="text" name="profile_picture" value={this.state.user.profile_picture??""} onChange={this.handleInputChange}></input> */}
+                    <TextField
+                        select
+                        name="school"
+                        label="School"
+                        value={this.state.user.school ?? ""}
+                        onChange={this.handleInputChange}
+                    >
+                        {this.props.schools.map((school) => (
+                            <MenuItem key={school.id} value={school.id}>
+                                {school.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                     <TextField
                         type="password"
                         name="password"
                         label="Password"
                         value={this.state.user.password ?? ""}
                         onChange={this.handleInputChange}
+                        required={!userId}
                     />
                     {userId && (
                         <FormControlLabel
@@ -141,6 +164,7 @@ class UserModal extends React.Component {
                                     checked={this.state.user.is_active ?? false}
                                     onChange={this.handleInputChange}
                                     color="primary"
+                                    required={!userId}
                                 />
                             }
                             label="Active"
@@ -158,8 +182,10 @@ class UserModal extends React.Component {
 
 const mapStateToProps = (state) => ({
     selectedUser: state.user.selectedUser,
-    isLoading: state.user.isLoading,
-    errorMessage: state.user.errorMessage,
+    isLoading: state.user.isLoading || state.school.isLoading,
+    schools: state.school.schools,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchUser, CreateUser, UpdateUser })(UserModal));
+export default withStyles(styles)(
+    connect(mapStateToProps, { FetchUser, FetchSchools, CreateUser, UpdateUser })(UserModal)
+);

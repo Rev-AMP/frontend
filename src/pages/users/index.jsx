@@ -2,13 +2,13 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { DataGrid } from "@material-ui/data-grid";
-import { Grid, Typography, withStyles, IconButton } from "@material-ui/core";
-import { Edit, Done, Clear, AddCircle } from "@material-ui/icons";
+import { IconButton, Typography, withStyles } from "@material-ui/core";
+import { Clear, Done, Edit } from "@material-ui/icons";
 
 import { FetchUsers } from "redux/user/action";
+import { FetchSchools } from "redux/school/action";
 import UserModal from "./components/UserModal";
-import Loader from "components/Loader";
+import DataPage from "components/DataPage";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -25,6 +25,7 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 70,
+            type: "number",
         },
         {
             field: "full_name",
@@ -39,12 +40,25 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
+            hide: true,
+        },
+        {
+            field: "school",
+            headerName: "School",
+            headerAlign: "center",
+            align: "center",
+            width: 350,
+            renderCell: (params) => (
+                <Typography variant="body2" style={{ width: "100%" }} color={params.value ? "textPrimary" : "error"}>
+                    {params.value ?? "No associated school"}
+                </Typography>
+            ),
         },
         {
             field: "profile_picture",
             headerName: "Picture",
             headerAlign: "center",
-            flex: 1.5,
+            flex: 1,
             renderCell: (params) => (
                 <img
                     className={this.props.classes.centerItem}
@@ -53,11 +67,11 @@ class Users extends React.Component {
                             ? `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}`
                             : "/logos/revamp_favicon.jpg"
                     }`}
-                    width={100}
-                    height={100}
+                    height="100%"
                     alt="Nothing here"
                 />
             ),
+            hide: true,
         },
         {
             field: "type",
@@ -70,7 +84,7 @@ class Users extends React.Component {
             field: "is_active",
             headerName: "Active",
             headerAlign: "center",
-            flex: 1.2,
+            flex: 1,
             renderCell: (params) =>
                 params.value ? (
                     <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
@@ -99,75 +113,60 @@ class Users extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false,
+            modalIsOpen: false,
+            users: this.props.users,
         };
     }
 
     componentDidMount() {
         this.props.FetchUsers();
+        this.props.FetchSchools();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        let { users, schools } = this.props;
+        if ((prevProps.schools !== schools || prevProps.users !== users) && schools.length && users.length) {
+            for (let i = 0; i < users.length; i++) {
+                const school = schools.find((school) => school.id === users[i].school);
+                users[i].school = school ? school.name : undefined;
+            }
+            this.setState({ users });
+        }
     }
 
     closeModal = () => {
-        this.setState({ isOpen: false, userId: null });
+        this.setState({ modalIsOpen: false, userId: null });
     };
 
     openModal = () => {
-        this.setState({ isOpen: true, userId: null });
+        this.setState({ modalIsOpen: true, userId: null });
     };
 
     onEdit = (params) => {
-        this.setState({ isOpen: true, userId: params.row.id });
+        this.setState({ modalIsOpen: true, userId: params.row.id });
     };
 
     render() {
-        if (this.props.isLoading && !this.state.isOpen) {
-            return <Loader />;
-        }
-
-        if (this.props.users) {
-            return (
-                <Grid
-                    item
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        height: "100%",
-                    }}
-                >
-                    <Grid container direction="row" justify="space-between">
-                        <Typography color="primary" variant="h2" style={{ margin: 0 }}>
-                            List of Users
-                        </Typography>
-                        <IconButton color="primary" onClick={this.openModal} style={{ margin: "1rem" }}>
-                            <AddCircle fontSize="large" />
-                        </IconButton>
-                    </Grid>
-
-                    <div style={{ display: "flex", height: "100%" }}>
-                        <div style={{ flexGrow: 1 }}>
-                            <DataGrid
-                                disableSelectionOnClick={true}
-                                rows={this.props.users}
-                                columns={this.columns}
-                                rowHeight={120}
-                            />
-                        </div>
-                    </div>
-
-                    {this.state.isOpen && (
-                        <UserModal isOpen={this.state.isOpen} onClose={this.closeModal} userId={this.state.userId} />
-                    )}
-                </Grid>
-            );
-        }
-
-        return null;
+        return (
+            <DataPage
+                title="List of Users"
+                isLoading={this.props.isLoading}
+                modalIsOpen={this.state.modalIsOpen}
+                openModal={this.openModal}
+                PopupModal={
+                    <UserModal isOpen={this.state.modalIsOpen} onClose={this.closeModal} userId={this.state.userId} />
+                }
+                objects={this.state.users}
+                columns={this.columns}
+            />
+        );
     }
 }
 
 const mapStateToProps = (state) => ({
     users: state.user.users,
-    isLoading: state.user.isLoading,
+    isLoading: state.user.isLoading || state.school.isLoading,
+    schools: state.school.schools,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchUsers })(Users)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchUsers, FetchSchools })(Users)));
