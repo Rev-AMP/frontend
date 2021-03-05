@@ -16,8 +16,8 @@ const styles = (theme) => ({
         color: theme.palette.success.main,
     },
     avatar: {
-        height: "5rem",
-        width: "5rem",
+        height: 55,
+        width: 55,
         ...theme.styles.avatar,
     },
 });
@@ -61,9 +61,9 @@ class Users extends React.Component {
         },
         {
             field: "profile_picture",
-            headerName: "Picture",
+            headerName: "Profile Picture",
             headerAlign: "center",
-            flex: 1.5,
+            flex: 1,
             sortable: false,
             filterable: false,
             renderCell: (params) => (
@@ -80,7 +80,7 @@ class Users extends React.Component {
             headerName: "Type",
             headerAlign: "center",
             align: "center",
-            flex: 1.5,
+            flex: 1,
         },
         {
             field: "is_active",

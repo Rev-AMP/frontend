@@ -43,6 +43,7 @@ class DataPage extends React.Component {
                             <DataGrid
                                 disableSelectionOnClick={true}
                                 rows={this.props.objects}
+                                rowHeight={80}
                                 columns={this.props.columns}
                                 components={{
                                     Toolbar: GridToolbar,
