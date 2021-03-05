@@ -12,24 +12,23 @@ import { UpdateUserMe } from "redux/user/action";
 import { FetchSchool } from "redux/school/action";
 
 const styles = (theme) => ({
-    textField: {
-        width: "30%",
+    formItem: {
+        width: "100%",
     },
     action: {
-        width: "30%",
+        width: "69%",
         ...theme.styles.centerItem,
     },
     image: {
-        height: "12rem",
-        width: "12rem",
-        fontSize: "4rem",
+        height: "16.9rem",
+        width: "16.9rem",
+        fontSize: "6.9rem",
         marginBottom: "2rem",
         ...theme.styles.avatar,
     },
     fullScreen: {
         height: "100%",
         width: "100%",
-        overflow: "auto",
     },
 });
 
@@ -109,75 +108,83 @@ class Homepage extends Component {
         return (
             <CenterContent>
                 <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
-                    <Grid
-                        container
-                        direction="column"
-                        justify="space-evenly"
-                        wrap="nowrap"
-                        className={classes.fullScreen}
-                    >
-                        <Grid container direction="column" alignItems="center">
-                            <Avatar
-                                className={classes.image}
-                                src={currentUser.profile_picture}
-                                alt={(this.props.currentUser.full_name ?? this.props.currentUser.email).toUpperCase()}
-                            />
-                            <IconButton color="primary" component="label">
-                                <AddAPhoto />
-                                <input
-                                    type="file"
-                                    name="profile_picture"
-                                    accept="image/png, image/jpeg"
-                                    onChange={this.handleInputChange}
-                                    hidden
-                                />
-                            </IconButton>
-                        </Grid>
+                    <Grid container direction="column" wrap="nowrap" className={classes.fullScreen}>
+                        <Grid container wrap="nowrap" className={classes.fullScreen}>
+                            <Grid container direction="column" justify="space-evenly">
+                                <Grid container justify="space-between" wrap="nowrap">
+                                    <TextField
+                                        className={classes.formItem}
+                                        label="Full Name"
+                                        name="full_name"
+                                        value={currentUser.full_name}
+                                        onChange={this.handleInputChange}
+                                    />
+                                    <TextField
+                                        className={classes.formItem}
+                                        label="Email"
+                                        name="email"
+                                        value={currentUser.email}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Grid>
 
-                        <Grid container justify="space-around">
-                            <TextField
-                                className={classes.textField}
-                                label="Full Name"
-                                name="full_name"
-                                value={currentUser.full_name}
-                                onChange={this.handleInputChange}
-                            />
-                            <TextField
-                                className={classes.textField}
-                                label="Email"
-                                name="email"
-                                value={currentUser.email}
-                                onChange={this.handleInputChange}
-                            />
-                        </Grid>
+                                <Grid container justify="space-between" wrap="nowrap">
+                                    <TextField
+                                        type="password"
+                                        className={classes.formItem}
+                                        label="Password"
+                                        name="password"
+                                        onChange={this.handleInputChange}
+                                    />
+                                    <TextField
+                                        type="password"
+                                        className={classes.formItem}
+                                        label="Confirm Password"
+                                        name="confirm_password"
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Grid>
 
-                        <Grid container justify="space-around">
-                            <TextField
-                                type="password"
-                                className={classes.textField}
-                                label="Password"
-                                name="password"
-                                onChange={this.handleInputChange}
-                            />
-                            <TextField
-                                type="password"
-                                className={classes.textField}
-                                label="Confirm Password"
-                                name="confirm_password"
-                                onChange={this.handleInputChange}
-                            />
-                        </Grid>
+                                <Grid container justify="space-between" wrap="nowrap">
+                                    <TextField
+                                        type="text"
+                                        className={classes.formItem}
+                                        label="School"
+                                        name="school"
+                                        value={selectedSchool ? selectedSchool.name : "No associated School"}
+                                        error={!selectedSchool}
+                                        helperText="This cannot be changed from here"
+                                    />
+                                </Grid>
+                            </Grid>
 
-                        <Grid container justify="center">
-                            <TextField
-                                type="text"
-                                className={classes.textField}
-                                label="School"
-                                name="school"
-                                value={selectedSchool ? selectedSchool.name : "No associated School"}
-                                error={!selectedSchool}
-                                helperText="This cannot be changed from here"
-                            />
+                            <Grid
+                                container
+                                direction="column"
+                                justify="space-evenly"
+                                alignItems="center"
+                                style={{ width: "50%" }}
+                            >
+                                <Grid container direction="column" justify="center" alignItems="center">
+                                    <Avatar
+                                        className={classes.image}
+                                        src={currentUser.profile_picture}
+                                        alt={(
+                                            this.props.currentUser.full_name ?? this.props.currentUser.email
+                                        ).toUpperCase()}
+                                    />
+                                    <IconButton color="primary" component="label">
+                                        <AddAPhoto />
+                                        <input
+                                            type="file"
+                                            name="profile_picture"
+                                            accept="image/png, image/jpeg"
+                                            onChange={this.handleInputChange}
+                                            hidden
+                                        />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
                         </Grid>
 
                         <Button type="submit" variant="contained" className={classes.action}>
