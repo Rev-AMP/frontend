@@ -161,7 +161,6 @@ class SchoolModal extends React.Component {
 const mapStateToProps = (state) => ({
     selectedSchool: state.school.selectedSchool,
     isLoading: state.school.isLoading,
-    errorMessage: state.school.errorMessage,
 });
 
 export default withStyles(styles)(connect(mapStateToProps, { FetchSchool, CreateSchool, UpdateSchool })(SchoolModal));
