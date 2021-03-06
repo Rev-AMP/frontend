@@ -1,4 +1,4 @@
-import SchoolActionTypes from "../school/action.types";
+import SchoolActionTypes from "./action.types";
 
 const initState = {
     errorMessage: "",
@@ -10,7 +10,12 @@ const initState = {
 const SchoolReducer = (state = initState, action) => {
     switch (action.type) {
         case SchoolActionTypes.FETCH_SCHOOLS:
-            return { ...state, errorMessage: "", isLoading: true, schools: [] };
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: true,
+                schools: [],
+            };
         case SchoolActionTypes.FETCH_SCHOOLS_SUCCESS:
             return {
                 ...state,
@@ -49,7 +54,11 @@ const SchoolReducer = (state = initState, action) => {
             };
 
         case SchoolActionTypes.UPDATE_SCHOOL:
-            return { ...state, errorMessage: "", isLoading: true };
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: true,
+            };
         case SchoolActionTypes.UPDATE_SCHOOL_SUCCESS:
             return {
                 ...state,
@@ -58,10 +67,18 @@ const SchoolReducer = (state = initState, action) => {
                 isLoading: false,
             };
         case SchoolActionTypes.UPDATE_SCHOOL_FAILURE:
-            return { ...state, errorMessage: action.payload, isLoading: false };
+            return {
+                ...state,
+                errorMessage: action.payload,
+                isLoading: false,
+            };
 
         case SchoolActionTypes.CREATE_SCHOOL:
-            return { ...state, errorMessage: "", isLoading: true };
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: true,
+            };
         case SchoolActionTypes.CREATE_SCHOOL_SUCCESS:
             return {
                 ...state,
@@ -70,7 +87,11 @@ const SchoolReducer = (state = initState, action) => {
                 selectedSchool: action.payload,
             };
         case SchoolActionTypes.CREATE_SCHOOL_FAILURE:
-            return { ...state, errorMessage: action.payload, isLoading: false };
+            return {
+                ...state,
+                errorMessage: action.payload,
+                isLoading: false,
+            };
 
         default:
             return state;
