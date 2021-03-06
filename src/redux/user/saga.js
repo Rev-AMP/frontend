@@ -1,4 +1,4 @@
-import { all, call, put, select, takeEvery, takeLatest } from "redux-saga/effects";
+import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import UserActionTypes from "./action.types";
 import {
@@ -17,17 +17,13 @@ import {
     CreateUserFailure,
 } from "./action";
 import { addProfilePictureURL, setProfilePicture } from "./util";
-import httpClient from "services/http-client";
+import { APICall } from "services/http-client";
 
 function* FetchUserMe() {
     yield takeEvery(UserActionTypes.FETCH_USER_ME, function* () {
         try {
-            let token = yield select((state) => state.auth.accessToken);
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
                 method: "GET",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
             });
             user.profile_picture = addProfilePictureURL(user);
             yield put(FetchUserMeSuccess(user));
@@ -44,21 +40,14 @@ function* UpdateUserMe() {
             const profilePicture = action.payload.profile_picture;
             delete action.payload.profile_picture;
 
-            // get token for API calls
-            let token = yield select((state) => state.auth.accessToken);
-
-            // update user info
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
-                method: "Put",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
+            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+                method: "PUT",
                 body: JSON.stringify(action.payload),
             });
 
             // update profile picture
             if (profilePicture) {
-                user = yield setProfilePicture(token, user.id, profilePicture);
+                user = yield setProfilePicture(user.id, profilePicture);
             }
 
             user.profile_picture = addProfilePictureURL(user);
@@ -72,13 +61,8 @@ function* UpdateUserMe() {
 function* FetchUser() {
     yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
         try {
-            let token = yield select((state) => state.auth.accessToken);
-
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload}`, {
+            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload}`, {
                 method: "GET",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
             });
             user.profile_picture = addProfilePictureURL(user);
             yield put(FetchUserSuccess(user));
@@ -91,13 +75,8 @@ function* FetchUser() {
 function* FetchUsers() {
     yield takeEvery(UserActionTypes.FETCH_USERS, function* (action) {
         try {
-            let token = yield select((state) => state.auth.accessToken);
-
-            let users = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/`, {
+            let users = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/`, {
                 method: "GET",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
             });
 
             users.forEach((user, index) => (users[index].profile_picture = addProfilePictureURL(user)));
@@ -117,21 +96,17 @@ function* UpdateUser() {
             delete action.payload.profile_picture;
 
             // get token and user to update
-            let token = yield select((state) => state.auth.accessToken);
             let selectedUser = yield select((state) => state.user.selectedUser);
 
             // update user info
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${selectedUser.id}`, {
+            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${selectedUser.id}`, {
                 method: "PUT",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
                 body: JSON.stringify(action.payload),
             });
 
             // update profile picture
             if (profilePicture) {
-                user = yield setProfilePicture(token, selectedUser.id, profilePicture);
+                user = yield setProfilePicture(selectedUser.id, profilePicture);
             }
 
             user.profile_picture = addProfilePictureURL(user);
@@ -149,21 +124,15 @@ function* CreateUser() {
             const profilePicture = action.payload.profile_picture;
             delete action.payload.profile_picture;
 
-            // get token
-            let token = yield select((state) => state.auth.accessToken);
-
             // create new user
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/users`, {
+            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users`, {
                 method: "POST",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
                 body: JSON.stringify(action.payload),
             });
 
             // update profile picture
             if (profilePicture) {
-                user = yield setProfilePicture(token, user.id, profilePicture);
+                user = yield setProfilePicture(user.id, profilePicture);
             }
 
             user.profile_picture = addProfilePictureURL(user);
