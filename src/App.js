@@ -1,7 +1,10 @@
 import { BrowserRouter } from "react-router-dom";
 import { createMuiTheme, ThemeProvider, CssBaseline, makeStyles } from "@material-ui/core";
+import { toast } from "react-toastify";
 
 import Main from "pages/main";
+
+toast.configure();
 
 const themePalette = {
     type: "dark",

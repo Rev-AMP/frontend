@@ -20,8 +20,6 @@ import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 import { AddAPhoto } from "@material-ui/icons";
 
-toast.configure();
-
 const styles = (theme) => ({
     form: {
         display: "flex",

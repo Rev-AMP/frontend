@@ -11,8 +11,6 @@ import Users from "pages/users";
 import Schools from "pages/schools";
 import Homepage from "pages/homepage";
 
-toast.configure();
-
 const useStyles = (theme) => ({
     content: {
         padding: theme.spacing(3),

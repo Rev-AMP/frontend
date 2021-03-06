@@ -10,9 +10,6 @@ import DataPage from "components/DataPage";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
-    green: {
-        color: theme.palette.success.main,
-    },
 });
 
 class Schools extends React.Component {

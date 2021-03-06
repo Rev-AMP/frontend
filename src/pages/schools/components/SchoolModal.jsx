@@ -7,8 +7,6 @@ import { CreateSchool, FetchSchool, UpdateSchool } from "redux/school/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 
-toast.configure();
-
 const styles = (theme) => ({
     form: {
         display: "flex",
