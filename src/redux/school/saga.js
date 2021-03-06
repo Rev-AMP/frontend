@@ -17,7 +17,7 @@ import { APICall } from "services/http-client";
 function* FetchSchools() {
     yield takeEvery(SchoolActionTypes.FETCH_SCHOOLS, function* (action) {
         try {
-            const schools = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/`, {
+            const schools = yield APICall(`/api/v1/schools/`, {
                 method: "GET",
             });
             yield put(FetchSchoolsSuccess(schools));
@@ -30,7 +30,7 @@ function* FetchSchools() {
 function* FetchSchool() {
     yield takeEvery(SchoolActionTypes.FETCH_SCHOOL, function* (action) {
         try {
-            const school = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/${action.payload}`, {
+            const school = yield APICall(`/api/v1/schools/${action.payload}`, {
                 method: "GET",
             });
             yield put(FetchSchoolSuccess(school));
@@ -44,7 +44,7 @@ function* UpdateSchool() {
     yield takeEvery(SchoolActionTypes.UPDATE_SCHOOL, function* (action) {
         try {
             const selectedSchool = yield select((state) => state.school.selectedSchool);
-            const school = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/${selectedSchool.id}`, {
+            const school = yield APICall(`/api/v1/schools/${selectedSchool.id}`, {
                 method: "PUT",
                 body: JSON.stringify(action.payload),
             });
@@ -58,7 +58,7 @@ function* UpdateSchool() {
 function* CreateSchool() {
     yield takeEvery(SchoolActionTypes.CREATE_SCHOOL, function* (action) {
         try {
-            const school = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/`, {
+            const school = yield APICall(`/api/v1/schools/`, {
                 method: "POST",
                 body: JSON.stringify(action.payload),
             });

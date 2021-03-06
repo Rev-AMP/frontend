@@ -22,7 +22,7 @@ import { APICall } from "services/http-client";
 function* FetchUserMe() {
     yield takeEvery(UserActionTypes.FETCH_USER_ME, function* () {
         try {
-            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+            let user = yield APICall(`/api/v1/users/me`, {
                 method: "GET",
             });
             user.profile_picture = addProfilePictureURL(user);
@@ -39,8 +39,8 @@ function* UpdateUserMe() {
             // save profile_picture separately so we don't send a file in body
             const profilePicture = action.payload.profile_picture;
             delete action.payload.profile_picture;
-
-            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/me`, {
+            
+            let user = yield APICall(`/api/v1/users/me`, {
                 method: "PUT",
                 body: JSON.stringify(action.payload),
             });
@@ -61,7 +61,7 @@ function* UpdateUserMe() {
 function* FetchUser() {
     yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
         try {
-            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${action.payload}`, {
+            let user = yield APICall(`/api/v1/users/${action.payload}`, {
                 method: "GET",
             });
             user.profile_picture = addProfilePictureURL(user);
@@ -75,7 +75,7 @@ function* FetchUser() {
 function* FetchUsers() {
     yield takeEvery(UserActionTypes.FETCH_USERS, function* (action) {
         try {
-            let users = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/`, {
+            let users = yield APICall(`/api/v1/users/`, {
                 method: "GET",
             });
 
@@ -99,7 +99,7 @@ function* UpdateUser() {
             let selectedUser = yield select((state) => state.user.selectedUser);
 
             // update user info
-            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/${selectedUser.id}`, {
+            let user = yield APICall(`/api/v1/users/${selectedUser.id}`, {
                 method: "PUT",
                 body: JSON.stringify(action.payload),
             });
@@ -125,7 +125,7 @@ function* CreateUser() {
             delete action.payload.profile_picture;
 
             // create new user
-            let user = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/users`, {
+            let user = yield APICall(`/api/v1/users`, {
                 method: "POST",
                 body: JSON.stringify(action.payload),
             });

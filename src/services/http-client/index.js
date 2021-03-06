@@ -6,11 +6,11 @@ export const httpClient = async (url, parameters) =>
         return response.ok ? json : Promise.reject(json);
     });
 
-export function* APICall(url, parameters) {
+export function* APICall(endpoint, parameters) {
     let token = yield select((state) => state.auth.accessToken);
 
     if (!parameters.headers) parameters.headers = {};
     parameters.headers.Authorization = `bearer ${token}`;
 
-    return yield call(httpClient, url, parameters);
+    return yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}${endpoint}`, parameters);
 }

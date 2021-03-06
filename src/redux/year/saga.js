@@ -16,7 +16,7 @@ import { APICall } from "services/http-client";
 function* FetchYears() {
     yield takeEvery(YearActionTypes.FETCH_YEARS, function* (action) {
         try {
-            const years = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/years/`, {
+            const years = yield APICall(`/api/v1/years/`, {
                 method: "GET",
             });
             yield put(FetchYearsSuccess(years));
@@ -29,7 +29,7 @@ function* FetchYears() {
 function* FetchYear() {
     yield takeEvery(YearActionTypes.FETCH_YEAR, function* (action) {
         try {
-            const year = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/years/${action.payload}`, {
+            const year = yield APICall(`/api/v1/years/${action.payload}`, {
                 method: "GET",
             });
             yield put(FetchYearsSuccess(year));
@@ -43,7 +43,7 @@ function* UpdateYear() {
     yield takeEvery(YearActionTypes.UPDATE_YEAR, function* (action) {
         try {
             const selectedYear = yield select((state) => state.year.selectedYear);
-            const year = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/years/${selectedYear.id}`, {
+            const year = yield APICall(`/api/v1/years/${selectedYear.id}`, {
                 method: "PUT",
                 body: JSON.stringify(action.payload),
             });
@@ -57,7 +57,7 @@ function* UpdateYear() {
 function* CreateYear() {
     yield takeEvery(YearActionTypes.CREATE_YEAR, function* (action) {
         try {
-            const year = yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/years/`, {
+            const year = yield APICall(`/api/v1/years/`, {
                 method: "POST",
                 body: JSON.stringify(action.payload),
             });
@@ -73,7 +73,7 @@ function* DeleteYear() {
         try {
             const selectedYear = yield select((state) => state.school.selectedYear);
 
-            yield APICall(`${process.env.REACT_APP_BACKEND_URL}/api/v1/years/${selectedYear.id}`, {
+            yield APICall(`/api/v1/years/${selectedYear.id}`, {
                 method: "DELETE",
             });
             yield put(CreateYearSuccess());
