@@ -19,14 +19,14 @@ function* FetchSchools() {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/`, {
+            let schools = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/`, {
                 method: "GET",
                 headers: {
                     Authorization: `bearer ${token}`,
                 },
             });
 
-            yield put(FetchSchoolsSuccess(user));
+            yield put(FetchSchoolsSuccess(schools));
         } catch (error) {
             yield put(FetchSchoolsFailure(error.detail));
         }
@@ -38,14 +38,18 @@ function* FetchSchool() {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/${action.payload}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
-            });
+            let school = yield call(
+                httpClient,
+                `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/${action.payload}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `bearer ${token}`,
+                    },
+                }
+            );
 
-            yield put(FetchSchoolSuccess(user));
+            yield put(FetchSchoolSuccess(school));
         } catch (error) {
             yield put(FetchSchoolFailure(error.detail));
         }
@@ -58,7 +62,7 @@ function* UpdateSchool() {
             let token = yield select((state) => state.auth.accessToken);
             let selectedSchool = yield select((state) => state.school.selectedSchool);
 
-            let user = yield call(
+            let school = yield call(
                 httpClient,
                 `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/${selectedSchool.id}`,
                 {
@@ -70,7 +74,7 @@ function* UpdateSchool() {
                 }
             );
 
-            yield put(UpdateSchoolSuccess(user));
+            yield put(UpdateSchoolSuccess(school));
         } catch (error) {
             yield put(UpdateSchoolFailure(error.detail));
         }
@@ -82,7 +86,7 @@ function* CreateSchool() {
         try {
             let token = yield select((state) => state.auth.accessToken);
 
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/`, {
+            let school = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/`, {
                 method: "POST",
                 headers: {
                     Authorization: `bearer ${token}`,
@@ -90,7 +94,7 @@ function* CreateSchool() {
                 body: JSON.stringify(action.payload),
             });
 
-            yield put(CreateSchoolSuccess(user));
+            yield put(CreateSchoolSuccess(school));
         } catch (error) {
             yield put(CreateSchoolFailure(error.detail));
         }
@@ -106,8 +110,8 @@ function* RefreshSchoolList() {
     );
 }
 
-function* FetchSchoolMethods() {
+function* SchoolMethods() {
     yield all([FetchSchool(), FetchSchools(), UpdateSchool(), CreateSchool(), RefreshSchoolList()]);
 }
 
-export default FetchSchoolMethods;
+export default SchoolMethods;
