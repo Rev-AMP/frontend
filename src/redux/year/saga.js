@@ -93,7 +93,7 @@ function* RefreshYearList() {
 }
 
 function* YearMethods() {
-    yield all([FetchYears, FetchYear, UpdateYear, CreateYear, DeleteYear, RefreshYearList]);
+    yield all([FetchYears(), FetchYear(), UpdateYear(), CreateYear(), DeleteYear(), RefreshYearList()]);
 }
 
 export default YearMethods;
