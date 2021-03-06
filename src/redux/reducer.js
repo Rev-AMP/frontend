@@ -5,9 +5,10 @@ import AuthActionTypes from "redux/auth/action.types";
 import AuthReducer from "redux/auth/reducer";
 import UserReducer from "redux/user/reducer";
 import SchoolReducer from "redux/school/reducer";
+import YearReducer from "redux/year/reducer";
 
 const persistConfig = {
-    key: "auth",
+    key: "revamp",
     storage: storage,
     whitelist: ["auth"],
 };
@@ -16,14 +17,16 @@ const MainReducer = persistCombineReducers(persistConfig, {
     auth: AuthReducer,
     user: UserReducer,
     school: SchoolReducer,
+    year: YearReducer,
 });
 
 const RootReducer = (state, action) => {
     if (action.type === AuthActionTypes.LOGOUT) {
-        storage.removeItem("persist:auth");
-        state.auth = state.user = state.school = undefined;
+        storage.removeItem("persist:revamp");
+        const persist = { ...state._persist };
+        state = {};
+        state._persist = persist;
     }
-
     return MainReducer(state, action);
 };
 
