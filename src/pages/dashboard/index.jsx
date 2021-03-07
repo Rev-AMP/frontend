@@ -10,6 +10,7 @@ import AuthenticatedRoute from "components/AuthenticatedRoute";
 import Users from "pages/users";
 import Schools from "pages/schools";
 import Homepage from "pages/homepage";
+import Years from "pages/years";
 
 const useStyles = (theme) => ({
     content: {
@@ -63,6 +64,7 @@ class Dashboard extends Component {
                         <Switch>
                             <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/schools`} component={Schools} />
+                            <AuthenticatedRoute exact path={`${this.props.match.url}/years`} component={Years} />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/`} component={Homepage} />
                         </Switch>
                     </Grid>
@@ -74,7 +76,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
-    errorMessage: [state.user.errorMessage, state.school.errorMessage],
+    errorMessage: [state.user.errorMessage, state.school.errorMessage, state.year.errorMessage],
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(useStyles)(Dashboard)));
