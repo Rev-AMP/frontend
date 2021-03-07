@@ -18,7 +18,7 @@ import { AddAPhoto } from "@material-ui/icons";
 import { FetchUser, CreateUser, UpdateUser } from "redux/user/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
-import SchoolSelect from "components/SchoolSelect";
+import SchoolSelect from "pages/schools/components/SchoolSelect";
 
 const styles = (theme) => ({
     form: {
