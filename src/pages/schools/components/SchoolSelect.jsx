@@ -1,17 +1,23 @@
 import React from "react";
-import { MenuItem, TextField } from "@material-ui/core";
+import { LinearProgress, MenuItem, TextField } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import { FetchSchools } from "redux/school/action";
 
 class SchoolSelect extends React.Component {
     componentDidMount() {
-        this.props.FetchSchools();
+        if (!this.props.schools) {
+            this.props.FetchSchools();
+        }
     }
 
     render() {
         let otherProps = { ...this.props };
         delete otherProps["schools"];
+
+        if (this.props.isLoading) {
+            return <LinearProgress />;
+        }
 
         return (
             <TextField select {...otherProps}>
@@ -27,6 +33,7 @@ class SchoolSelect extends React.Component {
 
 const mapStateToProps = (state) => ({
     schools: state.school.schools,
+    isLoading: state.school.isLoading,
 });
 
 export default connect(mapStateToProps, { FetchSchools })(SchoolSelect);

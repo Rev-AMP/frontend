@@ -219,7 +219,7 @@ class UserModal extends React.Component {
 
 const mapStateToProps = (state) => ({
     selectedUser: state.user.selectedUser,
-    isLoading: state.user.isLoading || state.school.isLoading,
+    isLoading: state.user.isLoading,
 });
 
 export default withStyles(styles)(connect(mapStateToProps, { FetchUser, CreateUser, UpdateUser })(UserModal));
