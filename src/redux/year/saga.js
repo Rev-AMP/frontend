@@ -4,6 +4,7 @@ import YearActionTypes from "./action.types";
 import {
     CreateYearFailure,
     CreateYearSuccess,
+    FetchYearSuccess,
     FetchYearFailure,
     FetchYears as ActionFetchYears,
     FetchYearsFailure,
@@ -32,7 +33,7 @@ function* FetchYear() {
             const year = yield APICall(`/api/v1/years/${action.payload}`, {
                 method: "GET",
             });
-            yield put(FetchYearsSuccess(year));
+            yield put(FetchYearSuccess(year));
         } catch (error) {
             yield put(FetchYearFailure(error.detail));
         }
