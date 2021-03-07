@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { People, School } from "@material-ui/icons";
+import { People, School, CalendarToday } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;
@@ -49,6 +49,7 @@ const SideBar = ({ drawerOpen }) => {
     const navigation = [
         [{ key: "users", to: "/app/users", icon: <People color="primary" /> }],
         [{ key: "schools", to: "/app/schools", icon: <School color="primary" /> }],
+        [{ key: "years", to: "/app/years", icon: <CalendarToday color="primary" /> }],
     ];
 
     return (
@@ -67,8 +68,8 @@ const SideBar = ({ drawerOpen }) => {
                 }}
             >
                 <div className={classes.toolbar} />
-                {navigation.map((links) => (
-                    <>
+                {navigation.map((links, index) => (
+                    <div key={index}>
                         <Divider />
                         <List>
                             {links.map((link) => (
@@ -78,7 +79,7 @@ const SideBar = ({ drawerOpen }) => {
                                 </ListItem>
                             ))}
                         </List>
-                    </>
+                    </div>
                 ))}
             </Drawer>
         </div>
