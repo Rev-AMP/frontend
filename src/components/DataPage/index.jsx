@@ -1,10 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { DataGrid, GridToolbar } from "@material-ui/data-grid";
-import { Grid, IconButton, Typography, withStyles } from "@material-ui/core";
+import { DataGrid, GridToolbar, GridOverlay } from "@material-ui/data-grid";
+import { Grid, IconButton, Typography, withStyles, LinearProgress } from "@material-ui/core";
 import { AddCircle } from "@material-ui/icons";
-
-import Loader from "components/Loader";
 
 const styles = (theme) => ({
     fullScreen: {
@@ -19,12 +17,16 @@ const styles = (theme) => ({
 });
 
 class DataPage extends React.Component {
+    loader = () => (
+        <GridOverlay>
+            <div style={{ position: "absolute", top: 0, width: "100%" }}>
+                <LinearProgress />
+            </div>
+        </GridOverlay>
+    );
+
     render() {
         const { classes } = this.props;
-
-        if (this.props.isLoading && !this.props.modalIsOpen) {
-            return <Loader />;
-        }
 
         if (this.props.objects) {
             return (
@@ -43,10 +45,13 @@ class DataPage extends React.Component {
                             <DataGrid
                                 disableSelectionOnClick={true}
                                 rows={this.props.objects}
+                                rowHeight={80}
                                 columns={this.props.columns}
                                 components={{
                                     Toolbar: GridToolbar,
+                                    LoadingOverlay: this.loader,
                                 }}
+                                loading={this.props.isLoading && !this.props.modalIsOpen}
                             />
                         </div>
                     </div>

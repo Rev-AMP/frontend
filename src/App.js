@@ -3,26 +3,28 @@ import { createMuiTheme, ThemeProvider, CssBaseline, makeStyles } from "@materia
 
 import Main from "pages/main";
 
-const theme = createMuiTheme({
-    palette: {
-        type: "dark",
-        background: {
-            default: "#282d33",
-            paper: "#48515B",
-        },
-        primary: {
-            main: "#61dafb",
-        },
-        secondary: {
-            main: "#A5F3EF",
-        },
-        success: {
-            main: "#77dd77",
-        },
-        error: {
-            main: "#ff4081",
-        },
+const themePalette = {
+    type: "dark",
+    background: {
+        default: "#282d33",
+        paper: "#48515B",
     },
+    primary: {
+        main: "#61dafb",
+    },
+    secondary: {
+        main: "#A5F3EF",
+    },
+    success: {
+        main: "#77dd77",
+    },
+    error: {
+        main: "#ff4081",
+    },
+};
+
+const theme = createMuiTheme({
+    palette: themePalette,
     typography: {
         fontSize: 15,
     },
@@ -45,6 +47,12 @@ const theme = createMuiTheme({
         centerItem: {
             marginLeft: "auto",
             marginRight: "auto",
+        },
+        avatar: {
+            backgroundColor: themePalette.background.paper,
+            color: themePalette.primary.main,
+            borderColor: themePalette.primary.main,
+            border: "solid",
         },
     },
 });

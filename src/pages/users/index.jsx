@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { IconButton, Typography, withStyles } from "@material-ui/core";
+import { IconButton, withStyles, Avatar } from "@material-ui/core";
 import { Clear, Done, Edit } from "@material-ui/icons";
 
 import { FetchUsers } from "redux/user/action";
@@ -14,6 +14,11 @@ const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
     green: {
         color: theme.palette.success.main,
+    },
+    avatar: {
+        height: 55,
+        width: 55,
+        ...theme.styles.avatar,
     },
 });
 
@@ -48,27 +53,20 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
-            renderCell: (params) => (
-                <Typography variant="body2" style={{ width: "100%" }} color={params.value ? "textPrimary" : "error"}>
-                    {params.value ?? "No associated school"}
-                </Typography>
-            ),
+            valueFormatter: (params) => params.value ?? "No associated school",
         },
         {
             field: "profile_picture",
-            headerName: "Picture",
+            headerName: "Profile Picture",
             headerAlign: "center",
             flex: 1,
+            sortable: false,
+            filterable: false,
             renderCell: (params) => (
-                <img
-                    className={this.props.classes.centerItem}
-                    src={`${
-                        params.value
-                            ? `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${params.value}`
-                            : "/logos/revamp_favicon.jpg"
-                    }`}
-                    height="100%"
-                    alt="Nothing here"
+                <Avatar
+                    className={clsx(this.props.classes.centerItem, this.props.classes.avatar)}
+                    src={params.value}
+                    alt={(params.row.full_name ?? params.row.email).toUpperCase()}
                 />
             ),
             hide: true,
@@ -78,7 +76,7 @@ class Users extends React.Component {
             headerName: "Type",
             headerAlign: "center",
             align: "center",
-            flex: 1.5,
+            flex: 1,
         },
         {
             field: "is_active",
@@ -98,6 +96,7 @@ class Users extends React.Component {
             headerAlign: "center",
             flex: 1,
             sortable: false,
+            filterable: false,
             renderCell: (params) => (
                 <IconButton
                     className={this.props.classes.centerItem}
