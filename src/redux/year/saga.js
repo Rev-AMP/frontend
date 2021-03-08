@@ -11,6 +11,8 @@ import {
     FetchYearsSuccess,
     UpdateYearFailure,
     UpdateYearSuccess,
+    DeleteYearSuccess,
+    DeleteYearFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -70,16 +72,16 @@ function* CreateYear() {
 }
 
 function* DeleteYear() {
-    yield takeEvery(YearActionTypes.CREATE_YEAR, function* (action) {
+    yield takeEvery(YearActionTypes.DELETE_YEAR, function* (action) {
         try {
             const selectedYear = yield select((state) => state.school.selectedYear);
 
             yield APICall(`/api/v1/years/${selectedYear.id}`, {
                 method: "DELETE",
             });
-            yield put(CreateYearSuccess());
+            yield put(DeleteYearSuccess());
         } catch (error) {
-            yield put(CreateYearFailure(error.detail));
+            yield put(DeleteYearFailure(error.detail));
         }
     });
 }
