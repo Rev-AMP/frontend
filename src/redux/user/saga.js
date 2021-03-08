@@ -39,7 +39,7 @@ function* UpdateUserMe() {
             // save profile_picture separately so we don't send a file in body
             const profilePicture = action.payload.profile_picture;
             delete action.payload.profile_picture;
-            
+
             let user = yield APICall(`/api/v1/users/me`, {
                 method: "PUT",
                 body: JSON.stringify(action.payload),
@@ -80,7 +80,6 @@ function* FetchUsers() {
             });
 
             users.forEach((user, index) => (users[index].profile_picture = addProfilePictureURL(user)));
-
             yield put(FetchUsersSuccess(users));
         } catch (error) {
             yield put(FetchUsersFailure(error.detail));
