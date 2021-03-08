@@ -74,9 +74,7 @@ function* CreateYear() {
 function* DeleteYear() {
     yield takeEvery(YearActionTypes.DELETE_YEAR, function* (action) {
         try {
-            const selectedYear = yield select((state) => state.school.selectedYear);
-
-            yield APICall(`/api/v1/years/${selectedYear.id}`, {
+            yield APICall(`/api/v1/years/${action.payload}`, {
                 method: "DELETE",
             });
             yield put(DeleteYearSuccess());
