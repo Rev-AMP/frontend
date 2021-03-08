@@ -17,6 +17,7 @@ const styles = (theme) => ({
     },
     fullModal: {
         width: "80vw",
+        overflowX: "hidden",
         overflowY: "auto",
         scrollbarWidth: "thin",
         scrollbarColor: `${theme.palette.primary.main} ${theme.palette.background.paper}`,
