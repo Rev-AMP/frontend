@@ -6,9 +6,7 @@ import { FetchSchools } from "redux/school/action";
 
 class SchoolSelect extends React.Component {
     componentDidMount() {
-        if (!this.props.schools) {
-            this.props.FetchSchools();
-        }
+        this.props.FetchSchools();
     }
 
     render() {
