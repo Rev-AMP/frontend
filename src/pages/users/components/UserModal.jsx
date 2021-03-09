@@ -13,14 +13,12 @@ import {
     Typography,
     withStyles,
 } from "@material-ui/core";
-
-import { FetchUser, CreateUser, UpdateUser } from "redux/user/action";
-import { FetchSchools } from "redux/school/action";
-import Button from "components/Button";
-import PopupModal from "components/PopupModal";
 import { AddAPhoto } from "@material-ui/icons";
 
-toast.configure();
+import { FetchUser, CreateUser, UpdateUser } from "redux/user/action";
+import Button from "components/Button";
+import PopupModal from "components/PopupModal";
+import SchoolSelect from "pages/schools/components/SchoolSelect";
 
 const styles = (theme) => ({
     form: {
@@ -52,9 +50,6 @@ class UserModal extends React.Component {
     componentDidMount() {
         if (this.props.userId !== null && this.props.userId !== undefined) {
             this.props.FetchUser(this.props.userId);
-        }
-        if (!this.props.schools) {
-            this.props.FetchSchools();
         }
     }
 
@@ -184,19 +179,12 @@ class UserModal extends React.Component {
                         <MenuItem value="admin">Admin</MenuItem>
                         <MenuItem value="superuser">Superuser</MenuItem>
                     </TextField>
-                    <TextField
-                        select
+                    <SchoolSelect
                         name="school"
                         label="School"
                         value={this.state.user.school ?? ""}
                         onChange={this.handleInputChange}
-                    >
-                        {this.props.schools.map((school) => (
-                            <MenuItem key={school.id} value={school.id}>
-                                {school.name}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+                    />
                     <TextField
                         type="password"
                         name="password"
@@ -231,10 +219,7 @@ class UserModal extends React.Component {
 
 const mapStateToProps = (state) => ({
     selectedUser: state.user.selectedUser,
-    isLoading: state.user.isLoading || state.school.isLoading,
-    schools: state.school.schools,
+    isLoading: state.user.isLoading,
 });
 
-export default withStyles(styles)(
-    connect(mapStateToProps, { FetchUser, FetchSchools, CreateUser, UpdateUser })(UserModal)
-);
+export default withStyles(styles)(connect(mapStateToProps, { FetchUser, CreateUser, UpdateUser })(UserModal));

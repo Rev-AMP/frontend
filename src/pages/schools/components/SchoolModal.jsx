@@ -7,8 +7,6 @@ import { CreateSchool, FetchSchool, UpdateSchool } from "redux/school/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 
-toast.configure();
-
 const styles = (theme) => ({
     form: {
         display: "flex",
@@ -163,7 +161,6 @@ class SchoolModal extends React.Component {
 const mapStateToProps = (state) => ({
     selectedSchool: state.school.selectedSchool,
     isLoading: state.school.isLoading,
-    errorMessage: state.school.errorMessage,
 });
 
 export default withStyles(styles)(connect(mapStateToProps, { FetchSchool, CreateSchool, UpdateSchool })(SchoolModal));

@@ -1,92 +1,112 @@
-import SchoolActionTypes from "./action.types";
+import YearActionTypes from "./action.types";
 
 const initState = {
     errorMessage: "",
     isLoading: false,
-    selectedSchool: null,
-    schools: [],
+    selectedYear: null,
+    years: [],
 };
 
-const SchoolReducer = (state = initState, action) => {
+const YearReducer = (state = initState, action) => {
     switch (action.type) {
-        case SchoolActionTypes.FETCH_SCHOOLS:
+        case YearActionTypes.FETCH_YEARS:
             return {
                 ...state,
                 errorMessage: "",
                 isLoading: true,
-                schools: [],
+                years: [],
             };
-        case SchoolActionTypes.FETCH_SCHOOLS_SUCCESS:
+        case YearActionTypes.FETCH_YEARS_SUCCESS:
             return {
                 ...state,
-                schools: action.payload,
+                years: action.payload,
                 errorMessage: "",
                 isLoading: false,
             };
-        case SchoolActionTypes.FETCH_SCHOOLS_FAILURE:
+        case YearActionTypes.FETCH_YEARS_FAILURE:
             return {
                 ...state,
                 errorMessage: action.payload,
                 isLoading: false,
-                schools: [],
+                years: [],
             };
 
-        case SchoolActionTypes.FETCH_SCHOOL:
+        case YearActionTypes.FETCH_YEAR:
             return {
                 ...state,
-                selectedSchool: null,
+                selectedYear: null,
                 errorMessage: "",
                 isLoading: true,
             };
-        case SchoolActionTypes.FETCH_SCHOOL_SUCCESS:
+        case YearActionTypes.FETCH_YEAR_SUCCESS:
             return {
                 ...state,
-                selectedSchool: action.payload,
+                selectedYear: action.payload,
                 errorMessage: "",
                 isLoading: false,
             };
-        case SchoolActionTypes.FETCH_SCHOOL_FAILURE:
+        case YearActionTypes.FETCH_YEAR_FAILURE:
             return {
                 ...state,
-                selectedSchool: null,
+                selectedYear: null,
                 errorMessage: action.payload,
                 isLoading: false,
             };
 
-        case SchoolActionTypes.UPDATE_SCHOOL:
+        case YearActionTypes.UPDATE_YEAR:
             return {
                 ...state,
                 errorMessage: "",
                 isLoading: true,
             };
-        case SchoolActionTypes.UPDATE_SCHOOL_SUCCESS:
+        case YearActionTypes.UPDATE_YEAR_SUCCESS:
             return {
                 ...state,
-                selectedSchool: action.payload,
+                selectedYear: action.payload,
                 errorMessage: "",
                 isLoading: false,
             };
-        case SchoolActionTypes.UPDATE_SCHOOL_FAILURE:
+        case YearActionTypes.UPDATE_YEAR_FAILURE:
             return {
                 ...state,
                 errorMessage: action.payload,
                 isLoading: false,
             };
 
-        case SchoolActionTypes.CREATE_SCHOOL:
+        case YearActionTypes.CREATE_YEAR:
             return {
                 ...state,
                 errorMessage: "",
                 isLoading: true,
             };
-        case SchoolActionTypes.CREATE_SCHOOL_SUCCESS:
+        case YearActionTypes.CREATE_YEAR_SUCCESS:
             return {
                 ...state,
                 errorMessage: "",
                 isLoading: false,
-                selectedSchool: action.payload,
+                selectedYear: action.payload,
             };
-        case SchoolActionTypes.CREATE_SCHOOL_FAILURE:
+        case YearActionTypes.CREATE_YEAR_FAILURE:
+            return {
+                ...state,
+                errorMessage: action.payload,
+                isLoading: false,
+            };
+
+        case YearActionTypes.DELETE_YEAR:
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: true,
+            };
+        case YearActionTypes.DELETE_YEAR_SUCCESS:
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: false,
+                selectedYear: null,
+            };
+        case YearActionTypes.DELETE_YEAR_FAILURE:
             return {
                 ...state,
                 errorMessage: action.payload,
@@ -98,4 +118,4 @@ const SchoolReducer = (state = initState, action) => {
     }
 };
 
-export default SchoolReducer;
+export default YearReducer;

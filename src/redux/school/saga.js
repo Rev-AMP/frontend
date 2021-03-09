@@ -1,4 +1,4 @@
-import { all, call, put, select, takeEvery, takeLatest } from "redux-saga/effects";
+import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import SchoolActionTypes from "./action.types";
 import {
@@ -12,21 +12,15 @@ import {
     UpdateSchoolFailure,
     UpdateSchoolSuccess,
 } from "./action";
-import httpClient from "services/http-client";
+import { APICall } from "services/http-client";
 
 function* FetchSchools() {
     yield takeEvery(SchoolActionTypes.FETCH_SCHOOLS, function* (action) {
         try {
-            let token = yield select((state) => state.auth.accessToken);
-
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/`, {
+            const schools = yield APICall(`/api/v1/schools/`, {
                 method: "GET",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
             });
-
-            yield put(FetchSchoolsSuccess(user));
+            yield put(FetchSchoolsSuccess(schools));
         } catch (error) {
             yield put(FetchSchoolsFailure(error.detail));
         }
@@ -36,16 +30,10 @@ function* FetchSchools() {
 function* FetchSchool() {
     yield takeEvery(SchoolActionTypes.FETCH_SCHOOL, function* (action) {
         try {
-            let token = yield select((state) => state.auth.accessToken);
-
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/${action.payload}`, {
+            const school = yield APICall(`/api/v1/schools/${action.payload}`, {
                 method: "GET",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
             });
-
-            yield put(FetchSchoolSuccess(user));
+            yield put(FetchSchoolSuccess(school));
         } catch (error) {
             yield put(FetchSchoolFailure(error.detail));
         }
@@ -55,22 +43,12 @@ function* FetchSchool() {
 function* UpdateSchool() {
     yield takeEvery(SchoolActionTypes.UPDATE_SCHOOL, function* (action) {
         try {
-            let token = yield select((state) => state.auth.accessToken);
-            let selectedSchool = yield select((state) => state.school.selectedSchool);
-
-            let user = yield call(
-                httpClient,
-                `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/${selectedSchool.id}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: `bearer ${token}`,
-                    },
-                    body: JSON.stringify(action.payload),
-                }
-            );
-
-            yield put(UpdateSchoolSuccess(user));
+            const selectedSchool = yield select((state) => state.school.selectedSchool);
+            const school = yield APICall(`/api/v1/schools/${selectedSchool.id}`, {
+                method: "PUT",
+                body: JSON.stringify(action.payload),
+            });
+            yield put(UpdateSchoolSuccess(school));
         } catch (error) {
             yield put(UpdateSchoolFailure(error.detail));
         }
@@ -80,17 +58,11 @@ function* UpdateSchool() {
 function* CreateSchool() {
     yield takeEvery(SchoolActionTypes.CREATE_SCHOOL, function* (action) {
         try {
-            let token = yield select((state) => state.auth.accessToken);
-
-            let user = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/schools/`, {
+            const school = yield APICall(`/api/v1/schools/`, {
                 method: "POST",
-                headers: {
-                    Authorization: `bearer ${token}`,
-                },
                 body: JSON.stringify(action.payload),
             });
-
-            yield put(CreateSchoolSuccess(user));
+            yield put(CreateSchoolSuccess(school));
         } catch (error) {
             yield put(CreateSchoolFailure(error.detail));
         }
@@ -106,8 +78,8 @@ function* RefreshSchoolList() {
     );
 }
 
-function* FetchSchoolMethods() {
+function* SchoolMethods() {
     yield all([FetchSchool(), FetchSchools(), UpdateSchool(), CreateSchool(), RefreshSchoolList()]);
 }
 
-export default FetchSchoolMethods;
+export default SchoolMethods;

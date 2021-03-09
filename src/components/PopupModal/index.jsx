@@ -14,12 +14,13 @@ const styles = (theme) => ({
         flexDirection: "column",
         padding: 30,
         maxHeight: "90vh",
-        overflowY: "scroll",
-        scrollbarWidth: "thin",
-        scrollbarColor: `${theme.palette.primary.main} ${theme.palette.background.paper}`,
     },
     fullModal: {
         width: "80vw",
+        overflowX: "hidden",
+        overflowY: "auto",
+        scrollbarWidth: "thin",
+        scrollbarColor: `${theme.palette.primary.main} ${theme.palette.background.paper}`,
     },
 });
 

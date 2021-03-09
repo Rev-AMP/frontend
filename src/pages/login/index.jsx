@@ -10,7 +10,6 @@ import CenterContent from "components/CenterContent";
 import { Login as InitiateLogin } from "redux/auth/action";
 import { FetchUserMe } from "redux/user/action";
 
-toast.configure();
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
 const styles = (theme) => ({
