@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { IconButton, withStyles, Avatar } from "@material-ui/core";
+import { IconButton, withStyles, Avatar, Tooltip } from "@material-ui/core";
 import { Clear, Done, Edit } from "@material-ui/icons";
 
 import { FetchUsers } from "redux/user/action";
@@ -91,20 +91,22 @@ class Users extends React.Component {
                 ),
         },
         {
-            field: "Edit",
-            headerName: "Edit",
+            field: "actions",
+            headerName: "Actions",
             headerAlign: "center",
             flex: 1,
             sortable: false,
             filterable: false,
             renderCell: (params) => (
-                <IconButton
-                    className={this.props.classes.centerItem}
-                    color={"primary"}
-                    onClick={() => this.onEdit(params)}
-                >
-                    <Edit />
-                </IconButton>
+                <Tooltip title="Edit">
+                    <IconButton
+                        className={this.props.classes.centerItem}
+                        color={"primary"}
+                        onClick={() => this.onEdit(params)}
+                    >
+                        <Edit />
+                    </IconButton>
+                </Tooltip>
             ),
         },
     ];
