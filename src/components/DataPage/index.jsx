@@ -43,7 +43,8 @@ class DataPage extends React.Component {
                     <div className={classes.dataGrid}>
                         <div style={{ flexGrow: 1 }}>
                             <DataGrid
-                                disableSelectionOnClick={true}
+                                disableSelectionOnClick
+                                disableColumnMenu
                                 rows={this.props.objects}
                                 rowHeight={80}
                                 columns={this.props.columns}

@@ -9,6 +9,7 @@ import {
     DialogTitle,
     DialogContent,
     DialogActions,
+    Tooltip,
 } from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
 
@@ -71,7 +72,7 @@ class Years extends React.Component {
             headerAlign: "center",
             align: "center",
             valueFormatter: (params) => `${params.value}`,
-            flex: 1.5,
+            flex: 1,
         },
         {
             field: "end_year",
@@ -80,36 +81,28 @@ class Years extends React.Component {
             headerAlign: "center",
             align: "center",
             valueFormatter: (params) => `${params.value}`,
-            flex: 1.5,
+            flex: 1,
         },
         {
-            field: "Edit",
-            headerName: "Edit",
+            field: "actions",
+            headerName: "Actions",
             headerAlign: "center",
             flex: 1,
             sortable: false,
             filterable: false,
             renderCell: (params) => (
-                <IconButton
-                    className={this.props.classes.centerItem}
-                    color={"primary"}
-                    onClick={() => this.onEdit(params)}
-                >
-                    <Edit />
-                </IconButton>
-            ),
-        },
-        {
-            field: "delete",
-            headerName: "Delete",
-            headerAlign: "center",
-            flex: 1,
-            sortable: false,
-            filterable: false,
-            renderCell: (params) => (
-                <IconButton className={this.props.classes.centerItem} onClick={() => this.onDelete(params)}>
-                    <Delete color={"error"} />
-                </IconButton>
+                <div className={this.props.classes.centerItem}>
+                    <Tooltip title="Edit">
+                        <IconButton color={"primary"} onClick={() => this.onEdit(params)}>
+                            <Edit />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                        <IconButton onClick={() => this.onDelete(params)}>
+                            <Delete color={"error"} />
+                        </IconButton>
+                    </Tooltip>
+                </div>
             ),
         },
     ];

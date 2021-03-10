@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { IconButton, withStyles } from "@material-ui/core";
+import { IconButton, Tooltip, withStyles } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 
 import { FetchSchools } from "redux/school/action";
@@ -36,19 +36,21 @@ class Schools extends React.Component {
             flex: 2,
         },
         {
-            field: "Edit",
-            headerName: "Edit",
+            field: "actions",
+            headerName: "Actions",
             headerAlign: "center",
             flex: 1,
             sortable: false,
             renderCell: (params) => (
-                <IconButton
-                    className={this.props.classes.centerItem}
-                    color={"primary"}
-                    onClick={() => this.onEdit(params)}
-                >
-                    <Edit />
-                </IconButton>
+                <Tooltip title="Edit">
+                    <IconButton
+                        className={this.props.classes.centerItem}
+                        color={"primary"}
+                        onClick={() => this.onEdit(params)}
+                    >
+                        <Edit />
+                    </IconButton>
+                </Tooltip>
             ),
         },
     ];
