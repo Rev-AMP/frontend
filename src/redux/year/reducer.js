@@ -104,7 +104,6 @@ const YearReducer = (state = initState, action) => {
                 ...state,
                 errorMessage: "",
                 isLoading: false,
-                selectedYear: null,
             };
         case YearActionTypes.DELETE_YEAR_FAILURE:
             return {
