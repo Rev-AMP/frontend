@@ -93,6 +93,25 @@ const SchoolReducer = (state = initState, action) => {
                 isLoading: false,
             };
 
+        case SchoolActionTypes.DELETE_SCHOOL:
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: true,
+            };
+        case SchoolActionTypes.DELETE_SCHOOL_SUCCESS:
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: false,
+            };
+        case SchoolActionTypes.DELETE_SCHOOL_FAILURE:
+            return {
+                ...state,
+                errorMessage: action.payload,
+                isLoading: false,
+            };
+
         default:
             return state;
     }

@@ -11,6 +11,8 @@ import {
     FetchSchoolSuccess,
     UpdateSchoolFailure,
     UpdateSchoolSuccess,
+    DeleteSchoolFailure,
+    DeleteSchoolSuccess,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -69,9 +71,26 @@ function* CreateSchool() {
     });
 }
 
+function* DeleteSchool() {
+    yield takeEvery(SchoolActionTypes.DELETE_SCHOOL, function* (action) {
+        try {
+            yield APICall(`/api/v1/schools/${action.payload}`, {
+                method: "DELETE",
+            });
+            yield put(DeleteSchoolSuccess());
+        } catch (error) {
+            yield put(DeleteSchoolFailure(error.detail));
+        }
+    });
+}
+
 function* RefreshSchoolList() {
     yield takeLatest(
-        [SchoolActionTypes.UPDATE_SCHOOL_SUCCESS, SchoolActionTypes.CREATE_SCHOOL_SUCCESS],
+        [
+            SchoolActionTypes.UPDATE_SCHOOL_SUCCESS,
+            SchoolActionTypes.CREATE_SCHOOL_SUCCESS,
+            SchoolActionTypes.DELETE_SCHOOL_SUCCESS,
+        ],
         function* (action) {
             yield put(ActionFetchSchools());
         }
@@ -79,7 +98,7 @@ function* RefreshSchoolList() {
 }
 
 function* SchoolMethods() {
-    yield all([FetchSchool(), FetchSchools(), UpdateSchool(), CreateSchool(), RefreshSchoolList()]);
+    yield all([FetchSchool(), FetchSchools(), UpdateSchool(), CreateSchool(), DeleteSchool(), RefreshSchoolList()]);
 }
 
 export default SchoolMethods;

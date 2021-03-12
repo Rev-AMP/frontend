@@ -58,3 +58,17 @@ export const CreateSchoolFailure = (error) => ({
     type: SchoolActionTypes.CREATE_SCHOOL_FAILURE,
     payload: error,
 });
+
+export const DeleteSchool = (schoolId) => ({
+    type: SchoolActionTypes.DELETE_SCHOOL,
+    payload: schoolId,
+});
+
+export const DeleteSchoolSuccess = () => ({
+    type: SchoolActionTypes.DELETE_SCHOOL_SUCCESS,
+});
+
+export const DeleteSchoolFailure = (error) => ({
+    type: SchoolActionTypes.DELETE_SCHOOL_FAILURE,
+    payload: error,
+});
