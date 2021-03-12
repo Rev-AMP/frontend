@@ -53,7 +53,7 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
-            valueFormatter: (params) => params.value ?? "No associated school",
+            valueFormatter: (params) => (params.value ? params.value.name : "No associated school"),
         },
         {
             field: "profile_picture",
@@ -115,24 +115,11 @@ class Users extends React.Component {
         super(props);
         this.state = {
             modalIsOpen: false,
-            users: this.props.users,
         };
     }
 
     componentDidMount() {
         this.props.FetchUsers();
-        this.props.FetchSchools();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        let { users, schools } = this.props;
-        if ((prevProps.schools !== schools || prevProps.users !== users) && schools.length && users.length) {
-            for (let i = 0; i < users.length; i++) {
-                const school = schools.find((school) => school.id === users[i].school);
-                users[i].school = school ? school.name : undefined;
-            }
-            this.setState({ users });
-        }
     }
 
     closeModal = () => {
@@ -157,7 +144,7 @@ class Users extends React.Component {
                 PopupModal={
                     <UserModal isOpen={this.state.modalIsOpen} onClose={this.closeModal} userId={this.state.userId} />
                 }
-                objects={this.state.users}
+                objects={this.props.users}
                 columns={this.columns}
             />
         );
@@ -166,8 +153,7 @@ class Users extends React.Component {
 
 const mapStateToProps = (state) => ({
     users: state.user.users,
-    isLoading: state.user.isLoading || state.school.isLoading,
-    schools: state.school.schools,
+    isLoading: state.user.isLoading,
 });
 
 export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchUsers, FetchSchools })(Users)));
