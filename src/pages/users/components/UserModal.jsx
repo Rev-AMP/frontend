@@ -180,9 +180,9 @@ class UserModal extends React.Component {
                         <MenuItem value="superuser">Superuser</MenuItem>
                     </TextField>
                     <SchoolSelect
-                        name="school"
+                        name="school_id"
                         label="School"
-                        value={this.state.user.school ?? ""}
+                        value={this.state.user.school_id ?? ""}
                         onChange={this.handleInputChange}
                     />
                     <TextField

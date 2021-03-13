@@ -59,11 +59,7 @@ class Years extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
-            renderCell: (params) => (
-                <Typography variant="body2" style={{ width: "100%" }} color={params.value ? "textPrimary" : "error"}>
-                    {params.value ?? "No associated school"}
-                </Typography>
-            ),
+            valueFormatter: (params) => (params.value ? params.value.name : "No associated school"),
         },
         {
             field: "start_year",
@@ -117,18 +113,6 @@ class Years extends React.Component {
 
     componentDidMount() {
         this.props.FetchYears();
-        this.props.FetchSchools();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        let { years, schools } = this.props;
-        if ((prevProps.schools !== schools || prevProps.years !== years) && schools.length && years.length) {
-            years.forEach((year, index) => {
-                const school = schools.find((school) => school.id === year.school_id);
-                years[index].school = school ? school.name : undefined;
-            });
-            this.setState({ years });
-        }
     }
 
     closeModal = () => this.setState({ modalIsOpen: false, yearId: null });
@@ -192,8 +176,7 @@ class Years extends React.Component {
 
 const mapStateToProps = (state) => ({
     years: state.year.years,
-    schools: state.school.schools,
-    isLoading: state.year.isLoading || state.school.isLoading,
+    isLoading: state.year.isLoading,
 });
 
 export default withStyles(styles)(connect(mapStateToProps, { FetchYears, FetchSchools, DeleteYear })(Years));
