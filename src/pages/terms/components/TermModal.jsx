@@ -103,6 +103,8 @@ class TermModal extends React.Component {
             case "current_year_term":
                 if (!value) {
                     errors.current_year_term = "Current Year Term cannot be empty";
+                } else if (value < 1) {
+                    errors.current_year_term = "Current Year Term cannot be less than 1";
                 } else {
                     errors.current_year_term = "";
                 }
@@ -220,6 +222,7 @@ class TermModal extends React.Component {
                         name="current_year_term"
                         label="Current Year Term"
                         type="number"
+                        InputProps={{ inputProps: { min: 1 } }}
                         value={term.current_year_term ?? ""}
                         required
                         onBlur={this.validateInput}
