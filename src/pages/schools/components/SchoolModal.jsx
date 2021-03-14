@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 
 import { createSchool, fetchSchool, updateSchool } from "redux/school/action";
+import { getUpdatedInfo } from "utils";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 
@@ -91,10 +92,10 @@ class SchoolModal extends React.Component {
         if (errors.name || errors.head) return;
 
         const { schoolId, selectedSchool } = this.props;
-        const submit_keys = Object.keys(submit);
 
         if (schoolId) {
-            if (submit_keys.length && !submit_keys.every((key) => selectedSchool[key] === submit[key])) {
+            const updatedInfo = getUpdatedInfo(selectedSchool, submit);
+            if (Object.keys(updatedInfo).length) {
                 this.props.updateSchool(submit);
                 this.setState({ formSubmitted: true });
             } else {

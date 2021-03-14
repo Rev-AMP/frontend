@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { Divider, FormControlLabel, Switch, TextField, Typography, withStyles } from "@material-ui/core";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { toast } from "react-toastify";
 
 import { fetchTerm, updateTerm, createTerm } from "redux/term/action";
-import { toast } from "react-toastify";
+import { getUpdatedInfo } from "utils";
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";
 import YearSelect from "pages/years/components/YearSelect";
@@ -141,11 +142,11 @@ class TermModal extends React.Component {
         if (errors.name || errors.start_date || errors.end_date || errors.current_year_term) return;
 
         const { termId, selectedTerm } = this.props;
-        const submitKeys = Object.keys(submit);
 
         if (termId) {
-            if (submitKeys.length && !submitKeys.every((key) => selectedTerm[key] === submit[key])) {
-                this.props.updateTerm(submit);
+            const updatedInfo = getUpdatedInfo(selectedTerm, submit);
+            if (Object.keys(updatedInfo).length) {
+                this.props.updateTerm(updatedInfo);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
