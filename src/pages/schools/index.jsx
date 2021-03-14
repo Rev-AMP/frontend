@@ -92,7 +92,7 @@ class Schools extends React.Component {
     }
 
     componentDidMount() {
-        this.props.FetchSchools();
+        this.props.fetchSchools();
     }
 
     closeModal = () => this.setState({ modalIsOpen: false, schoolId: null });
@@ -106,7 +106,7 @@ class Schools extends React.Component {
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, schoolId: null });
 
     deleteSchool = () => {
-        this.props.DeleteSchool(this.state.schoolId);
+        this.props.deleteSchool(this.state.schoolId);
         this.onDeleteClose();
     };
 
@@ -160,6 +160,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.school.isLoading,
 });
 
-export default withRouter(
-    withStyles(styles)(connect(mapStateToProps, { FetchSchools: fetchSchools, DeleteSchool: deleteSchool })(Schools))
-);
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchSchools, deleteSchool })(Schools)));

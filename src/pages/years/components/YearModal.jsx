@@ -42,7 +42,7 @@ class YearModal extends React.Component {
 
     componentDidMount() {
         if (this.props.yearId) {
-            this.props.FetchYear(this.props.yearId);
+            this.props.fetchYear(this.props.yearId);
         }
     }
 
@@ -141,7 +141,7 @@ class YearModal extends React.Component {
 
         if (yearId) {
             if (submit_keys.length && !submit_keys.every((key) => selectedYear[key] === submit[key])) {
-                this.props.UpdateYear(submit);
+                this.props.updateYear(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
@@ -150,7 +150,7 @@ class YearModal extends React.Component {
             }
         } else {
             if (submit.name && submit.school_id && submit.start_year && submit.end_year) {
-                this.props.CreateYear(submit);
+                this.props.createYear(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Empty Fields 💔", {
@@ -234,6 +234,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.year.isLoading,
 });
 
-export default withStyles(styles)(
-    connect(mapStateToProps, { FetchYear: fetchYear, CreateYear: createYear, UpdateYear: updateYear })(YearModal)
-);
+export default withStyles(styles)(connect(mapStateToProps, { fetchYear, createYear, updateYear })(YearModal));

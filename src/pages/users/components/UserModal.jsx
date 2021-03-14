@@ -49,7 +49,7 @@ class UserModal extends React.Component {
 
     componentDidMount() {
         if (this.props.userId !== null && this.props.userId !== undefined) {
-            this.props.FetchUser(this.props.userId);
+            this.props.fetchUser(this.props.userId);
         }
     }
 
@@ -100,7 +100,7 @@ class UserModal extends React.Component {
 
         if (userId) {
             if (submit_keys.length && !submit_keys.every((key) => selectedUser[key] === submit[key])) {
-                this.props.UpdateUser(submit);
+                this.props.updateUser(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
@@ -109,7 +109,7 @@ class UserModal extends React.Component {
             }
         } else {
             if (["email", "type", "password"].every((key) => submit.hasOwnProperty(key) && submit[key])) {
-                this.props.CreateUser(submit);
+                this.props.createUser(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please add email, type and password 😓", {
@@ -222,6 +222,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.user.isLoading,
 });
 
-export default withStyles(styles)(
-    connect(mapStateToProps, { FetchUser: fetchUser, CreateUser: createUser, UpdateUser: updateUser })(UserModal)
-);
+export default withStyles(styles)(connect(mapStateToProps, { fetchUser, createUser, updateUser })(UserModal));

@@ -43,7 +43,7 @@ class Homepage extends Component {
 
     componentDidMount() {
         if (this.props.currentUser.school) {
-            this.props.FetchSchool(this.props.currentUser.school_id);
+            this.props.fetchSchool(this.props.currentUser.school_id);
         }
     }
 
@@ -87,7 +87,7 @@ class Homepage extends Component {
                 });
             } else {
                 delete submit.confirm_password;
-                this.props.UpdateUserMe(submit);
+                this.props.updateUserMe(submit);
             }
         } else {
             toast.error("Please update some information 😓", {
@@ -204,6 +204,4 @@ const mapStateToProps = (state) => ({
     errorMessage: state.user.errorMessage,
 });
 
-export default withRouter(
-    connect(mapStateToProps, { UpdateUserMe: updateUserMe, FetchSchool: fetchSchool })(withStyles(styles)(Homepage))
-);
+export default withRouter(connect(mapStateToProps, { updateUserMe, fetchSchool })(withStyles(styles)(Homepage)));

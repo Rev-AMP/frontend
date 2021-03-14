@@ -6,13 +6,13 @@ import { fetchSchools } from "redux/school/action";
 
 class SchoolSelect extends React.Component {
     componentDidMount() {
-        this.props.FetchSchools();
+        this.props.fetchSchools();
     }
 
     render() {
         //     let otherProps = { ...this.props };
         //     delete otherProps["schools"];
-        const { schools, isLoading, FetchSchools, ...otherProps } = this.props;
+        const { schools, isLoading, fetchSchools, ...otherProps } = this.props;
 
         if (isLoading) {
             return <LinearProgress />;
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.school.isLoading,
 });
 
-export default connect(mapStateToProps, { FetchSchools: fetchSchools })(SchoolSelect);
+export default connect(mapStateToProps, { fetchSchools })(SchoolSelect);

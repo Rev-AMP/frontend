@@ -112,7 +112,7 @@ class Years extends React.Component {
     }
 
     componentDidMount() {
-        this.props.FetchYears();
+        this.props.fetchYears();
     }
 
     closeModal = () => this.setState({ modalIsOpen: false, yearId: null });
@@ -126,7 +126,7 @@ class Years extends React.Component {
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, yearId: null });
 
     deleteYear = () => {
-        this.props.DeleteYear(this.state.yearId);
+        this.props.deleteYear(this.state.yearId);
         this.onDeleteClose();
     };
 
@@ -179,6 +179,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.year.isLoading,
 });
 
-export default withStyles(styles)(
-    connect(mapStateToProps, { FetchYears: fetchYears, FetchSchools: fetchSchools, DeleteYear: deleteYear })(Years)
-);
+export default withStyles(styles)(connect(mapStateToProps, { fetchYears, fetchSchools, deleteYear })(Years));

@@ -119,7 +119,7 @@ class Users extends React.Component {
     }
 
     componentDidMount() {
-        this.props.FetchUsers();
+        this.props.fetchUsers();
     }
 
     closeModal = () => {
@@ -156,6 +156,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.user.isLoading,
 });
 
-export default withRouter(
-    withStyles(styles)(connect(mapStateToProps, { FetchUsers: fetchUsers, FetchSchools: fetchSchools })(Users))
-);
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchUsers, fetchSchools })(Users)));
