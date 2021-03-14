@@ -10,8 +10,6 @@ class SchoolSelect extends React.Component {
     }
 
     render() {
-        //     let otherProps = { ...this.props };
-        //     delete otherProps["schools"];
         const { schools, isLoading, fetchSchools, ...otherProps } = this.props;
 
         if (isLoading) {

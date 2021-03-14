@@ -124,7 +124,7 @@ class TermModal extends React.Component {
         term[name] = value;
         // validate input
         this.validateInput(event);
-        // // update submit if it is valid
+        // update submit if it is valid
         if (!errors[name]) {
             submit[name] = value;
         }
@@ -252,7 +252,6 @@ class TermModal extends React.Component {
                                 checked={term.has_electives ?? false}
                                 onChange={this.handleInputChange}
                                 color="primary"
-                                // onClick={(e) => console.log(e)}
                             />
                         }
                         label="Has Electives"
