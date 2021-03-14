@@ -37,12 +37,10 @@ function* updateUserMe() {
     yield takeEvery(UserActionTypes.UPDATE_USER_ME, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
-            const profilePicture = action.payload.profile_picture;
-            delete action.payload.profile_picture;
-
+            const { profile_picture:profilePicture, ...payload} = action.payload;
             let user = yield APICall(`/api/v1/users/me`, {
                 method: "PUT",
-                body: JSON.stringify(action.payload),
+                body: JSON.stringify(payload),
             });
 
             // update profile picture
@@ -91,8 +89,7 @@ function* updateUser() {
     yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
-            const profilePicture = action.payload.profile_picture;
-            delete action.payload.profile_picture;
+            const { profile_picture:profilePicture, ...payload} = action.payload;
 
             // get token and user to update
             let selectedUser = yield select((state) => state.user.selectedUser);
@@ -100,7 +97,7 @@ function* updateUser() {
             // update user info
             let user = yield APICall(`/api/v1/users/${selectedUser.id}`, {
                 method: "PUT",
-                body: JSON.stringify(action.payload),
+                body: JSON.stringify(payload),
             });
 
             // update profile picture
@@ -120,13 +117,12 @@ function* createUser() {
     yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
-            const profilePicture = action.payload.profile_picture;
-            delete action.payload.profile_picture;
+            const { profile_picture:profilePicture, ...payload} = action.payload;
 
             // create new user
             let user = yield APICall(`/api/v1/users`, {
                 method: "POST",
-                body: JSON.stringify(action.payload),
+                body: JSON.stringify(payload),
             });
 
             // update profile picture
