@@ -43,7 +43,7 @@ class Homepage extends Component {
 
     componentDidMount() {
         if (this.props.currentUser.school) {
-            this.props.FetchSchool(this.props.currentUser.school);
+            this.props.FetchSchool(this.props.currentUser.school_id);
         }
     }
 

@@ -1,111 +1,111 @@
-import YearActionTypes from "./action.types";
+import TermActionTypes from "./action.types";
 
 const initState = {
     errorMessage: "",
     isLoading: false,
-    selectedYear: null,
-    years: [],
+    selectedTerm: null,
+    terms: [],
 };
 
-const YearReducer = (state = initState, action) => {
+const TermReducer = (state = initState, action) => {
     switch (action.type) {
-        case YearActionTypes.FETCH_YEARS:
+        case TermActionTypes.FETCH_TERMS:
             return {
                 ...state,
                 errorMessage: "",
                 isLoading: true,
-                years: [],
+                terms: [],
             };
-        case YearActionTypes.FETCH_YEARS_SUCCESS:
+        case TermActionTypes.FETCH_TERMS_SUCCESS:
             return {
                 ...state,
-                years: action.payload,
+                terms: action.payload,
                 errorMessage: "",
                 isLoading: false,
             };
-        case YearActionTypes.FETCH_YEARS_FAILURE:
+        case TermActionTypes.FETCH_TERMS_FAILURE:
             return {
                 ...state,
                 errorMessage: action.payload,
                 isLoading: false,
-                years: [],
+                terms: [],
             };
 
-        case YearActionTypes.FETCH_YEAR:
+        case TermActionTypes.FETCH_TERM:
             return {
                 ...state,
-                selectedYear: null,
+                selectedTerm: null,
                 errorMessage: "",
                 isLoading: true,
             };
-        case YearActionTypes.FETCH_YEAR_SUCCESS:
+        case TermActionTypes.FETCH_TERM_SUCCESS:
             return {
                 ...state,
-                selectedYear: action.payload,
+                selectedTerm: action.payload,
                 errorMessage: "",
                 isLoading: false,
             };
-        case YearActionTypes.FETCH_YEAR_FAILURE:
+        case TermActionTypes.FETCH_TERM_FAILURE:
             return {
                 ...state,
-                selectedYear: null,
+                selectedTerm: null,
                 errorMessage: action.payload,
                 isLoading: false,
             };
 
-        case YearActionTypes.UPDATE_YEAR:
+        case TermActionTypes.UPDATE_TERM:
             return {
                 ...state,
                 errorMessage: "",
                 isLoading: true,
             };
-        case YearActionTypes.UPDATE_YEAR_SUCCESS:
+        case TermActionTypes.UPDATE_TERM_SUCCESS:
             return {
                 ...state,
-                selectedYear: action.payload,
+                selectedTerm: action.payload,
                 errorMessage: "",
                 isLoading: false,
             };
-        case YearActionTypes.UPDATE_YEAR_FAILURE:
-            return {
-                ...state,
-                errorMessage: action.payload,
-                isLoading: false,
-            };
-
-        case YearActionTypes.CREATE_YEAR:
-            return {
-                ...state,
-                errorMessage: "",
-                isLoading: true,
-            };
-        case YearActionTypes.CREATE_YEAR_SUCCESS:
-            return {
-                ...state,
-                errorMessage: "",
-                isLoading: false,
-                selectedYear: action.payload,
-            };
-        case YearActionTypes.CREATE_YEAR_FAILURE:
+        case TermActionTypes.UPDATE_TERM_FAILURE:
             return {
                 ...state,
                 errorMessage: action.payload,
                 isLoading: false,
             };
 
-        case YearActionTypes.DELETE_YEAR:
+        case TermActionTypes.CREATE_TERM:
             return {
                 ...state,
                 errorMessage: "",
                 isLoading: true,
             };
-        case YearActionTypes.DELETE_YEAR_SUCCESS:
+        case TermActionTypes.CREATE_TERM_SUCCESS:
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: false,
+                selectedTerm: action.payload,
+            };
+        case TermActionTypes.CREATE_TERM_FAILURE:
+            return {
+                ...state,
+                errorMessage: action.payload,
+                isLoading: false,
+            };
+
+        case TermActionTypes.DELETE_TERM:
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: true,
+            };
+        case TermActionTypes.DELETE_TERM_SUCCESS:
             return {
                 ...state,
                 errorMessage: "",
                 isLoading: false,
             };
-        case YearActionTypes.DELETE_YEAR_FAILURE:
+        case TermActionTypes.DELETE_TERM_FAILURE:
             return {
                 ...state,
                 errorMessage: action.payload,
@@ -117,4 +117,4 @@ const YearReducer = (state = initState, action) => {
     }
 };
 
-export default YearReducer;
+export default TermReducer;

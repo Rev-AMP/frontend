@@ -11,6 +11,7 @@ import Users from "pages/users";
 import Schools from "pages/schools";
 import Homepage from "pages/homepage";
 import Years from "pages/years";
+import Terms from "pages/terms";
 
 const useStyles = (theme) => ({
     content: {
@@ -65,6 +66,7 @@ class Dashboard extends Component {
                             <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/schools`} component={Schools} />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/years`} component={Years} />
+                            <AuthenticatedRoute exact path={`${this.props.match.url}/terms`} component={Terms} />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/`} component={Homepage} />
                         </Switch>
                     </Grid>
