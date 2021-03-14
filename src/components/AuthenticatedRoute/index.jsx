@@ -8,7 +8,7 @@ import { fetchUserMe } from "redux/user/action";
 class AuthenticatedRoute extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.rehydrated && this.props.isLoggedIn && !this.props.currentUser) {
-            this.props.FetchUserMe();
+            this.props.fetchUserMe();
         }
     }
 
@@ -31,4 +31,4 @@ const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
 });
 
-export default connect(mapStateToProps, { FetchUserMe: fetchUserMe })(AuthenticatedRoute);
+export default connect(mapStateToProps, { fetchUserMe })(AuthenticatedRoute);
