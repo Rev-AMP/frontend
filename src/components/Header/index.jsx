@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AppBar, Box, IconButton, makeStyles, Toolbar } from "@material-ui/core";
 import { Menu, ExitToApp } from "@material-ui/icons";
 
-import { LogOut } from "redux/auth/action";
+import { logout } from "redux/auth/action";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Header = ({ handleMenuButtonClick, LogOut }) => {
+const Header = ({ handleMenuButtonClick, logout }) => {
     const classes = useStyles();
 
     return (
@@ -43,7 +43,7 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
                         />
                     </Link>
                 </Box>
-                <IconButton color="primary" aria-label="logout" onClick={LogOut}>
+                <IconButton color="primary" aria-label="logout" onClick={logout}>
                     <ExitToApp />
                 </IconButton>
             </Toolbar>
@@ -51,4 +51,4 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
     );
 };
 
-export default connect(null, { LogOut })(Header);
+export default connect(null, { logout })(Header);

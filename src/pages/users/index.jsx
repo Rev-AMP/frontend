@@ -5,8 +5,8 @@ import clsx from "clsx";
 import { IconButton, withStyles, Avatar, Tooltip } from "@material-ui/core";
 import { Clear, Done, Edit } from "@material-ui/icons";
 
-import { FetchUsers } from "redux/user/action";
-import { FetchSchools } from "redux/school/action";
+import { fetchUsers } from "redux/user/action";
+import { fetchSchools } from "redux/school/action";
 import UserModal from "./components/UserModal";
 import DataPage from "components/DataPage";
 
@@ -45,7 +45,6 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
-            hide: true,
         },
         {
             field: "school",
@@ -54,6 +53,7 @@ class Users extends React.Component {
             align: "center",
             width: 350,
             valueFormatter: (params) => (params.value ? params.value.name : "No associated school"),
+            hide: true,
         },
         {
             field: "profile_picture",
@@ -119,7 +119,7 @@ class Users extends React.Component {
     }
 
     componentDidMount() {
-        this.props.FetchUsers();
+        this.props.fetchUsers();
     }
 
     closeModal = () => {
@@ -156,4 +156,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.user.isLoading,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchUsers, FetchSchools })(Users)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchUsers, fetchSchools })(Users)));

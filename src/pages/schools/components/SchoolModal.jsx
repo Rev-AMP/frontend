@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 
-import { CreateSchool, FetchSchool, UpdateSchool } from "redux/school/action";
+import { createSchool, fetchSchool, updateSchool } from "redux/school/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 
@@ -33,7 +33,7 @@ class SchoolModal extends React.Component {
 
     componentDidMount() {
         if (this.props.schoolId !== null && this.props.schoolId) {
-            this.props.FetchSchool(this.props.schoolId);
+            this.props.fetchSchool(this.props.schoolId);
         }
     }
 
@@ -95,7 +95,7 @@ class SchoolModal extends React.Component {
 
         if (schoolId) {
             if (submit_keys.length && !submit_keys.every((key) => selectedSchool[key] === submit[key])) {
-                this.props.UpdateSchool(submit);
+                this.props.updateSchool(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
@@ -104,7 +104,7 @@ class SchoolModal extends React.Component {
             }
         } else {
             if (submit.name && submit.head) {
-                this.props.CreateSchool(submit);
+                this.props.createSchool(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please add School name and Head name 😓", {
@@ -163,4 +163,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.school.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchSchool, CreateSchool, UpdateSchool })(SchoolModal));
+export default withStyles(styles)(connect(mapStateToProps, { fetchSchool, createSchool, updateSchool })(SchoolModal));

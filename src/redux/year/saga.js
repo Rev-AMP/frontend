@@ -2,47 +2,47 @@ import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import YearActionTypes from "./action.types";
 import {
-    CreateYearFailure,
-    CreateYearSuccess,
-    FetchYearSuccess,
-    FetchYearFailure,
-    FetchYears as ActionFetchYears,
-    FetchYearsFailure,
-    FetchYearsSuccess,
-    UpdateYearFailure,
-    UpdateYearSuccess,
-    DeleteYearSuccess,
-    DeleteYearFailure,
+    createYearFailure,
+    createYearSuccess,
+    fetchYearSuccess,
+    fetchYearFailure,
+    fetchYears as ActionFetchYears,
+    fetchYearsFailure,
+    fetchYearsSuccess,
+    updateYearFailure,
+    updateYearSuccess,
+    deleteYearSuccess,
+    deleteYearFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 
-function* FetchYears() {
+function* fetchYears() {
     yield takeEvery(YearActionTypes.FETCH_YEARS, function* (action) {
         try {
             const years = yield APICall(`/api/v1/years/`, {
                 method: "GET",
             });
-            yield put(FetchYearsSuccess(years));
+            yield put(fetchYearsSuccess(years));
         } catch (error) {
-            yield put(FetchYearsFailure(error.detail));
+            yield put(fetchYearsFailure(error.detail));
         }
     });
 }
 
-function* FetchYear() {
+function* fetchYear() {
     yield takeEvery(YearActionTypes.FETCH_YEAR, function* (action) {
         try {
             const year = yield APICall(`/api/v1/years/${action.payload}`, {
                 method: "GET",
             });
-            yield put(FetchYearSuccess(year));
+            yield put(fetchYearSuccess(year));
         } catch (error) {
-            yield put(FetchYearFailure(error.detail));
+            yield put(fetchYearFailure(error.detail));
         }
     });
 }
 
-function* UpdateYear() {
+function* updateYear() {
     yield takeEvery(YearActionTypes.UPDATE_YEAR, function* (action) {
         try {
             const selectedYear = yield select((state) => state.year.selectedYear);
@@ -50,41 +50,41 @@ function* UpdateYear() {
                 method: "PUT",
                 body: JSON.stringify(action.payload),
             });
-            yield put(UpdateYearSuccess(year));
+            yield put(updateYearSuccess(year));
         } catch (error) {
-            yield put(UpdateYearFailure(error.detail));
+            yield put(updateYearFailure(error.detail));
         }
     });
 }
 
-function* CreateYear() {
+function* createYear() {
     yield takeEvery(YearActionTypes.CREATE_YEAR, function* (action) {
         try {
             const year = yield APICall(`/api/v1/years/`, {
                 method: "POST",
                 body: JSON.stringify(action.payload),
             });
-            yield put(CreateYearSuccess(year));
+            yield put(createYearSuccess(year));
         } catch (error) {
-            yield put(CreateYearFailure(error.detail));
+            yield put(createYearFailure(error.detail));
         }
     });
 }
 
-function* DeleteYear() {
+function* deleteYear() {
     yield takeEvery(YearActionTypes.DELETE_YEAR, function* (action) {
         try {
             yield APICall(`/api/v1/years/${action.payload}`, {
                 method: "DELETE",
             });
-            yield put(DeleteYearSuccess());
+            yield put(deleteYearSuccess());
         } catch (error) {
-            yield put(DeleteYearFailure(error.detail));
+            yield put(deleteYearFailure(error.detail));
         }
     });
 }
 
-function* RefreshYearList() {
+function* refreshYearList() {
     yield takeLatest(
         [YearActionTypes.UPDATE_YEAR_SUCCESS, YearActionTypes.CREATE_YEAR_SUCCESS, YearActionTypes.DELETE_YEAR_SUCCESS],
         function* (action) {
@@ -93,8 +93,8 @@ function* RefreshYearList() {
     );
 }
 
-function* YearMethods() {
-    yield all([FetchYears(), FetchYear(), UpdateYear(), CreateYear(), DeleteYear(), RefreshYearList()]);
+function* yearMethods() {
+    yield all([fetchYears(), fetchYear(), updateYear(), createYear(), deleteYear(), refreshYearList()]);
 }
 
-export default YearMethods;
+export default yearMethods;

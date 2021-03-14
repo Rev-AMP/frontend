@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
 
-import { FetchSchools, DeleteSchool } from "redux/school/action";
+import { fetchSchools, deleteSchool } from "redux/school/action";
 import SchoolModal from "./components/SchoolModal";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
@@ -92,7 +92,7 @@ class Schools extends React.Component {
     }
 
     componentDidMount() {
-        this.props.FetchSchools();
+        this.props.fetchSchools();
     }
 
     closeModal = () => this.setState({ modalIsOpen: false, schoolId: null });
@@ -106,7 +106,7 @@ class Schools extends React.Component {
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, schoolId: null });
 
     deleteSchool = () => {
-        this.props.DeleteSchool(this.state.schoolId);
+        this.props.deleteSchool(this.state.schoolId);
         this.onDeleteClose();
     };
 
@@ -160,4 +160,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.school.isLoading,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchSchools, DeleteSchool })(Schools)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchSchools, deleteSchool })(Schools)));

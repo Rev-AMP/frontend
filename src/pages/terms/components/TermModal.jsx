@@ -4,7 +4,7 @@ import { Divider, FormControlLabel, Switch, TextField, Typography, withStyles } 
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-import { FetchTerm, UpdateTerm, CreateTerm } from "redux/term/action";
+import { fetchTerm, updateTerm, createTerm } from "redux/term/action";
 import { toast } from "react-toastify";
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";
@@ -43,7 +43,7 @@ class TermModal extends React.Component {
 
     componentDidMount() {
         if (this.props.termId) {
-            this.props.FetchTerm(this.props.termId);
+            this.props.fetchTerm(this.props.termId);
         }
     }
 
@@ -91,7 +91,6 @@ class TermModal extends React.Component {
     };
 
     validateInput = (event) => {
-        event.preventDefault();
         const { errors } = this.state;
         const { name, value } = event.target;
 
@@ -118,16 +117,11 @@ class TermModal extends React.Component {
     };
 
     handleInputChange = (event) => {
-        event.preventDefault();
-
         let { term, submit, errors } = this.state;
         let { name, value, type, checked } = event.target;
-
         value = type === "checkbox" ? checked : value;
-
         // set value of term regardless of validity
         term[name] = value;
-
         // validate input
         this.validateInput(event);
         // update submit if it is valid
@@ -151,7 +145,7 @@ class TermModal extends React.Component {
 
         if (termId) {
             if (submitKeys.length && !submitKeys.every((key) => selectedTerm[key] === submit[key])) {
-                this.props.UpdateTerm(submit);
+                this.props.updateTerm(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
@@ -175,7 +169,7 @@ class TermModal extends React.Component {
             submit.has_electives = submit.has_electives !== undefined ? submit.has_electives : event.target[5].checked;
 
             if (submit.name && submit.year_id && submit.has_electives !== undefined) {
-                this.props.CreateTerm(submit);
+                this.props.createTerm(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Empty Fields 💔", {
@@ -250,6 +244,7 @@ class TermModal extends React.Component {
                             onChange={this.handleInputChangeDate("end_date")}
                         />
                     </MuiPickersUtilsProvider>
+
                     <FormControlLabel
                         control={
                             <Switch
@@ -290,4 +285,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.term.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchTerm, UpdateTerm, CreateTerm })(TermModal));
+export default withStyles(styles)(connect(mapStateToProps, { fetchTerm, updateTerm, createTerm })(TermModal));

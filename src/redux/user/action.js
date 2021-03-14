@@ -1,89 +1,89 @@
 import UserActionTypes from "./action.types";
 
-export const FetchUserMe = () => ({
+export const fetchUserMe = () => ({
     type: UserActionTypes.FETCH_USER_ME,
 });
 
-export const FetchUserMeSuccess = (user) => ({
+export const fetchUserMeSuccess = (user) => ({
     type: UserActionTypes.FETCH_USER_ME_SUCCESS,
     payload: user,
 });
 
-export const FetchUserMeFailure = (error) => ({
+export const fetchUserMeFailure = (error) => ({
     type: UserActionTypes.FETCH_USER_ME_FAILURE,
     payload: error,
 });
 
-export const UpdateUserMe = (userUpdate) => ({
+export const updateUserMe = (userUpdate) => ({
     type: UserActionTypes.UPDATE_USER_ME,
     payload: userUpdate,
 });
 
-export const UpdateUserMeSuccess = (user) => ({
+export const updateUserMeSuccess = (user) => ({
     type: UserActionTypes.UPDATE_USER_ME_SUCCESS,
     payload: user,
 });
 
-export const UpdateUserMeFailure = (error) => ({
+export const updateUserMeFailure = (error) => ({
     type: UserActionTypes.UPDATE_USER_ME_FAILURE,
     payload: error,
 });
 
-export const FetchUser = (id) => ({
+export const fetchUser = (id) => ({
     type: UserActionTypes.FETCH_USER,
     payload: id,
 });
 
-export const FetchUserSuccess = (user) => ({
+export const fetchUserSuccess = (user) => ({
     type: UserActionTypes.FETCH_USER_SUCCESS,
     payload: user,
 });
 
-export const FetchUserFailure = (error) => ({
+export const fetchUserFailure = (error) => ({
     type: UserActionTypes.FETCH_USER_FAILURE,
     payload: error,
 });
 
-export const FetchUsers = () => ({
+export const fetchUsers = () => ({
     type: UserActionTypes.FETCH_USERS,
 });
 
-export const FetchUsersSuccess = (users) => ({
+export const fetchUsersSuccess = (users) => ({
     type: UserActionTypes.FETCH_USERS_SUCCESS,
     payload: users,
 });
 
-export const FetchUsersFailure = (error) => ({
+export const fetchUsersFailure = (error) => ({
     type: UserActionTypes.FETCH_USERS_FAILURE,
     payload: error,
 });
 
-export const UpdateUser = (userUpdate) => ({
+export const updateUser = (userUpdate) => ({
     type: UserActionTypes.UPDATE_USER,
     payload: userUpdate,
 });
 
-export const UpdateUserSuccess = (user) => ({
+export const updateUserSuccess = (user) => ({
     type: UserActionTypes.UPDATE_USER_SUCCESS,
     payload: user,
 });
 
-export const UpdateUserFailure = (error) => ({
+export const updateUserFailure = (error) => ({
     type: UserActionTypes.UPDATE_USER_FAILURE,
     payload: error,
 });
 
-export const CreateUser = (userCreate) => ({
+export const createUser = (userCreate) => ({
     type: UserActionTypes.CREATE_USER,
     payload: userCreate,
 });
 
-export const CreateUserSuccess = (user) => ({
+export const createUserSuccess = (user) => ({
     type: UserActionTypes.CREATE_USER_SUCCESS,
     payload: user,
 });
 
-export const CreateUserFailure = (error) => ({
+export const createUserFailure = (error) => ({
     type: UserActionTypes.CREATE_USER_FAILURE,
     payload: error,
 });

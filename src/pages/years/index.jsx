@@ -13,8 +13,7 @@ import {
 } from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
 
-import { FetchYears, DeleteYear } from "redux/year/action";
-import { FetchSchools } from "redux/school/action";
+import { fetchYears, deleteYear } from "redux/year/action";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 import YearModal from "./components/YearModal";
@@ -112,7 +111,7 @@ class Years extends React.Component {
     }
 
     componentDidMount() {
-        this.props.FetchYears();
+        this.props.fetchYears();
     }
 
     closeModal = () => this.setState({ modalIsOpen: false, yearId: null });
@@ -126,7 +125,7 @@ class Years extends React.Component {
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, yearId: null });
 
     deleteYear = () => {
-        this.props.DeleteYear(this.state.yearId);
+        this.props.deleteYear(this.state.yearId);
         this.onDeleteClose();
     };
 
@@ -179,4 +178,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.year.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchYears, FetchSchools, DeleteYear })(Years));
+export default withStyles(styles)(connect(mapStateToProps, { fetchYears, deleteYear })(Years));

@@ -2,24 +2,22 @@ import React from "react";
 import { LinearProgress, MenuItem, TextField } from "@material-ui/core";
 import { connect } from "react-redux";
 
-import { FetchYears } from "redux/year/action";
-
+import { fetchYears } from "redux/year/action";
 class YearSelect extends React.Component {
     componentDidMount() {
-        this.props.FetchYears();
+        this.props.fetchYears();
     }
 
     render() {
-        let otherProps = { ...this.props };
-        delete otherProps["years"];
+        const { isLoading, years, ...otherProps } = this.props;
 
-        if (this.props.isLoading) {
+        if (isLoading) {
             return <LinearProgress />;
         }
 
         return (
             <TextField select {...otherProps}>
-                {this.props.years.map((year) => (
+                {years.map((year) => (
                     <MenuItem key={year.id} value={year.id}>
                         {year.name}
                     </MenuItem>
@@ -34,4 +32,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.year.isLoading,
 });
 
-export default connect(mapStateToProps, { FetchYears })(YearSelect);
+export default connect(mapStateToProps, { fetchYears })(YearSelect);

@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 import CenterContent from "components/CenterContent";
 import Button from "components/Button";
 import Loader from "components/Loader";
-import { UpdateUserMe } from "redux/user/action";
-import { FetchSchool } from "redux/school/action";
+import { updateUserMe } from "redux/user/action";
+import { fetchSchool } from "redux/school/action";
 
 const styles = (theme) => ({
     formItem: {
@@ -43,7 +43,7 @@ class Homepage extends Component {
 
     componentDidMount() {
         if (this.props.currentUser.school) {
-            this.props.FetchSchool(this.props.currentUser.school_id);
+            this.props.fetchSchool(this.props.currentUser.school_id);
         }
     }
 
@@ -87,7 +87,7 @@ class Homepage extends Component {
                 });
             } else {
                 delete submit.confirm_password;
-                this.props.UpdateUserMe(submit);
+                this.props.updateUserMe(submit);
             }
         } else {
             toast.error("Please update some information 😓", {
@@ -204,4 +204,4 @@ const mapStateToProps = (state) => ({
     errorMessage: state.user.errorMessage,
 });
 
-export default withRouter(connect(mapStateToProps, { UpdateUserMe, FetchSchool })(withStyles(styles)(Homepage)));
+export default withRouter(connect(mapStateToProps, { updateUserMe, fetchSchool })(withStyles(styles)(Homepage)));
