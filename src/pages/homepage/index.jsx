@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 import CenterContent from "components/CenterContent";
 import Button from "components/Button";
 import Loader from "components/Loader";
-import { UpdateUserMe } from "redux/user/action";
-import { FetchSchool } from "redux/school/action";
+import { updateUserMe } from "redux/user/action";
+import { fetchSchool } from "redux/school/action";
 
 const styles = (theme) => ({
     formItem: {
@@ -204,4 +204,6 @@ const mapStateToProps = (state) => ({
     errorMessage: state.user.errorMessage,
 });
 
-export default withRouter(connect(mapStateToProps, { UpdateUserMe, FetchSchool })(withStyles(styles)(Homepage)));
+export default withRouter(
+    connect(mapStateToProps, { UpdateUserMe: updateUserMe, FetchSchool: fetchSchool })(withStyles(styles)(Homepage))
+);

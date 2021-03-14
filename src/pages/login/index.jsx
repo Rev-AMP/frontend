@@ -7,8 +7,8 @@ import { Paper, Grid, withStyles, TextField } from "@material-ui/core";
 import Button from "components/Button";
 import Loader from "components/Loader";
 import CenterContent from "components/CenterContent";
-import { Login as InitiateLogin } from "redux/auth/action";
-import { FetchUserMe } from "redux/user/action";
+import { login as InitiateLogin } from "redux/auth/action";
+import { fetchUserMe } from "redux/user/action";
 
 const validEmailRegex = RegExp(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i);
 
@@ -165,4 +165,6 @@ const mapStateToProps = (state) => ({
     isLoading: state.auth.isLoading || state.user.isLoading,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { InitiateLogin, FetchUserMe })(Login)));
+export default withRouter(
+    withStyles(styles)(connect(mapStateToProps, { InitiateLogin, FetchUserMe: fetchUserMe })(Login))
+);

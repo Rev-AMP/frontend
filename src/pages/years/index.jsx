@@ -13,8 +13,8 @@ import {
 } from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
 
-import { FetchYears, DeleteYear } from "redux/year/action";
-import { FetchSchools } from "redux/school/action";
+import { fetchYears, deleteYear } from "redux/year/action";
+import { fetchSchools } from "redux/school/action";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 import YearModal from "./components/YearModal";
@@ -179,4 +179,6 @@ const mapStateToProps = (state) => ({
     isLoading: state.year.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchYears, FetchSchools, DeleteYear })(Years));
+export default withStyles(styles)(
+    connect(mapStateToProps, { FetchYears: fetchYears, FetchSchools: fetchSchools, DeleteYear: deleteYear })(Years)
+);

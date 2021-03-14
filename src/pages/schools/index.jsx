@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
 
-import { FetchSchools, DeleteSchool } from "redux/school/action";
+import { fetchSchools, deleteSchool } from "redux/school/action";
 import SchoolModal from "./components/SchoolModal";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
@@ -160,4 +160,6 @@ const mapStateToProps = (state) => ({
     isLoading: state.school.isLoading,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchSchools, DeleteSchool })(Schools)));
+export default withRouter(
+    withStyles(styles)(connect(mapStateToProps, { FetchSchools: fetchSchools, DeleteSchool: deleteSchool })(Schools))
+);

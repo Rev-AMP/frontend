@@ -5,8 +5,8 @@ import clsx from "clsx";
 import { IconButton, withStyles, Avatar, Tooltip } from "@material-ui/core";
 import { Clear, Done, Edit } from "@material-ui/icons";
 
-import { FetchUsers } from "redux/user/action";
-import { FetchSchools } from "redux/school/action";
+import { fetchUsers } from "redux/user/action";
+import { fetchSchools } from "redux/school/action";
 import UserModal from "./components/UserModal";
 import DataPage from "components/DataPage";
 
@@ -156,4 +156,6 @@ const mapStateToProps = (state) => ({
     isLoading: state.user.isLoading,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { FetchUsers, FetchSchools })(Users)));
+export default withRouter(
+    withStyles(styles)(connect(mapStateToProps, { FetchUsers: fetchUsers, FetchSchools: fetchSchools })(Users))
+);

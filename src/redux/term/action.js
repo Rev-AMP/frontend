@@ -1,74 +1,74 @@
 import TermActionTypes from "./action.types";
 
-export const FetchTerms = () => ({
+export const fetchTerms = () => ({
     type: TermActionTypes.FETCH_TERMS,
 });
 
-export const FetchTermsSuccess = (terms) => ({
+export const fetchTermsSuccess = (terms) => ({
     type: TermActionTypes.FETCH_TERMS_SUCCESS,
     payload: terms,
 });
 
-export const FetchTermsFailure = (error) => ({
+export const fetchTermsFailure = (error) => ({
     type: TermActionTypes.FETCH_TERMS_FAILURE,
     payload: error,
 });
 
-export const FetchTerm = (id) => ({
+export const fetchTerm = (id) => ({
     type: TermActionTypes.FETCH_TERM,
     payload: id,
 });
 
-export const FetchTermSuccess = (term) => ({
+export const fetchTermSuccess = (term) => ({
     type: TermActionTypes.FETCH_TERM_SUCCESS,
     payload: term,
 });
 
-export const FetchTermFailure = (error) => ({
+export const fetchTermFailure = (error) => ({
     type: TermActionTypes.FETCH_TERM_FAILURE,
     payload: error,
 });
 
-export const UpdateTerm = (termUpdate) => ({
+export const updateTerm = (termUpdate) => ({
     type: TermActionTypes.UPDATE_TERM,
     payload: termUpdate,
 });
 
-export const UpdateTermSuccess = (term) => ({
+export const updateTermSuccess = (term) => ({
     type: TermActionTypes.UPDATE_TERM_SUCCESS,
     payload: term,
 });
 
-export const UpdateTermFailure = (error) => ({
+export const updateTermFailure = (error) => ({
     type: TermActionTypes.UPDATE_TERM_FAILURE,
     payload: error,
 });
 
-export const CreateTerm = (termCreate) => ({
+export const createTerm = (termCreate) => ({
     type: TermActionTypes.CREATE_TERM,
     payload: termCreate,
 });
 
-export const CreateTermSuccess = (term) => ({
+export const createTermSuccess = (term) => ({
     type: TermActionTypes.CREATE_TERM_SUCCESS,
     payload: term,
 });
 
-export const CreateTermFailure = (error) => ({
+export const createTermFailure = (error) => ({
     type: TermActionTypes.CREATE_TERM_FAILURE,
     payload: error,
 });
 
-export const DeleteTerm = (termId) => ({
+export const deleteTerm = (termId) => ({
     type: TermActionTypes.DELETE_TERM,
     payload: termId,
 });
 
-export const DeleteTermSuccess = () => ({
+export const deleteTermSuccess = () => ({
     type: TermActionTypes.DELETE_TERM_SUCCESS,
 });
 
-export const DeleteTermFailure = (error) => ({
+export const deleteTermFailure = (error) => ({
     type: TermActionTypes.DELETE_TERM_FAILURE,
     payload: error,
 });

@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { Clear, Done, Edit, Delete } from "@material-ui/icons";
 
-import { FetchTerms, DeleteTerm } from "redux/term/action";
+import { fetchTerms, deleteTerm } from "redux/term/action";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 import TermModal from "./components/TermModal";
@@ -148,7 +148,7 @@ class Terms extends React.Component {
     }
 
     componentDidMount() {
-        this.props.FetchTerms();
+        this.props.fetchTerms();
     }
 
     closeModal = () => this.setState({ modalIsOpen: false, termId: null });
@@ -162,7 +162,7 @@ class Terms extends React.Component {
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, termId: null });
 
     deleteYear = () => {
-        this.props.DeleteTerm(this.state.termId);
+        this.props.deleteTerm(this.state.termId);
         this.onDeleteClose();
     };
 
@@ -214,4 +214,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.term.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchTerms, DeleteTerm })(Terms));
+export default withStyles(styles)(connect(mapStateToProps, { fetchTerms, deleteTerm })(Terms));

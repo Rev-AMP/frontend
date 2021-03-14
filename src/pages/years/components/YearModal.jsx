@@ -7,7 +7,7 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";
-import { FetchYear, CreateYear, UpdateYear } from "redux/year/action";
+import { fetchYear, createYear, updateYear } from "redux/year/action";
 import SchoolSelect from "pages/schools/components/SchoolSelect";
 
 const styles = (theme) => ({
@@ -234,4 +234,6 @@ const mapStateToProps = (state) => ({
     isLoading: state.year.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchYear, CreateYear, UpdateYear })(YearModal));
+export default withStyles(styles)(
+    connect(mapStateToProps, { FetchYear: fetchYear, CreateYear: createYear, UpdateYear: updateYear })(YearModal)
+);

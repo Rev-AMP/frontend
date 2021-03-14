@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AppBar, Box, IconButton, makeStyles, Toolbar } from "@material-ui/core";
 import { Menu, ExitToApp } from "@material-ui/icons";
 
-import { LogOut } from "redux/auth/action";
+import { logout } from "redux/auth/action";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,4 +51,4 @@ const Header = ({ handleMenuButtonClick, LogOut }) => {
     );
 };
 
-export default connect(null, { LogOut })(Header);
+export default connect(null, { LogOut: logout })(Header);

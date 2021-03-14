@@ -2,38 +2,38 @@ import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import UserActionTypes from "./action.types";
 import {
-    FetchUserMeFailure,
-    FetchUserMeSuccess,
-    UpdateUserMeSuccess,
-    UpdateUserMeFailure,
-    FetchUserFailure,
-    FetchUserSuccess,
-    FetchUsers as ActionFetchUsers,
-    FetchUsersSuccess,
-    FetchUsersFailure,
-    UpdateUserSuccess,
-    UpdateUserFailure,
-    CreateUserSuccess,
-    CreateUserFailure,
+    fetchUserMeFailure,
+    fetchUserMeSuccess,
+    updateUserMeSuccess,
+    updateUserMeFailure,
+    fetchUserFailure,
+    fetchUserSuccess,
+    fetchUsers as ActionFetchUsers,
+    fetchUsersSuccess,
+    fetchUsersFailure,
+    updateUserSuccess,
+    updateUserFailure,
+    createUserSuccess,
+    createUserFailure,
 } from "./action";
 import { addProfilePictureURL, setProfilePicture } from "./util";
 import { APICall } from "services/http-client";
 
-function* FetchUserMe() {
+function* fetchUserMe() {
     yield takeEvery(UserActionTypes.FETCH_USER_ME, function* () {
         try {
             let user = yield APICall(`/api/v1/users/me`, {
                 method: "GET",
             });
             user.profile_picture = addProfilePictureURL(user);
-            yield put(FetchUserMeSuccess(user));
+            yield put(fetchUserMeSuccess(user));
         } catch (error) {
-            yield put(FetchUserMeFailure(error.detail));
+            yield put(fetchUserMeFailure(error.detail));
         }
     });
 }
 
-function* UpdateUserMe() {
+function* updateUserMe() {
     yield takeEvery(UserActionTypes.UPDATE_USER_ME, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
@@ -51,28 +51,28 @@ function* UpdateUserMe() {
             }
 
             user.profile_picture = addProfilePictureURL(user);
-            yield put(UpdateUserMeSuccess(user));
+            yield put(updateUserMeSuccess(user));
         } catch (error) {
-            yield put(UpdateUserMeFailure(error.detail));
+            yield put(updateUserMeFailure(error.detail));
         }
     });
 }
 
-function* FetchUser() {
+function* fetchUser() {
     yield takeEvery(UserActionTypes.FETCH_USER, function* (action) {
         try {
             let user = yield APICall(`/api/v1/users/${action.payload}`, {
                 method: "GET",
             });
             user.profile_picture = addProfilePictureURL(user);
-            yield put(FetchUserSuccess(user));
+            yield put(fetchUserSuccess(user));
         } catch (error) {
-            yield put(FetchUserFailure(error.detail));
+            yield put(fetchUserFailure(error.detail));
         }
     });
 }
 
-function* FetchUsers() {
+function* fetchUsers() {
     yield takeEvery(UserActionTypes.FETCH_USERS, function* (action) {
         try {
             let users = yield APICall(`/api/v1/users/`, {
@@ -80,14 +80,14 @@ function* FetchUsers() {
             });
 
             users.forEach((user, index) => (users[index].profile_picture = addProfilePictureURL(user)));
-            yield put(FetchUsersSuccess(users));
+            yield put(fetchUsersSuccess(users));
         } catch (error) {
-            yield put(FetchUsersFailure(error.detail));
+            yield put(fetchUsersFailure(error.detail));
         }
     });
 }
 
-function* UpdateUser() {
+function* updateUser() {
     yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
@@ -109,14 +109,14 @@ function* UpdateUser() {
             }
 
             user.profile_picture = addProfilePictureURL(user);
-            yield put(UpdateUserSuccess(user));
+            yield put(updateUserSuccess(user));
         } catch (error) {
-            yield put(UpdateUserFailure(error.detail));
+            yield put(updateUserFailure(error.detail));
         }
     });
 }
 
-function* CreateUser() {
+function* createUser() {
     yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
@@ -135,29 +135,29 @@ function* CreateUser() {
             }
 
             user.profile_picture = addProfilePictureURL(user);
-            yield put(CreateUserSuccess(user));
+            yield put(createUserSuccess(user));
         } catch (error) {
-            yield put(CreateUserFailure(error.detail));
+            yield put(createUserFailure(error.detail));
         }
     });
 }
 
-function* RefreshUserList() {
+function* refreshUserList() {
     yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS, UserActionTypes.CREATE_USER_SUCCESS], function* (action) {
         yield put(ActionFetchUsers());
     });
 }
 
-function* FetchUserMethods() {
+function* fetchUserMethods() {
     yield all([
-        FetchUserMe(),
-        UpdateUserMe(),
-        FetchUser(),
-        FetchUsers(),
-        UpdateUser(),
-        CreateUser(),
-        RefreshUserList(),
+        fetchUserMe(),
+        updateUserMe(),
+        fetchUser(),
+        fetchUsers(),
+        updateUser(),
+        createUser(),
+        refreshUserList(),
     ]);
 }
 
-export default FetchUserMethods;
+export default fetchUserMethods;

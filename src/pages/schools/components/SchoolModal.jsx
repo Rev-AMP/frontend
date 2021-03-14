@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 
-import { CreateSchool, FetchSchool, UpdateSchool } from "redux/school/action";
+import { createSchool, fetchSchool, updateSchool } from "redux/school/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 
@@ -163,4 +163,8 @@ const mapStateToProps = (state) => ({
     isLoading: state.school.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchSchool, CreateSchool, UpdateSchool })(SchoolModal));
+export default withStyles(styles)(
+    connect(mapStateToProps, { FetchSchool: fetchSchool, CreateSchool: createSchool, UpdateSchool: updateSchool })(
+        SchoolModal
+    )
+);

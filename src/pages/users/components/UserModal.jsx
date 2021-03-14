@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import { AddAPhoto } from "@material-ui/icons";
 
-import { FetchUser, CreateUser, UpdateUser } from "redux/user/action";
+import { fetchUser, createUser, updateUser } from "redux/user/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 import SchoolSelect from "pages/schools/components/SchoolSelect";
@@ -222,4 +222,6 @@ const mapStateToProps = (state) => ({
     isLoading: state.user.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { FetchUser, CreateUser, UpdateUser })(UserModal));
+export default withStyles(styles)(
+    connect(mapStateToProps, { FetchUser: fetchUser, CreateUser: createUser, UpdateUser: updateUser })(UserModal)
+);

@@ -1,10 +1,10 @@
 import { takeEvery, put, call } from "redux-saga/effects";
 
 import AuthActionTypes from "./action.types";
-import { LoginSuccess, LoginFailure } from "./action";
+import { loginSuccess, loginFailure } from "./action";
 import { httpClient } from "services/http-client";
 
-function* Login() {
+function* login() {
     yield takeEvery(AuthActionTypes.LOGIN, function* (action) {
         let loginData = new FormData();
         loginData.append("username", action.payload.username);
@@ -14,11 +14,11 @@ function* Login() {
                 method: "POST",
                 body: loginData,
             });
-            yield put(LoginSuccess(response.access_token));
+            yield put(loginSuccess(response.access_token));
         } catch (error) {
-            yield put(LoginFailure(error.detail ?? error));
+            yield put(loginFailure(error.detail ?? error));
         }
     });
 }
 
-export default Login;
+export default login;

@@ -3,7 +3,7 @@ import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Loader from "components/Loader";
-import { FetchUserMe } from "redux/user/action";
+import { fetchUserMe } from "redux/user/action";
 
 class AuthenticatedRoute extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -31,4 +31,4 @@ const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
 });
 
-export default connect(mapStateToProps, { FetchUserMe })(AuthenticatedRoute);
+export default connect(mapStateToProps, { FetchUserMe: fetchUserMe })(AuthenticatedRoute);
