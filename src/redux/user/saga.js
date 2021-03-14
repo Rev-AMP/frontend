@@ -37,7 +37,7 @@ function* updateUserMe() {
     yield takeEvery(UserActionTypes.UPDATE_USER_ME, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
-            const { profile_picture:profilePicture, ...payload} = action.payload;
+            const { profile_picture: profilePicture, ...payload } = action.payload;
             let user = yield APICall(`/api/v1/users/me`, {
                 method: "PUT",
                 body: JSON.stringify(payload),
@@ -89,7 +89,7 @@ function* updateUser() {
     yield takeEvery(UserActionTypes.UPDATE_USER, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
-            const { profile_picture:profilePicture, ...payload} = action.payload;
+            const { profile_picture: profilePicture, ...payload } = action.payload;
 
             // get token and user to update
             let selectedUser = yield select((state) => state.user.selectedUser);
@@ -117,7 +117,7 @@ function* createUser() {
     yield takeEvery(UserActionTypes.CREATE_USER, function* (action) {
         try {
             // save profile_picture separately so we don't send a file in body
-            const { profile_picture:profilePicture, ...payload} = action.payload;
+            const { profile_picture: profilePicture, ...payload } = action.payload;
 
             // create new user
             let user = yield APICall(`/api/v1/users`, {

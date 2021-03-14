@@ -45,7 +45,6 @@ class Users extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
-            hide: true,
         },
         {
             field: "school",
@@ -54,6 +53,7 @@ class Users extends React.Component {
             align: "center",
             width: 350,
             valueFormatter: (params) => (params.value ? params.value.name : "No associated school"),
+            hide: true,
         },
         {
             field: "profile_picture",
