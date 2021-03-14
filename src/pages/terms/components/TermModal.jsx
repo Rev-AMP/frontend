@@ -29,7 +29,6 @@ class TermModal extends React.Component {
             term: {
                 start_date: currentDate,
                 end_date: currentDate,
-                has_electives: false,
             },
             submit: {},
             errors: {
@@ -250,7 +249,7 @@ class TermModal extends React.Component {
                         control={
                             <Switch
                                 name="has_electives"
-                                checked={term.has_electives}
+                                checked={term.has_electives ?? false}
                                 onChange={this.handleInputChange}
                                 color="primary"
                                 // onClick={(e) => console.log(e)}
