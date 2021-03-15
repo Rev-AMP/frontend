@@ -13,3 +13,8 @@ export const fetchAdminMeFailure = (error) => ({
     type: AdminActionTypes.FETCH_ADMIN_ME_FAILURE,
     payload: error,
 });
+
+export const adminPermissionFailure = (permission) => ({
+    type: AdminActionTypes.ADMIN_PERMISSION_FAILURE,
+    payload: permission,
+});

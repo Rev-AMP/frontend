@@ -63,7 +63,12 @@ class Dashboard extends Component {
                     <div className={classes.offset} />
                     <Grid item className={classes.content}>
                         <Switch>
-                            <AuthenticatedRoute exact path={`${this.props.match.url}/users`} component={Users} />
+                            <AuthenticatedRoute
+                                exact
+                                path={`${this.props.match.url}/users`}
+                                component={Users}
+                                permission="users"
+                            />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/schools`} component={Schools} />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/years`} component={Years} />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/terms`} component={Terms} />
@@ -78,7 +83,12 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
-    errorMessage: [state.user.errorMessage, state.school.errorMessage, state.year.errorMessage],
+    errorMessage: [
+        state.user.errorMessage,
+        state.school.errorMessage,
+        state.year.errorMessage,
+        state.admin.errorMessage,
+    ],
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(useStyles)(Dashboard)));

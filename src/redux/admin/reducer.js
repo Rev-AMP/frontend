@@ -30,6 +30,12 @@ const AdminReducer = (state = initState, action) => {
                 isLoading: false,
             };
 
+        case AdminActionTypes.ADMIN_PERMISSION_FAILURE:
+            return {
+                ...state,
+                errorMessage: `You do not have ${action.payload} permissions`,
+            };
+
         default:
             return state;
     }

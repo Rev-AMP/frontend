@@ -4,20 +4,49 @@ import { connect } from "react-redux";
 
 import Loader from "components/Loader";
 import { fetchUserMe } from "redux/user/action";
+import { fetchAdminMe, adminPermissionFailure } from "redux/admin/action";
 
 class AuthenticatedRoute extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            userFetched: false,
+        };
+    }
+
+    componentDidMount() {
+        const { rehydrated, permission, currentUser, currentAdmin, fetchAdminMe } = this.props;
+        if (rehydrated && permission && currentUser.is_admin && !currentAdmin) {
+            fetchAdminMe();
+        }
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.rehydrated && this.props.isLoggedIn && !this.props.currentUser) {
-            this.props.fetchUserMe();
+        const { rehydrated, isLoggedIn, currentUser, fetchUserMe } = this.props;
+        const { userFetched } = this.state;
+        if (rehydrated) {
+            if (isLoggedIn && !currentUser && !userFetched) {
+                fetchUserMe();
+                this.setState({ userFetched: true });
+            }
         }
     }
 
     render() {
-        if (!this.props.rehydrated) {
+        const { rehydrated, permission, currentAdmin, isLoggedIn, currentUser, isLoading, ...otherProps } = this.props;
+
+        if (!rehydrated || isLoading) {
             return <Loader />;
-        } else if (this.props.isLoggedIn) {
-            if (this.props.currentUser) {
-                return <Route {...this.props} />;
+        } else if (isLoggedIn) {
+            if (currentUser) {
+                if (permission) {
+                    if (currentUser.is_admin && currentAdmin.permissions.isAllowed(permission)) {
+                        return <Route {...otherProps} />;
+                    }
+                    return <Redirect to="/app" />;
+                }
+                return <Route {...otherProps} />;
             }
             return <Loader />;
         }
@@ -29,6 +58,8 @@ const mapStateToProps = (state) => ({
     rehydrated: state._persist.rehydrated,
     isLoggedIn: state.auth.isLoggedIn,
     currentUser: state.user.currentUser,
+    currentAdmin: state.admin.currentAdmin,
+    isLoading: state.auth.isLoading || state.user.isLoading || state.admin.isLoading,
 });
 
-export default connect(mapStateToProps, { fetchUserMe })(AuthenticatedRoute);
+export default connect(mapStateToProps, { fetchUserMe, fetchAdminMe, adminPermissionFailure })(AuthenticatedRoute);
