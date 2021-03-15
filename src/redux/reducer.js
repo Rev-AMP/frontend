@@ -7,6 +7,7 @@ import UserReducer from "redux/user/reducer";
 import SchoolReducer from "redux/school/reducer";
 import YearReducer from "redux/year/reducer";
 import TermReducer from "redux/term/reducer";
+import AdminReducer from "redux/admin/reducer";
 
 const persistConfig = {
     key: "revamp",
@@ -20,6 +21,7 @@ const MainReducer = persistCombineReducers(persistConfig, {
     school: SchoolReducer,
     year: YearReducer,
     term: TermReducer,
+    admin: AdminReducer,
 });
 
 const RootReducer = (state, action) => {
