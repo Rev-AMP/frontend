@@ -1,8 +1,7 @@
 export const getUpdatedInfo = (baseObj, submitObj) => {
     const updatedInfo = {};
-    const submitKeys = Object.keys(submitObj);
-    submitKeys.forEach((key) => {
+    for (const key in submitObj){
         if (baseObj[key] !== submitObj[key]) updatedInfo[key] = submitObj[key];
-    });
+    }
     return updatedInfo;
 };
