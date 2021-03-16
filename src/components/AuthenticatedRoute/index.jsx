@@ -1,10 +1,11 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
 import Loader from "components/Loader";
 import { fetchUserMe } from "redux/user/action";
-import { fetchAdminMe, adminPermissionFailure } from "redux/admin/action";
+import { fetchAdminMe } from "redux/admin/action";
 
 class AuthenticatedRoute extends React.Component {
     constructor(props) {
@@ -16,16 +17,20 @@ class AuthenticatedRoute extends React.Component {
     }
 
     checkPerms = () => {
-        const { permission, currentUser, currentAdmin, fetchAdminMe, adminPermissionFailure } = this.props;
+        const { permission, currentUser, currentAdmin, fetchAdminMe } = this.props;
         if (permission && currentUser) {
             if (currentUser.is_admin) {
                 if (!currentAdmin) {
                     fetchAdminMe();
                 } else if (!currentAdmin.permissions.isAllowed(permission)) {
-                    adminPermissionFailure(permission);
+                    toast.error(`Error 😓: You don't have ${permission} permissions`, {
+                        position: toast.POSITION.TOP_CENTER,
+                    });
                 }
             } else {
-                adminPermissionFailure(permission);
+                toast.error(`Error 😓: You don't have ${permission} permissions`, {
+                    position: toast.POSITION.TOP_CENTER,
+                });
             }
         }
     };
@@ -77,4 +82,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.auth.isLoading || state.user.isLoading || state.admin.isLoading,
 });
 
-export default connect(mapStateToProps, { fetchUserMe, fetchAdminMe, adminPermissionFailure })(AuthenticatedRoute);
+export default connect(mapStateToProps, { fetchUserMe, fetchAdminMe })(AuthenticatedRoute);
