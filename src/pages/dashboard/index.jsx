@@ -67,11 +67,26 @@ class Dashboard extends Component {
                                 exact
                                 path={`${this.props.match.url}/users`}
                                 component={Users}
-                                permission="users"
+                                permission="user"
                             />
-                            <AuthenticatedRoute exact path={`${this.props.match.url}/schools`} component={Schools} />
-                            <AuthenticatedRoute exact path={`${this.props.match.url}/years`} component={Years} />
-                            <AuthenticatedRoute exact path={`${this.props.match.url}/terms`} component={Terms} />
+                            <AuthenticatedRoute
+                                exact
+                                path={`${this.props.match.url}/schools`}
+                                component={Schools}
+                                permission="school"
+                            />
+                            <AuthenticatedRoute
+                                exact
+                                path={`${this.props.match.url}/years`}
+                                component={Years}
+                                permission="year"
+                            />
+                            <AuthenticatedRoute
+                                exact
+                                path={`${this.props.match.url}/terms`}
+                                component={Terms}
+                                permission="term"
+                            />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/`} component={Homepage} />
                         </Switch>
                     </Grid>
