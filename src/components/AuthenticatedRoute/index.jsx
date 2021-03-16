@@ -13,15 +13,20 @@ class AuthenticatedRoute extends React.Component {
 
         this.state = {
             userFetched: false,
+            adminFetched: false,
         };
     }
 
     checkPerms = () => {
         const { permission, currentUser, currentAdmin, fetchAdminMe } = this.props;
+        const { adminFetched } = this.state;
         if (permission && currentUser) {
             if (currentUser.is_admin) {
                 if (!currentAdmin) {
-                    fetchAdminMe();
+                    if (!adminFetched) {
+                        fetchAdminMe();
+                        this.setState({ adminFetched: true });
+                    }
                 } else if (!currentAdmin.permissions.isAllowed(permission)) {
                     toast.error(`Error 😓: You don't have ${permission} permissions`, {
                         position: toast.POSITION.TOP_CENTER,
@@ -56,7 +61,7 @@ class AuthenticatedRoute extends React.Component {
     render() {
         const { rehydrated, permission, currentAdmin, isLoggedIn, currentUser, isLoading, ...otherProps } = this.props;
 
-        if (!rehydrated || isLoading) {
+        if (!rehydrated || !currentUser || (permission && !currentAdmin)) {
             return <Loader />;
         } else if (isLoggedIn) {
             if (currentUser) {
@@ -79,7 +84,6 @@ const mapStateToProps = (state) => ({
     isLoggedIn: state.auth.isLoggedIn,
     currentUser: state.user.currentUser,
     currentAdmin: state.admin.currentAdmin,
-    isLoading: state.auth.isLoading || state.user.isLoading || state.admin.isLoading,
 });
 
 export default connect(mapStateToProps, { fetchUserMe, fetchAdminMe })(AuthenticatedRoute);
