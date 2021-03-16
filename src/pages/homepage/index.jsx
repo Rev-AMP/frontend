@@ -9,7 +9,7 @@ import CenterContent from "components/CenterContent";
 import Button from "components/Button";
 import Loader from "components/Loader";
 import { updateUserMe } from "redux/user/action";
-import { getUpdatedInfo } from "utils";
+import { getUpdatedInfo } from "services/get-updated-info";
 
 const styles = (theme) => ({
     formItem: {
