@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
@@ -79,6 +79,55 @@ class AuthenticatedRoute extends React.Component {
     }
 }
 
+function AuthenticateRoute(props) {
+    const {
+        rehydrated,
+        isLoggedIn,
+        currentUser,
+        currentAdmin,
+        fetchUserMe,
+        permission,
+        fetchAdminMe,
+        ...otherProps
+    } = props;
+    const selfDataLoading = isLoggedIn && !currentUser;
+
+    useEffect(() => {
+        if (rehydrated && selfDataLoading) {
+            fetchUserMe();
+        }
+    }, [rehydrated, selfDataLoading, fetchUserMe]);
+
+    useEffect(() => {
+        if (currentUser && currentUser.is_admin && permission && !currentAdmin) {
+            fetchAdminMe();
+        }
+        if (
+            permission &&
+            ((currentUser && !currentUser.is_admin) ||
+                (currentAdmin && !currentAdmin.permissions.isAllowed(permission)))
+        ) {
+            toast.error(`Error 😓: You don't have ${permission} permissions`, {
+                position: toast.POSITION.TOP_CENTER,
+            });
+        }
+    }, [currentUser, permission, currentAdmin, fetchAdminMe]);
+
+    if (!rehydrated || selfDataLoading || (permission && currentUser.is_admin && !currentAdmin)) {
+        return <Loader />;
+    } else if (currentUser) {
+        if (permission) {
+            if (currentUser.is_admin && currentAdmin.permissions.isAllowed(permission)) {
+                return <Route {...otherProps} />;
+            }
+            return <Redirect to="/app" />;
+        }
+        return <Route {...otherProps} />;
+    }
+
+    return <Redirect to="/login" />;
+}
+
 const mapStateToProps = (state) => ({
     rehydrated: state._persist.rehydrated,
     isLoggedIn: state.auth.isLoggedIn,
@@ -86,4 +135,4 @@ const mapStateToProps = (state) => ({
     currentAdmin: state.admin.currentAdmin,
 });
 
-export default connect(mapStateToProps, { fetchUserMe, fetchAdminMe })(AuthenticatedRoute);
+export default connect(mapStateToProps, { fetchUserMe, fetchAdminMe })(AuthenticateRoute);
