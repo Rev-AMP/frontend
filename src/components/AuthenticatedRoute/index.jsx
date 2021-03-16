@@ -15,9 +15,9 @@ class AuthenticatedRoute extends React.Component {
         };
     }
 
-    componentDidMount() {
-        const { rehydrated, permission, currentUser, currentAdmin, fetchAdminMe, adminPermissionFailure } = this.props;
-        if (rehydrated && permission && currentUser) {
+    checkPerms = () => {
+        const { permission, currentUser, currentAdmin, fetchAdminMe, adminPermissionFailure } = this.props;
+        if (permission && currentUser) {
             if (currentUser.is_admin) {
                 if (!currentAdmin) {
                     fetchAdminMe();
@@ -28,36 +28,23 @@ class AuthenticatedRoute extends React.Component {
                 adminPermissionFailure(permission);
             }
         }
+    };
+
+    componentDidMount() {
+        if (this.props.rehydrated) {
+            this.checkPerms();
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {
-            rehydrated,
-            isLoggedIn,
-            currentUser,
-            fetchUserMe,
-            permission,
-            currentAdmin,
-            adminPermissionFailure,
-            fetchAdminMe,
-        } = this.props;
+        const { rehydrated, isLoggedIn, currentUser, fetchUserMe } = this.props;
         const { userFetched } = this.state;
         if (rehydrated) {
             if (isLoggedIn && !currentUser && !userFetched) {
                 fetchUserMe();
                 this.setState({ userFetched: true });
             }
-            if (permission && currentUser) {
-                if (currentUser.is_admin) {
-                    if (!currentAdmin) {
-                        fetchAdminMe();
-                    } else if (!currentAdmin.permissions.isAllowed(permission)) {
-                        adminPermissionFailure(permission);
-                    }
-                } else {
-                    adminPermissionFailure(permission);
-                }
-            }
+            this.checkPerms();
         }
     }
 
