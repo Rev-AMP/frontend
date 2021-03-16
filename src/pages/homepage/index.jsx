@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { withStyles, Grid, TextField, IconButton, Avatar } from "@material-ui/core";
+import { Avatar, Grid, IconButton, TextField, withStyles } from "@material-ui/core";
 import { AddAPhoto } from "@material-ui/icons";
 import { toast } from "react-toastify";
 
@@ -9,8 +9,7 @@ import CenterContent from "components/CenterContent";
 import Button from "components/Button";
 import Loader from "components/Loader";
 import { updateUserMe } from "redux/user/action";
-import { fetchSchool } from "redux/school/action";
-import { getUpdatedInfo } from "../../utils";
+import { getUpdatedInfo } from "services/get-updated-info";
 
 const styles = (theme) => ({
     formItem: {
@@ -40,12 +39,6 @@ class Homepage extends Component {
             currentUser: { ...this.props.currentUser },
             submit: {},
         };
-    }
-
-    componentDidMount() {
-        if (this.props.currentUser.school) {
-            this.props.fetchSchool(this.props.currentUser.school_id);
-        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -103,7 +96,7 @@ class Homepage extends Component {
             return <Loader />;
         }
 
-        const { classes, selectedSchool } = this.props;
+        const { classes } = this.props;
 
         return (
             <CenterContent>
@@ -151,8 +144,8 @@ class Homepage extends Component {
                                         className={classes.formItem}
                                         label="School"
                                         name="school"
-                                        value={selectedSchool ? selectedSchool.name : "No associated School"}
-                                        error={!selectedSchool}
+                                        value={currentUser.school ? currentUser.school.name : "No associated School"}
+                                        error={!currentUser.school}
                                         helperText="This cannot be changed from here"
                                     />
                                 </Grid>
@@ -200,8 +193,7 @@ class Homepage extends Component {
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
     isLoading: state.user.isLoading || state.school.isLoading,
-    selectedSchool: state.school.selectedSchool,
     errorMessage: state.user.errorMessage,
 });
 
-export default withRouter(connect(mapStateToProps, { updateUserMe, fetchSchool })(withStyles(styles)(Homepage)));
+export default withRouter(connect(mapStateToProps, { updateUserMe })(withStyles(styles)(Homepage)));

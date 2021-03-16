@@ -1,4 +1,4 @@
-import { APICall } from "../../services/http-client";
+import { APICall } from "services/http-client";
 
 export const addProfilePictureURL = (user) =>
     `${process.env.REACT_APP_BACKEND_URL}/profile_pictures/${user.profile_picture}`;

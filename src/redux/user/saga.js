@@ -16,7 +16,7 @@ import {
     createUserSuccess,
     createUserFailure,
 } from "./action";
-import { addProfilePictureURL, setProfilePicture } from "./util";
+import { addProfilePictureURL, setProfilePicture } from "services/profile-picture";
 import { APICall } from "services/http-client";
 
 function* fetchUserMe() {

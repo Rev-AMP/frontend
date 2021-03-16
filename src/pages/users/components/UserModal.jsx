@@ -16,7 +16,7 @@ import {
 import { AddAPhoto } from "@material-ui/icons";
 
 import { fetchUser, createUser, updateUser } from "redux/user/action";
-import { getUpdatedInfo } from "utils";
+import { getUpdatedInfo } from "services/get-updated-info";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 import SchoolSelect from "pages/schools/components/SchoolSelect";

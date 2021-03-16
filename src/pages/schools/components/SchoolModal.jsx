@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 
 import { createSchool, fetchSchool, updateSchool } from "redux/school/action";
-import { getUpdatedInfo } from "utils";
+import { getUpdatedInfo } from "services/get-updated-info";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 
