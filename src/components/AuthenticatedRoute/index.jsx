@@ -16,19 +16,47 @@ class AuthenticatedRoute extends React.Component {
     }
 
     componentDidMount() {
-        const { rehydrated, permission, currentUser, currentAdmin, fetchAdminMe } = this.props;
-        if (rehydrated && permission && currentUser.is_admin && !currentAdmin) {
-            fetchAdminMe();
+        const { rehydrated, permission, currentUser, currentAdmin, fetchAdminMe, adminPermissionFailure } = this.props;
+        if (rehydrated && permission && currentUser) {
+            if (currentUser.is_admin) {
+                if (!currentAdmin) {
+                    fetchAdminMe();
+                } else if (!currentAdmin.permissions.isAllowed(permission)) {
+                    adminPermissionFailure(permission);
+                }
+            } else {
+                adminPermissionFailure(permission);
+            }
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { rehydrated, isLoggedIn, currentUser, fetchUserMe } = this.props;
+        const {
+            rehydrated,
+            isLoggedIn,
+            currentUser,
+            fetchUserMe,
+            permission,
+            currentAdmin,
+            adminPermissionFailure,
+            fetchAdminMe,
+        } = this.props;
         const { userFetched } = this.state;
         if (rehydrated) {
             if (isLoggedIn && !currentUser && !userFetched) {
                 fetchUserMe();
                 this.setState({ userFetched: true });
+            }
+            if (permission && currentUser) {
+                if (currentUser.is_admin) {
+                    if (!currentAdmin) {
+                        fetchAdminMe();
+                    } else if (!currentAdmin.permissions.isAllowed(permission)) {
+                        adminPermissionFailure(permission);
+                    }
+                } else {
+                    adminPermissionFailure(permission);
+                }
             }
         }
     }
@@ -41,7 +69,7 @@ class AuthenticatedRoute extends React.Component {
         } else if (isLoggedIn) {
             if (currentUser) {
                 if (permission) {
-                    if (currentUser.is_admin && currentAdmin.permissions.isAllowed(permission)) {
+                    if (currentUser.is_admin && currentAdmin && currentAdmin.permissions.isAllowed(permission)) {
                         return <Route {...otherProps} />;
                     }
                     return <Redirect to="/app" />;
