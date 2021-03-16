@@ -10,6 +10,7 @@ import Button from "components/Button";
 import Loader from "components/Loader";
 import { updateUserMe } from "redux/user/action";
 import { fetchSchool } from "redux/school/action";
+import { getUpdatedInfo } from "../../utils";
 
 const styles = (theme) => ({
     formItem: {
@@ -75,12 +76,11 @@ class Homepage extends Component {
         event.preventDefault();
 
         const { currentUser } = this.props;
-        if (!currentUser.is_admin) return;
 
         const { submit } = this.state;
-        const submit_keys = Object.keys(submit);
+        const updatedInfo = getUpdatedInfo(currentUser, submit);
 
-        if (submit_keys.length && !submit_keys.every((key) => currentUser[key] === submit[key])) {
+        if (Object.keys(updatedInfo).length) {
             if (submit.password && !(submit.confirm_password && submit.password === submit.confirm_password)) {
                 toast.error("Passwords don't match 😓", {
                     position: toast.POSITION.TOP_CENTER,

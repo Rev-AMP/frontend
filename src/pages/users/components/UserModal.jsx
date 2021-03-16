@@ -16,6 +16,7 @@ import {
 import { AddAPhoto } from "@material-ui/icons";
 
 import { fetchUser, createUser, updateUser } from "redux/user/action";
+import { getUpdatedInfo } from "utils";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 import SchoolSelect from "pages/schools/components/SchoolSelect";
@@ -96,11 +97,11 @@ class UserModal extends React.Component {
 
         const { submit } = this.state;
         const { userId, selectedUser } = this.props;
-        const submit_keys = Object.keys(submit);
 
         if (userId) {
-            if (submit_keys.length && !submit_keys.every((key) => selectedUser[key] === submit[key])) {
-                this.props.updateUser(submit);
+            const updatedInfo = getUpdatedInfo(selectedUser, submit);
+            if (Object.keys(updatedInfo).length) {
+                this.props.updateUser(updatedInfo);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
@@ -108,7 +109,7 @@ class UserModal extends React.Component {
                 });
             }
         } else {
-            if (["email", "type", "password"].every((key) => submit.hasOwnProperty(key) && submit[key])) {
+            if (["email", "type", "password"].every((key) => submit[key])) {
                 this.props.createUser(submit);
                 this.setState({ formSubmitted: true });
             } else {

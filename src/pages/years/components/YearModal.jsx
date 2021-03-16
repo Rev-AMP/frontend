@@ -5,9 +5,10 @@ import DateFnsUtils from "@date-io/date-fns";
 import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
+import { fetchYear, createYear, updateYear } from "redux/year/action";
+import { getUpdatedInfo } from "utils";
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";
-import { fetchYear, createYear, updateYear } from "redux/year/action";
 import SchoolSelect from "pages/schools/components/SchoolSelect";
 
 const styles = (theme) => ({
@@ -137,11 +138,11 @@ class YearModal extends React.Component {
         submit.end_year = submit.end_year ?? year.end_year;
 
         const { yearId, selectedYear } = this.props;
-        const submit_keys = Object.keys(submit);
 
         if (yearId) {
-            if (submit_keys.length && !submit_keys.every((key) => selectedYear[key] === submit[key])) {
-                this.props.updateYear(submit);
+            const updatedInfo = getUpdatedInfo(selectedYear, submit);
+            if (Object.keys(updatedInfo).length) {
+                this.props.updateYear(updatedInfo);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
