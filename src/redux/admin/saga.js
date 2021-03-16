@@ -3,7 +3,7 @@ import { all, put, takeEvery } from "redux-saga/effects";
 import AdminActionTypes from "./action.types";
 import { fetchAdminMeFailure, fetchAdminMeSuccess } from "./action";
 import { APICall } from "services/http-client";
-import { AdminPermissions } from "utils";
+import { AdminPermissions } from "./utils";
 
 function* fetchAdminMe() {
     yield takeEvery(AdminActionTypes.FETCH_ADMIN_ME, function* () {
