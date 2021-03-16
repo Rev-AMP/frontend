@@ -61,7 +61,11 @@ class AuthenticatedRoute extends React.Component {
     render() {
         const { rehydrated, permission, currentAdmin, isLoggedIn, currentUser, isLoading, ...otherProps } = this.props;
 
-        if (!rehydrated || (isLoggedIn && !currentUser) || (permission && !currentAdmin)) {
+        if (
+            !rehydrated ||
+            (isLoggedIn && !currentUser) ||
+            (permission && currentUser && currentUser.is_admin && !currentAdmin)
+        ) {
             return <Loader />;
         } else if (isLoggedIn) {
             if (currentUser) {
