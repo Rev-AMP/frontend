@@ -10,7 +10,7 @@ export const httpClient = async (url, parameters) =>
 export function* APICall(endpoint, parameters) {
     let { accessToken, refreshToken, expiry } = yield select((state) => state.auth);
 
-    // check for 69 seconds before expiry :)
+    // check for 30 seconds before expiry :)
     if (new Date() >= new Date((expiry - 30) * 1000)) {
         try {
             const response = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/login/refresh-token`, {
