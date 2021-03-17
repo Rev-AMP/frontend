@@ -14,9 +14,9 @@ function* login() {
                 method: "POST",
                 body: loginData,
             });
-            yield put(loginSuccess(response.access_token));
+            yield put(loginSuccess(response));
         } catch (error) {
-            yield put(loginFailure(error.detail ?? error));
+            yield put(loginFailure(error.detail));
         }
     });
 }
