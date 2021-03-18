@@ -55,8 +55,6 @@ class SchoolModal extends React.Component {
     }
 
     validateInput = (event) => {
-        event.preventDefault();
-
         let errors = this.state.errors;
         const { name, value } = event.target;
 
