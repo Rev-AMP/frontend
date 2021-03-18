@@ -8,7 +8,7 @@ import { AdminPermissions } from "services/admin";
 function* fetchAdminMe() {
     yield takeEvery(AdminActionTypes.FETCH_ADMIN_ME, function* () {
         try {
-            let admin = yield APICall("/api/v1/admins/", { method: "GET" });
+            let admin = yield APICall("/api/v1/admins/me", { method: "GET" });
             admin.permissions = new AdminPermissions(admin.permissions);
             yield put(fetchAdminMeSuccess(admin));
         } catch (error) {
