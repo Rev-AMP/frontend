@@ -1,8 +1,8 @@
 import React from "react";
-import { LinearProgress, MenuItem, TextField } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import { fetchSchools } from "redux/school/action";
+import DataSelect from "components/DataSelect";
 
 class SchoolSelect extends React.Component {
     componentDidMount() {
@@ -11,20 +11,7 @@ class SchoolSelect extends React.Component {
 
     render() {
         const { schools, isLoading, fetchSchools, ...otherProps } = this.props;
-
-        if (isLoading) {
-            return <LinearProgress />;
-        }
-
-        return (
-            <TextField select {...otherProps}>
-                {schools.map((school) => (
-                    <MenuItem key={school.id} value={school.id}>
-                        {school.name}
-                    </MenuItem>
-                ))}
-            </TextField>
-        );
+        return <DataSelect isLoading={isLoading} data={schools} {...otherProps} />;
     }
 }
 
