@@ -1,4 +1,5 @@
-import { call, select } from "redux-saga/effects";
+import { call, put, select } from "redux-saga/effects";
+import { logout, loginSuccess } from "redux/auth/action";
 
 export const httpClient = async (url, parameters) =>
     await fetch(url, parameters).then(async (response) => {
@@ -7,10 +8,29 @@ export const httpClient = async (url, parameters) =>
     });
 
 export function* APICall(endpoint, parameters) {
-    let token = yield select((state) => state.auth.accessToken);
+    let { accessToken, refreshToken, expiry } = yield select((state) => state.auth);
+
+    // check for 30 seconds before expiry :)
+    if (new Date() >= new Date((expiry - 30) * 1000)) {
+        try {
+            const response = yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}/api/v1/login/refresh-token`, {
+                method: "POST",
+                headers: {
+                    Authorization: `bearer ${refreshToken}`,
+                },
+            });
+            yield put(loginSuccess(response));
+            accessToken = response.access_token;
+        } catch (error) {
+            yield put(logout());
+            let customError = new Error();
+            customError.detail = "Login session expired, please login again";
+            throw customError;
+        }
+    }
 
     if (!parameters.headers) parameters.headers = {};
-    parameters.headers.Authorization = `bearer ${token}`;
+    parameters.headers.Authorization = `bearer ${accessToken}`;
 
     return yield call(httpClient, `${process.env.REACT_APP_BACKEND_URL}${endpoint}`, parameters);
 }

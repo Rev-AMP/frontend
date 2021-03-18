@@ -5,9 +5,9 @@ export const login = (user) => ({
     payload: user,
 });
 
-export const loginSuccess = (accessToken) => ({
+export const loginSuccess = (tokens) => ({
     type: AuthActionTypes.LOGIN_SUCCESS,
-    payload: accessToken,
+    payload: tokens,
 });
 
 export const loginFailure = (error) => ({
