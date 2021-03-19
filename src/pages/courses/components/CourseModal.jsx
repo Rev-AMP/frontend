@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 
-import { createSchool, fetchSchool, updateSchool } from "redux/school/action";
+import { fetchCourse, createCourse, updateCourse } from "redux/course/action";
 import { getUpdatedInfo } from "services/get-updated-info";
-import Button from "components/Button";
 import PopupModal from "components/PopupModal";
+import Button from "components/Button";
+import TermSelect from "pages/terms/components/TermSelect";
 
 const styles = (theme) => ({
     form: {
@@ -18,38 +19,37 @@ const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
 });
 
-class SchoolModal extends React.Component {
+class CourseModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            school: {},
+            course: {},
             submit: {},
             errors: {
                 name: "",
-                head: "",
+                code: "",
             },
             formSubmitted: false,
         };
     }
 
     componentDidMount() {
-        if (this.props.schoolId !== null && this.props.schoolId) {
-            this.props.fetchSchool(this.props.schoolId);
+        if (this.props.courseId) {
+            this.props.fetchCourse(this.props.courseId);
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.selectedSchool !== prevProps.selectedSchool) {
-            this.setState({
-                school: { ...this.props.selectedSchool } ?? {},
-            });
+        const { selectedCourse, courseId, onClose } = this.props;
+        if (selectedCourse !== prevProps.selectedCourse) {
+            this.setState({ course: { ...selectedCourse } ?? {} });
 
             if (this.state.formSubmitted) {
-                const action = this.props.schoolId ? "updated" : "created";
-                toast.success(`${this.props.selectedSchool.name} ${action} successfully 🙌`, {
+                const action = courseId ? "updated" : "created";
+                toast.success(`${selectedCourse.name} ${action} successfully 🙌`, {
                     position: toast.POSITION.TOP_CENTER,
                 });
-                this.props.onClose();
+                onClose();
             }
         }
     }
@@ -58,17 +58,27 @@ class SchoolModal extends React.Component {
         let errors = this.state.errors;
         const { name, value } = event.target;
 
-        // validate input
-        const fieldName = name === "name" ? "School" : "School Head";
-        errors[name] = value ? "" : fieldName + " name cannot be empty";
+        switch (name) {
+            case "name":
+                errors.name = value ? "" : "Course Name cannot be empty";
+                break;
+
+            case "code":
+                errors.code = value && value.length <= 20 ? "" : "Course Code must be 1-20 characters long";
+                break;
+
+            default:
+                break;
+        }
 
         this.setState({ errors });
     };
 
     handleInputChange = (event) => {
-        let school = this.state.school;
-        let submit = this.state.submit;
+        let { course, submit } = this.state;
         const { name, value } = event.target;
+
+        course[name] = value;
 
         // validate new input value
         this.validateInput(event);
@@ -77,8 +87,7 @@ class SchoolModal extends React.Component {
             submit[name] = value;
         }
 
-        school[name] = value;
-        this.setState({ school, submit });
+        this.setState({ course, submit });
     };
 
     handleSubmit = (event) => {
@@ -87,14 +96,14 @@ class SchoolModal extends React.Component {
         const { submit, errors } = this.state;
 
         // make sure there are no errors
-        if (errors.name || errors.head) return;
+        if (errors.name || errors.code) return;
 
-        const { schoolId, selectedSchool } = this.props;
+        const { courseId, selectedCourse } = this.props;
 
-        if (schoolId) {
-            const updatedInfo = getUpdatedInfo(selectedSchool, submit);
+        if (courseId) {
+            const updatedInfo = getUpdatedInfo(selectedCourse, submit);
             if (Object.keys(updatedInfo).length) {
-                this.props.updateSchool(submit);
+                this.props.updateCourse(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
@@ -102,11 +111,11 @@ class SchoolModal extends React.Component {
                 });
             }
         } else {
-            if (submit.name && submit.head) {
-                this.props.createSchool(submit);
+            if (submit.name && submit.code && submit.term_id) {
+                this.props.createCourse(submit);
                 this.setState({ formSubmitted: true });
             } else {
-                toast.error("Please add School name and Head name 😓", {
+                toast.error("Please add Course name, Course Code and Term 😓", {
                     position: toast.POSITION.TOP_CENTER,
                 });
             }
@@ -114,14 +123,15 @@ class SchoolModal extends React.Component {
     };
 
     render() {
-        const { classes, schoolId, isLoading, isOpen, onClose } = this.props;
-        const action = schoolId ? "Update" : "Create";
+        const { classes, courseId, isLoading, isOpen, onClose } = this.props;
+        const { course, errors } = this.state;
+        const action = courseId ? "Update" : "Create";
 
         return (
             <PopupModal isLoading={isLoading} isOpen={isOpen} onClose={onClose}>
                 <div style={{ textAlign: "center" }}>
                     <Typography color="primary" variant="h3">
-                        {action} School
+                        {action} Course
                     </Typography>
                 </div>
 
@@ -131,22 +141,31 @@ class SchoolModal extends React.Component {
                     <TextField
                         name="name"
                         label="Name"
-                        value={this.state.school.name ?? ""}
+                        value={course.name ?? ""}
                         required={true}
                         onBlur={this.validateInput}
                         onChange={this.handleInputChange}
-                        error={!!this.state.errors.name}
-                        helperText={this.state.errors.name}
+                        error={!!errors.name}
+                        helperText={errors.name}
                     />
                     <TextField
-                        name="head"
-                        label="Head"
-                        value={this.state.school.head ?? ""}
-                        required={true}
+                        name="code"
+                        label="Code"
+                        value={course.code ?? ""}
+                        required
                         onBlur={this.validateInput}
                         onChange={this.handleInputChange}
-                        error={!!this.state.errors.head}
-                        helperText={this.state.errors.head}
+                        error={!!errors.code}
+                        helperText={errors.code}
+                    />
+                    <TermSelect
+                        name="term_id"
+                        label="Term"
+                        value={course.term_id ?? ""}
+                        required
+                        onChange={this.handleInputChange}
+                        error={!!errors.term_id}
+                        helperText={errors.term_id}
                     />
                     <Button type="submit" color="primary" variant="contained">
                         Submit
@@ -158,8 +177,8 @@ class SchoolModal extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    selectedSchool: state.school.selectedSchool,
-    isLoading: state.school.isLoading,
+    selectedCourse: state.course.selectedCourse,
+    isLoading: state.course.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { fetchSchool, createSchool, updateSchool })(SchoolModal));
+export default withStyles(styles)(connect(mapStateToProps, { fetchCourse, createCourse, updateCourse })(CourseModal));

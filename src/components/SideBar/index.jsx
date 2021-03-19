@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { People, School, CalendarToday, Event } from "@material-ui/icons";
+import { People, School, CalendarToday, Event, MenuBook } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;
@@ -52,6 +52,7 @@ const SideBar = ({ drawerOpen }) => {
             { key: "schools", to: "/app/schools", icon: <School color="primary" /> },
             { key: "years", to: "/app/years", icon: <CalendarToday color="primary" /> },
             { key: "terms", to: "/app/terms", icon: <Event color="primary" /> },
+            { key: "courses", to: "/app/courses", icon: <MenuBook color="primary" /> },
         ],
     ];
 
