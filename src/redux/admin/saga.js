@@ -21,7 +21,10 @@ function* fetchAdmins() {
             const admins = yield APICall(`/api/v1/admins/`, {
                 method: "GET",
             });
-            admins.forEach((admin, index) => (admins[index].permissions = new AdminPermissions(admin.permissions)));
+            admins.forEach((admin, index) => {
+                admins[index].permissions = new AdminPermissions(admin.permissions);
+                admins[index].id = admin.user_id;
+            });
             yield put(fetchAdminsSuccess(admins));
         } catch (error) {
             yield put(fetchAdminsFailure(error.detail));
