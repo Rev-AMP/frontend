@@ -26,18 +26,30 @@ class DataPage extends React.Component {
     );
 
     render() {
-        const { classes } = this.props;
+        const {
+            classes,
+            objects,
+            columns,
+            title,
+            openModal,
+            isLoading,
+            modalIsOpen,
+            PopupModal,
+            disableCreate,
+        } = this.props;
 
-        if (this.props.objects) {
+        if (objects) {
             return (
                 <Grid item className={classes.fullScreen}>
                     <Grid container justify="space-between" alignItems="center">
                         <Typography color="primary" variant="h4" style={{ margin: 0 }}>
-                            {this.props.title}
+                            {title}
                         </Typography>
-                        <IconButton color="primary" onClick={this.props.openModal} style={{ margin: "1rem" }}>
-                            <AddCircle fontSize="large" />
-                        </IconButton>
+                        {!disableCreate && (
+                            <IconButton color="primary" onClick={openModal} style={{ margin: "1rem" }}>
+                                <AddCircle fontSize="large" />
+                            </IconButton>
+                        )}
                     </Grid>
 
                     <div className={classes.dataGrid}>
@@ -45,19 +57,19 @@ class DataPage extends React.Component {
                             <DataGrid
                                 disableSelectionOnClick
                                 disableColumnMenu
-                                rows={this.props.objects}
+                                rows={objects}
                                 rowHeight={80}
-                                columns={this.props.columns}
+                                columns={columns}
                                 components={{
                                     Toolbar: GridToolbar,
                                     LoadingOverlay: this.loader,
                                 }}
-                                loading={this.props.isLoading && !this.props.modalIsOpen}
+                                loading={isLoading && !modalIsOpen}
                             />
                         </div>
                     </div>
 
-                    {this.props.modalIsOpen && this.props.PopupModal}
+                    {modalIsOpen && PopupModal}
                 </Grid>
             );
         }
