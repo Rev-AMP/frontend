@@ -6,6 +6,7 @@ import { Clear, Done, Edit } from "@material-ui/icons";
 import { fetchAdmins } from "redux/admin/action";
 import DataPage from "components/DataPage";
 import clsx from "clsx";
+import AdminModal from "./components/AdminModal";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -124,6 +125,7 @@ class Admins extends React.Component {
                 ) : (
                     <Clear color="error" className={this.props.classes.centerItem} />
                 ),
+            valueFormatter: (params) => params.row.permissions.isAllowed("cbcs"),
         },
         {
             field: "actions",
@@ -168,13 +170,14 @@ class Admins extends React.Component {
 
     render() {
         const { isLoading, admins } = this.props;
-        const { modalIsOpen } = this.state;
+        const { modalIsOpen, adminId } = this.state;
         return (
             <DataPage
                 title="List of Admins"
                 isLoading={isLoading}
                 modalIsOpen={modalIsOpen}
                 openModal={this.openModal}
+                PopupModal={<AdminModal isOpen={modalIsOpen} onClose={this.closeModal} adminId={adminId} />}
                 objects={admins}
                 columns={this.columns}
                 disableCreate
