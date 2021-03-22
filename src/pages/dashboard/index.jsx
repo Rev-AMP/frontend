@@ -13,6 +13,7 @@ import Homepage from "pages/homepage";
 import Years from "pages/years";
 import Terms from "pages/terms";
 import Courses from "pages/courses";
+import Admins from "pages/admins";
 
 const useStyles = (theme) => ({
     content: {
@@ -93,6 +94,12 @@ class Dashboard extends Component {
                                 path={`${this.props.match.url}/courses`}
                                 component={Courses}
                                 permission="course"
+                            />
+                            <AuthenticatedRoute
+                                exact
+                                path={`${this.props.match.url}/admins`}
+                                component={Admins}
+                                permission="admin"
                             />
                             <AuthenticatedRoute exact path={`${this.props.match.url}/`} component={Homepage} />
                         </Switch>
