@@ -36,7 +36,7 @@ class AdminModal extends React.Component {
         const { selectedAdmin, onClose } = this.props;
         if (selectedAdmin !== prevProps.selectedAdmin && selectedAdmin) {
             this.setState({
-                adminPerms: new AdminPermissions(selectedAdmin.permissions.permissions),
+                adminPerms: new AdminPermissions(selectedAdmin.permissions),
             });
 
             if (this.state.formSubmitted) {
@@ -54,7 +54,6 @@ class AdminModal extends React.Component {
 
         // update admin object
         adminPerms.set(name, checked);
-        console.log(adminPerms);
 
         // update the permissions numeric value in submit
         submit.permissions = adminPerms.permissions;
@@ -66,12 +65,9 @@ class AdminModal extends React.Component {
         event.preventDefault();
 
         const { submit } = this.state;
-        let selectedAdmin = { ...this.props.selectedAdmin };
-
-        // set permissions to the numeric value instead of AdminPermissions object to check for updated info
-        selectedAdmin.permissions = selectedAdmin.permissions.permissions;
-
+        const { selectedAdmin } = this.props;
         const updatedInfo = getUpdatedInfo(selectedAdmin, submit);
+
         if (Object.keys(updatedInfo).length) {
             updatedInfo.user_id = selectedAdmin.user_id;
             this.props.updateAdmin(updatedInfo);

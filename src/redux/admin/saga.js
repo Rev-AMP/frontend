@@ -64,7 +64,6 @@ function* fetchAdmin() {
     yield takeEvery(AdminActionTypes.FETCH_ADMIN, function* (action) {
         try {
             let admin = yield APICall(`/api/v1/admins/${action.payload}`, { method: "GET" });
-            admin.permissions = new AdminPermissions(admin.permissions);
             yield put(fetchAdminSuccess(admin));
         } catch (error) {
             yield put(fetchAdminFailure(error.detail));
