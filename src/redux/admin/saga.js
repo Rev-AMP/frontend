@@ -1,4 +1,4 @@
-import { all, put, select, takeEvery } from "redux-saga/effects";
+import { all, put, takeEvery } from "redux-saga/effects";
 
 import AdminActionTypes from "./action.types";
 import {
@@ -35,8 +35,7 @@ function* fetchAdmins() {
 function* updateAdmin() {
     yield takeEvery(AdminActionTypes.UPDATE_ADMIN, function* (action) {
         try {
-            const selectedAdmin = yield select((state) => state.admin.selectedAdmin);
-            const admin = yield APICall(`/api/v1/admins/${selectedAdmin.id}`, {
+            const admin = yield APICall(`/api/v1/admins/`, {
                 method: "PUT",
                 body: JSON.stringify(action.payload),
             });
