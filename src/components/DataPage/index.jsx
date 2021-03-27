@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { DataGrid, GridToolbar, GridOverlay } from "@material-ui/data-grid";
 import { Grid, IconButton, Typography, withStyles, LinearProgress } from "@material-ui/core";
-import { AddCircle } from "@material-ui/icons";
+import { PlusCircle } from "mdi-material-ui";
 
 const styles = (theme) => ({
     fullScreen: {
@@ -47,7 +47,7 @@ class DataPage extends React.Component {
                         </Typography>
                         {!disableCreate && (
                             <IconButton color="primary" onClick={openModal} style={{ margin: "1rem" }}>
-                                <AddCircle fontSize="large" />
+                                <PlusCircle fontSize="large" />
                             </IconButton>
                         )}
                     </Grid>

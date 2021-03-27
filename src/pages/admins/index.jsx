@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { IconButton, Tooltip, withStyles } from "@material-ui/core";
-import { Clear, Done, Edit } from "@material-ui/icons";
+import { Close, Check, Pencil } from "mdi-material-ui";
 
 import { fetchAdmins } from "redux/admin/action";
 import DataPage from "components/DataPage";
@@ -49,9 +49,9 @@ class Admins extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.row.permissions.isAllowed("user") ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
         },
         {
@@ -61,9 +61,9 @@ class Admins extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.row.permissions.isAllowed("admin") ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
         },
         {
@@ -73,9 +73,9 @@ class Admins extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.row.permissions.isAllowed("school") ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
         },
         {
@@ -85,9 +85,9 @@ class Admins extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.row.permissions.isAllowed("year") ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
         },
         {
@@ -97,9 +97,9 @@ class Admins extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.row.permissions.isAllowed("term") ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
         },
         {
@@ -109,9 +109,9 @@ class Admins extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.row.permissions.isAllowed("course") ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
         },
         {
@@ -121,9 +121,9 @@ class Admins extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.row.permissions.isAllowed("cbcs") ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
             valueFormatter: (params) => params.row.permissions.isAllowed("cbcs"),
         },
@@ -142,7 +142,7 @@ class Admins extends React.Component {
                             color={"primary"}
                             onClick={() => this.onEdit(params)}
                         >
-                            <Edit />
+                            <Pencil />
                         </IconButton>
                     </Tooltip>
                 ),

@@ -12,7 +12,7 @@ import {
     DialogContentText,
     DialogActions,
 } from "@material-ui/core";
-import { Clear, Done, Edit, Delete } from "@material-ui/icons";
+import { Close, Check, Pencil, Delete } from "mdi-material-ui";
 
 import { fetchTerms, deleteTerm } from "redux/term/action";
 import DataPage from "components/DataPage";
@@ -97,9 +97,9 @@ class Terms extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.value ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
         },
         {
@@ -109,9 +109,9 @@ class Terms extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.value ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
             hide: true,
         },
@@ -126,7 +126,7 @@ class Terms extends React.Component {
                 <div className={this.props.classes.centerItem}>
                     <Tooltip title="Edit">
                         <IconButton color={"primary"} onClick={() => this.onEdit(params)}>
-                            <Edit />
+                            <Pencil />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">

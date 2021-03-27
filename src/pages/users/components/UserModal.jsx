@@ -13,7 +13,7 @@ import {
     Typography,
     withStyles,
 } from "@material-ui/core";
-import { AddAPhoto } from "@material-ui/icons";
+import { CameraPlus } from "mdi-material-ui";
 
 import { fetchUser, createUser, updateUser } from "redux/user/action";
 import { getUpdatedInfo } from "services/get-updated-info";
@@ -142,7 +142,7 @@ class UserModal extends React.Component {
                     />
                     <Grid container justify="center" style={{ paddingTop: "0.5rem" }}>
                         <IconButton color="primary" component="label">
-                            <AddAPhoto />
+                            <CameraPlus />
                             <input
                                 type="file"
                                 name="profile_picture"

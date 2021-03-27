@@ -12,7 +12,7 @@ import {
     Typography,
     withStyles,
 } from "@material-ui/core";
-import { Delete, Edit } from "@material-ui/icons";
+import { Delete, Pencil } from "mdi-material-ui";
 
 import { fetchSchools, deleteSchool } from "redux/school/action";
 import SchoolModal from "./components/SchoolModal";
@@ -70,7 +70,7 @@ class Schools extends React.Component {
                 <div className={this.props.classes.centerItem}>
                     <Tooltip title="Edit">
                         <IconButton color={"primary"} onClick={() => this.onEdit(params)}>
-                            <Edit />
+                            <Pencil />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">

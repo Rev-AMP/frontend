@@ -2,7 +2,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Avatar, Grid, IconButton, TextField, withStyles } from "@material-ui/core";
-import { AddAPhoto } from "@material-ui/icons";
+import { CameraPlus } from "mdi-material-ui";
 import { toast } from "react-toastify";
 
 import CenterContent from "components/CenterContent";
@@ -167,7 +167,7 @@ class Homepage extends Component {
                                         ).toUpperCase()}
                                     />
                                     <IconButton color="primary" component="label">
-                                        <AddAPhoto />
+                                        <CameraPlus />
                                         <input
                                             type="file"
                                             name="profile_picture"
