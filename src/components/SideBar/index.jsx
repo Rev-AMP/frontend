@@ -3,13 +3,13 @@ import clsx from "clsx";
 import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
 import {
     Account,
-    AccountTie,
+    // AccountTie,
     BookEducation,
     BookMultiple,
-    BookOpenPageVariant,
+    // BookOpenPageVariant,
     CalendarMultiple,
     CalendarToday,
-    School,
+    // School,
     ShieldAccount,
 } from "mdi-material-ui";
 import { Link } from "react-router-dom";
@@ -60,15 +60,15 @@ const SideBar = ({ drawerOpen }) => {
         [
             { key: "users", to: "/app/users", icon: <Account color="primary" /> },
             { key: "admins", to: "/app/admins", icon: <ShieldAccount color="primary" /> },
-            { key: "professors", to: "/app/admins", icon: <AccountTie color="primary" /> },
-            { key: "students", to: "/app/admins", icon: <School color="primary" /> },
+            // { key: "professors", to: "/app/admins", icon: <AccountTie color="primary" /> },
+            // { key: "students", to: "/app/admins", icon: <School color="primary" /> },
         ],
         [
             { key: "schools", to: "/app/schools", icon: <BookEducation color="primary" /> },
             { key: "years", to: "/app/years", icon: <CalendarToday color="primary" /> },
             { key: "terms", to: "/app/terms", icon: <CalendarMultiple color="primary" /> },
             { key: "courses", to: "/app/courses", icon: <BookMultiple color="primary" /> },
-            { key: "classes", to: "/app/courses", icon: <BookOpenPageVariant color="primary" /> },
+            // { key: "classes", to: "/app/courses", icon: <BookOpenPageVariant color="primary" /> },
         ],
     ];
 
