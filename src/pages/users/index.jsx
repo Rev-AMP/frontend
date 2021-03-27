@@ -2,8 +2,8 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import { IconButton, withStyles, Avatar, Tooltip } from "@material-ui/core";
-import { Clear, Done, Edit } from "@material-ui/icons";
+import { Avatar, IconButton, Tooltip, withStyles } from "@material-ui/core";
+import { Check, Close, Pencil } from "mdi-material-ui";
 
 import { fetchUsers } from "redux/user/action";
 import { fetchSchools } from "redux/school/action";
@@ -85,9 +85,9 @@ class Users extends React.Component {
             flex: 1,
             renderCell: (params) =>
                 params.value ? (
-                    <Done className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
-                    <Clear color="error" className={this.props.classes.centerItem} />
+                    <Close color="error" className={this.props.classes.centerItem} />
                 ),
         },
         {
@@ -104,7 +104,7 @@ class Users extends React.Component {
                         color={"primary"}
                         onClick={() => this.onEdit(params)}
                     >
-                        <Edit />
+                        <Pencil />
                     </IconButton>
                 </Tooltip>
             ),

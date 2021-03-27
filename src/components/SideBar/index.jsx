@@ -1,7 +1,17 @@
 import React from "react";
 import clsx from "clsx";
-import { makeStyles, Drawer, List, Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { Person, School, CalendarToday, Event, MenuBook, SupervisorAccount } from "@material-ui/icons";
+import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
+import {
+    Account,
+    // AccountTie,
+    BookEducation,
+    BookMultiple,
+    // BookOpenPageVariant,
+    CalendarMultiple,
+    CalendarToday,
+    // School,
+    ShieldAccount,
+} from "mdi-material-ui";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;
@@ -48,14 +58,17 @@ const SideBar = ({ drawerOpen }) => {
 
     const navigation = [
         [
-            { key: "users", to: "/app/users", icon: <Person color="primary" /> },
-            { key: "admins", to: "/app/admins", icon: <SupervisorAccount color="primary" /> },
+            { key: "users", to: "/app/users", icon: <Account color="primary" /> },
+            { key: "admins", to: "/app/admins", icon: <ShieldAccount color="primary" /> },
+            // { key: "professors", to: "/app/admins", icon: <AccountTie color="primary" /> },
+            // { key: "students", to: "/app/admins", icon: <School color="primary" /> },
         ],
         [
-            { key: "schools", to: "/app/schools", icon: <School color="primary" /> },
+            { key: "schools", to: "/app/schools", icon: <BookEducation color="primary" /> },
             { key: "years", to: "/app/years", icon: <CalendarToday color="primary" /> },
-            { key: "terms", to: "/app/terms", icon: <Event color="primary" /> },
-            { key: "courses", to: "/app/courses", icon: <MenuBook color="primary" /> },
+            { key: "terms", to: "/app/terms", icon: <CalendarMultiple color="primary" /> },
+            { key: "courses", to: "/app/courses", icon: <BookMultiple color="primary" /> },
+            // { key: "classes", to: "/app/courses", icon: <BookOpenPageVariant color="primary" /> },
         ],
     ];
 

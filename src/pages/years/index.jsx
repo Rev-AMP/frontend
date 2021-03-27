@@ -11,7 +11,7 @@ import {
     DialogActions,
     Tooltip,
 } from "@material-ui/core";
-import { Edit, Delete } from "@material-ui/icons";
+import { Pencil, Delete } from "mdi-material-ui";
 
 import { fetchYears, deleteYear } from "redux/year/action";
 import DataPage from "components/DataPage";
@@ -89,7 +89,7 @@ class Years extends React.Component {
                 <div className={this.props.classes.centerItem}>
                     <Tooltip title="Edit">
                         <IconButton color={"primary"} onClick={() => this.onEdit(params)}>
-                            <Edit />
+                            <Pencil />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">

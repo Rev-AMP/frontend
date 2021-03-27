@@ -11,7 +11,7 @@ import {
     Typography,
     withStyles,
 } from "@material-ui/core";
-import { Delete, Edit } from "@material-ui/icons";
+import { Delete, Pencil } from "mdi-material-ui";
 
 import { deleteCourse, fetchCourses } from "redux/course/action";
 import DataPage from "components/DataPage";
@@ -96,7 +96,7 @@ class Courses extends React.Component {
                 <div className={this.props.classes.centerItem}>
                     <Tooltip title="Edit">
                         <IconButton color={"primary"} onClick={() => this.onEdit(params)}>
-                            <Edit />
+                            <Pencil />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
