@@ -1,11 +1,25 @@
 import { call, put, select } from "redux-saga/effects";
 import { logout, loginSuccess } from "redux/auth/action";
 
-export const httpClient = async (url, parameters) =>
-    await fetch(url, parameters).then(async (response) => {
-        const json = await response.json();
-        return response.ok ? json : Promise.reject(json);
-    });
+const parseErrorDetail = (detail) => {
+    if (Array.isArray(detail)) {
+        return detail;
+    } else {
+        return detail;
+    }
+};
+
+export const httpClient = async (url, parameters) => {
+    try {
+        return await fetch(url, parameters).then(async (response) => {
+            const json = await response.json();
+            return response.ok ? json : Promise.reject(json);
+        });
+    } catch (error) {
+        error.detail = parseErrorDetail(error.detail);
+        throw error;
+    }
+};
 
 export function* APICall(endpoint, parameters) {
     let { accessToken, refreshToken, expiry } = yield select((state) => state.auth);
