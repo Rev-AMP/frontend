@@ -5,7 +5,7 @@ const parseErrorDetail = (detail) => {
     if (Array.isArray(detail)) {
         return detail;
     } else {
-        return detail;
+        return [detail];
     }
 };
 

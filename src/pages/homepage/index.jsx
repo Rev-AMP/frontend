@@ -42,7 +42,7 @@ class Homepage extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!prevProps.errorMessage && this.props.errorMessage) {
+        if (!prevProps.errors.length && this.props.errors.length) {
             this.setState({ currentUser: { ...this.props.currentUser } });
         }
         if (prevProps.currentUser !== this.props.currentUser) {
@@ -193,7 +193,7 @@ class Homepage extends Component {
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
     isLoading: state.user.isLoading || state.school.isLoading,
-    errorMessage: state.user.errorMessage,
+    errors: state.user.errors,
 });
 
 export default withRouter(connect(mapStateToProps, { updateUserMe })(withStyles(styles)(Homepage)));

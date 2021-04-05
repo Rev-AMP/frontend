@@ -7,9 +7,9 @@ export const fetchCoursesSuccess = (courses) => ({
     type: CourseActionTypes.FETCH_COURSES_SUCCESS,
     payload: courses,
 });
-export const fetchCoursesFailure = (error) => ({
+export const fetchCoursesFailure = (errors) => ({
     type: CourseActionTypes.FETCH_COURSES_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const createCourse = (courseCreate) => ({
@@ -20,9 +20,9 @@ export const createCourseSuccess = (course) => ({
     type: CourseActionTypes.CREATE_COURSE_SUCCESS,
     payload: course,
 });
-export const createCourseFailure = (error) => ({
+export const createCourseFailure = (errors) => ({
     type: CourseActionTypes.CREATE_COURSE_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const fetchCourse = (id) => ({
@@ -33,9 +33,9 @@ export const fetchCourseSuccess = (course) => ({
     type: CourseActionTypes.FETCH_COURSE_SUCCESS,
     payload: course,
 });
-export const fetchCourseFailure = (error) => ({
+export const fetchCourseFailure = (errors) => ({
     type: CourseActionTypes.FETCH_COURSE_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const updateCourse = (courseUpdate) => ({
@@ -46,9 +46,9 @@ export const updateCourseSuccess = (course) => ({
     type: CourseActionTypes.UPDATE_COURSE_SUCCESS,
     payload: course,
 });
-export const updateCourseFailure = (error) => ({
+export const updateCourseFailure = (errors) => ({
     type: CourseActionTypes.UPDATE_COURSE_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const deleteCourse = (courseId) => ({
@@ -58,7 +58,7 @@ export const deleteCourse = (courseId) => ({
 export const deleteCourseSuccess = () => ({
     type: CourseActionTypes.DELETE_COURSE_SUCCESS,
 });
-export const deleteCourseFailure = (error) => ({
+export const deleteCourseFailure = (errors) => ({
     type: CourseActionTypes.DELETE_COURSE_FAILURE,
-    payload: error,
+    payload: errors,
 });

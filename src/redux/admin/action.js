@@ -7,9 +7,9 @@ export const fetchAdminsSuccess = (admins) => ({
     type: AdminActionTypes.FETCH_ADMINS_SUCCESS,
     payload: admins,
 });
-export const fetchAdminsFailure = (error) => ({
+export const fetchAdminsFailure = (errors) => ({
     type: AdminActionTypes.FETCH_ADMINS_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const updateAdmin = (adminUpdate) => ({
@@ -20,9 +20,9 @@ export const updateAdminSuccess = (admin) => ({
     type: AdminActionTypes.UPDATE_ADMIN_SUCCESS,
     payload: admin,
 });
-export const updateAdminFailure = (error) => ({
+export const updateAdminFailure = (errors) => ({
     type: AdminActionTypes.UPDATE_ADMIN_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const fetchAdminMe = () => ({
@@ -32,9 +32,9 @@ export const fetchAdminMeSuccess = (user) => ({
     type: AdminActionTypes.FETCH_ADMIN_ME_SUCCESS,
     payload: user,
 });
-export const fetchAdminMeFailure = (error) => ({
+export const fetchAdminMeFailure = (errors) => ({
     type: AdminActionTypes.FETCH_ADMIN_ME_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const fetchAdmin = (id) => ({
@@ -45,7 +45,7 @@ export const fetchAdminSuccess = (admin) => ({
     type: AdminActionTypes.FETCH_ADMIN_SUCCESS,
     payload: admin,
 });
-export const fetchAdminFailure = (error) => ({
+export const fetchAdminFailure = (errors) => ({
     type: AdminActionTypes.FETCH_ADMIN_FAILURE,
-    payload: error,
+    payload: errors,
 });

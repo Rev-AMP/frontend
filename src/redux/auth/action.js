@@ -10,9 +10,9 @@ export const loginSuccess = (tokens) => ({
     payload: tokens,
 });
 
-export const loginFailure = (error) => ({
+export const loginFailure = (errors) => ({
     type: AuthActionTypes.LOGIN_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const logout = () => ({

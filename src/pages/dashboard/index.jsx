@@ -40,10 +40,12 @@ class Dashboard extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         // check if any new error message needs to be displayed
-        this.props.errorMessage.forEach((error, index) => {
-            if (prevProps.errorMessage[index] !== error && error) {
-                toast.error(`Error 😓: ${error}`, {
-                    position: toast.POSITION.TOP_CENTER,
+        this.props.allErrors.forEach((errors, index) => {
+            if (prevProps.allErrors[index] !== errors && errors.length) {
+                errors.forEach((error) => {
+                    toast.error(`Error 😓: ${error}`, {
+                        position: toast.POSITION.TOP_CENTER,
+                    });
                 });
             }
         });
@@ -112,12 +114,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
-    errorMessage: [
-        state.user.errorMessage,
-        state.school.errorMessage,
-        state.year.errorMessage,
-        state.admin.errorMessage,
-    ],
+    allErrors: [state.user.errors, state.school.errors, state.year.errors, state.admin.errors],
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(useStyles)(Dashboard)));

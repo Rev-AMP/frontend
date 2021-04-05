@@ -9,9 +9,9 @@ export const fetchSchoolsSuccess = (schools) => ({
     payload: schools,
 });
 
-export const fetchSchoolsFailure = (error) => ({
+export const fetchSchoolsFailure = (errors) => ({
     type: SchoolActionTypes.FETCH_SCHOOLS_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const fetchSchool = (id) => ({
@@ -24,9 +24,9 @@ export const fetchSchoolSuccess = (school) => ({
     payload: school,
 });
 
-export const fetchSchoolFailure = (error) => ({
+export const fetchSchoolFailure = (errors) => ({
     type: SchoolActionTypes.FETCH_SCHOOL_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const updateSchool = (schoolUpdate) => ({
@@ -39,9 +39,9 @@ export const updateSchoolSuccess = (school) => ({
     payload: school,
 });
 
-export const updateSchoolFailure = (error) => ({
+export const updateSchoolFailure = (errors) => ({
     type: SchoolActionTypes.UPDATE_SCHOOL_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const createSchool = (schoolCreate) => ({
@@ -54,9 +54,9 @@ export const createSchoolSuccess = (school) => ({
     payload: school,
 });
 
-export const createSchoolFailure = (error) => ({
+export const createSchoolFailure = (errors) => ({
     type: SchoolActionTypes.CREATE_SCHOOL_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const deleteSchool = (schoolId) => ({
@@ -68,7 +68,7 @@ export const deleteSchoolSuccess = () => ({
     type: SchoolActionTypes.DELETE_SCHOOL_SUCCESS,
 });
 
-export const deleteSchoolFailure = (error) => ({
+export const deleteSchoolFailure = (errors) => ({
     type: SchoolActionTypes.DELETE_SCHOOL_FAILURE,
-    payload: error,
+    payload: errors,
 });

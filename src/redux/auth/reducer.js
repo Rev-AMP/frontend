@@ -4,7 +4,7 @@ const initState = {
     accessToken: "",
     refreshToken: "",
     expiry: null,
-    errorMessage: "",
+    errors: [],
     isLoggedIn: false,
     isLoading: false,
 };
@@ -14,7 +14,7 @@ const loginReducer = (state = initState, action) => {
         case AuthActionTypes.LOGIN:
             return {
                 isLoading: true,
-                errorMessage: "",
+                errors: [],
                 isLoggedIn: false,
                 accessToken: "",
                 refreshToken: "",
@@ -23,7 +23,7 @@ const loginReducer = (state = initState, action) => {
         case AuthActionTypes.LOGIN_SUCCESS:
             return {
                 isLoading: false,
-                errorMessage: "",
+                errors: [],
                 accessToken: action.payload.access_token,
                 refreshToken: action.payload.refresh_token,
                 expiry: action.payload.expiry,
@@ -32,7 +32,7 @@ const loginReducer = (state = initState, action) => {
         case AuthActionTypes.LOGIN_FAILURE:
             return {
                 isLoading: false,
-                errorMessage: action.payload,
+                errors: action.payload,
                 accessToken: "",
                 refreshToken: "",
                 expiry: null,
