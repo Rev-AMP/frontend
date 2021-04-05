@@ -37,9 +37,8 @@ export function* APICall(endpoint, parameters) {
             accessToken = response.access_token;
         } catch (error) {
             yield put(logout());
-            let customError = new Error();
-            customError.detail = "Login session expired, please login again";
-            throw customError;
+            error.detail = "Login session expired, please login again";
+            throw error;
         }
     }
 
