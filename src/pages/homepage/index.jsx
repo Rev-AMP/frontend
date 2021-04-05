@@ -103,54 +103,6 @@ class Homepage extends Component {
                 <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
                     <Grid container direction="column" wrap="nowrap" className={classes.fullScreen}>
                         <Grid container wrap="nowrap" className={classes.fullScreen}>
-                            <Grid container direction="column" justify="space-evenly">
-                                <Grid container justify="space-between" wrap="nowrap">
-                                    <TextField
-                                        className={classes.formItem}
-                                        label="Full Name"
-                                        name="full_name"
-                                        value={currentUser.full_name}
-                                        onChange={this.handleInputChange}
-                                    />
-                                    <TextField
-                                        className={classes.formItem}
-                                        label="Email"
-                                        name="email"
-                                        value={currentUser.email}
-                                        onChange={this.handleInputChange}
-                                    />
-                                </Grid>
-
-                                <Grid container justify="space-between" wrap="nowrap">
-                                    <TextField
-                                        type="password"
-                                        className={classes.formItem}
-                                        label="Password"
-                                        name="password"
-                                        onChange={this.handleInputChange}
-                                    />
-                                    <TextField
-                                        type="password"
-                                        className={classes.formItem}
-                                        label="Confirm Password"
-                                        name="confirm_password"
-                                        onChange={this.handleInputChange}
-                                    />
-                                </Grid>
-
-                                <Grid container justify="space-between" wrap="nowrap">
-                                    <TextField
-                                        type="text"
-                                        className={classes.formItem}
-                                        label="School"
-                                        name="school"
-                                        value={currentUser.school ? currentUser.school.name : "No associated School"}
-                                        error={!currentUser.school}
-                                        helperText="This cannot be changed from here"
-                                    />
-                                </Grid>
-                            </Grid>
-
                             <Grid
                                 container
                                 direction="column"
@@ -176,6 +128,61 @@ class Homepage extends Component {
                                             hidden
                                         />
                                     </IconButton>
+                                </Grid>
+                            </Grid>
+                            <Grid container direction="column" justify="space-evenly">
+                                <Grid container>
+                                    <Grid container lg={6} md={6} sm={12}>
+                                        <TextField
+                                            className={classes.formItem}
+                                            label="Full Name"
+                                            name="full_name"
+                                            value={currentUser.full_name}
+                                            onChange={this.handleInputChange}
+                                        />
+                                    </Grid>
+                                    <Grid container lg={6} md={6} sm={12}>
+                                        <TextField
+                                            className={classes.formItem}
+                                            label="Email"
+                                            name="email"
+                                            value={currentUser.email}
+                                            onChange={this.handleInputChange}
+                                        />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container>
+                                    <Grid container lg={6} md={6} sm={12}>
+                                        <TextField
+                                            type="password"
+                                            className={classes.formItem}
+                                            label="Password"
+                                            name="password"
+                                            onChange={this.handleInputChange}
+                                        />
+                                    </Grid>
+                                    <Grid container lg={6} md={6} sm={12}>
+                                        <TextField
+                                            type="password"
+                                            className={classes.formItem}
+                                            label="Confirm Password"
+                                            name="confirm_password"
+                                            onChange={this.handleInputChange}
+                                        />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container>
+                                    <TextField
+                                        type="text"
+                                        className={classes.formItem}
+                                        label="School"
+                                        name="school"
+                                        value={currentUser.school ? currentUser.school.name : "No associated School"}
+                                        error={!currentUser.school}
+                                        helperText="This cannot be changed from here"
+                                    />
                                 </Grid>
                             </Grid>
                         </Grid>
