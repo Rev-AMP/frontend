@@ -100,8 +100,14 @@ class Homepage extends Component {
 
         return (
             <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
-                <Grid container justify="flex-end" alignItems="center" className={classes.fullScreen}>
-                    <Grid container direction="column" justify="center" alignItems="center" lg={3} md={3} sm={12}>
+                <Grid
+                    container
+                    direction="row-reverse"
+                    justify="flex-end"
+                    alignItems="center"
+                    className={classes.fullScreen}
+                >
+                    <Grid container direction="column" justify="center" alignItems="center" lg={4} md={4} sm={12}>
                         <Avatar
                             className={classes.image}
                             src={currentUser.profile_picture}
@@ -123,8 +129,8 @@ class Homepage extends Component {
                         justify="center"
                         alignItems="center"
                         style={{ height: "69%" }}
-                        lg={9}
-                        md={9}
+                        lg={8}
+                        md={8}
                         sm={12}
                     >
                         <Grid container lg={6} md={6} sm={12}>
@@ -175,7 +181,7 @@ class Homepage extends Component {
                             />
                         </Grid>
                     </Grid>
-                    <Grid container justify="center" lg={9} md={9} sm={12}>
+                    <Grid container justify="center" lg={8} md={8} sm={12}>
                         <Grid container justify="center" lg={5} md={5} sm={12}>
                             <Button type="submit" variant="contained">
                                 Update
