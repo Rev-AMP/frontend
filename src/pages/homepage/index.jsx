@@ -15,10 +15,10 @@ const styles = (theme) => ({
         width: "100%",
     },
     image: {
-        height: "25vh",
-        minHeight: "10rem",
-        width: "25vh",
-        minWidth: "10rem",
+        height: "35vh",
+        minHeight: "11rem",
+        width: "35vh",
+        minWidth: "11rem",
         fontSize: "6.9rem",
         marginTop: "3rem",
         ...theme.styles.avatar,
@@ -182,7 +182,7 @@ class Homepage extends Component {
                         </Grid>
                     </Grid>
                     <Grid container justify="center" lg={8} md={8} sm={12}>
-                        <Grid container justify="center" lg={5} md={5} sm={12}>
+                        <Grid container lg={5} md={5} sm={12}>
                             <Button type="submit" variant="contained">
                                 Update
                             </Button>
