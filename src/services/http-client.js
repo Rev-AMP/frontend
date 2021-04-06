@@ -4,17 +4,22 @@ import { logout, loginSuccess } from "redux/auth/action";
 const parseErrorDetail = (detail) => {
     if (Array.isArray(detail)) {
         let errorMap = {};
+        let fieldName = "";
         detail.forEach((error) => {
-            if (errorMap.hasOwnProperty(error.msg)) {
-                errorMap[error.msg] += `, ${String(error.loc.pop())}`;
-            } else {
-                errorMap[error.msg] = `${String(error.loc.pop())}`;
+            if (!errorMap.hasOwnProperty(error.msg)) {
+                errorMap[error.msg] = [];
+            }
+            fieldName = String(error.loc.pop());
+            if (!error.msg.toLowerCase().includes(fieldName.toLowerCase())) {
+                errorMap[error.msg].push(fieldName);
             }
         });
 
         let errorDetails = [];
+        let errorMessage = "";
         for (const msg in errorMap) {
-            errorDetails.push(`${msg} - ${errorMap[msg]}`);
+            errorMessage = errorMap[msg].length ? `${msg} - ${errorMap[msg].join(", ")}` : msg;
+            errorDetails.push(errorMessage);
         }
 
         return errorDetails;
