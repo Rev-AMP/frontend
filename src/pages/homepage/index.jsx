@@ -14,11 +14,6 @@ const styles = (theme) => ({
     formItem: {
         width: "100%",
     },
-    action: {
-        width: "69%",
-        margin: "0rem",
-        ...theme.styles.centerItem,
-    },
     image: {
         height: "25vh",
         minHeight: "10rem",
@@ -105,14 +100,8 @@ class Homepage extends Component {
 
         return (
             <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
-                <Grid
-                    container
-                    direction="column"
-                    justify="space-evenly"
-                    alignItems="center"
-                    className={classes.fullScreen}
-                >
-                    <Grid container direction="column" justify="center" alignItems="center">
+                <Grid container justify="flex-end" alignItems="center" className={classes.fullScreen}>
+                    <Grid container direction="column" justify="center" alignItems="center" lg={3} md={3} sm={12}>
                         <Avatar
                             className={classes.image}
                             src={currentUser.profile_picture}
@@ -129,7 +118,15 @@ class Homepage extends Component {
                             />
                         </IconButton>
                     </Grid>
-                    <Grid container>
+                    <Grid
+                        container
+                        justify="center"
+                        alignItems="center"
+                        style={{ height: "69%" }}
+                        lg={9}
+                        md={9}
+                        sm={12}
+                    >
                         <Grid container lg={6} md={6} sm={12}>
                             <TextField
                                 className={classes.formItem}
@@ -178,9 +175,13 @@ class Homepage extends Component {
                             />
                         </Grid>
                     </Grid>
-                    <Button type="submit" variant="contained" className={classes.action}>
-                        Update
-                    </Button>
+                    <Grid container justify="center" lg={9} md={9} sm={12}>
+                        <Grid container justify="center" lg={5} md={5} sm={12}>
+                            <Button type="submit" variant="contained">
+                                Update
+                            </Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </form>
         );
