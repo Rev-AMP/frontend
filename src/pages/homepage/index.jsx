@@ -20,11 +20,12 @@ const styles = (theme) => ({
         ...theme.styles.centerItem,
     },
     image: {
-        height: "10rem",
-        width: "10rem",
+        height: "25vh",
+        minHeight: "10rem",
+        width: "25vh",
+        minWidth: "10rem",
         fontSize: "6.9rem",
         marginTop: "3rem",
-        marginBottom: "2rem",
         ...theme.styles.avatar,
     },
     fullScreen: {
@@ -104,7 +105,13 @@ class Homepage extends Component {
 
         return (
             <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
-                <Grid container direction="column" justify="space-evenly" alignItems="center" style={{ width: "100%" }}>
+                <Grid
+                    container
+                    direction="column"
+                    justify="space-evenly"
+                    alignItems="center"
+                    className={classes.fullScreen}
+                >
                     <Grid container direction="column" justify="center" alignItems="center">
                         <Avatar
                             className={classes.image}
@@ -122,8 +129,6 @@ class Homepage extends Component {
                             />
                         </IconButton>
                     </Grid>
-                </Grid>
-                <Grid container direction="column" justify="space-evenly">
                     <Grid container>
                         <Grid container lg={6} md={6} sm={12}>
                             <TextField
@@ -173,8 +178,6 @@ class Homepage extends Component {
                             />
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid container direction="column" justify="center" alignItems="center">
                     <Button type="submit" variant="contained" className={classes.action}>
                         Update
                     </Button>
