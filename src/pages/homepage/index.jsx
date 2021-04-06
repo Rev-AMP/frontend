@@ -5,7 +5,6 @@ import { Avatar, Grid, IconButton, TextField, withStyles } from "@material-ui/co
 import { CameraPlus } from "mdi-material-ui";
 import { toast } from "react-toastify";
 
-import CenterContent from "components/CenterContent";
 import Button from "components/Button";
 import Loader from "components/Loader";
 import { updateUserMe } from "redux/user/action";
@@ -17,18 +16,23 @@ const styles = (theme) => ({
     },
     action: {
         width: "69%",
+        margin: "0rem",
         ...theme.styles.centerItem,
     },
     image: {
-        height: "16.9rem",
-        width: "16.9rem",
+        height: "10rem",
+        width: "10rem",
         fontSize: "6.9rem",
+        marginTop: "3rem",
         marginBottom: "2rem",
         ...theme.styles.avatar,
     },
     fullScreen: {
         height: "100%",
         width: "100%",
+    },
+    noFlex: {
+        display: "box",
     },
 });
 
@@ -99,100 +103,83 @@ class Homepage extends Component {
         const { classes } = this.props;
 
         return (
-            <CenterContent>
-                <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
-                    <Grid container direction="column" wrap="nowrap" className={classes.fullScreen}>
-                        <Grid container wrap="nowrap" className={classes.fullScreen}>
-                            <Grid
-                                container
-                                direction="column"
-                                justify="space-evenly"
-                                alignItems="center"
-                                style={{ width: "50%" }}
-                            >
-                                <Grid container direction="column" justify="center" alignItems="center">
-                                    <Avatar
-                                        className={classes.image}
-                                        src={currentUser.profile_picture}
-                                        alt={(
-                                            this.props.currentUser.full_name ?? this.props.currentUser.email
-                                        ).toUpperCase()}
-                                    />
-                                    <IconButton color="primary" component="label">
-                                        <CameraPlus />
-                                        <input
-                                            type="file"
-                                            name="profile_picture"
-                                            accept="image/png, image/jpeg"
-                                            onChange={this.handleInputChange}
-                                            hidden
-                                        />
-                                    </IconButton>
-                                </Grid>
-                            </Grid>
-                            <Grid container direction="column" justify="space-evenly">
-                                <Grid container>
-                                    <Grid container lg={6} md={6} sm={12}>
-                                        <TextField
-                                            className={classes.formItem}
-                                            label="Full Name"
-                                            name="full_name"
-                                            value={currentUser.full_name}
-                                            onChange={this.handleInputChange}
-                                        />
-                                    </Grid>
-                                    <Grid container lg={6} md={6} sm={12}>
-                                        <TextField
-                                            className={classes.formItem}
-                                            label="Email"
-                                            name="email"
-                                            value={currentUser.email}
-                                            onChange={this.handleInputChange}
-                                        />
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container>
-                                    <Grid container lg={6} md={6} sm={12}>
-                                        <TextField
-                                            type="password"
-                                            className={classes.formItem}
-                                            label="Password"
-                                            name="password"
-                                            onChange={this.handleInputChange}
-                                        />
-                                    </Grid>
-                                    <Grid container lg={6} md={6} sm={12}>
-                                        <TextField
-                                            type="password"
-                                            className={classes.formItem}
-                                            label="Confirm Password"
-                                            name="confirm_password"
-                                            onChange={this.handleInputChange}
-                                        />
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container>
-                                    <TextField
-                                        type="text"
-                                        className={classes.formItem}
-                                        label="School"
-                                        name="school"
-                                        value={currentUser.school ? currentUser.school.name : "No associated School"}
-                                        error={!currentUser.school}
-                                        helperText="This cannot be changed from here"
-                                    />
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
-                        <Button type="submit" variant="contained" className={classes.action}>
-                            Update
-                        </Button>
+            <form className={classes.fullScreen} onSubmit={this.handleSubmit}>
+                <Grid container direction="column" justify="space-evenly" alignItems="center" style={{ width: "100%" }}>
+                    <Grid container direction="column" justify="center" alignItems="center">
+                        <Avatar
+                            className={classes.image}
+                            src={currentUser.profile_picture}
+                            alt={(this.props.currentUser.full_name ?? this.props.currentUser.email).toUpperCase()}
+                        />
+                        <IconButton color="primary" component="label">
+                            <CameraPlus />
+                            <input
+                                type="file"
+                                name="profile_picture"
+                                accept="image/png, image/jpeg"
+                                onChange={this.handleInputChange}
+                                hidden
+                            />
+                        </IconButton>
                     </Grid>
-                </form>
-            </CenterContent>
+                </Grid>
+                <Grid container direction="column" justify="space-evenly">
+                    <Grid container>
+                        <Grid container lg={6} md={6} sm={12}>
+                            <TextField
+                                className={classes.formItem}
+                                label="Full Name"
+                                name="full_name"
+                                value={currentUser.full_name}
+                                onChange={this.handleInputChange}
+                            />
+                        </Grid>
+                        <Grid container lg={6} md={6} sm={12}>
+                            <TextField
+                                className={classes.formItem}
+                                label="Email"
+                                name="email"
+                                value={currentUser.email}
+                                onChange={this.handleInputChange}
+                            />
+                        </Grid>
+                        <Grid container lg={6} md={6} sm={12}>
+                            <TextField
+                                type="password"
+                                className={classes.formItem}
+                                label="Password"
+                                name="password"
+                                onChange={this.handleInputChange}
+                            />
+                        </Grid>
+                        <Grid container lg={6} md={6} sm={12}>
+                            <TextField
+                                type="password"
+                                className={classes.formItem}
+                                label="Confirm Password"
+                                name="confirm_password"
+                                onChange={this.handleInputChange}
+                            />
+                        </Grid>
+                        <Grid container>
+                            <TextField
+                                type="text"
+                                className={classes.formItem}
+                                label="School"
+                                name="school"
+                                value={currentUser.school ? currentUser.school.name : "No associated School"}
+                                error={!currentUser.school}
+                                helperText="This cannot be changed from here"
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid container direction="column" justify="center" alignItems="center">
+                    <Button type="submit" variant="contained" className={classes.action}>
+                        Update
+                    </Button>
+                </Grid>
+            </form>
         );
     }
 }
