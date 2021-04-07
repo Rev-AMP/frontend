@@ -180,9 +180,7 @@ class Homepage extends Component {
                                 helperText="This cannot be changed from here"
                             />
                         </Grid>
-                    </Grid>
-                    <Grid container justify="center" lg={8} md={8} sm={12}>
-                        <Grid container lg={5} md={5} sm={12}>
+                        <Grid container justify="center">
                             <Button type="submit" variant="contained">
                                 Update
                             </Button>
