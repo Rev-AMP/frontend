@@ -109,14 +109,14 @@ class UserModal extends React.Component {
                 });
             }
         } else {
-            // if (["email", "type", "password"].every((key) => submit[key])) {
+            if (["email", "type", "password"].every((key) => submit[key])) {
             this.props.createUser(submit);
             this.setState({ formSubmitted: true });
-            // } else {
-            //     toast.error("Please add email, type and password 😓", {
-            //         position: toast.POSITION.TOP_CENTER,
-            //     });
-            // }
+            } else {
+                toast.error("Please add email, type and password 😓", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }
         }
     };
 
@@ -165,7 +165,7 @@ class UserModal extends React.Component {
                         label="Email"
                         value={this.state.user.email ?? ""}
                         onChange={this.handleInputChange}
-                        // required={!userId}
+                        required={!userId}
                     />
                     <TextField
                         select
@@ -192,7 +192,7 @@ class UserModal extends React.Component {
                         label="Password"
                         value={this.state.user.password ?? ""}
                         onChange={this.handleInputChange}
-                        // required={!userId}
+                        required={!userId}
                     />
                     {userId && (
                         <FormControlLabel
