@@ -110,8 +110,8 @@ class UserModal extends React.Component {
             }
         } else {
             if (["email", "type", "password"].every((key) => submit[key])) {
-            this.props.createUser(submit);
-            this.setState({ formSubmitted: true });
+                this.props.createUser(submit);
+                this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please add email, type and password 😓", {
                     position: toast.POSITION.TOP_CENTER,
