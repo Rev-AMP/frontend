@@ -40,14 +40,14 @@ class Dashboard extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         // check if any new error message needs to be displayed
-        this.props.allErrors.forEach((errors, index) => {
-            if (prevProps.allErrors[index] !== errors && errors.length) {
-                errors.forEach((error) => {
-                    toast.error(`Error 😓: ${error}`, {
-                        position: toast.POSITION.TOP_CENTER,
-                    });
-                });
-            }
+        const errors = new Set(this.props.allErrors);
+        for (let elem of prevProps.allErrors) {
+            errors.delete(elem);
+        }
+        errors.forEach((error) => {
+            toast.error(`Error 😓: ${error}`, {
+                position: toast.POSITION.TOP_CENTER,
+            });
         });
     }
 
@@ -111,10 +111,15 @@ class Dashboard extends Component {
         );
     }
 }
-
-const mapStateToProps = (state) => ({
-    currentUser: state.user.currentUser,
-    allErrors: [state.user.errors, state.school.errors, state.year.errors, state.admin.errors],
-});
+const mapStateToProps = (state) => {
+    const currentUser = state.user.currentUser;
+    let errorMessage = [];
+    for (const module in state) {
+        if (state[module].errors) {
+            errorMessage.push(...state[module].errors);
+        }
+    }
+    return { allErrors: errorMessage.flat(), currentUser };
+};
 
 export default withRouter(connect(mapStateToProps)(withStyles(useStyles)(Dashboard)));
