@@ -36,7 +36,7 @@ export const httpClient = async (url, parameters) => {
             return response.ok ? json : Promise.reject(json);
         });
     } catch (error) {
-        error.detail = parseErrorDetail(error.detail);
+        error.detail = parseErrorDetail(error.detail ?? error.message ?? error);
         throw error;
     }
 };
