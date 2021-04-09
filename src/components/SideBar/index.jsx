@@ -1,17 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
-import {
-    Account,
-    // AccountTie,
-    BookEducation,
-    BookMultiple,
-    // BookOpenPageVariant,
-    CalendarMultiple,
-    CalendarToday,
-    // School,
-    ShieldAccount,
-} from "mdi-material-ui";
+import { Account, BookEducation, BookMultiple, CalendarMultiple, CalendarToday, ShieldAccount } from "mdi-material-ui";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;
@@ -32,11 +22,14 @@ const useStyles = makeStyles((theme) => ({
         whiteSpace: "nowrap",
     },
     drawerOpen: {
-        width: drawerWidth,
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        width: "100%",
+        [theme.breakpoints.up("md")]: {
+            width: drawerWidth,
+        },
     },
     drawerClose: {
         transition: theme.transitions.create("width", {
@@ -44,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: "hidden",
-        width: theme.spacing(7) + 1,
-        [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9) + 1,
+        width: 0,
+        [theme.breakpoints.up("md")]: {
+            width: theme.spacing(8),
         },
     },
     toolbar: theme.mixins.toolbar,
@@ -60,8 +53,6 @@ const SideBar = ({ drawerOpen }) => {
         [
             { key: "users", to: "/app/users", icon: <Account color="primary" /> },
             { key: "admins", to: "/app/admins", icon: <ShieldAccount color="primary" /> },
-            // { key: "professors", to: "/app/admins", icon: <AccountTie color="primary" /> },
-            // { key: "students", to: "/app/admins", icon: <School color="primary" /> },
         ],
         [
             { key: "schools", to: "/app/schools", icon: <BookEducation color="primary" /> },
