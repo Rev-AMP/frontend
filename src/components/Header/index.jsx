@@ -7,15 +7,16 @@ import { Menu, ExitToApp } from "mdi-material-ui";
 import { logout } from "redux/auth/action";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: "flex",
-    },
     appBar: {
         background: theme.palette.background.default,
         zIndex: theme.zIndex.drawer + 1,
     },
-    menuButton: {
-        marginRight: "1rem",
+    logoBox: {
+        justifyContent: "center",
+        [theme.breakpoints.up("md")]: {
+            justifyContent: "flex-start",
+        },
+        marginInline: "1rem",
     },
 }));
 
@@ -25,16 +26,10 @@ const Header = ({ handleMenuButtonClick, logout }) => {
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                <Box display="flex" flexGrow={1}>
-                    <IconButton
-                        color="primary"
-                        aria-label="open drawer"
-                        edge="start"
-                        className={classes.menuButton}
-                        onClick={handleMenuButtonClick}
-                    >
-                        <Menu />
-                    </IconButton>
+                <IconButton color="primary" aria-label="open drawer" edge="start" onClick={handleMenuButtonClick}>
+                    <Menu />
+                </IconButton>
+                <Box display="flex" flexGrow={1} className={classes.logoBox}>
                     <Link to="/">
                         <img
                             style={{ height: 50, aspectRatio: 1, padding: 5 }}
@@ -43,7 +38,7 @@ const Header = ({ handleMenuButtonClick, logout }) => {
                         />
                     </Link>
                 </Box>
-                <IconButton color="primary" aria-label="logout" onClick={logout}>
+                <IconButton color="primary" aria-label="logout" edge="end" onClick={logout}>
                     <ExitToApp />
                 </IconButton>
             </Toolbar>
