@@ -9,9 +9,9 @@ export const fetchTermsSuccess = (terms) => ({
     payload: terms,
 });
 
-export const fetchTermsFailure = (error) => ({
+export const fetchTermsFailure = (errors) => ({
     type: TermActionTypes.FETCH_TERMS_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const fetchTerm = (id) => ({
@@ -24,9 +24,9 @@ export const fetchTermSuccess = (term) => ({
     payload: term,
 });
 
-export const fetchTermFailure = (error) => ({
+export const fetchTermFailure = (errors) => ({
     type: TermActionTypes.FETCH_TERM_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const updateTerm = (termUpdate) => ({
@@ -39,9 +39,9 @@ export const updateTermSuccess = (term) => ({
     payload: term,
 });
 
-export const updateTermFailure = (error) => ({
+export const updateTermFailure = (errors) => ({
     type: TermActionTypes.UPDATE_TERM_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const createTerm = (termCreate) => ({
@@ -54,9 +54,9 @@ export const createTermSuccess = (term) => ({
     payload: term,
 });
 
-export const createTermFailure = (error) => ({
+export const createTermFailure = (errors) => ({
     type: TermActionTypes.CREATE_TERM_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const deleteTerm = (termId) => ({
@@ -68,7 +68,7 @@ export const deleteTermSuccess = () => ({
     type: TermActionTypes.DELETE_TERM_SUCCESS,
 });
 
-export const deleteTermFailure = (error) => ({
+export const deleteTermFailure = (errors) => ({
     type: TermActionTypes.DELETE_TERM_FAILURE,
-    payload: error,
+    payload: errors,
 });

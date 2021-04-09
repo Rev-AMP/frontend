@@ -9,9 +9,9 @@ export const fetchYearsSuccess = (years) => ({
     payload: years,
 });
 
-export const fetchYearsFailure = (error) => ({
+export const fetchYearsFailure = (errors) => ({
     type: YearActionTypes.FETCH_YEARS_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const fetchYear = (id) => ({
@@ -24,9 +24,9 @@ export const fetchYearSuccess = (year) => ({
     payload: year,
 });
 
-export const fetchYearFailure = (error) => ({
+export const fetchYearFailure = (errors) => ({
     type: YearActionTypes.FETCH_YEAR_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const updateYear = (yearUpdate) => ({
@@ -39,9 +39,9 @@ export const updateYearSuccess = (year) => ({
     payload: year,
 });
 
-export const updateYearFailure = (error) => ({
+export const updateYearFailure = (errors) => ({
     type: YearActionTypes.UPDATE_YEAR_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const createYear = (yearCreate) => ({
@@ -54,9 +54,9 @@ export const createYearSuccess = (year) => ({
     payload: year,
 });
 
-export const createYearFailure = (error) => ({
+export const createYearFailure = (errors) => ({
     type: YearActionTypes.CREATE_YEAR_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const deleteYear = (yearId) => ({
@@ -68,7 +68,7 @@ export const deleteYearSuccess = () => ({
     type: YearActionTypes.DELETE_YEAR_SUCCESS,
 });
 
-export const deleteYearFailure = (error) => ({
+export const deleteYearFailure = (errors) => ({
     type: YearActionTypes.DELETE_YEAR_FAILURE,
-    payload: error,
+    payload: errors,
 });

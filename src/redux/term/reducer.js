@@ -1,7 +1,7 @@
 import TermActionTypes from "./action.types";
 
 const initState = {
-    errorMessage: "",
+    errors: [],
     isLoading: false,
     selectedTerm: null,
     terms: [],
@@ -12,7 +12,7 @@ const TermReducer = (state = initState, action) => {
         case TermActionTypes.FETCH_TERMS:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
                 terms: [],
             };
@@ -20,13 +20,13 @@ const TermReducer = (state = initState, action) => {
             return {
                 ...state,
                 terms: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case TermActionTypes.FETCH_TERMS_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
                 terms: [],
             };
@@ -35,80 +35,80 @@ const TermReducer = (state = initState, action) => {
             return {
                 ...state,
                 selectedTerm: null,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case TermActionTypes.FETCH_TERM_SUCCESS:
             return {
                 ...state,
                 selectedTerm: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case TermActionTypes.FETCH_TERM_FAILURE:
             return {
                 ...state,
                 selectedTerm: null,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
         case TermActionTypes.UPDATE_TERM:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case TermActionTypes.UPDATE_TERM_SUCCESS:
             return {
                 ...state,
                 selectedTerm: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case TermActionTypes.UPDATE_TERM_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
         case TermActionTypes.CREATE_TERM:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case TermActionTypes.CREATE_TERM_SUCCESS:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
                 selectedTerm: action.payload,
             };
         case TermActionTypes.CREATE_TERM_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
         case TermActionTypes.DELETE_TERM:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case TermActionTypes.DELETE_TERM_SUCCESS:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case TermActionTypes.DELETE_TERM_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 

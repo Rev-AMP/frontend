@@ -1,7 +1,7 @@
 import CourseActionTypes from "./action.types";
 
 const initState = {
-    errorMessage: "",
+    errors: [],
     isLoading: false,
     selectedCourse: null,
     courses: [],
@@ -12,7 +12,7 @@ const CourseReducer = (state = initState, action) => {
         case CourseActionTypes.FETCH_COURSES:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
                 courses: [],
             };
@@ -20,13 +20,13 @@ const CourseReducer = (state = initState, action) => {
             return {
                 ...state,
                 courses: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case CourseActionTypes.FETCH_COURSES_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
                 courses: [],
             };
@@ -34,20 +34,20 @@ const CourseReducer = (state = initState, action) => {
         case CourseActionTypes.CREATE_COURSE:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case CourseActionTypes.CREATE_COURSE_SUCCESS:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
                 selectedCourse: action.payload,
             };
         case CourseActionTypes.CREATE_COURSE_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
@@ -55,60 +55,60 @@ const CourseReducer = (state = initState, action) => {
             return {
                 ...state,
                 selectedCourse: null,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case CourseActionTypes.FETCH_COURSE_SUCCESS:
             return {
                 ...state,
                 selectedCourse: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case CourseActionTypes.FETCH_COURSE_FAILURE:
             return {
                 ...state,
                 selectedCourse: null,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
         case CourseActionTypes.UPDATE_COURSE:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case CourseActionTypes.UPDATE_COURSE_SUCCESS:
             return {
                 ...state,
                 selectedCourse: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case CourseActionTypes.UPDATE_COURSE_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
         case CourseActionTypes.DELETE_COURSE:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case CourseActionTypes.DELETE_COURSE_SUCCESS:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case CourseActionTypes.DELETE_COURSE_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 

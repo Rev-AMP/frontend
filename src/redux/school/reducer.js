@@ -1,7 +1,7 @@
 import SchoolActionTypes from "./action.types";
 
 const initState = {
-    errorMessage: "",
+    errors: [],
     isLoading: false,
     selectedSchool: null,
     schools: [],
@@ -12,7 +12,7 @@ const SchoolReducer = (state = initState, action) => {
         case SchoolActionTypes.FETCH_SCHOOLS:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
                 schools: [],
             };
@@ -20,13 +20,13 @@ const SchoolReducer = (state = initState, action) => {
             return {
                 ...state,
                 schools: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case SchoolActionTypes.FETCH_SCHOOLS_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
                 schools: [],
             };
@@ -35,80 +35,80 @@ const SchoolReducer = (state = initState, action) => {
             return {
                 ...state,
                 selectedSchool: null,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case SchoolActionTypes.FETCH_SCHOOL_SUCCESS:
             return {
                 ...state,
                 selectedSchool: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case SchoolActionTypes.FETCH_SCHOOL_FAILURE:
             return {
                 ...state,
                 selectedSchool: null,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
         case SchoolActionTypes.UPDATE_SCHOOL:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case SchoolActionTypes.UPDATE_SCHOOL_SUCCESS:
             return {
                 ...state,
                 selectedSchool: action.payload,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case SchoolActionTypes.UPDATE_SCHOOL_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
         case SchoolActionTypes.CREATE_SCHOOL:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case SchoolActionTypes.CREATE_SCHOOL_SUCCESS:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
                 selectedSchool: action.payload,
             };
         case SchoolActionTypes.CREATE_SCHOOL_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 
         case SchoolActionTypes.DELETE_SCHOOL:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: true,
             };
         case SchoolActionTypes.DELETE_SCHOOL_SUCCESS:
             return {
                 ...state,
-                errorMessage: "",
+                errors: [],
                 isLoading: false,
             };
         case SchoolActionTypes.DELETE_SCHOOL_FAILURE:
             return {
                 ...state,
-                errorMessage: action.payload,
+                errors: action.payload,
                 isLoading: false,
             };
 

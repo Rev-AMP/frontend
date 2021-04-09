@@ -1,11 +1,45 @@
 import { call, put, select } from "redux-saga/effects";
 import { logout, loginSuccess } from "redux/auth/action";
 
-export const httpClient = async (url, parameters) =>
-    await fetch(url, parameters).then(async (response) => {
-        const json = await response.json();
-        return response.ok ? json : Promise.reject(json);
-    });
+const parseErrorDetail = (detail) => {
+    if (Array.isArray(detail)) {
+        let errorMap = {};
+        let fieldName = "";
+        detail.forEach((error) => {
+            if (!errorMap.hasOwnProperty(error.msg)) {
+                errorMap[error.msg] = [];
+            }
+            fieldName = String(error.loc.pop());
+            if (!error.msg.toLowerCase().includes(fieldName.toLowerCase())) {
+                errorMap[error.msg].push(fieldName);
+            }
+        });
+
+        let errorDetails = [];
+        let errorMessage = "";
+        for (const msg in errorMap) {
+            const message = msg.charAt(0).toUpperCase() + msg.slice(1);
+            errorMessage = errorMap[msg].length ? `${message} - ${errorMap[msg].join(", ")}` : message;
+            errorDetails.push(errorMessage);
+        }
+
+        return errorDetails;
+    } else {
+        return [detail];
+    }
+};
+
+export const httpClient = async (url, parameters) => {
+    try {
+        return await fetch(url, parameters).then(async (response) => {
+            const json = await response.json();
+            return response.ok ? json : Promise.reject(json);
+        });
+    } catch (error) {
+        error.detail = parseErrorDetail(error.detail ?? error.message ?? error);
+        throw error;
+    }
+};
 
 export function* APICall(endpoint, parameters) {
     let { accessToken, refreshToken, expiry } = yield select((state) => state.auth);
@@ -23,9 +57,8 @@ export function* APICall(endpoint, parameters) {
             accessToken = response.access_token;
         } catch (error) {
             yield put(logout());
-            let customError = new Error();
-            customError.detail = "Login session expired, please login again";
-            throw customError;
+            error.detail = "Login session expired, please login again";
+            throw error;
         }
     }
 

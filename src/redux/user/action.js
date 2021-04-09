@@ -9,9 +9,9 @@ export const fetchUserMeSuccess = (user) => ({
     payload: user,
 });
 
-export const fetchUserMeFailure = (error) => ({
+export const fetchUserMeFailure = (errors) => ({
     type: UserActionTypes.FETCH_USER_ME_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const updateUserMe = (userUpdate) => ({
@@ -24,9 +24,9 @@ export const updateUserMeSuccess = (user) => ({
     payload: user,
 });
 
-export const updateUserMeFailure = (error) => ({
+export const updateUserMeFailure = (errors) => ({
     type: UserActionTypes.UPDATE_USER_ME_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const fetchUser = (id) => ({
@@ -39,9 +39,9 @@ export const fetchUserSuccess = (user) => ({
     payload: user,
 });
 
-export const fetchUserFailure = (error) => ({
+export const fetchUserFailure = (errors) => ({
     type: UserActionTypes.FETCH_USER_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const fetchUsers = () => ({
@@ -53,9 +53,9 @@ export const fetchUsersSuccess = (users) => ({
     payload: users,
 });
 
-export const fetchUsersFailure = (error) => ({
+export const fetchUsersFailure = (errors) => ({
     type: UserActionTypes.FETCH_USERS_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const updateUser = (userUpdate) => ({
@@ -68,9 +68,9 @@ export const updateUserSuccess = (user) => ({
     payload: user,
 });
 
-export const updateUserFailure = (error) => ({
+export const updateUserFailure = (errors) => ({
     type: UserActionTypes.UPDATE_USER_FAILURE,
-    payload: error,
+    payload: errors,
 });
 
 export const createUser = (userCreate) => ({
@@ -83,7 +83,7 @@ export const createUserSuccess = (user) => ({
     payload: user,
 });
 
-export const createUserFailure = (error) => ({
+export const createUserFailure = (errors) => ({
     type: UserActionTypes.CREATE_USER_FAILURE,
-    payload: error,
+    payload: errors,
 });
