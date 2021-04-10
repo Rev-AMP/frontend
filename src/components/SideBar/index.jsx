@@ -1,6 +1,16 @@
 import React from "react";
 import clsx from "clsx";
-import { Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
+import {
+    Divider,
+    Drawer,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    makeStyles,
+    useMediaQuery,
+} from "@material-ui/core";
+import { useTheme } from "@material-ui/core";
 import { Account, BookEducation, BookMultiple, CalendarMultiple, CalendarToday, ShieldAccount } from "mdi-material-ui";
 import { Link } from "react-router-dom";
 
@@ -45,7 +55,10 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
 }));
 
-const SideBar = ({ drawerOpen }) => {
+const SideBar = ({ drawerOpen, switchDrawer }) => {
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down("md"));
+
     const classes = useStyles();
     const listItemTextProps = { align: "left", variant: "button" };
 
@@ -84,7 +97,14 @@ const SideBar = ({ drawerOpen }) => {
                         <Divider />
                         <List>
                             {links.map((link) => (
-                                <ListItem button component={Link} underline="none" to={link.to} key={link.key}>
+                                <ListItem
+                                    button
+                                    component={Link}
+                                    underline="none"
+                                    to={link.to}
+                                    key={link.key}
+                                    onClick={() => (matches && drawerOpen ? switchDrawer() : null)}
+                                >
                                     <ListItemIcon className={classes.icon}>{link.icon}</ListItemIcon>
                                     <ListItemText primaryTypographyProps={listItemTextProps} primary={link.key} />
                                 </ListItem>
