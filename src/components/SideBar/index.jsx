@@ -36,9 +36,9 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        width: "100%",
-        [theme.breakpoints.up("md")]: {
-            width: drawerWidth,
+        width: drawerWidth,
+        [theme.breakpoints.down("md")]: {
+            width: "100%",
         },
     },
     drawerClose: {
@@ -47,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: "hidden",
-        width: 0,
-        [theme.breakpoints.up("md")]: {
-            width: theme.spacing(8),
+        width: theme.spacing(8),
+        [theme.breakpoints.down("md")]: {
+            width: 0,
         },
     },
     toolbar: theme.mixins.toolbar,
