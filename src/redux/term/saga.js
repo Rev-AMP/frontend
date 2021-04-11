@@ -1,4 +1,10 @@
-import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+    all,
+    put,
+    select,
+    takeEvery,
+    takeLatest
+} from "redux-saga/effects";
 
 import TermActionTypes from "./action.types";
 import {
@@ -13,8 +19,12 @@ import {
     updateTermSuccess,
     deleteTermSuccess,
     deleteTermFailure,
+    fetchStudentsForTermSuccess,
+    fetchStudentsForTermFailure
 } from "./action";
-import { APICall } from "services/http-client";
+import {
+    APICall
+} from "services/http-client";
 
 function* fetchTerms() {
     yield takeEvery(TermActionTypes.FETCH_TERMS, function* (action) {
@@ -93,8 +103,21 @@ function* refreshTermList() {
     );
 }
 
+function* fetchStudentsForTerm() {
+    yield takeEvery(TermActionTypes.FETCH_STUDENTS_FOR_TERM, function* (action) {
+        try {
+            const students = yield APICall(`/api/v1/terms/${action.payload}/students`, {
+                method: "GET",
+            });
+            yield put(fetchStudentsForTermSuccess(students));
+        } catch (error) {
+            yield put(fetchStudentsForTermFailure(error.detail));
+        }
+    });
+}
+
 function* termMethods() {
-    yield all([fetchTerms(), fetchTerm(), updateTerm(), createTerm(), deleteTerm(), refreshTermList()]);
+    yield all([fetchTerms(), fetchTerm(), updateTerm(), createTerm(), deleteTerm(), refreshTermList(), fetchStudentsForTerm()]);
 }
 
 export default termMethods;
