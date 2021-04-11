@@ -22,8 +22,9 @@ class Admins extends React.Component {
             headerName: "ID",
             headerAlign: "center",
             align: "center",
-            width: 70,
+            width: 350,
             type: "number",
+            hide: true,
         },
         {
             field: "full_name",
