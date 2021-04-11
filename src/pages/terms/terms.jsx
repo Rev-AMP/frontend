@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
     withStyles,
@@ -12,7 +13,7 @@ import {
     DialogContentText,
     DialogActions,
 } from "@material-ui/core";
-import { Close, Check, Pencil, Delete } from "mdi-material-ui";
+import { Close, Check, Pencil, Delete, Eye } from "mdi-material-ui";
 
 import { fetchTerms, deleteTerm } from "redux/term/action";
 import DataPage from "components/DataPage";
@@ -124,6 +125,13 @@ class TermPage extends React.Component {
             filterable: false,
             renderCell: (params) => (
                 <div className={this.props.classes.centerItem}>
+                    <Tooltip title="View">
+                        <Link to={`${this.props.match.url}/${params.row.id}`}>
+                            <IconButton>
+                                <Eye />
+                            </IconButton>
+                        </Link>
+                    </Tooltip>
                     <Tooltip title="Edit">
                         <IconButton color={"primary"} onClick={() => this.onEdit(params)}>
                             <Pencil />
