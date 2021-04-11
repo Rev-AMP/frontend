@@ -72,3 +72,18 @@ export const deleteTermFailure = (errors) => ({
     type: TermActionTypes.DELETE_TERM_FAILURE,
     payload: errors,
 });
+
+export const fetchStudentsForTerm = (termId) => ({
+    type: TermActionTypes.FETCH_STUDENTS_FOR_TERM,
+    payload: termId,
+});
+
+export const fetchStudentsForTermSuccess = (students) => ({
+    type: TermActionTypes.FETCH_STUDENTS_FOR_TERM_SUCCESS,
+    payload: students,
+});
+
+export const fetchStudentsForTermFailure = (errors) => ({
+    type: TermActionTypes.FETCH_STUDENTS_FOR_TERM_FAILURE,
+    payload: errors,
+});
