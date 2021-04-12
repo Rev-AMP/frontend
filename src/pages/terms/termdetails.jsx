@@ -54,14 +54,10 @@ class TermDetails extends React.Component {
 
     render() {
         const { studentsForTerm, isLoading } = this.props;
+        const termName = studentsForTerm[0].term.name;
         return (
             <>
-                <DataPage
-                    title="List of Terms"
-                    isLoading={isLoading}
-                    objects={studentsForTerm}
-                    columns={this.columns}
-                />
+                <DataPage title={termName} isLoading={isLoading} objects={studentsForTerm} columns={this.columns} />
             </>
         );
     }
