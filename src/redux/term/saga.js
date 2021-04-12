@@ -1,4 +1,10 @@
-import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+    all,
+    put,
+    select,
+    takeEvery,
+    takeLatest
+} from "redux-saga/effects";
 
 import TermActionTypes from "./action.types";
 import {
@@ -16,7 +22,9 @@ import {
     fetchStudentsForTermSuccess,
     fetchStudentsForTermFailure,
 } from "./action";
-import { APICall } from "services/http-client";
+import {
+    APICall
+} from "services/http-client";
 
 function* fetchTerms() {
     yield takeEvery(TermActionTypes.FETCH_TERMS, function* (action) {
@@ -100,6 +108,9 @@ function* fetchStudentsForTerm() {
         try {
             const students = yield APICall(`/api/v1/terms/${action.payload}/students`, {
                 method: "GET",
+            });
+            students.forEach((student, index) => {
+                students[index].id = student.user_id;
             });
             yield put(fetchStudentsForTermSuccess(students));
         } catch (error) {

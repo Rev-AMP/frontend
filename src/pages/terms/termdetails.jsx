@@ -2,13 +2,69 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchStudentsForTerm } from "redux/term/action";
 
+import DataPage from "components/DataPage";
+
 class TermDetails extends React.Component {
+
+    columns = [
+        {
+            field: "id",
+            headerName: "ID",
+            headerAlign: "center",
+            align: "center",
+            width: 350,
+            hide: true,
+        },
+        {
+            field: "full name",
+            headerName: "Name",
+            headerAlign: "center",
+            align: "center",
+            width: 200,
+            valueFormatter: ({ row }) => `${row.user.full_name}`  
+        },
+        {
+            field: "email",
+            headerName: "Email ID",
+            headerAlign: "center",
+            align: "center",
+            width: 250,
+            valueFormatter: ({ row }) => `${row.user.email}`
+        },
+        {
+            field: "school",
+            headerName: "School",
+            headerAlign: "center",
+            align: "center",
+            width: 150,
+            valueFormatter: ({ row }) => `${row.term.year.school.name}`
+        },
+        {
+            field: "year",
+            headerName: "Year",
+            headerAlign: "center",
+            align: "center",
+            width: 150,
+            valueFormatter: ({ row }) => `${row.term.year.name}`
+        }
+    ];
+
     componentDidMount() {
         this.props.fetchStudentsForTerm(this.props.match.params.termid);
     }
 
     render() {
-        return <p>Display DataPage for Term ID: {this.props.match.params.termid}</p>;
+        const { studentsForTerm, isLoading } = this.props;
+        return (
+            <>
+                <DataPage
+                    title="List of Terms"
+                    isLoading={isLoading}
+                    objects={studentsForTerm}
+                    columns={this.columns}
+                />
+            </>
+        );
     }
 }
 
