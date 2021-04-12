@@ -5,7 +5,6 @@ import { fetchStudentsForTerm } from "redux/term/action";
 import DataPage from "components/DataPage";
 
 class TermDetails extends React.Component {
-
     columns = [
         {
             field: "id",
@@ -21,7 +20,7 @@ class TermDetails extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 200,
-            valueFormatter: ({ row }) => `${row.user.full_name}`  
+            valueFormatter: ({ row }) => `${row.user.full_name}`,
         },
         {
             field: "email",
@@ -29,7 +28,7 @@ class TermDetails extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 250,
-            valueFormatter: ({ row }) => `${row.user.email}`
+            valueFormatter: ({ row }) => `${row.user.email}`,
         },
         {
             field: "school",
@@ -37,7 +36,7 @@ class TermDetails extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 150,
-            valueFormatter: ({ row }) => `${row.term.year.school.name}`
+            valueFormatter: ({ row }) => `${row.term.year.school.name}`,
         },
         {
             field: "year",
@@ -45,8 +44,8 @@ class TermDetails extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 150,
-            valueFormatter: ({ row }) => `${row.term.year.name}`
-        }
+            valueFormatter: ({ row }) => `${row.term.year.name}`,
+        },
     ];
 
     componentDidMount() {
