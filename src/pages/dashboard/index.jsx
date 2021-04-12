@@ -62,7 +62,7 @@ class Dashboard extends Component {
         return (
             <div className={classes.fullScreen}>
                 <Header handleMenuButtonClick={this.switchDrawer} />
-                <SideBar drawerOpen={this.state.drawerOpen} />
+                <SideBar drawerOpen={this.state.drawerOpen} switchDrawer={this.switchDrawer} />
                 <Grid container direction="column" style={{ height: "100%" }}>
                     <div className={classes.offset} />
                     <Grid item className={classes.content}>
