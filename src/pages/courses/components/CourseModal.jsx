@@ -27,7 +27,7 @@ class CourseModal extends React.Component {
             submit: {},
             errors: {
                 name: "",
-                code: "",
+                course_code: "",
             },
             formSubmitted: false,
         };
@@ -63,8 +63,8 @@ class CourseModal extends React.Component {
                 errors.name = value ? "" : "Course Name cannot be empty";
                 break;
 
-            case "code":
-                errors.code = value && value.length <= 20 ? "" : "Course Code must be 1-20 characters long";
+            case "course_code":
+                errors.course_code = value && value.length <= 20 ? "" : "Course Code must be 1-20 characters long";
                 break;
 
             default:
@@ -96,7 +96,7 @@ class CourseModal extends React.Component {
         const { submit, errors } = this.state;
 
         // make sure there are no errors
-        if (errors.name || errors.code) return;
+        if (errors.name || errors.course_code) return;
 
         const { courseId, selectedCourse } = this.props;
 
@@ -111,7 +111,7 @@ class CourseModal extends React.Component {
                 });
             }
         } else {
-            if (submit.name && submit.code && submit.term_id) {
+            if (submit.name && submit.course_code && submit.term_id) {
                 this.props.createCourse(submit);
                 this.setState({ formSubmitted: true });
             } else {
@@ -149,14 +149,14 @@ class CourseModal extends React.Component {
                         helperText={errors.name}
                     />
                     <TextField
-                        name="code"
+                        name="course_code"
                         label="Code"
-                        value={course.code ?? ""}
+                        value={course.course_code ?? ""}
                         required
                         onBlur={this.validateInput}
                         onChange={this.handleInputChange}
-                        error={!!errors.code}
-                        helperText={errors.code}
+                        error={!!errors.course_code}
+                        helperText={errors.course_code}
                     />
                     <TermSelect
                         name="term_id"

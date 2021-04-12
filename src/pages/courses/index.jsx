@@ -44,6 +44,7 @@ class Courses extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 70,
+            hide: true,
         },
         {
             field: "name",
@@ -53,7 +54,7 @@ class Courses extends React.Component {
             width: 350,
         },
         {
-            field: "code",
+            field: "course_code",
             headerName: "Code",
             headerAlign: "center",
             align: "center",
@@ -74,7 +75,6 @@ class Courses extends React.Component {
             align: "center",
             width: 350,
             valueFormatter: (params) => params.row.term.year.name,
-            hide: true,
         },
         {
             field: "school",
