@@ -17,6 +17,8 @@ import {
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 
+import StudentModal from "../components/StudentModal";
+
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
     error: {
@@ -103,6 +105,7 @@ class TermDetails extends React.Component {
         this.state = {
             termId: this.props.match.params.termid,
             deleteConfirmAlert: false,
+            modalIsOpen: false,
         };
     }
 
@@ -126,15 +129,27 @@ class TermDetails extends React.Component {
         this.onDeleteClose();
     };
 
+    openModal = () => this.setState({ modalIsOpen: true });
+
+    closeModal = () => this.setState({ modalIsOpen: false });
+
     render() {
         const { studentsForTerm, isLoading, selectedTerm, classes } = this.props;
-        const { deleteConfirmAlert, studentId, studentName } = this.state;
+        const { deleteConfirmAlert, studentId, studentName, modalIsOpen } = this.state;
 
         //! Not the best logic, but works for now
         const termName = selectedTerm ? selectedTerm.name : "";
         return (
             <>
-                <DataPage title={termName} isLoading={isLoading} objects={studentsForTerm} columns={this.columns} />
+                <DataPage
+                    title={termName}
+                    isLoading={isLoading}
+                    modalIsOpen={modalIsOpen}
+                    openModal={this.openModal}
+                    PopupModal={<StudentModal isOpen={modalIsOpen} onClose={this.closeModal} />}
+                    objects={studentsForTerm}
+                    columns={this.columns}
+                />
 
                 {deleteConfirmAlert && studentId && (
                     <Dialog open={deleteConfirmAlert} onClose={this.onDeleteClose}>
