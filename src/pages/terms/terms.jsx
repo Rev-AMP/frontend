@@ -128,7 +128,7 @@ class TermPage extends React.Component {
                 <div className={this.props.classes.centerItem}>
                     <Tooltip title="View">
                         <Link to={`${this.props.match.url}/${params.row.id}`}>
-                            <IconButton>
+                            <IconButton color={"primary"}>
                                 <Eye />
                             </IconButton>
                         </Link>
