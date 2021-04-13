@@ -7,7 +7,7 @@ import Loader from "components/Loader";
 import { fetchUserMe } from "redux/user/action";
 import { fetchAdminMe } from "redux/admin/action";
 
-function AuthenticateRoute(props) {
+function AuthenticatedRoute(props) {
     const {
         rehydrated,
         isLoggedIn,
@@ -64,4 +64,4 @@ const mapStateToProps = (state) => ({
     currentAdmin: state.admin.currentAdmin,
 });
 
-export default connect(mapStateToProps, { fetchUserMe, fetchAdminMe })(AuthenticateRoute);
+export default connect(mapStateToProps, { fetchUserMe, fetchAdminMe })(AuthenticatedRoute);
