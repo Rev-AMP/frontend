@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchStudentsForTerm, deleteStudentFromTerm, fetchTerm } from "redux/term/action";
+import { fetchStudentsForSelectedTerm, deleteStudentFromSelectedTerm, fetchTerm } from "redux/term/action";
 import { Delete } from "mdi-material-ui";
 import {
     withStyles,
@@ -108,7 +108,12 @@ class TermDetails extends React.Component {
 
     componentDidMount() {
         this.props.fetchTerm(this.state.termId);
-        this.props.fetchStudentsForTerm(this.state.termId);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.selectedTerm !== this.props.selectedTerm && this.props.selectedTerm) {
+            this.props.fetchStudentsForTerm();
+        }
     }
 
     onDelete = ({ row }) =>
@@ -117,10 +122,7 @@ class TermDetails extends React.Component {
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, studentId: null, studentName: null });
 
     deleteStudent = () => {
-        this.props.deleteStudentFromTerm({
-            termId: this.state.termId,
-            studentId: this.state.studentId,
-        });
+        this.props.deleteStudentFromTerm(this.state.studentId);
         this.onDeleteClose();
     };
 
@@ -169,5 +171,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default withStyles(styles)(
-    connect(mapStateToProps, { fetchStudentsForTerm, deleteStudentFromTerm, fetchTerm })(TermDetails)
+    connect(mapStateToProps, {
+        fetchStudentsForTerm: fetchStudentsForSelectedTerm,
+        deleteStudentFromTerm: deleteStudentFromSelectedTerm,
+        fetchTerm,
+    })(TermDetails)
 );

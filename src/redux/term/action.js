@@ -73,31 +73,30 @@ export const deleteTermFailure = (errors) => ({
     payload: errors,
 });
 
-export const fetchStudentsForTerm = (termId) => ({
-    type: TermActionTypes.FETCH_STUDENTS_FOR_TERM,
-    payload: termId,
+export const fetchStudentsForSelectedTerm = () => ({
+    type: TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM,
 });
 
-export const fetchStudentsForTermSuccess = (students) => ({
-    type: TermActionTypes.FETCH_STUDENTS_FOR_TERM_SUCCESS,
+export const fetchStudentsForSelectedTermSuccess = (students) => ({
+    type: TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM_SUCCESS,
     payload: students,
 });
 
-export const fetchStudentsForTermFailure = (errors) => ({
-    type: TermActionTypes.FETCH_STUDENTS_FOR_TERM_FAILURE,
+export const fetchStudentsForSelectedTermFailure = (errors) => ({
+    type: TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM_FAILURE,
     payload: errors,
 });
 
-export const deleteStudentFromTerm = (studentAndTermId) => ({
-    type: TermActionTypes.DELETE_STUDENT_FROM_TERM,
-    payload: studentAndTermId,
+export const deleteStudentFromSelectedTerm = (studentID) => ({
+    type: TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM,
+    payload: studentID,
 });
 
-export const deleteStudentFromTermSuccess = () => ({
-    type: TermActionTypes.DELETE_STUDENT_FROM_TERM_SUCCESS,
+export const deleteStudentFromSelectedTermSuccess = () => ({
+    type: TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_SUCCESS,
 });
 
-export const deleteStudentFromTermFailure = (errors) => ({
-    type: TermActionTypes.DELETE_STUDENT_FROM_TERM_FAILURE,
+export const deleteStudentFromSelectedTermFailure = (errors) => ({
+    type: TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_FAILURE,
     payload: errors,
 });

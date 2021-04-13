@@ -113,14 +113,14 @@ const TermReducer = (state = initState, action) => {
                 isLoading: false,
             };
 
-        case TermActionTypes.FETCH_STUDENTS_FOR_TERM:
+        case TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM:
             return {
                 ...state,
                 errors: [],
                 isLoading: true,
             };
 
-        case TermActionTypes.FETCH_STUDENTS_FOR_TERM_SUCCESS:
+        case TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM_SUCCESS:
             return {
                 ...state,
                 errors: [],
@@ -128,28 +128,28 @@ const TermReducer = (state = initState, action) => {
                 studentsForTerm: action.payload,
             };
 
-        case TermActionTypes.FETCH_STUDENTS_FOR_TERM_FAILURE:
+        case TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM_FAILURE:
             return {
                 ...state,
                 errors: action.payload,
                 isLoading: false,
             };
 
-        case TermActionTypes.DELETE_STUDENT_FROM_TERM:
+        case TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM:
             return {
                 ...state,
                 errors: [],
                 isLoading: true,
             };
 
-        case TermActionTypes.DELETE_STUDENT_FROM_TERM_SUCCESS:
+        case TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_SUCCESS:
             return {
                 ...state,
                 errors: [],
                 isLoading: false,
             };
 
-        case TermActionTypes.DELETE_STUDENT_FROM_TERM_FAILURE:
+        case TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_FAILURE:
             return {
                 ...state,
                 errors: action.payload,
