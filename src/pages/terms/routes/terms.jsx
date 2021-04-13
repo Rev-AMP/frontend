@@ -18,7 +18,7 @@ import { Close, Check, Pencil, Delete, Eye } from "mdi-material-ui";
 import { fetchTerms, deleteTerm } from "redux/term/action";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
-import TermModal from "./components/TermModal";
+import TermModal from "../components/TermModal";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
