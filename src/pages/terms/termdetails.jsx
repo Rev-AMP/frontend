@@ -50,7 +50,7 @@ class TermDetails extends React.Component {
             headerName: "Name",
             headerAlign: "center",
             align: "center",
-            width: 200,
+            width: 350,
             valueFormatter: ({ row }) => `${row.user.full_name}`,
         },
         {
@@ -58,7 +58,7 @@ class TermDetails extends React.Component {
             headerName: "Email ID",
             headerAlign: "center",
             align: "center",
-            width: 250,
+            width: 350,
             valueFormatter: ({ row }) => `${row.user.email}`,
         },
         {
@@ -66,7 +66,7 @@ class TermDetails extends React.Component {
             headerName: "School",
             headerAlign: "center",
             align: "center",
-            width: 150,
+            width: 350,
             valueFormatter: ({ row }) => `${row.term.year.school.name}`,
         },
         {
@@ -74,8 +74,9 @@ class TermDetails extends React.Component {
             headerName: "Year",
             headerAlign: "center",
             align: "center",
-            width: 150,
+            width: 350,
             valueFormatter: ({ row }) => `${row.term.year.name}`,
+            hide: true,
         },
         {
             field: "actions",
@@ -93,7 +94,7 @@ class TermDetails extends React.Component {
                     </Tooltip>
                 </div>
             ),
-        }
+        },
     ];
 
     constructor(props) {
@@ -102,23 +103,23 @@ class TermDetails extends React.Component {
         this.state = {
             termId: this.props.match.params.termid,
             deleteConfirmAlert: false,
-        }
+        };
     }
 
     componentDidMount() {
-
         this.props.fetchTerm(this.state.termId);
         this.props.fetchStudentsForTerm(this.state.termId);
     }
 
-    onDelete = ({ row }) => this.setState({ deleteConfirmAlert: true, studentId: row.id, studentName: row.user.full_name }); 
+    onDelete = ({ row }) =>
+        this.setState({ deleteConfirmAlert: true, studentId: row.id, studentName: row.user.full_name });
 
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, studentId: null, studentName: null });
 
     deleteStudent = () => {
         this.props.deleteStudentFromTerm({
             termId: this.state.termId,
-            studentId: this.state.studentId
+            studentId: this.state.studentId,
         });
         this.onDeleteClose();
     };
@@ -142,7 +143,8 @@ class TermDetails extends React.Component {
                         </DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Are you sure you want to delete <strong>{studentName}</strong> from <strong>{selectedTerm.name}</strong>?
+                                Are you sure you want to delete <strong>{studentName}</strong> from{" "}
+                                <strong>{selectedTerm.name}</strong>?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
@@ -166,4 +168,6 @@ const mapStateToProps = (state) => ({
     selectedTerm: state.term.selectedTerm,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { fetchStudentsForTerm, deleteStudentFromTerm, fetchTerm })(TermDetails));
+export default withStyles(styles)(
+    connect(mapStateToProps, { fetchStudentsForTerm, deleteStudentFromTerm, fetchTerm })(TermDetails)
+);
