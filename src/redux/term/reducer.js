@@ -135,6 +135,27 @@ const TermReducer = (state = initState, action) => {
                 isLoading: false,
             };
 
+        case TermActionTypes.DELETE_STUDENT_FROM_TERM:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+
+        case TermActionTypes.DELETE_STUDENT_FROM_TERM_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: false,
+            };
+
+        case TermActionTypes.DELETE_STUDENT_FROM_TERM_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
         default:
             return state;
     }

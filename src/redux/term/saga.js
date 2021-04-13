@@ -1,4 +1,10 @@
-import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+    all,
+    put,
+    select,
+    takeEvery,
+    takeLatest
+} from "redux-saga/effects";
 
 import TermActionTypes from "./action.types";
 import {
@@ -13,10 +19,15 @@ import {
     updateTermSuccess,
     deleteTermSuccess,
     deleteTermFailure,
+    fetchStudentsForTerm as ActionFetchStudents,
     fetchStudentsForTermSuccess,
     fetchStudentsForTermFailure,
+    deleteStudentFromTermSuccess,
+    deleteStudentFromTermFailure
 } from "./action";
-import { APICall } from "services/http-client";
+import {
+    APICall
+} from "services/http-client";
 
 function* fetchTerms() {
     yield takeEvery(TermActionTypes.FETCH_TERMS, function* (action) {
@@ -111,6 +122,28 @@ function* fetchStudentsForTerm() {
     });
 }
 
+function* deleteStudentFromTerm() {
+    yield takeEvery(TermActionTypes.DELETE_STUDENT_FROM_TERM, function* (action) {
+        try {
+            yield APICall(`/api/v1/terms/${action.payload.termId}/students/${action.payload.studentId}`, {
+                method: "POST",
+            });
+            yield put(deleteStudentFromTermSuccess());
+        } catch (error) {
+            yield put(deleteStudentFromTermFailure(error));
+        }
+    });
+}
+
+function* refreshStudentList() {
+    yield takeLatest(
+        [TermActionTypes.DELETE_STUDENT_FROM_TERM_SUCCESS],
+        function* (action) {
+            yield put(ActionFetchStudents());
+        }
+    );
+}
+
 function* termMethods() {
     yield all([
         fetchTerms(),
@@ -120,6 +153,8 @@ function* termMethods() {
         deleteTerm(),
         refreshTermList(),
         fetchStudentsForTerm(),
+        deleteStudentFromTerm(),
+        refreshStudentList()
     ]);
 }
 
