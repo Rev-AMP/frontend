@@ -165,7 +165,7 @@ class Years extends React.Component {
                                 No
                             </Button>
                             <Button onClick={this.deleteYear} className={classes.success}>
-                                yes
+                                Yes
                             </Button>
                         </DialogActions>
                     </Dialog>

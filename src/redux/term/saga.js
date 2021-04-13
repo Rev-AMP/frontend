@@ -126,7 +126,7 @@ function* deleteStudentFromTerm() {
     yield takeEvery(TermActionTypes.DELETE_STUDENT_FROM_TERM, function* (action) {
         try {
             yield APICall(`/api/v1/terms/${action.payload.termId}/students/${action.payload.studentId}`, {
-                method: "POST",
+                method: "DELETE",
             });
             yield put(deleteStudentFromTermSuccess());
         } catch (error) {
@@ -139,7 +139,8 @@ function* refreshStudentList() {
     yield takeLatest(
         [TermActionTypes.DELETE_STUDENT_FROM_TERM_SUCCESS],
         function* (action) {
-            yield put(ActionFetchStudents());
+            const termId = yield select((state) => state.term.selectedTerm.id);
+            yield put(ActionFetchStudents(termId));
         }
     );
 }

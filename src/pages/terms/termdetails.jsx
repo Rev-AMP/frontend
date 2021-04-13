@@ -1,8 +1,39 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchStudentsForTerm } from "redux/term/action";
+import { fetchStudentsForTerm, deleteStudentFromTerm, fetchTerm } from "redux/term/action";
+import { Delete } from "mdi-material-ui";
+import {
+    withStyles,
+    Tooltip,
+    IconButton,
+    Dialog,
+    DialogTitle,
+    Typography,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+} from "@material-ui/core";
 
 import DataPage from "components/DataPage";
+import Button from "components/Button";
+
+const styles = (theme) => ({
+    centerItem: theme.styles.centerItem,
+    error: {
+        color: theme.palette.error.main,
+        "&:hover": {
+            backgroundColor: theme.palette.error.main,
+            color: "#000000",
+        },
+    },
+    success: {
+        color: theme.palette.success.main,
+        "&:hover": {
+            backgroundColor: theme.palette.success.main,
+            color: "#000000",
+        },
+    },
+});
 
 class TermDetails extends React.Component {
     columns = [
@@ -15,7 +46,7 @@ class TermDetails extends React.Component {
             hide: true,
         },
         {
-            field: "full name",
+            field: "full_name",
             headerName: "Name",
             headerAlign: "center",
             align: "center",
@@ -46,18 +77,84 @@ class TermDetails extends React.Component {
             width: 150,
             valueFormatter: ({ row }) => `${row.term.year.name}`,
         },
+        {
+            field: "actions",
+            headerName: "Actions",
+            headerAlign: "center",
+            flex: 1,
+            sortable: false,
+            filterable: false,
+            renderCell: (params) => (
+                <div className={this.props.classes.centerItem}>
+                    <Tooltip title="Delete">
+                        <IconButton onClick={() => this.onDelete(params)}>
+                            <Delete color={"error"} />
+                        </IconButton>
+                    </Tooltip>
+                </div>
+            ),
+        }
     ];
 
-    componentDidMount() {
-        this.props.fetchStudentsForTerm(this.props.match.params.termid);
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            termId: this.props.match.params.termid,
+            deleteConfirmAlert: false,
+        }
     }
 
+    componentDidMount() {
+
+        this.props.fetchTerm(this.state.termId);
+        this.props.fetchStudentsForTerm(this.state.termId);
+    }
+
+    onDelete = ({ row }) => this.setState({ deleteConfirmAlert: true, studentId: row.id, studentName: row.user.full_name }); 
+
+    onDeleteClose = () => this.setState({ deleteConfirmAlert: false, studentId: null, studentName: null });
+
+    deleteStudent = () => {
+        this.props.deleteStudentFromTerm({
+            termId: this.state.termId,
+            studentId: this.state.studentId
+        });
+        this.onDeleteClose();
+    };
+
     render() {
-        const { studentsForTerm, isLoading } = this.props;
-        const termName = studentsForTerm[0].term.name;
+        const { studentsForTerm, isLoading, selectedTerm, classes } = this.props;
+        const { deleteConfirmAlert, studentId, studentName } = this.state;
+
+        //! Not the best logic, but works for now
+        const termName = selectedTerm ? selectedTerm.name : "";
         return (
             <>
                 <DataPage title={termName} isLoading={isLoading} objects={studentsForTerm} columns={this.columns} />
+
+                {deleteConfirmAlert && studentId && (
+                    <Dialog open={deleteConfirmAlert} onClose={this.onDeleteClose}>
+                        <DialogTitle>
+                            <Typography variant="h6" color="primary">
+                                Delete Student?
+                            </Typography>
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Are you sure you want to delete <strong>{studentName}</strong> from <strong>{selectedTerm.name}</strong>?
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.onDeleteClose} className={classes.error}>
+                                No
+                            </Button>
+                            <Button onClick={this.deleteStudent} className={classes.success}>
+                                Yes
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                )}
             </>
         );
     }
@@ -66,6 +163,7 @@ class TermDetails extends React.Component {
 const mapStateToProps = (state) => ({
     studentsForTerm: state.term.studentsForTerm,
     isLoading: state.term.isLoading,
+    selectedTerm: state.term.selectedTerm,
 });
 
-export default connect(mapStateToProps, { fetchStudentsForTerm })(TermDetails);
+export default withStyles(styles)(connect(mapStateToProps, { fetchStudentsForTerm, deleteStudentFromTerm, fetchTerm })(TermDetails));
