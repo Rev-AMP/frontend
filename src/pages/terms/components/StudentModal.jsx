@@ -1,6 +1,7 @@
 import React from "react";
 import { TextField, Typography, Divider, withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
+import { addStudentsToSelectedTerm } from "redux/term/action";
 
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";
@@ -37,12 +38,12 @@ class StudentModal extends React.Component {
 
         let { studentIds } = this.state;
 
-        let studentIdList = studentIds.split(",");
-        studentIdList.forEach((element, index) => {
-            studentIdList[index] = element.trim();
+        let studentIdsList = studentIds.split(",");
+        studentIdsList.forEach((element, index) => {
+            studentIdsList[index] = element.trim();
         });
 
-        console.log(studentIdList);
+        this.props.addStudentsToSelectedTerm(studentIdsList);
     };
 
     render() {
@@ -81,4 +82,4 @@ const mapStateToProps = (state) => ({
     selectedTerm: state.term.selectedTerm,
 });
 
-export default withStyles(styles)(connect(mapStateToProps)(StudentModal));
+export default withStyles(styles)(connect(mapStateToProps, { addStudentsToSelectedTerm })(StudentModal));

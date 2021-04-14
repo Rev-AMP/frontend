@@ -117,6 +117,11 @@ class TermDetails extends React.Component {
         if (prevProps.selectedTerm !== this.props.selectedTerm && this.props.selectedTerm) {
             this.props.fetchStudentsForTerm();
         }
+
+        if (prevProps.addStudentsResponse !== this.props.addStudentsResponse && this.props.addStudentsResponse) {
+            console.log(this.props.addStudentsResponse.success);
+            console.log(this.props.addStudentsResponse.errors);
+        }
     }
 
     onDelete = ({ row }) =>
@@ -183,6 +188,7 @@ const mapStateToProps = (state) => ({
     studentsForTerm: state.term.studentsForTerm,
     isLoading: state.term.isLoading,
     selectedTerm: state.term.selectedTerm,
+    addStudentsResponse: state.term.addStudentsResponse,
 });
 
 export default withStyles(styles)(

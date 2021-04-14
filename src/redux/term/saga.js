@@ -1,4 +1,10 @@
-import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
+import {
+    all,
+    put,
+    select,
+    takeEvery,
+    takeLatest
+} from "redux-saga/effects";
 
 import TermActionTypes from "./action.types";
 import {
@@ -18,8 +24,12 @@ import {
     fetchStudentsForSelectedTermFailure,
     deleteStudentFromSelectedTermSuccess,
     deleteStudentFromSelectedTermFailure,
+    addStudentsToSelectedTermSuccess,
+    addStudentsToSelectedTermFailure,
 } from "./action";
-import { APICall } from "services/http-client";
+import {
+    APICall
+} from "services/http-client";
 
 function* fetchTerms() {
     yield takeEvery(TermActionTypes.FETCH_TERMS, function* (action) {
@@ -124,16 +134,37 @@ function* deleteStudentFromTerm() {
             });
             yield put(deleteStudentFromSelectedTermSuccess());
         } catch (error) {
-            yield put(deleteStudentFromSelectedTermFailure(error));
+            yield put(deleteStudentFromSelectedTermFailure(error.detail));
+        }
+    });
+}
+
+function* addStudentsToSelectedTerm() {
+    yield takeEvery(TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM, function* (action) {
+        try {
+            const selectedTerm = yield select((state) => state.term.selectedTerm);
+            const response = yield APICall(`/api/v1/terms/${selectedTerm.id}/students`, {
+                method: "POST",
+                body: JSON.stringify(action.payload),
+            });
+            yield put(addStudentsToSelectedTermSuccess(response));
+        } catch (error) {
+            yield put(addStudentsToSelectedTermFailure(error.detail));
         }
     });
 }
 
 function* refreshStudentList() {
-    yield takeLatest([TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_SUCCESS], function* (action) {
-        const termId = yield select((state) => state.term.selectedTerm.id);
-        yield put(ActionFetchStudents(termId));
-    });
+    yield takeLatest(
+        [
+            TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_SUCCESS,
+            TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM_SUCCESS,
+        ],
+        function* (action) {
+            const termId = yield select((state) => state.term.selectedTerm.id);
+            yield put(ActionFetchStudents(termId));
+        }
+    );
 }
 
 function* termMethods() {
@@ -146,6 +177,7 @@ function* termMethods() {
         refreshTermList(),
         fetchStudentsForTerm(),
         deleteStudentFromTerm(),
+        addStudentsToSelectedTerm(),
         refreshStudentList(),
     ]);
 }

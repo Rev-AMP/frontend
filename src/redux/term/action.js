@@ -100,3 +100,18 @@ export const deleteStudentFromSelectedTermFailure = (errors) => ({
     type: TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_FAILURE,
     payload: errors,
 });
+
+export const addStudentsToSelectedTerm = (studentIdsList) => ({
+    type: TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM,
+    payload: studentIdsList,
+});
+
+export const addStudentsToSelectedTermSuccess = (response) => ({
+    type: TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM_SUCCESS,
+    payload: response,
+});
+
+export const addStudentsToSelectedTermFailure = (errors) => ({
+    type: TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM_FAILURE,
+    payload: errors,
+});
