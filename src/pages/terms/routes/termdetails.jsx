@@ -12,12 +12,15 @@ import {
     DialogContent,
     DialogContentText,
     DialogActions,
+    TextareaAutosize,
+    Divider
 } from "@material-ui/core";
 
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 
 import StudentModal from "../components/StudentModal";
+import PopupModal from "components/PopupModal";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -106,6 +109,7 @@ class TermDetails extends React.Component {
             termId: this.props.match.params.termid,
             deleteConfirmAlert: false,
             modalIsOpen: false,
+            responseModal: false,
         };
     }
 
@@ -119,8 +123,7 @@ class TermDetails extends React.Component {
         }
 
         if (prevProps.addStudentsResponse !== this.props.addStudentsResponse && this.props.addStudentsResponse) {
-            console.log(this.props.addStudentsResponse.success);
-            console.log(this.props.addStudentsResponse.errors);
+            this.setState({responseModal: true});
         }
     }
 
@@ -138,9 +141,29 @@ class TermDetails extends React.Component {
 
     closeModal = () => this.setState({ modalIsOpen: false });
 
+    generateErrorsList = () => {
+        const { errors } = this.props.addStudentsResponse;
+
+        return (
+            <>
+                {
+                    Object.keys(errors).map((key) => (
+                        <>
+                            <Typography variant="h6">
+                                {key.charAt(0).toUpperCase() + key.slice(1)}:
+                            </Typography>
+                            <TextareaAutosize value={errors[key].join()} disabled />
+                            <br />
+                        </>
+                    ))
+                }
+            </>
+        );
+    }
+
     render() {
-        const { studentsForTerm, isLoading, selectedTerm, classes } = this.props;
-        const { deleteConfirmAlert, studentId, studentName, modalIsOpen } = this.state;
+        const { studentsForTerm, isLoading, selectedTerm, classes, addStudentsResponse } = this.props;
+        const { deleteConfirmAlert, studentId, studentName, modalIsOpen, responseModal } = this.state;
 
         //! Not the best logic, but works for now
         const termName = selectedTerm ? selectedTerm.name : "";
@@ -178,6 +201,27 @@ class TermDetails extends React.Component {
                             </Button>
                         </DialogActions>
                     </Dialog>
+                )}
+
+                {addStudentsResponse && (
+                    <PopupModal isOpen={responseModal} onClose={() => this.setState({responseModal: false})}>
+                        <div style={{ textAlign: "center" }}>
+                            <Typography color="primary" variant="h5">
+                                Success
+                            </Typography>
+                        </div>
+                        <TextareaAutosize value={addStudentsResponse.success ? addStudentsResponse.success.join() : ""} disabled />
+                        
+                        <Divider style={{ marginBottom: "1rem" }} />
+                        
+                        <div style={{ textAlign: "center" }}>
+                            <Typography color="error" variant="h5">
+                                Errors
+                            </Typography>
+                        </div>
+                        {this.generateErrorsList()}
+                        
+                    </PopupModal>
                 )}
             </>
         );

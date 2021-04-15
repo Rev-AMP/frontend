@@ -35,6 +35,7 @@ class StudentModal extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        this.props.onClose();
 
         let { studentIds } = this.state;
 
