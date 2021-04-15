@@ -67,6 +67,7 @@ class StudentModal extends React.Component {
                         onChange={this.handleInputChange}
                         error={!!errors.studentIds}
                         helperText={errors.studentIds}
+                        multiline
                         required
                     />
                     <Button type="submit" color="primary" variant="contained">
