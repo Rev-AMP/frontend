@@ -1,10 +1,4 @@
-import {
-    all,
-    put,
-    select,
-    takeEvery,
-    takeLatest
-} from "redux-saga/effects";
+import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import TermActionTypes from "./action.types";
 import {
@@ -27,9 +21,7 @@ import {
     addStudentsToSelectedTermSuccess,
     addStudentsToSelectedTermFailure,
 } from "./action";
-import {
-    APICall
-} from "services/http-client";
+import { APICall } from "services/http-client";
 
 function* fetchTerms() {
     yield takeEvery(TermActionTypes.FETCH_TERMS, function* (action) {

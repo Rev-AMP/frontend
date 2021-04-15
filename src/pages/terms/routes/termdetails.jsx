@@ -13,7 +13,7 @@ import {
     DialogContentText,
     DialogActions,
     TextareaAutosize,
-    Divider
+    Divider,
 } from "@material-ui/core";
 
 import DataPage from "components/DataPage";
@@ -123,7 +123,7 @@ class TermDetails extends React.Component {
         }
 
         if (prevProps.addStudentsResponse !== this.props.addStudentsResponse && this.props.addStudentsResponse) {
-            this.setState({responseModal: true});
+            this.setState({ responseModal: true });
         }
     }
 
@@ -146,20 +146,16 @@ class TermDetails extends React.Component {
 
         return (
             <>
-                {
-                    Object.keys(errors).map((key) => (
-                        <>
-                            <Typography variant="h6">
-                                {key.charAt(0).toUpperCase() + key.slice(1)}:
-                            </Typography>
-                            <TextareaAutosize value={errors[key].join()} disabled />
-                            <br />
-                        </>
-                    ))
-                }
+                {Object.keys(errors).map((key) => (
+                    <>
+                        <Typography variant="h6">{key.charAt(0).toUpperCase() + key.slice(1)}:</Typography>
+                        <TextareaAutosize value={errors[key].join()} disabled />
+                        <br />
+                    </>
+                ))}
             </>
         );
-    }
+    };
 
     render() {
         const { studentsForTerm, isLoading, selectedTerm, classes, addStudentsResponse } = this.props;
@@ -204,23 +200,25 @@ class TermDetails extends React.Component {
                 )}
 
                 {addStudentsResponse && (
-                    <PopupModal isOpen={responseModal} onClose={() => this.setState({responseModal: false})}>
+                    <PopupModal isOpen={responseModal} onClose={() => this.setState({ responseModal: false })}>
                         <div style={{ textAlign: "center" }}>
                             <Typography color="primary" variant="h5">
                                 Success
                             </Typography>
                         </div>
-                        <TextareaAutosize value={addStudentsResponse.success ? addStudentsResponse.success.join() : ""} disabled />
-                        
+                        <TextareaAutosize
+                            value={addStudentsResponse.success ? addStudentsResponse.success.join() : ""}
+                            disabled
+                        />
+
                         <Divider style={{ marginBottom: "1rem" }} />
-                        
+
                         <div style={{ textAlign: "center" }}>
                             <Typography color="error" variant="h5">
                                 Errors
                             </Typography>
                         </div>
                         {this.generateErrorsList()}
-                        
                     </PopupModal>
                 )}
             </>
