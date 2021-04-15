@@ -1,19 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchStudentsForSelectedTerm, deleteStudentFromSelectedTerm, fetchTerm } from "redux/term/action";
+import { deleteStudentFromSelectedTerm, fetchStudentsForSelectedTerm, fetchTerm } from "redux/term/action";
 import { Delete } from "mdi-material-ui";
 import {
-    withStyles,
-    Tooltip,
-    IconButton,
     Dialog,
-    DialogTitle,
-    Typography,
+    DialogActions,
     DialogContent,
     DialogContentText,
-    DialogActions,
-    TextareaAutosize,
+    DialogTitle,
     Divider,
+    IconButton,
+    List,
+    ListItem,
+    Tooltip,
+    Typography,
+    withStyles,
 } from "@material-ui/core";
 
 import DataPage from "components/DataPage";
@@ -37,6 +38,9 @@ const styles = (theme) => ({
             backgroundColor: theme.palette.success.main,
             color: "#000000",
         },
+    },
+    greenText: {
+        color: theme.palette.success.main,
     },
 });
 
@@ -141,22 +145,6 @@ class TermDetails extends React.Component {
 
     closeModal = () => this.setState({ modalIsOpen: false });
 
-    generateErrorsList = () => {
-        const { errors } = this.props.addStudentsResponse;
-
-        return (
-            <>
-                {Object.keys(errors).map((key) => (
-                    <>
-                        <Typography variant="h6">{key.charAt(0).toUpperCase() + key.slice(1)}:</Typography>
-                        <TextareaAutosize value={errors[key].join()} disabled />
-                        <br />
-                    </>
-                ))}
-            </>
-        );
-    };
-
     render() {
         const { studentsForTerm, isLoading, selectedTerm, classes, addStudentsResponse } = this.props;
         const { deleteConfirmAlert, studentId, studentName, modalIsOpen, responseModal } = this.state;
@@ -201,24 +189,46 @@ class TermDetails extends React.Component {
 
                 {addStudentsResponse && (
                     <PopupModal isOpen={responseModal} onClose={() => this.setState({ responseModal: false })}>
-                        <div style={{ textAlign: "center" }}>
-                            <Typography color="primary" variant="h5">
-                                Success
-                            </Typography>
-                        </div>
-                        <TextareaAutosize
-                            value={addStudentsResponse.success ? addStudentsResponse.success.join() : ""}
-                            disabled
-                        />
+                        {addStudentsResponse.success && (
+                            <div style={{ textAlign: "center" }}>
+                                <Typography className={classes.greenText} variant="h5">
+                                    Success
+                                </Typography>
+                                <List>
+                                    {addStudentsResponse.success.map((id) => (
+                                        <ListItem key={id} component={Typography}>
+                                            {id}
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </div>
+                        )}
 
-                        <Divider style={{ marginBottom: "1rem" }} />
+                        <Divider style={{ margin: "1rem" }} />
 
-                        <div style={{ textAlign: "center" }}>
-                            <Typography color="error" variant="h5">
-                                Errors
-                            </Typography>
-                        </div>
-                        {this.generateErrorsList()}
+                        {Object.keys(addStudentsResponse.errors).length !== 0 && (
+                            <div style={{ textAlign: "center" }}>
+                                <Typography color="error" variant="h5">
+                                    Errors
+                                </Typography>
+                                <List>
+                                    {Object.keys(addStudentsResponse.errors).map((key) => (
+                                        <ListItem key={key}>
+                                            <Typography variant="h6">
+                                                {key.charAt(0).toUpperCase() + key.slice(1)}:
+                                            </Typography>
+                                            <List>
+                                                {addStudentsResponse.errors[key].map((id) => (
+                                                    <ListItem key={id} component={Typography}>
+                                                        {id}
+                                                    </ListItem>
+                                                ))}
+                                            </List>
+                                        </ListItem>
+                                    ))}
+                                </List>
+                            </div>
+                        )}
                     </PopupModal>
                 )}
             </>
