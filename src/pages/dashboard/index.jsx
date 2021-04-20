@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Switch } from "react-router-dom";
-import { withStyles, Grid } from "@material-ui/core";
-import { toast } from "react-toastify";
+import { Switch, withRouter } from "react-router-dom";
+import { Grid, withStyles } from "@material-ui/core";
 
 import SideBar from "components/SideBar";
 import Header from "components/Header";
@@ -36,19 +35,6 @@ class Dashboard extends Component {
         this.state = {
             drawerOpen: false,
         };
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        // check if any new error message needs to be displayed
-        const errors = new Set(this.props.allErrors);
-        for (let elem of prevProps.allErrors) {
-            errors.delete(elem);
-        }
-        errors.forEach((error) => {
-            toast.error(`Error 😓: ${error}`, {
-                position: toast.POSITION.TOP_CENTER,
-            });
-        });
     }
 
     switchDrawer = () => {
@@ -111,15 +97,9 @@ class Dashboard extends Component {
         );
     }
 }
-const mapStateToProps = (state) => {
-    const currentUser = state.user.currentUser;
-    let errorMessage = [];
-    for (const module in state) {
-        if (state[module].errors) {
-            errorMessage.push(...state[module].errors);
-        }
-    }
-    return { allErrors: errorMessage.flat(), currentUser };
-};
+
+const mapStateToProps = (state) => ({
+    currentUser: state.user.currentUser,
+});
 
 export default withRouter(connect(mapStateToProps)(withStyles(useStyles)(Dashboard)));

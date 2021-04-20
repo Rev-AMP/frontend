@@ -15,12 +15,12 @@ const parseErrorDetail = (detail) => {
             }
         });
 
-        let errorDetails = [];
+        let errorDetails = new Set();
         let errorMessage = "";
         for (const msg in errorMap) {
             const message = msg.charAt(0).toUpperCase() + msg.slice(1);
             errorMessage = errorMap[msg].length ? `${message} - ${errorMap[msg].join(", ")}` : message;
-            errorDetails.push(errorMessage);
+            errorDetails.add(errorMessage);
         }
 
         return errorDetails;

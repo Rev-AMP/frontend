@@ -1,5 +1,7 @@
+import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { createMuiTheme, ThemeProvider, CssBaseline, makeStyles } from "@material-ui/core";
+import { connect } from "react-redux";
+import { createMuiTheme, ThemeProvider, CssBaseline, withStyles } from "@material-ui/core";
 import { toast } from "react-toastify";
 
 import Main from "pages/main";
@@ -60,25 +62,50 @@ const theme = createMuiTheme({
     },
 });
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
     fullScreen: {
         height: "100vh",
         width: "100vw",
     },
-}));
+});
 
-function App() {
-    const classes = useStyles();
-    return (
-        <BrowserRouter>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <div className={classes.fullScreen}>
-                    <Main />
-                </div>
-            </ThemeProvider>
-        </BrowserRouter>
-    );
+class App extends Component {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // check if any new error message needs to be displayed
+        const errors = new Set(this.props.allErrors);
+        for (let elem of prevProps.allErrors) {
+            errors.delete(elem);
+        }
+        errors.forEach((error) => {
+            toast.error(`Error 😓: ${error}`, {
+                position: toast.POSITION.TOP_CENTER,
+            });
+        });
+    }
+
+    render() {
+        const { classes } = this.props;
+        return (
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <div className={classes.fullScreen}>
+                        <Main />
+                    </div>
+                </ThemeProvider>
+            </BrowserRouter>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    let errorMessage = [];
+    for (const module in state) {
+        if (state.hasOwnProperty(module) && state[module].errors) {
+            errorMessage.push(...state[module].errors);
+        }
+    }
+    return { allErrors: errorMessage.flat() };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(App));
