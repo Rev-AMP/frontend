@@ -64,15 +64,15 @@ const SideBar = ({ drawerOpen, switchDrawer }) => {
 
     const navigation = [
         [
-            { key: "users", to: "/app/users", icon: <Account color="primary" /> },
-            { key: "admins", to: "/app/admins", icon: <ShieldAccount color="primary" /> },
+            { key: "users", to: "/users", icon: <Account color="primary" /> },
+            { key: "admins", to: "/admins", icon: <ShieldAccount color="primary" /> },
         ],
         [
-            { key: "schools", to: "/app/schools", icon: <BookEducation color="primary" /> },
-            { key: "years", to: "/app/years", icon: <CalendarToday color="primary" /> },
-            { key: "terms", to: "/app/terms", icon: <CalendarMultiple color="primary" /> },
-            { key: "courses", to: "/app/courses", icon: <BookMultiple color="primary" /> },
-            // { key: "classes", to: "/app/courses", icon: <BookOpenPageVariant color="primary" /> },
+            { key: "schools", to: "/schools", icon: <BookEducation color="primary" /> },
+            { key: "years", to: "/years", icon: <CalendarToday color="primary" /> },
+            { key: "terms", to: "/terms", icon: <CalendarMultiple color="primary" /> },
+            { key: "courses", to: "/courses", icon: <BookMultiple color="primary" /> },
+            // { key: "divisions", to: "/divisions", icon: <BookOpenPageVariant color="primary" /> },
         ],
     ];
 

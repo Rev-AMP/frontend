@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import { createMuiTheme, ThemeProvider, CssBaseline, withStyles } from "@material-ui/core";
+import { createMuiTheme, CssBaseline, ThemeProvider, withStyles } from "@material-ui/core";
 import { toast } from "react-toastify";
 
-import Main from "pages/main";
+import Login from "pages/login";
+import AuthenticatedRoute from "components/AuthenticatedRoute";
+import Dashboard from "pages/dashboard";
 
 toast.configure();
 
@@ -90,7 +92,10 @@ class App extends Component {
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
                     <div className={classes.fullScreen}>
-                        <Main />
+                        <Switch>
+                            <Route exact path="/login" component={Login} />
+                            <AuthenticatedRoute path="/" component={Dashboard} />
+                        </Switch>
                     </div>
                 </ThemeProvider>
             </BrowserRouter>
