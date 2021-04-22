@@ -177,10 +177,11 @@ class TermDetails extends React.Component {
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={this.onDeleteClose} className={classes.error}>
+                            {/* Class Names are reversed so that confirming the deletion is red in colour */}
+                            <Button onClick={this.onDeleteClose} className={classes.success}>
                                 No
                             </Button>
-                            <Button onClick={this.deleteStudent} className={classes.success}>
+                            <Button onClick={this.deleteStudent} className={classes.error}>
                                 Yes
                             </Button>
                         </DialogActions>
@@ -206,7 +207,7 @@ class TermDetails extends React.Component {
 
                         <Divider style={{ margin: "1rem" }} />
 
-                        {Object.keys(addStudentsResponse.errors).length !== 0 && (
+                        {addStudentsResponse.errors && Object.keys(addStudentsResponse.errors).length !== 0 && (
                             <div style={{ textAlign: "center" }}>
                                 <Typography color="error" variant="h5">
                                     Errors
