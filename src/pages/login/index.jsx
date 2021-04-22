@@ -47,14 +47,6 @@ class Login extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.errors !== this.props.errors && this.props.errors.length) {
-            this.props.errors.forEach((error) =>
-                toast.error(`Error 😓: ${error}`, {
-                    position: toast.POSITION.TOP_CENTER,
-                })
-            );
-        }
-
         if (prevProps.isLoggedIn !== this.props.isLoggedIn && this.props.isLoggedIn) {
             this.props.fetchUserMe();
         }
@@ -160,7 +152,6 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    errors: state.auth.errors || state.user.errors,
     accessToken: state.auth.accessToken,
     isLoggedIn: state.auth.isLoggedIn,
     currentUser: state.user.currentUser,
