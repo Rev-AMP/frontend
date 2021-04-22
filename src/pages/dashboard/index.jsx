@@ -53,52 +53,13 @@ class Dashboard extends Component {
                     <div className={classes.offset} />
                     <Grid item className={classes.content}>
                         <Switch>
-<<<<<<< HEAD
                             <AuthenticatedRoute exact path={"/users"} component={Users} permission="user" />
                             <AuthenticatedRoute exact path={"/schools"} component={Schools} permission="school" />
                             <AuthenticatedRoute exact path={"/years"} component={Years} permission="year" />
-                            <AuthenticatedRoute exact path={"/terms"} component={Terms} permission="term" />
+                            <AuthenticatedRoute path={"/terms"} component={Terms} permission="term" />
                             <AuthenticatedRoute exact path={"/courses"} component={Courses} permission="course" />
                             <AuthenticatedRoute exact path={"/admins"} component={Admins} permission="admin" />
                             <AuthenticatedRoute exact path={"/"} component={Homepage} />
-=======
-                            <AuthenticatedRoute
-                                exact
-                                path={`${this.props.match.url}/users`}
-                                component={Users}
-                                permission="user"
-                            />
-                            <AuthenticatedRoute
-                                exact
-                                path={`${this.props.match.url}/schools`}
-                                component={Schools}
-                                permission="school"
-                            />
-                            <AuthenticatedRoute
-                                exact
-                                path={`${this.props.match.url}/years`}
-                                component={Years}
-                                permission="year"
-                            />
-                            <AuthenticatedRoute
-                                path={`${this.props.match.url}/terms`}
-                                component={Terms}
-                                permission="term"
-                            />
-                            <AuthenticatedRoute
-                                exact
-                                path={`${this.props.match.url}/courses`}
-                                component={Courses}
-                                permission="course"
-                            />
-                            <AuthenticatedRoute
-                                exact
-                                path={`${this.props.match.url}/admins`}
-                                component={Admins}
-                                permission="admin"
-                            />
-                            <AuthenticatedRoute exact path={`${this.props.match.url}/`} component={Homepage} />
->>>>>>> ab04e33... Added Internal Routing for Terms Page
                         </Switch>
                     </Grid>
                 </Grid>
