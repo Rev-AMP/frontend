@@ -13,6 +13,7 @@ import Years from "pages/years";
 import Terms from "pages/terms";
 import Courses from "pages/courses";
 import Admins from "pages/admins";
+import Timetable from "pages/timetable";
 
 const useStyles = (theme) => ({
     content: {
@@ -59,6 +60,7 @@ class Dashboard extends Component {
                             <AuthenticatedRoute path={"/terms"} component={Terms} permission="term" />
                             <AuthenticatedRoute exact path={"/courses"} component={Courses} permission="course" />
                             <AuthenticatedRoute exact path={"/admins"} component={Admins} permission="admin" />
+                            <AuthenticatedRoute exact path={"/timetable"} component={Timetable} />
                             <AuthenticatedRoute exact path={"/"} component={Homepage} />
                         </Switch>
                     </Grid>
