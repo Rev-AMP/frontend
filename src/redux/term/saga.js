@@ -13,6 +13,13 @@ import {
     updateTermSuccess,
     deleteTermSuccess,
     deleteTermFailure,
+    fetchStudentsForSelectedTerm as ActionFetchStudents,
+    fetchStudentsForSelectedTermSuccess,
+    fetchStudentsForSelectedTermFailure,
+    deleteStudentFromSelectedTermSuccess,
+    deleteStudentFromSelectedTermFailure,
+    addStudentsToSelectedTermSuccess,
+    addStudentsToSelectedTermFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -93,8 +100,78 @@ function* refreshTermList() {
     );
 }
 
+function* fetchStudentsForTerm() {
+    yield takeEvery(TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM, function* (action) {
+        try {
+            const selectedTerm = yield select((state) => state.term.selectedTerm);
+            const students = yield APICall(`/api/v1/terms/${selectedTerm.id}/students`, {
+                method: "GET",
+            });
+            students.forEach((student, index) => {
+                students[index].id = student.user_id;
+            });
+            yield put(fetchStudentsForSelectedTermSuccess(students));
+        } catch (error) {
+            yield put(fetchStudentsForSelectedTermFailure(error.detail));
+        }
+    });
+}
+
+function* deleteStudentFromTerm() {
+    yield takeEvery(TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM, function* (action) {
+        try {
+            const selectedTerm = yield select((state) => state.term.selectedTerm);
+            yield APICall(`/api/v1/terms/${selectedTerm.id}/students/${action.payload}`, {
+                method: "DELETE",
+            });
+            yield put(deleteStudentFromSelectedTermSuccess());
+        } catch (error) {
+            yield put(deleteStudentFromSelectedTermFailure(error.detail));
+        }
+    });
+}
+
+function* addStudentsToSelectedTerm() {
+    yield takeEvery(TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM, function* (action) {
+        try {
+            const selectedTerm = yield select((state) => state.term.selectedTerm);
+            const response = yield APICall(`/api/v1/terms/${selectedTerm.id}/students`, {
+                method: "POST",
+                body: JSON.stringify(action.payload),
+            });
+            yield put(addStudentsToSelectedTermSuccess(response));
+        } catch (error) {
+            yield put(addStudentsToSelectedTermFailure(error.detail));
+        }
+    });
+}
+
+function* refreshStudentList() {
+    yield takeLatest(
+        [
+            TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_SUCCESS,
+            TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM_SUCCESS,
+        ],
+        function* (action) {
+            const termId = yield select((state) => state.term.selectedTerm.id);
+            yield put(ActionFetchStudents(termId));
+        }
+    );
+}
+
 function* termMethods() {
-    yield all([fetchTerms(), fetchTerm(), updateTerm(), createTerm(), deleteTerm(), refreshTermList()]);
+    yield all([
+        fetchTerms(),
+        fetchTerm(),
+        updateTerm(),
+        createTerm(),
+        deleteTerm(),
+        refreshTermList(),
+        fetchStudentsForTerm(),
+        deleteStudentFromTerm(),
+        addStudentsToSelectedTerm(),
+        refreshStudentList(),
+    ]);
 }
 
 export default termMethods;

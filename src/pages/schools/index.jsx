@@ -147,7 +147,7 @@ class Schools extends React.Component {
                                 No
                             </Button>
                             <Button onClick={this.deleteSchool} className={classes.success}>
-                                yes
+                                Yes
                             </Button>
                         </DialogActions>
                     </Dialog>

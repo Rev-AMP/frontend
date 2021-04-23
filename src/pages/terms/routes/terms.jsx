@@ -1,25 +1,30 @@
 import React from "react";
+import clsx from "clsx";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-    IconButton,
-    Typography,
     withStyles,
-    Dialog,
-    DialogContentText,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
     Tooltip,
+    IconButton,
+    Dialog,
+    DialogTitle,
+    Typography,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
 } from "@material-ui/core";
-import { Pencil, Delete } from "mdi-material-ui";
+import { Close, Check, Pencil, Delete, Eye } from "mdi-material-ui";
 
-import { fetchYears, deleteYear } from "redux/year/action";
+import { fetchTerms, deleteTerm } from "redux/term/action";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
-import YearModal from "./components/YearModal";
+import TermModal from "../components/TermModal";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
+    green: {
+        color: theme.palette.success.main,
+    },
     error: {
         color: theme.palette.error.main,
         "&:hover": {
@@ -36,7 +41,7 @@ const styles = (theme) => ({
     },
 });
 
-class Years extends React.Component {
+class TermPage extends React.Component {
     columns = [
         {
             field: "id",
@@ -44,7 +49,6 @@ class Years extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
-            type: "number",
             hide: true,
         },
         {
@@ -52,7 +56,16 @@ class Years extends React.Component {
             headerName: "Name",
             headerAlign: "center",
             align: "center",
+            width: 250,
+        },
+        {
+            field: "year",
+            headerName: "Year",
+            headerAlign: "center",
+            align: "center",
             width: 350,
+            valueFormatter: (params) => params.value.name,
+            hide: true,
         },
         {
             field: "school",
@@ -60,25 +73,49 @@ class Years extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 350,
-            valueFormatter: (params) => (params.value ? params.value.name : "No associated school"),
+            valueFormatter: (params) => params.row.year.school.name,
+            hide: true,
         },
         {
-            field: "start_year",
-            type: "number",
-            headerName: "Start Year",
+            field: "start_date",
+            type: "date",
+            headerName: "Start Date",
             headerAlign: "center",
             align: "center",
-            valueFormatter: (params) => `${params.value}`,
-            flex: 1,
+            flex: 1.5,
         },
         {
-            field: "end_year",
-            type: "number",
-            headerName: "End Year",
+            field: "end_date",
+            type: "date",
+            headerName: "End Date",
             headerAlign: "center",
             align: "center",
-            valueFormatter: (params) => `${params.value}`,
+            flex: 1.5,
+        },
+        {
+            field: "has_electives",
+            headerName: "Electives",
+            headerAlign: "center",
             flex: 1,
+            renderCell: (params) =>
+                params.value ? (
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                ) : (
+                    <Close color="error" className={this.props.classes.centerItem} />
+                ),
+        },
+        {
+            field: "is_active",
+            headerName: "Active",
+            headerAlign: "center",
+            flex: 1,
+            renderCell: (params) =>
+                params.value ? (
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                ) : (
+                    <Close color="error" className={this.props.classes.centerItem} />
+                ),
+            hide: true,
         },
         {
             field: "actions",
@@ -89,6 +126,13 @@ class Years extends React.Component {
             filterable: false,
             renderCell: (params) => (
                 <div className={this.props.classes.centerItem}>
+                    <Tooltip title="View">
+                        <Link to={`${this.props.match.url}/${params.row.id}`}>
+                            <IconButton color={"primary"}>
+                                <Eye />
+                            </IconButton>
+                        </Link>
+                    </Tooltip>
                     <Tooltip title="Edit">
                         <IconButton color={"primary"} onClick={() => this.onEdit(params)}>
                             <Pencil />
@@ -113,51 +157,50 @@ class Years extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchYears();
+        this.props.fetchTerms();
     }
 
-    closeModal = () => this.setState({ modalIsOpen: false, yearId: null });
+    closeModal = () => this.setState({ modalIsOpen: false, termId: null });
 
-    openModal = () => this.setState({ modalIsOpen: true, yearId: null });
+    openModal = () => this.setState({ modalIsOpen: true, termId: null });
 
-    onEdit = (params) => this.setState({ modalIsOpen: true, yearId: params.row.id });
+    onEdit = (params) => this.setState({ modalIsOpen: true, termId: params.row.id });
 
-    onDelete = (params) => this.setState({ deleteConfirmAlert: true, yearId: params.row.id });
+    onDelete = (params) => this.setState({ deleteConfirmAlert: true, termId: params.row.id });
 
-    onDeleteClose = () => this.setState({ deleteConfirmAlert: false, yearId: null });
+    onDeleteClose = () => this.setState({ deleteConfirmAlert: false, termId: null });
 
     deleteYear = () => {
-        this.props.deleteYear(this.state.yearId);
+        this.props.deleteTerm(this.state.termId);
         this.onDeleteClose();
     };
 
     render() {
-        const { isLoading, years, classes } = this.props;
-        const { deleteConfirmAlert, modalIsOpen, yearId } = this.state;
+        const { isLoading, terms, classes } = this.props;
+        const { deleteConfirmAlert, modalIsOpen, termId } = this.state;
 
         return (
             <>
                 <DataPage
-                    title="List of Years"
+                    title="List of Terms"
                     isLoading={isLoading}
                     modalIsOpen={modalIsOpen}
                     openModal={this.openModal}
-                    PopupModal={<YearModal isOpen={modalIsOpen} onClose={this.closeModal} yearId={yearId} />}
-                    objects={years}
+                    PopupModal={<TermModal isOpen={modalIsOpen} onClose={this.closeModal} termId={termId} />}
+                    objects={terms}
                     columns={this.columns}
                 />
-                {deleteConfirmAlert && yearId && (
+                {deleteConfirmAlert && termId && (
                     <Dialog open={deleteConfirmAlert} onClose={this.onDeleteClose}>
                         <DialogTitle>
                             <Typography variant="h6" color="primary">
-                                Delete Year?
+                                Delete Term?
                             </Typography>
                         </DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Deleting this <strong>Year</strong> may lead to unwanted consequences like deletion of
-                                terms and courses belong to this <strong>Year</strong>. Are you sure you want to
-                                proceed?
+                                Deleting this <strong>Term</strong> may lead to unwanted consequences like deletion of
+                                courses that belong to this <strong>Year</strong>. Are you sure you want to proceed?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
@@ -176,8 +219,8 @@ class Years extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    years: state.year.years,
-    isLoading: state.year.isLoading,
+    terms: state.term.terms,
+    isLoading: state.term.isLoading,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { fetchYears, deleteYear })(Years));
+export default withStyles(styles)(connect(mapStateToProps, { fetchTerms, deleteTerm })(TermPage));

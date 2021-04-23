@@ -5,6 +5,8 @@ const initState = {
     isLoading: false,
     selectedTerm: null,
     terms: [],
+    studentsForTerm: null,
+    addStudentsResponse: null,
 };
 
 const TermReducer = (state = initState, action) => {
@@ -110,6 +112,72 @@ const TermReducer = (state = initState, action) => {
                 ...state,
                 errors: action.payload,
                 isLoading: false,
+            };
+
+        case TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+
+        case TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: false,
+                studentsForTerm: action.payload,
+            };
+
+        case TermActionTypes.FETCH_STUDENTS_FOR_SELECTED_TERM_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+
+        case TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: false,
+            };
+
+        case TermActionTypes.DELETE_STUDENT_FROM_SELECTED_TERM_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+                addStudentsResponse: null,
+            };
+
+        case TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM_SUCCESS:
+            return {
+                ...state,
+                addStudentsResponse: action.payload,
+                isLoading: false,
+            };
+
+        case TermActionTypes.ADD_STUDENTS_TO_SELECTED_TERM_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+                addStudentsResponse: null,
             };
 
         default:

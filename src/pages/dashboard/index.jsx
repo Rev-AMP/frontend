@@ -56,7 +56,7 @@ class Dashboard extends Component {
                             <AuthenticatedRoute exact path={"/users"} component={Users} permission="user" />
                             <AuthenticatedRoute exact path={"/schools"} component={Schools} permission="school" />
                             <AuthenticatedRoute exact path={"/years"} component={Years} permission="year" />
-                            <AuthenticatedRoute exact path={"/terms"} component={Terms} permission="term" />
+                            <AuthenticatedRoute path={"/terms"} component={Terms} permission="term" />
                             <AuthenticatedRoute exact path={"/courses"} component={Courses} permission="course" />
                             <AuthenticatedRoute exact path={"/admins"} component={Admins} permission="admin" />
                             <AuthenticatedRoute exact path={"/"} component={Homepage} />
