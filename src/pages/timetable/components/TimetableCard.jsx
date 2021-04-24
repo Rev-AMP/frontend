@@ -23,7 +23,7 @@ const useStyles = (theme) => ({
         cursor: "pointer",
         "&:last-child": {
             marginBottom: "0px",
-        }
+        },
     },
     unorderedList: {
         listStyle: "none",

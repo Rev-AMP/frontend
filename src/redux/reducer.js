@@ -9,6 +9,7 @@ import YearReducer from "redux/year/reducer";
 import TermReducer from "redux/term/reducer";
 import AdminReducer from "redux/admin/reducer";
 import CourseReducer from "redux/course/reducer";
+import TimetableReducer from "redux/timetable/reducer";
 
 const persistConfig = {
     key: "revamp",
@@ -24,6 +25,7 @@ const MainReducer = persistCombineReducers(persistConfig, {
     term: TermReducer,
     admin: AdminReducer,
     course: CourseReducer,
+    timetable: TimetableReducer,
 });
 
 const RootReducer = (state, action) => {
