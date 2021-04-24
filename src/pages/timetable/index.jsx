@@ -18,7 +18,7 @@ class Timetable extends React.Component {
     }
 
     render() {
-        return <TimetableCard />;
+        return <TimetableCard day="Tuesday" />;
     }
 }
 

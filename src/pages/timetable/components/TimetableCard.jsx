@@ -35,12 +35,15 @@ const useStyles = (theme) => ({
         padding: "20px",
         borderRadius: "25px",
     },
+    centerItem: theme.styles.centerItem,
 });
 
-function TimetableCard({ classes }) {
+function TimetableCard(props) {
+    const { day, classes } = props;
     return (
         <AnimateSharedLayout>
             <motion.ul layout initial={{ borderRadius: 25 }} className={classes.unorderedList}>
+                <h2 className={classes.centerItem}>{ day }</h2>
                 <StyledLecture />
                 <StyledLecture />
                 <StyledLecture />
