@@ -11,7 +11,15 @@ import {
     useMediaQuery,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core";
-import { Account, BookEducation, BookMultiple, CalendarMultiple, CalendarToday, ShieldAccount } from "mdi-material-ui";
+import {
+    Account,
+    BookEducation,
+    BookMultiple,
+    CalendarMultiple,
+    CalendarToday,
+    ShieldAccount,
+    BookOpenPageVariant,
+} from "mdi-material-ui";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;
@@ -72,7 +80,7 @@ const SideBar = ({ drawerOpen, switchDrawer }) => {
             { key: "years", to: "/years", icon: <CalendarToday color="primary" /> },
             { key: "terms", to: "/terms", icon: <CalendarMultiple color="primary" /> },
             { key: "courses", to: "/courses", icon: <BookMultiple color="primary" /> },
-            // { key: "divisions", to: "/divisions", icon: <BookOpenPageVariant color="primary" /> },
+            { key: "divisions", to: "/divisions", icon: <BookOpenPageVariant color="primary" /> },
         ],
     ];
 
