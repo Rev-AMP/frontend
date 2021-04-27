@@ -1,0 +1,7 @@
+const DivisionActionTypes = {
+    FETCH_DIVISIONS: "FETCH_DIVISIONS",
+    FETCH_DIVISIONS_SUCCESS: "FETCH_DIVISIONS_SUCCESS",
+    FETCH_DIVISIONS_FAILURE: "FETCH_DIVISIONS_FAILURE"
+};
+
+export default DivisionActionTypes;
