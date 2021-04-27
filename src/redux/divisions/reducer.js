@@ -3,7 +3,7 @@ import DivisionActionTypes from "./action.types";
 const initState = {
     errors: [],
     isLoading: false,
-    divisions: []
+    divisions: [],
 };
 
 const DivisionReducer = (state = initState, action) => {
@@ -30,9 +30,30 @@ const DivisionReducer = (state = initState, action) => {
                 divisions: [],
             };
 
+        case DivisionActionTypes.DELETE_DIVISION:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+
+        case DivisionActionTypes.DELETE_DIVISION_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: false,
+            };
+
+        case DivisionActionTypes.DELETE_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
         default:
             return state;
     }
-}
+};
 
 export default DivisionReducer;

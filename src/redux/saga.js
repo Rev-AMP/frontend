@@ -10,7 +10,16 @@ import CourseSaga from "redux/course/saga";
 import DivisionSaga from "redux/divisions/saga";
 
 const RootSaga = function* () {
-    yield all([AuthSaga(), UserSaga(), SchoolSaga(), YearSaga(), TermSaga(), AdminSaga(), CourseSaga(), DivisionSaga()]);
+    yield all([
+        AuthSaga(),
+        UserSaga(),
+        SchoolSaga(),
+        YearSaga(),
+        TermSaga(),
+        AdminSaga(),
+        CourseSaga(),
+        DivisionSaga(),
+    ]);
 };
 
 export default RootSaga;

@@ -1,10 +1,13 @@
-import { all, put, takeEvery } from "redux-saga/effects";
+import { all, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 import DivisionActionTypes from "./action.types";
 
 import {
+    fetchDivisions as ActionFetchDivisions,
     fetchDivisionsSuccess,
-    fetchDivisionsFailure
+    fetchDivisionsFailure,
+    deleteDivisionSuccess,
+    deleteDivisionFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -21,10 +24,27 @@ function* fetchDivisions() {
     });
 }
 
+function* deleteDivision() {
+    yield takeEvery(DivisionActionTypes.DELETE_DIVISION, function* (action) {
+        try {
+            yield APICall(`/api/v1/divisions/${action.payload}`, {
+                method: "DELETE",
+            });
+            yield put(deleteDivisionSuccess());
+        } catch (error) {
+            yield put(deleteDivisionFailure(error.detail));
+        }
+    });
+}
+
+function* refreshDivisionList() {
+    yield takeLatest([DivisionActionTypes.DELETE_DIVISION_SUCCESS], function* (action) {
+        yield put(ActionFetchDivisions());
+    });
+}
+
 function* divisionMethods() {
-    yield all([
-        fetchDivisions(),
-    ]);
+    yield all([fetchDivisions(), deleteDivision(), refreshDivisionList()]);
 }
 
 export default divisionMethods;
