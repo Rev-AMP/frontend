@@ -5,6 +5,7 @@ import { fetchDivision } from "redux/divisions/action";
 import { toast } from "react-toastify";
 
 import PopupModal from "components/PopupModal";
+import CourseSelect from "pages/courses/components/CourseSelect";
 
 const styles = (theme) => ({
     form: {
@@ -67,6 +68,10 @@ class DivisionModal extends React.Component {
                 errors.division_code = value ? "" : "Division Code cannot be empty";
                 break;
 
+            case "number_of_batches":
+                errors.number_of_batches = value > 0 ? "" : "Number of batches should be greater than 0";
+                break;
+
             default:
                 break;
         }
@@ -114,6 +119,24 @@ class DivisionModal extends React.Component {
                         onChange={this.handleInputChange}
                         error={!!errors.division_code}
                         helperText={errors.division_code}
+                    />
+                    <TextField
+                        name="number_of_batches"
+                        label="Number of Batches"
+                        type="number"
+                        value={division.number_of_batches ?? ""}
+                        required
+                        onBlur={this.validateInput}
+                        onChange={this.handleInputChange}
+                        error={!!errors.number_of_batches}
+                        helperText={errors.number_of_batches}
+                    />
+                    <CourseSelect
+                        name="course_id"
+                        label="Course"
+                        value={division.course_id ?? ""}
+                        onChange={this.handleInputChange}
+                        required
                     />
                 </form>
             </PopupModal>
