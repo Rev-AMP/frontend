@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import PopupModal from "components/PopupModal";
 import CourseSelect from "pages/courses/components/CourseSelect";
+import ProfessorSelect from "pages/users/components/ProfessorSelect";
 
 const styles = (theme) => ({
     form: {
@@ -135,6 +136,13 @@ class DivisionModal extends React.Component {
                         name="course_id"
                         label="Course"
                         value={division.course_id ?? ""}
+                        onChange={this.handleInputChange}
+                        required
+                    />
+                    <ProfessorSelect
+                        name="professor_id"
+                        label="Professor"
+                        value={division.professor_id ?? ""}
                         onChange={this.handleInputChange}
                         required
                     />
