@@ -8,6 +8,8 @@ import {
     fetchDivisionsFailure,
     deleteDivisionSuccess,
     deleteDivisionFailure,
+    fetchDivisionSuccess,
+    fetchDivisionFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -37,6 +39,19 @@ function* deleteDivision() {
     });
 }
 
+function* fetchDivision() {
+    yield takeEvery(DivisionActionTypes.FETCH_DIVISION, function* (action) {
+        try {
+            const division = yield APICall(`/api/v1/divisions/${action.payload}`, {
+                method: "GET",
+            });
+            yield put(fetchDivisionSuccess(division));
+        } catch (error) {
+            yield put(fetchDivisionFailure(error.detail));
+        }
+    });
+}
+
 function* refreshDivisionList() {
     yield takeLatest([DivisionActionTypes.DELETE_DIVISION_SUCCESS], function* (action) {
         yield put(ActionFetchDivisions());
@@ -44,7 +59,7 @@ function* refreshDivisionList() {
 }
 
 function* divisionMethods() {
-    yield all([fetchDivisions(), deleteDivision(), refreshDivisionList()]);
+    yield all([fetchDivisions(), deleteDivision(), refreshDivisionList(), fetchDivision()]);
 }
 
 export default divisionMethods;

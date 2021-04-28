@@ -27,3 +27,18 @@ export const deleteDivisionFailure = (errors) => ({
     type: DivisionActionTypes.DELETE_DIVISION_FAILURE,
     payload: errors,
 });
+
+export const fetchDivision = (divisionId) => ({
+    type: DivisionActionTypes.FETCH_DIVISION,
+    payload: divisionId,
+});
+
+export const fetchDivisionSuccess = (division) => ({
+    type: DivisionActionTypes.FETCH_DIVISION_SUCCESS,
+    payload: division,
+});
+
+export const fetchDivisionFailure = (errors) => ({
+    type: DivisionActionTypes.FETCH_DIVISION_FAILURE,
+    payload: errors,
+});

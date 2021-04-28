@@ -12,12 +12,13 @@ import {
     DialogActions,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Eye, Delete } from "mdi-material-ui";
+import { Eye, Delete, Pencil } from "mdi-material-ui";
 
 import { fetchDivisions, deleteDivision } from "redux/divisions/action";
 
 import DataPage from "components/DataPage";
 import Button from "components/Button";
+import DivisionModal from "../components/DivisionModal";
 
 const useStyles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -112,11 +113,11 @@ class DivisionPage extends React.Component {
                             </IconButton>
                         </Link>
                     </Tooltip>
-                    {/* <Tooltip title="Edit">
+                    <Tooltip title="Edit">
                         <IconButton color={"primary"} onClick={() => this.onEdit(params)}>
                             <Pencil />
                         </IconButton>
-                    </Tooltip> */}
+                    </Tooltip>
                     <Tooltip title="Delete">
                         <IconButton onClick={() => this.onDelete(params)}>
                             <Delete color={"error"} />
@@ -132,6 +133,7 @@ class DivisionPage extends React.Component {
 
         this.state = {
             deleteConfirmAlert: false,
+            modalIsOpen: false,
         };
     }
 
@@ -143,6 +145,12 @@ class DivisionPage extends React.Component {
 
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, divisionId: null });
 
+    closeModal = () => this.setState({ modalIsOpen: false, divisionId: null });
+
+    openModal = () => this.setState({ modalIsOpen: true, divisionId: null });
+
+    onEdit = (params) => this.setState({ modalIsOpen: true, divisionId: params.row.id });
+
     deleteDivision = () => {
         this.props.deleteDivision(this.state.divisionId);
         this.onDeleteClose();
@@ -150,10 +158,20 @@ class DivisionPage extends React.Component {
 
     render() {
         const { isLoading, divisions, classes } = this.props;
-        const { deleteConfirmAlert, divisionId } = this.state;
+        const { deleteConfirmAlert, divisionId, modalIsOpen } = this.state;
         return (
             <>
-                <DataPage title="List of Divisions" isLoading={isLoading} objects={divisions} columns={this.columns} />
+                <DataPage
+                    title="List of Divisions"
+                    isLoading={isLoading}
+                    objects={divisions}
+                    columns={this.columns}
+                    PopupModal={
+                        <DivisionModal isOpen={modalIsOpen} onClose={this.closeModal} divisionId={divisionId} />
+                    }
+                    modalIsOpen={modalIsOpen}
+                    openModal={this.openModal}
+                />
                 {deleteConfirmAlert && divisionId && (
                     <Dialog open={deleteConfirmAlert} onClose={this.onDeleteClose}>
                         <DialogTitle>
@@ -165,10 +183,11 @@ class DivisionPage extends React.Component {
                             <DialogContentText>Are you sure you want to proceed?</DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={this.onDeleteClose} className={classes.error}>
+                            {/* Class Names are reversed so that confirming the deletion is red in colour */}
+                            <Button onClick={this.onDeleteClose} className={classes.success}>
                                 No
                             </Button>
-                            <Button onClick={this.deleteDivision} className={classes.success}>
+                            <Button onClick={this.deleteDivision} className={classes.error}>
                                 Yes
                             </Button>
                         </DialogActions>

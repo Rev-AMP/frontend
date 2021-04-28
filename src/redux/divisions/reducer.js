@@ -4,6 +4,7 @@ const initState = {
     errors: [],
     isLoading: false,
     divisions: [],
+    selectedDivision: null,
 };
 
 const DivisionReducer = (state = initState, action) => {
@@ -49,6 +50,28 @@ const DivisionReducer = (state = initState, action) => {
                 ...state,
                 errors: action.payload,
                 isLoading: false,
+            };
+
+        case DivisionActionTypes.FETCH_DIVISION:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+                selectedDivision: null,
+            };
+        case DivisionActionTypes.FETCH_DIVISION_SUCCESS:
+            return {
+                ...state,
+                selectedDivision: action.payload,
+                errors: [],
+                isLoading: false,
+            };
+        case DivisionActionTypes.FETCH_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+                divisions: [],
             };
 
         default:
