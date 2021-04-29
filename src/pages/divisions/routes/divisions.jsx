@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import { Eye, Delete, Pencil } from "mdi-material-ui";
 
-import { fetchDivisions, deleteDivision } from "redux/divisions/action";
+import { fetchDivisions, deleteDivision } from "redux/division/action";
 
 import DataPage from "components/DataPage";
 import Button from "components/Button";

@@ -74,6 +74,46 @@ const DivisionReducer = (state = initState, action) => {
                 divisions: [],
             };
 
+        case DivisionActionTypes.CREATE_DIVISION:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+        case DivisionActionTypes.CREATE_DIVISION_SUCCESS:
+            return {
+                ...state,
+                selectedDivision: action.payload,
+                errors: [],
+                isLoading: false,
+            };
+        case DivisionActionTypes.CREATE_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case DivisionActionTypes.UPDATE_DIVISION:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+        case DivisionActionTypes.UPDATE_DIVISION_SUCCESS:
+            return {
+                ...state,
+                selectedDivision: action.payload,
+                errors: [],
+                isLoading: false,
+            };
+        case DivisionActionTypes.UPDATE_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
         default:
             return state;
     }

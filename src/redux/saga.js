@@ -7,7 +7,7 @@ import YearSaga from "redux/year/saga";
 import TermSaga from "redux/term/saga";
 import AdminSaga from "redux/admin/saga";
 import CourseSaga from "redux/course/saga";
-import DivisionSaga from "redux/divisions/saga";
+import DivisionSaga from "redux/division/saga";
 
 const RootSaga = function* () {
     yield all([

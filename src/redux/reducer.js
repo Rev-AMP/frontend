@@ -9,7 +9,7 @@ import YearReducer from "redux/year/reducer";
 import TermReducer from "redux/term/reducer";
 import AdminReducer from "redux/admin/reducer";
 import CourseReducer from "redux/course/reducer";
-import DivisionReducer from "redux/divisions/reducer";
+import DivisionReducer from "redux/division/reducer";
 
 const persistConfig = {
     key: "revamp",

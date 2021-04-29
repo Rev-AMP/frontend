@@ -1,12 +1,14 @@
 import React from "react";
 import { TextField, Typography, Divider, withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
-import { fetchDivision } from "redux/divisions/action";
+import { fetchDivision, createDivision, updateDivision } from "redux/division/action";
+import { getUpdatedInfo } from "services/get-updated-info";
 import { toast } from "react-toastify";
 
 import PopupModal from "components/PopupModal";
 import CourseSelect from "pages/courses/components/CourseSelect";
 import ProfessorSelect from "pages/users/components/ProfessorSelect";
+import Button from "components/Button";
 
 const styles = (theme) => ({
     form: {
@@ -83,7 +85,7 @@ class DivisionModal extends React.Component {
     handleInputChange = (event) => {
         let { division, submit, errors } = this.state;
         let { name, value } = event.target;
-        // set value of term regardless of validity
+        // set value of division regardless of validity
         division[name] = value;
         // validate input
         this.validateInput(event);
@@ -93,6 +95,36 @@ class DivisionModal extends React.Component {
         }
 
         this.setState({ division, submit });
+    };
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        const { submit, errors } = this.state;
+
+        // make sure there are no errors
+        if (errors.division_code || errors.number_of_batches) {
+            toast.error("Empty Fields 💔", {
+                position: toast.POSITION.TOP_CENTER,
+            });
+            return;
+        }
+        const { divisionId, selectedDivision } = this.props;
+
+        if (divisionId) {
+            const updatedInfo = getUpdatedInfo(selectedDivision, submit);
+            if (Object.keys(updatedInfo).length) {
+                this.props.updateDivision(updatedInfo);
+                this.setState({ formSubmitted: true });
+            } else {
+                toast.error("Please update some information 😓", {
+                    position: toast.POSITION.TOP_CENTER,
+                });
+            }
+        } else {
+            this.props.createDivision(submit);
+            this.setState({ formSubmitted: true });
+        }
     };
 
     render() {
@@ -116,7 +148,6 @@ class DivisionModal extends React.Component {
                         type="number"
                         value={division.division_code ?? ""}
                         required
-                        onBlur={this.validateInput}
                         onChange={this.handleInputChange}
                         error={!!errors.division_code}
                         helperText={errors.division_code}
@@ -127,7 +158,6 @@ class DivisionModal extends React.Component {
                         type="number"
                         value={division.number_of_batches ?? ""}
                         required
-                        onBlur={this.validateInput}
                         onChange={this.handleInputChange}
                         error={!!errors.number_of_batches}
                         helperText={errors.number_of_batches}
@@ -146,6 +176,9 @@ class DivisionModal extends React.Component {
                         onChange={this.handleInputChange}
                         required
                     />
+                    <Button type="submit" color="primary" variant="contained">
+                        Submit
+                    </Button>
                 </form>
             </PopupModal>
         );
@@ -157,4 +190,6 @@ const mapStateToProps = (state) => ({
     selectedDivision: state.division.selectedDivision,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { fetchDivision })(DivisionModal));
+export default withStyles(styles)(
+    connect(mapStateToProps, { fetchDivision, createDivision, updateDivision })(DivisionModal)
+);
