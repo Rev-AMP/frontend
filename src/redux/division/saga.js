@@ -14,6 +14,11 @@ import {
     createDivisionFailure,
     updateDivisionSuccess,
     updateDivisionFailure,
+    fetchStudentsForSelectedDivisionSuccess,
+    fetchStudentsForSelectedDivisionFailure,
+    fetchStudentsForSelectedDivision as ActionFetchStudents,
+    deleteStudentFromSelectedDivisionSuccess,
+    deleteStudentFromSelectedDivisionFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -85,6 +90,20 @@ function* updateDivision() {
     });
 }
 
+function* deleteStudentFromSelectedDivision() {
+    yield takeEvery(DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION, function* (action) {
+        try {
+            const selectedDivision = yield select((state) => state.division.selectedDivision);
+            yield APICall(`/api/v1/divisions/${selectedDivision.id}/students/${action.payload}`, {
+                method: "DELETE",
+            });
+            yield put(deleteStudentFromSelectedDivisionSuccess());
+        } catch (error) {
+            yield put(deleteStudentFromSelectedDivisionFailure(error.detail));
+        }
+    });
+}
+
 function* refreshDivisionList() {
     yield takeLatest(
         [
@@ -98,6 +117,30 @@ function* refreshDivisionList() {
     );
 }
 
+function* refreshStudentList() {
+    yield takeLatest([DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_SUCCESS], function* (action) {
+        const divisionId = yield select((state) => state.division.selectedDivision.id);
+        yield put(ActionFetchStudents(divisionId));
+    });
+}
+
+function* fetchStudentsForSelectedDivision() {
+    yield takeEvery(DivisionActionTypes.FETCH_STUDENTS_FOR_SELECTED_DIVISION, function* (action) {
+        try {
+            const selectedDivision = yield select((state) => state.division.selectedDivision);
+            const students = yield APICall(`/api/v1/divisions/${selectedDivision.id}/students`, {
+                method: "GET",
+            });
+            students.forEach((student, index) => {
+                students[index].id = student.user_id;
+            });
+            yield put(fetchStudentsForSelectedDivisionSuccess(students));
+        } catch (error) {
+            yield put(fetchStudentsForSelectedDivisionFailure(error.detail));
+        }
+    });
+}
+
 function* divisionMethods() {
     yield all([
         fetchDivisions(),
@@ -106,6 +149,9 @@ function* divisionMethods() {
         fetchDivision(),
         createDivision(),
         updateDivision(),
+        fetchStudentsForSelectedDivision(),
+        refreshStudentList(),
+        deleteStudentFromSelectedDivision(),
     ]);
 }
 

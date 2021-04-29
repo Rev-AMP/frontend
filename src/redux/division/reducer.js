@@ -5,6 +5,8 @@ const initState = {
     isLoading: false,
     divisions: [],
     selectedDivision: null,
+    addStudentsResponse: null,
+    studentsForDivision: null,
 };
 
 const DivisionReducer = (state = initState, action) => {
@@ -108,6 +110,49 @@ const DivisionReducer = (state = initState, action) => {
                 isLoading: false,
             };
         case DivisionActionTypes.UPDATE_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case DivisionActionTypes.FETCH_STUDENTS_FOR_SELECTED_DIVISION:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+
+        case DivisionActionTypes.FETCH_STUDENTS_FOR_SELECTED_DIVISION_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: false,
+                studentsForDivision: action.payload,
+            };
+
+        case DivisionActionTypes.FETCH_STUDENTS_FOR_SELECTED_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+
+        case DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: false,
+            };
+
+        case DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_FAILURE:
             return {
                 ...state,
                 errors: action.payload,

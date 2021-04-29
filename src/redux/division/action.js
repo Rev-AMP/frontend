@@ -72,3 +72,31 @@ export const updateDivisionFailure = (errors) => ({
     type: DivisionActionTypes.UPDATE_DIVISION_FAILURE,
     payload: errors,
 });
+
+export const fetchStudentsForSelectedDivision = () => ({
+    type: DivisionActionTypes.FETCH_STUDENTS_FOR_SELECTED_DIVISION,
+});
+
+export const fetchStudentsForSelectedDivisionSuccess = (students) => ({
+    type: DivisionActionTypes.FETCH_STUDENTS_FOR_SELECTED_DIVISION_SUCCESS,
+    payload: students,
+});
+
+export const fetchStudentsForSelectedDivisionFailure = (errors) => ({
+    type: DivisionActionTypes.FETCH_STUDENTS_FOR_SELECTED_DIVISION_FAILURE,
+    payload: errors,
+});
+
+export const deleteStudentFromSelectedDivision = (studentID) => ({
+    type: DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION,
+    payload: studentID,
+});
+
+export const deleteStudentFromSelectedDivisionSuccess = () => ({
+    type: DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_SUCCESS,
+});
+
+export const deleteStudentFromSelectedDivisionFailure = (errors) => ({
+    type: DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_FAILURE,
+    payload: errors,
+});
