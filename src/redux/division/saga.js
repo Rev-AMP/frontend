@@ -120,10 +120,16 @@ function* refreshDivisionList() {
 }
 
 function* refreshStudentList() {
-    yield takeLatest([DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_SUCCESS, DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION_SUCCESS], function* (action) {
-        const divisionId = yield select((state) => state.division.selectedDivision.id);
-        yield put(ActionFetchStudents(divisionId));
-    });
+    yield takeLatest(
+        [
+            DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_SUCCESS,
+            DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION_SUCCESS,
+        ],
+        function* (action) {
+            const divisionId = yield select((state) => state.division.selectedDivision.id);
+            yield put(ActionFetchStudents(divisionId));
+        }
+    );
 }
 
 function* fetchStudentsForSelectedDivision() {

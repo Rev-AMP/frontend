@@ -13,10 +13,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Divider,
     IconButton,
-    List,
-    ListItem,
     Tooltip,
     Typography,
     withStyles,
@@ -24,9 +21,8 @@ import {
 
 import DataPage from "components/DataPage";
 import Button from "components/Button";
-
-import PopupModal from "components/PopupModal";
 import AddStudentsModal from "components/AddStudentsModal";
+import AddStudentsResponseModal from "components/AddStudentsResponseModal";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -150,6 +146,8 @@ class TermDetails extends React.Component {
 
     closeModal = () => this.setState({ modalIsOpen: false });
 
+    closeResponseModal = () => this.setState({ responseModal: false });
+
     render() {
         const { studentsForTerm, isLoading, selectedTerm, classes, addStudentsResponse } = this.props;
         const { deleteConfirmAlert, studentId, studentName, modalIsOpen, responseModal } = this.state;
@@ -202,48 +200,11 @@ class TermDetails extends React.Component {
                 )}
 
                 {addStudentsResponse && (
-                    <PopupModal isOpen={responseModal} onClose={() => this.setState({ responseModal: false })}>
-                        {addStudentsResponse.success && (
-                            <div style={{ textAlign: "center" }}>
-                                <Typography className={classes.greenText} variant="h5">
-                                    Success
-                                </Typography>
-                                <List>
-                                    {addStudentsResponse.success.map((id) => (
-                                        <ListItem key={id} component={Typography}>
-                                            {id}
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </div>
-                        )}
-
-                        <Divider style={{ margin: "1rem" }} />
-
-                        {addStudentsResponse.errors && Object.keys(addStudentsResponse.errors).length !== 0 && (
-                            <div style={{ textAlign: "center" }}>
-                                <Typography color="error" variant="h5">
-                                    Errors
-                                </Typography>
-                                <List>
-                                    {Object.keys(addStudentsResponse.errors).map((key) => (
-                                        <ListItem key={key}>
-                                            <Typography variant="h6">
-                                                {key.charAt(0).toUpperCase() + key.slice(1)}:
-                                            </Typography>
-                                            <List>
-                                                {addStudentsResponse.errors[key].map((id) => (
-                                                    <ListItem key={id} component={Typography}>
-                                                        {id}
-                                                    </ListItem>
-                                                ))}
-                                            </List>
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </div>
-                        )}
-                    </PopupModal>
+                    <AddStudentsResponseModal
+                        isOpen={responseModal}
+                        onClose={this.closeResponseModal}
+                        addStudentsResponse={addStudentsResponse}
+                    />
                 )}
             </>
         );

@@ -6,10 +6,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Divider,
     IconButton,
-    List,
-    ListItem,
     Tooltip,
     Typography,
     withStyles,
@@ -20,12 +17,13 @@ import {
     fetchDivision,
     fetchStudentsForSelectedDivision,
     deleteStudentFromSelectedDivision,
-    addStudentsToSelectedDivision
+    addStudentsToSelectedDivision,
 } from "redux/division/action";
 
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 import AddStudentsModal from "components/AddStudentsModal";
+import AddStudentsResponseModal from "components/AddStudentsResponseModal";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -149,9 +147,11 @@ class DivisionPage extends React.Component {
 
     closeModal = () => this.setState({ modalIsOpen: false });
 
+    closeResponseModal = () => this.setState({ responseModal: false });
+
     render() {
-        const { isLoading, studentsForDivision, selectedDivision, classes } = this.props;
-        const { deleteConfirmAlert, studentId, studentName, modalIsOpen } = this.state;
+        const { isLoading, studentsForDivision, selectedDivision, classes, addStudentsResponse } = this.props;
+        const { deleteConfirmAlert, studentId, studentName, modalIsOpen, responseModal } = this.state;
 
         //! Not the best logic, but works for now
         const divisionCode = selectedDivision ? selectedDivision.division_code : "";
@@ -199,6 +199,14 @@ class DivisionPage extends React.Component {
                             </Button>
                         </DialogActions>
                     </Dialog>
+                )}
+
+                {addStudentsResponse && (
+                    <AddStudentsResponseModal
+                        isOpen={responseModal}
+                        onClose={this.closeResponseModal}
+                        addStudentsResponse={addStudentsResponse}
+                    />
                 )}
             </>
         );
