@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteStudentFromSelectedTerm, fetchStudentsForSelectedTerm, fetchTerm } from "redux/term/action";
+import {
+    deleteStudentFromSelectedTerm,
+    fetchStudentsForSelectedTerm,
+    fetchTerm,
+    addStudentsToSelectedTerm,
+} from "redux/term/action";
 import { Delete } from "mdi-material-ui";
 import {
     Dialog,
@@ -20,8 +25,8 @@ import {
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 
-import StudentModal from "../components/StudentModal";
 import PopupModal from "components/PopupModal";
+import AddStudentsModal from "components/AddStudentsModal";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -158,7 +163,15 @@ class TermDetails extends React.Component {
                     isLoading={isLoading}
                     modalIsOpen={modalIsOpen}
                     openModal={this.openModal}
-                    PopupModal={<StudentModal isOpen={modalIsOpen} onClose={this.closeModal} />}
+                    PopupModal={
+                        <AddStudentsModal
+                            isOpen={modalIsOpen}
+                            onClose={this.closeModal}
+                            addStudentsAction={this.props.addStudentsToSelectedTerm}
+                            isLoading={isLoading}
+                            selectedElement={selectedTerm}
+                        />
+                    }
                     objects={studentsForTerm}
                     columns={this.columns}
                 />
@@ -173,7 +186,7 @@ class TermDetails extends React.Component {
                         <DialogContent>
                             <DialogContentText>
                                 Are you sure you want to delete <strong>{studentName}</strong> from{" "}
-                                <strong>{selectedTerm.name}</strong>?
+                                <strong>{termName}</strong>?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
@@ -249,5 +262,6 @@ export default withStyles(styles)(
         fetchStudentsForTerm: fetchStudentsForSelectedTerm,
         deleteStudentFromTerm: deleteStudentFromSelectedTerm,
         fetchTerm,
+        addStudentsToSelectedTerm,
     })(TermDetails)
 );

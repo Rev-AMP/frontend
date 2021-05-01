@@ -19,6 +19,8 @@ import {
     fetchStudentsForSelectedDivision as ActionFetchStudents,
     deleteStudentFromSelectedDivisionSuccess,
     deleteStudentFromSelectedDivisionFailure,
+    addStudentsToSelectedDivisionSuccess,
+    addStudentsToSelectedDivisionFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -118,7 +120,7 @@ function* refreshDivisionList() {
 }
 
 function* refreshStudentList() {
-    yield takeLatest([DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_SUCCESS], function* (action) {
+    yield takeLatest([DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_SUCCESS, DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION_SUCCESS], function* (action) {
         const divisionId = yield select((state) => state.division.selectedDivision.id);
         yield put(ActionFetchStudents(divisionId));
     });
@@ -141,6 +143,21 @@ function* fetchStudentsForSelectedDivision() {
     });
 }
 
+function* addStudentsToSelectedDivision() {
+    yield takeEvery(DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION, function* (action) {
+        try {
+            const selectedDivision = yield select((state) => state.division.selectedDivision);
+            const response = yield APICall(`/api/v1/divisions/${selectedDivision.id}/students`, {
+                method: "POST",
+                body: JSON.stringify(action.payload),
+            });
+            yield put(addStudentsToSelectedDivisionSuccess(response));
+        } catch (error) {
+            yield put(addStudentsToSelectedDivisionFailure(error.detail));
+        }
+    });
+}
+
 function* divisionMethods() {
     yield all([
         fetchDivisions(),
@@ -152,6 +169,7 @@ function* divisionMethods() {
         fetchStudentsForSelectedDivision(),
         refreshStudentList(),
         deleteStudentFromSelectedDivision(),
+        addStudentsToSelectedDivision(),
     ]);
 }
 

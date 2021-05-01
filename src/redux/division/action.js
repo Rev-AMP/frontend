@@ -100,3 +100,18 @@ export const deleteStudentFromSelectedDivisionFailure = (errors) => ({
     type: DivisionActionTypes.DELETE_STUDENT_FROM_SELECTED_DIVISION_FAILURE,
     payload: errors,
 });
+
+export const addStudentsToSelectedDivision = (studentIdsList) => ({
+    type: DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION,
+    payload: studentIdsList,
+});
+
+export const addStudentsToSelectedDivisionSuccess = (response) => ({
+    type: DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION_SUCCESS,
+    payload: response,
+});
+
+export const addStudentsToSelectedDivisionFailure = (errors) => ({
+    type: DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION_FAILURE,
+    payload: errors,
+});

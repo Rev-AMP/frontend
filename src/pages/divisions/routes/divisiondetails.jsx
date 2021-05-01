@@ -20,10 +20,12 @@ import {
     fetchDivision,
     fetchStudentsForSelectedDivision,
     deleteStudentFromSelectedDivision,
+    addStudentsToSelectedDivision
 } from "redux/division/action";
 
 import DataPage from "components/DataPage";
 import Button from "components/Button";
+import AddStudentsModal from "components/AddStudentsModal";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -143,9 +145,13 @@ class DivisionPage extends React.Component {
         this.onDeleteClose();
     };
 
+    openModal = () => this.setState({ modalIsOpen: true });
+
+    closeModal = () => this.setState({ modalIsOpen: false });
+
     render() {
         const { isLoading, studentsForDivision, selectedDivision, classes } = this.props;
-        const { deleteConfirmAlert, studentId, studentName } = this.state;
+        const { deleteConfirmAlert, studentId, studentName, modalIsOpen } = this.state;
 
         //! Not the best logic, but works for now
         const divisionCode = selectedDivision ? selectedDivision.division_code : "";
@@ -157,6 +163,17 @@ class DivisionPage extends React.Component {
                     isLoading={isLoading}
                     objects={studentsForDivision}
                     columns={this.columns}
+                    modalIsOpen={modalIsOpen}
+                    openModal={this.openModal}
+                    PopupModal={
+                        <AddStudentsModal
+                            isOpen={modalIsOpen}
+                            onClose={this.closeModal}
+                            addStudentsAction={this.props.addStudentsToDivision}
+                            isLoading={isLoading}
+                            selectedElement={selectedDivision}
+                        />
+                    }
                 />
 
                 {deleteConfirmAlert && studentId && (
@@ -200,5 +217,6 @@ export default withStyles(styles)(
         fetchDivision,
         fetchStudentsForDivision: fetchStudentsForSelectedDivision,
         deleteStudentFromDivision: deleteStudentFromSelectedDivision,
+        addStudentsToDivision: addStudentsToSelectedDivision,
     })(DivisionPage)
 );

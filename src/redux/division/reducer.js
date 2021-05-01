@@ -159,6 +159,29 @@ const DivisionReducer = (state = initState, action) => {
                 isLoading: false,
             };
 
+        case DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+                addStudentsResponse: null,
+            };
+
+        case DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION_SUCCESS:
+            return {
+                ...state,
+                addStudentsResponse: action.payload,
+                isLoading: false,
+            };
+
+        case DivisionActionTypes.ADD_STUDENTS_TO_SELECTED_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+                addStudentsResponse: null,
+            };
+
         default:
             return state;
     }
