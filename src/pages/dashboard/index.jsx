@@ -44,11 +44,15 @@ class Dashboard extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, currentUser } = this.props;
         return (
             <div className={classes.fullScreen}>
                 <Header handleMenuButtonClick={this.switchDrawer} />
-                <SideBar drawerOpen={this.state.drawerOpen} switchDrawer={this.switchDrawer} />
+                <SideBar
+                    drawerOpen={this.state.drawerOpen}
+                    switchDrawer={this.switchDrawer}
+                    currentUser={currentUser}
+                />
                 <Grid container direction="column" style={{ height: "100%" }}>
                     <div className={classes.offset} />
                     <Grid item className={classes.content}>
