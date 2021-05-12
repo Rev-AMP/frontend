@@ -9,7 +9,8 @@ let ASSIGNMENTS = [
         id: 0,
         student_name: "Alok Bhawankar",
         filename: "Alok_Assignment.pdf",
-        assignment_link: "https://github.com/alr0cks/CollegeStuff/blob/master/AI/(PA%2006)Alok%20Bhawankar_AITheory1.pdf",
+        assignment_link:
+            "https://github.com/alr0cks/CollegeStuff/blob/master/AI/(PA%2006)Alok%20Bhawankar_AITheory1.pdf",
         grade: "A",
     },
     {
@@ -22,7 +23,8 @@ let ASSIGNMENTS = [
         id: 2,
         student_name: "Desaitama",
         filename: "Desaitama_Assignment.pdf",
-        assignment_link: "https://github.com/alr0cks/CollegeStuff/blob/master/DFCL/PD09_AlokBhawankar_DFCL_ActiveLearning.pdf",
+        assignment_link:
+            "https://github.com/alr0cks/CollegeStuff/blob/master/DFCL/PD09_AlokBhawankar_DFCL_ActiveLearning.pdf",
     },
 ];
 
@@ -47,7 +49,7 @@ const styles = (theme) => ({
     },
 });
 
-const grades = ['O', 'A', 'B', 'C', 'D', 'E', 'F']
+const grades = ["O", "A", "B", "C", "D", "E", "F"];
 
 class ProfessorAssignmentsDetails extends React.Component {
     constructor(props) {
@@ -58,7 +60,6 @@ class ProfessorAssignmentsDetails extends React.Component {
             isLoading: false,
         };
     }
-
 
     columns = [
         {
@@ -89,8 +90,11 @@ class ProfessorAssignmentsDetails extends React.Component {
             headerAlign: "center",
             align: "center",
             width: 100,
-            renderCell: (params) =>
-                    <a href={params.row.assignment_link} target="_blank" className={this.props.classes.centerItem}><FileDownload /></a>
+            renderCell: (params) => (
+                <a href={params.row.assignment_link} target="_blank" className={this.props.classes.centerItem}>
+                    <FileDownload />
+                </a>
+            ),
         },
         {
             field: "grade",
@@ -99,12 +103,17 @@ class ProfessorAssignmentsDetails extends React.Component {
             align: "center",
             width: 100,
             renderCell: (params) =>
-            (params.value ? <h3 className={this.props.classes.centerItem}>{params.value}</h3> : <Select className={this.props.classes.centerItem}>
-                {
-                    grades.map((item, index) => <MenuItem value={item} id={`grade-${index}`}>{item}</MenuItem>)
-                }
-            </Select>)
-                
+                params.value ? (
+                    <h3 className={this.props.classes.centerItem}>{params.value}</h3>
+                ) : (
+                    <Select className={this.props.classes.centerItem}>
+                        {grades.map((item, index) => (
+                            <MenuItem value={item} id={`grade-${index}`}>
+                                {item}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                ),
         },
     ];
 

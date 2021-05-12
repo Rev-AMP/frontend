@@ -73,7 +73,7 @@ class Dashboard extends Component {
                             <AuthenticatedRoute path={"/divisions"} component={Divisions} permission="term" />
                             <AuthenticatedRoute exact path={"/courses"} component={Courses} permission="course" />
                             <AuthenticatedRoute exact path={"/admins"} component={Admins} permission="admin" />
-                            <AuthenticatedRoute exact path={"/assignments"} component={Assignments} />
+                            <AuthenticatedRoute path={"/assignments"} component={Assignments} />
                             <AuthenticatedRoute exact path={"/timetable"} component={Timetable} />
                             <AuthenticatedRoute exact path={"/"} component={Homepage} />
                         </Switch>
