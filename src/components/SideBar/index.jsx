@@ -73,20 +73,20 @@ const SideBar = ({ drawerOpen, switchDrawer, currentUser }) => {
 
     let navigation = [];
     if (currentUser.type === "student") {
-        navigation.concat([
+        navigation = navigation.concat([
             [{ key: "timetable", to: "/timetable", icon: <Table color="primary" /> }],
             [{ key: "assignments", to: "/", icon: <File color="primary" /> }],
         ]);
     }
     if (currentUser.type === "professor") {
-        navigation.concat([
+        navigation = navigation.concat([
             [{ key: "timetable", to: "/timetable", icon: <Table color="primary" /> }],
             [{ key: "assignments", to: "/", icon: <File color="primary" /> }],
         ]);
     }
     if (currentUser.is_admin) {
         // TODO: append according to perms
-        navigation.concat([
+        navigation = navigation.concat([
             [
                 { key: "users", to: "/users", icon: <Account color="primary" /> },
                 { key: "admins", to: "/admins", icon: <ShieldAccount color="primary" /> },
