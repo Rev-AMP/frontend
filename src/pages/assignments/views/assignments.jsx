@@ -93,7 +93,7 @@ class ProfessorAssignmentsDetails extends React.Component {
                 <a
                     href={params.row.assignment_link}
                     target="_blank"
-                    rel="_noreferrer"
+                    rel="noreferrer"
                     className={this.props.classes.centerItem}
                 >
                     <FileDownload />
