@@ -13,6 +13,7 @@ import Years from "pages/years";
 import Terms from "pages/terms";
 import Courses from "pages/courses";
 import Admins from "pages/admins";
+import Assignments from "pages/assignments";
 
 const useStyles = (theme) => ({
     content: {
@@ -46,7 +47,7 @@ class Dashboard extends Component {
     render() {
         const { classes, currentUser } = this.props;
         return (
-            <div className={classes.fullScreen}>
+            currentUser && <div className={classes.fullScreen}>
                 <Header handleMenuButtonClick={this.switchDrawer} />
                 <SideBar
                     drawerOpen={this.state.drawerOpen}
@@ -63,6 +64,7 @@ class Dashboard extends Component {
                             <AuthenticatedRoute path={"/terms"} component={Terms} permission="term" />
                             <AuthenticatedRoute exact path={"/courses"} component={Courses} permission="course" />
                             <AuthenticatedRoute exact path={"/admins"} component={Admins} permission="admin" />
+                            <AuthenticatedRoute exact path={"/assignments"} component={Assignments} />
                             <AuthenticatedRoute exact path={"/"} component={Homepage} />
                         </Switch>
                     </Grid>

@@ -49,7 +49,7 @@ function AuthenticatedRoute(props) {
             if (currentUser.is_admin && currentAdmin.permissions.isAllowed(permission)) {
                 return <Route {...otherProps} />;
             }
-            return <Redirect to="/app" />;
+            return <Redirect to="/" />;
         }
         return <Route {...otherProps} />;
     }
