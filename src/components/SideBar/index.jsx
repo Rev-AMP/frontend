@@ -81,7 +81,7 @@ const SideBar = ({ drawerOpen, switchDrawer, currentUser }) => {
     if (currentUser.type === "professor") {
         navigation = navigation.concat([
             [{ key: "timetable", to: "/timetable", icon: <Table color="primary" /> }],
-            [{ key: "assignments", to: "/", icon: <File color="primary" /> }],
+            [{ key: "assignments", to: "/assignments", icon: <File color="primary" /> }],
         ]);
     }
     if (currentUser.is_admin) {

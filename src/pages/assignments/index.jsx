@@ -1,9 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import StudentAssignments from "./views/students";
+import ProfessorAssignments from "./views/professors";
+import { Typography } from "@material-ui/core";
 
 function Assignments({ currentUser }) {
-    return currentUser.type === "student" ? <StudentAssignments /> : <p>Error</p>;
+    switch (currentUser.type) {
+        case "student":
+            return <StudentAssignments />;
+        case "professor":
+            return <ProfessorAssignments />;
+        default:
+            return (
+                <Typography color="error" variant="h1">
+                    Error
+                </Typography>
+            );
+    }
 }
 
 const mapStateToProps = (state) => ({
