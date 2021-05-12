@@ -67,31 +67,35 @@ class ProfessorAssignmentsDetails extends React.Component {
             headerName: "ID",
             headerAlign: "center",
             align: "center",
-            width: 50,
-            hide: true,
+            width: 70,
         },
         {
             field: "student_name",
             headerName: "Name",
             headerAlign: "center",
             align: "center",
-            width: 250,
+            flex: 2,
         },
         {
             field: "filename",
             headerName: "Filename",
             headerAlign: "center",
             align: "center",
-            width: 350,
+            flex: 2,
         },
         {
             field: "actions",
             headerName: "Actions",
             headerAlign: "center",
             align: "center",
-            width: 100,
+            flex: 1,
             renderCell: (params) => (
-                <a href={params.row.assignment_link} target="_blank" className={this.props.classes.centerItem}>
+                <a
+                    href={params.row.assignment_link}
+                    target="_blank"
+                    rel="_noreferrer"
+                    className={this.props.classes.centerItem}
+                >
                     <FileDownload />
                 </a>
             ),
@@ -101,7 +105,7 @@ class ProfessorAssignmentsDetails extends React.Component {
             headerName: "Grade",
             headerAlign: "center",
             align: "center",
-            width: 100,
+            flex: 1,
             renderCell: (params) =>
                 params.value ? (
                     <h3 className={this.props.classes.centerItem}>{params.value}</h3>
