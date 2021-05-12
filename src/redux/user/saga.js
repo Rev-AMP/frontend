@@ -15,6 +15,8 @@ import {
     updateUserFailure,
     createUserSuccess,
     createUserFailure,
+    fetchProfessorsSuccess,
+    fetchProfessorsFailure,
 } from "./action";
 import { addProfilePictureURL, setProfilePicture } from "services/profile-picture";
 import { APICall } from "services/http-client";
@@ -138,6 +140,23 @@ function* createUser() {
     });
 }
 
+function* fetchProfessors() {
+    yield takeEvery(UserActionTypes.FETCH_PROFESSORS, function* (action) {
+        try {
+            let professors = yield APICall(`/api/v1/professors/`, {
+                method: "GET",
+            });
+            professors.forEach((professor, index) => {
+                professors[index].id = professor.user_id;
+                professors[index].name = professor.user.full_name;
+            });
+            yield put(fetchProfessorsSuccess(professors));
+        } catch (error) {
+            yield put(fetchProfessorsFailure(error.detail));
+        }
+    });
+}
+
 function* refreshUserList() {
     yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS, UserActionTypes.CREATE_USER_SUCCESS], function* (action) {
         yield put(ActionFetchUsers());
@@ -152,6 +171,7 @@ function* fetchUserMethods() {
         fetchUsers(),
         updateUser(),
         createUser(),
+        fetchProfessors(),
         refreshUserList(),
     ]);
 }

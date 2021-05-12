@@ -13,7 +13,9 @@ import Years from "pages/years";
 import Terms from "pages/terms";
 import Courses from "pages/courses";
 import Admins from "pages/admins";
+import Divisions from "pages/divisions";
 import Assignments from "pages/assignments";
+import Timetable from "pages/timetable";
 import Loader from "../../components/Loader";
 
 const useStyles = (theme) => ({
@@ -68,9 +70,11 @@ class Dashboard extends Component {
                             <AuthenticatedRoute exact path={"/schools"} component={Schools} permission="school" />
                             <AuthenticatedRoute exact path={"/years"} component={Years} permission="year" />
                             <AuthenticatedRoute path={"/terms"} component={Terms} permission="term" />
+                            <AuthenticatedRoute path={"/divisions"} component={Divisions} permission="term" />
                             <AuthenticatedRoute exact path={"/courses"} component={Courses} permission="course" />
                             <AuthenticatedRoute exact path={"/admins"} component={Admins} permission="admin" />
                             <AuthenticatedRoute exact path={"/assignments"} component={Assignments} />
+                            <AuthenticatedRoute exact path={"/timetable"} component={Timetable} />
                             <AuthenticatedRoute exact path={"/"} component={Homepage} />
                         </Switch>
                     </Grid>

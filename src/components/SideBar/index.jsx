@@ -20,6 +20,7 @@ import {
     ShieldAccount,
     Table,
     File,
+    BookOpenPageVariant,
 } from "mdi-material-ui";
 import { Link } from "react-router-dom";
 
@@ -96,6 +97,7 @@ const SideBar = ({ drawerOpen, switchDrawer, currentUser }) => {
                 { key: "years", to: "/years", icon: <CalendarToday color="primary" /> },
                 { key: "terms", to: "/terms", icon: <CalendarMultiple color="primary" /> },
                 { key: "courses", to: "/courses", icon: <BookMultiple color="primary" /> },
+                { key: "divisions", to: "/divisions", icon: <BookOpenPageVariant color="primary" /> },
             ],
         ]);
     }

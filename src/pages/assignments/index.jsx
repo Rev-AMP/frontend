@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import StudentAssignments from "./views/students";
 import ProfessorAssignments from "./views/professors";
 import { Typography } from "@material-ui/core";
+import ProfessorAssignmentsDetails from "./views/assignments";
 
 function Assignments({ currentUser }) {
     switch (currentUser.type) {

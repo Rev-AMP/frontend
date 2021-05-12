@@ -1,7 +1,5 @@
 import React from "react";
 import { TextField, Typography, Divider, withStyles } from "@material-ui/core";
-import { connect } from "react-redux";
-import { addStudentsToSelectedTerm } from "redux/term/action";
 
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";
@@ -16,7 +14,7 @@ const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
 });
 
-class StudentModal extends React.Component {
+class AddStudentsModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,18 +41,18 @@ class StudentModal extends React.Component {
         studentIdsList.forEach((element, index) => {
             studentIdsList[index] = element.trim();
         });
-
-        this.props.addStudentsToSelectedTerm(studentIdsList);
+        console.log(this.props);
+        this.props.addStudentsAction(studentIdsList);
     };
 
     render() {
-        const { isLoading, isOpen, onClose, selectedTerm, classes } = this.props;
+        const { isLoading, isOpen, onClose, selectedElement, classes } = this.props;
         const { errors, studentIds } = this.state;
         return (
             <PopupModal isLoading={isLoading} isOpen={isOpen} onClose={onClose}>
                 <div style={{ textAlign: "center" }}>
                     <Typography color="primary" variant="h5">
-                        Add students to {selectedTerm.name}
+                        Add students: {selectedElement.name ?? `Division Code: ${selectedElement.division_code}`}
                     </Typography>
                 </div>
 
@@ -79,9 +77,4 @@ class StudentModal extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    isLoading: state.term.isLoading,
-    selectedTerm: state.term.selectedTerm,
-});
-
-export default withStyles(styles)(connect(mapStateToProps, { addStudentsToSelectedTerm })(StudentModal));
+export default withStyles(styles)(AddStudentsModal);

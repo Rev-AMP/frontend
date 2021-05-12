@@ -43,7 +43,7 @@ class Courses extends React.Component {
             headerName: "ID",
             headerAlign: "center",
             align: "center",
-            width: 70,
+            width: 350,
             hide: true,
         },
         {
