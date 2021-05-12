@@ -14,6 +14,7 @@ import Terms from "pages/terms";
 import Courses from "pages/courses";
 import Admins from "pages/admins";
 import Assignments from "pages/assignments";
+import Loader from "../../components/Loader";
 
 const useStyles = (theme) => ({
     content: {
@@ -46,8 +47,13 @@ class Dashboard extends Component {
 
     render() {
         const { classes, currentUser } = this.props;
+
+        if (!currentUser) {
+            return <Loader />;
+        }
+
         return (
-            currentUser && <div className={classes.fullScreen}>
+            <div className={classes.fullScreen}>
                 <Header handleMenuButtonClick={this.switchDrawer} />
                 <SideBar
                     drawerOpen={this.state.drawerOpen}

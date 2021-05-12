@@ -1,9 +1,9 @@
 import React from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import StudentAssignments from "./views/students";
 
 function Assignments({ currentUser }) {
-    return (currentUser.type === "student" ? <StudentAssignments /> : <p>Error</p>);
+    return currentUser.type === "student" ? <StudentAssignments /> : <p>Error</p>;
 }
 
 const mapStateToProps = (state) => ({
