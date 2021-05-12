@@ -11,7 +11,17 @@ import {
     useMediaQuery,
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core";
-import { Account, BookEducation, BookMultiple, CalendarMultiple, CalendarToday, ShieldAccount } from "mdi-material-ui";
+import {
+    Account,
+    BookEducation,
+    BookMultiple,
+    CalendarMultiple,
+    CalendarToday,
+    ShieldAccount,
+    Table,
+    File,
+    BookOpenPageVariant,
+} from "mdi-material-ui";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 234;
@@ -55,26 +65,42 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
 }));
 
-const SideBar = ({ drawerOpen, switchDrawer }) => {
+const SideBar = ({ drawerOpen, switchDrawer, currentUser }) => {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down("md"));
 
     const classes = useStyles();
     const listItemTextProps = { align: "left", variant: "button" };
 
-    const navigation = [
-        [
-            { key: "users", to: "/users", icon: <Account color="primary" /> },
-            { key: "admins", to: "/admins", icon: <ShieldAccount color="primary" /> },
-        ],
-        [
-            { key: "schools", to: "/schools", icon: <BookEducation color="primary" /> },
-            { key: "years", to: "/years", icon: <CalendarToday color="primary" /> },
-            { key: "terms", to: "/terms", icon: <CalendarMultiple color="primary" /> },
-            { key: "courses", to: "/courses", icon: <BookMultiple color="primary" /> },
-            // { key: "divisions", to: "/divisions", icon: <BookOpenPageVariant color="primary" /> },
-        ],
-    ];
+    let navigation = [];
+    if (currentUser.type === "student") {
+        navigation = navigation.concat([
+            [{ key: "timetable", to: "/timetable", icon: <Table color="primary" /> }],
+            [{ key: "assignments", to: "/assignments", icon: <File color="primary" /> }],
+        ]);
+    }
+    if (currentUser.type === "professor") {
+        navigation = navigation.concat([
+            [{ key: "timetable", to: "/timetable", icon: <Table color="primary" /> }],
+            [{ key: "assignments", to: "/", icon: <File color="primary" /> }],
+        ]);
+    }
+    if (currentUser.is_admin) {
+        // TODO: append according to perms
+        navigation = navigation.concat([
+            [
+                { key: "users", to: "/users", icon: <Account color="primary" /> },
+                { key: "admins", to: "/admins", icon: <ShieldAccount color="primary" /> },
+            ],
+            [
+                { key: "schools", to: "/schools", icon: <BookEducation color="primary" /> },
+                { key: "years", to: "/years", icon: <CalendarToday color="primary" /> },
+                { key: "terms", to: "/terms", icon: <CalendarMultiple color="primary" /> },
+                { key: "courses", to: "/courses", icon: <BookMultiple color="primary" /> },
+                { key: "divisions", to: "/divisions", icon: <BookOpenPageVariant color="primary" /> },
+            ],
+        ]);
+    }
 
     return (
         <div className={classes.root}>

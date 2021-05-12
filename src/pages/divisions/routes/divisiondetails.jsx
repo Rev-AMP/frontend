@@ -1,13 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-    deleteStudentFromSelectedTerm,
-    fetchStudentsForSelectedTerm,
-    fetchTerm,
-    addStudentsToSelectedTerm,
-} from "redux/term/action";
-import { Delete } from "mdi-material-ui";
-import {
     Dialog,
     DialogActions,
     DialogContent,
@@ -18,6 +11,14 @@ import {
     Typography,
     withStyles,
 } from "@material-ui/core";
+import { Delete } from "mdi-material-ui";
+
+import {
+    fetchDivision,
+    fetchStudentsForSelectedDivision,
+    deleteStudentFromSelectedDivision,
+    addStudentsToSelectedDivision,
+} from "redux/division/action";
 
 import DataPage from "components/DataPage";
 import Button from "components/Button";
@@ -45,7 +46,7 @@ const styles = (theme) => ({
     },
 });
 
-class TermDetails extends React.Component {
+class DivisionPage extends React.Component {
     columns = [
         {
             field: "id",
@@ -111,7 +112,7 @@ class TermDetails extends React.Component {
         super(props);
 
         this.state = {
-            termId: this.props.match.params.termid,
+            divisionId: this.props.match.params.divisionid,
             deleteConfirmAlert: false,
             modalIsOpen: false,
             responseModal: false,
@@ -119,12 +120,12 @@ class TermDetails extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchTerm(this.state.termId);
+        this.props.fetchDivision(this.state.divisionId);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.selectedTerm !== this.props.selectedTerm && this.props.selectedTerm) {
-            this.props.fetchStudentsForTerm();
+        if (prevProps.selectedDivision !== this.props.selectedDivision && this.props.selectedDivision) {
+            this.props.fetchStudentsForDivision();
         }
 
         if (prevProps.addStudentsResponse !== this.props.addStudentsResponse && this.props.addStudentsResponse) {
@@ -138,7 +139,7 @@ class TermDetails extends React.Component {
     onDeleteClose = () => this.setState({ deleteConfirmAlert: false, studentId: null, studentName: null });
 
     deleteStudent = () => {
-        this.props.deleteStudentFromTerm(this.state.studentId);
+        this.props.deleteStudentFromDivision(this.state.studentId);
         this.onDeleteClose();
     };
 
@@ -149,29 +150,30 @@ class TermDetails extends React.Component {
     closeResponseModal = () => this.setState({ responseModal: false });
 
     render() {
-        const { studentsForTerm, isLoading, selectedTerm, classes, addStudentsResponse } = this.props;
+        const { isLoading, studentsForDivision, selectedDivision, classes, addStudentsResponse } = this.props;
         const { deleteConfirmAlert, studentId, studentName, modalIsOpen, responseModal } = this.state;
 
         //! Not the best logic, but works for now
-        const termName = selectedTerm ? selectedTerm.name : "";
+        const divisionCode = selectedDivision ? selectedDivision.division_code : "";
+
         return (
             <>
                 <DataPage
-                    title={termName}
+                    title={`Division Code: ${divisionCode}`}
                     isLoading={isLoading}
+                    objects={studentsForDivision}
+                    columns={this.columns}
                     modalIsOpen={modalIsOpen}
                     openModal={this.openModal}
                     PopupModal={
                         <AddStudentsModal
                             isOpen={modalIsOpen}
                             onClose={this.closeModal}
-                            addStudentsAction={this.props.addStudentsToSelectedTerm}
+                            addStudentsAction={this.props.addStudentsToDivision}
                             isLoading={isLoading}
-                            selectedElement={selectedTerm}
+                            selectedElement={selectedDivision}
                         />
                     }
-                    objects={studentsForTerm}
-                    columns={this.columns}
                 />
 
                 {deleteConfirmAlert && studentId && (
@@ -184,7 +186,7 @@ class TermDetails extends React.Component {
                         <DialogContent>
                             <DialogContentText>
                                 Are you sure you want to delete <strong>{studentName}</strong> from{" "}
-                                <strong>{termName}</strong>?
+                                <strong>{`Division Code: ${divisionCode}`}</strong>?
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
@@ -212,17 +214,17 @@ class TermDetails extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    studentsForTerm: state.term.studentsForTerm,
-    isLoading: state.term.isLoading,
-    selectedTerm: state.term.selectedTerm,
-    addStudentsResponse: state.term.addStudentsResponse,
+    studentsForDivision: state.division.studentsForDivision,
+    isLoading: state.division.isLoading,
+    selectedDivision: state.division.selectedDivision,
+    addStudentsResponse: state.division.addStudentsResponse,
 });
 
 export default withStyles(styles)(
     connect(mapStateToProps, {
-        fetchStudentsForTerm: fetchStudentsForSelectedTerm,
-        deleteStudentFromTerm: deleteStudentFromSelectedTerm,
-        fetchTerm,
-        addStudentsToSelectedTerm,
-    })(TermDetails)
+        fetchDivision,
+        fetchStudentsForDivision: fetchStudentsForSelectedDivision,
+        deleteStudentFromDivision: deleteStudentFromSelectedDivision,
+        addStudentsToDivision: addStudentsToSelectedDivision,
+    })(DivisionPage)
 );

@@ -87,3 +87,17 @@ export const createUserFailure = (errors) => ({
     type: UserActionTypes.CREATE_USER_FAILURE,
     payload: errors,
 });
+
+export const fetchProfessors = () => ({
+    type: UserActionTypes.FETCH_PROFESSORS,
+});
+
+export const fetchProfessorsSuccess = (professors) => ({
+    type: UserActionTypes.FETCH_PROFESSORS_SUCCESS,
+    payload: professors,
+});
+
+export const fetchProfessorsFailure = (errors) => ({
+    type: UserActionTypes.FETCH_PROFESSORS_FAILURE,
+    payload: errors,
+});
