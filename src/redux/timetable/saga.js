@@ -5,7 +5,7 @@ import { fetchTimetableSuccess, fetchTimetableFailure } from "./action";
 import { APICall } from "services/http-client";
 
 function* fetchTimetable() {
-    yield takeEvery(TimetableActionTypes.FETCH_TIMETABLE, function*(action) {
+    yield takeEvery(TimetableActionTypes.FETCH_TIMETABLE, function* (action) {
         try {
             const timetable = yield APICall(`/api/v1/timetable/`, {
                 method: "GET",

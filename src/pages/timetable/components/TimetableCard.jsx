@@ -86,8 +86,10 @@ function Lecture(props) {
     const { classes, lecture } = props;
     const min_attendance_percent = 60;
     const max_attendance_percent = 100;
-    lecture.attendance = Math.floor(Math.random() * (max_attendance_percent - min_attendance_percent) + min_attendance_percent);
-    lecture.lecture_link = 'https://mitwpu.instructure.com/';
+    lecture.attendance = Math.floor(
+        Math.random() * (max_attendance_percent - min_attendance_percent) + min_attendance_percent
+    );
+    lecture.lecture_link = "https://mitwpu.instructure.com/";
     return (
         <motion.li layout onClick={toggleOpen} initial={{ borderRadius: 10 }} className={classes.listItem}>
             <div className={classes.flexContainer}>
