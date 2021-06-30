@@ -84,7 +84,10 @@ function Lecture(props) {
     const toggleOpen = () => setIsOpen(!isOpen);
 
     const { classes, lecture } = props;
-
+    const min_attendance_percent = 60;
+    const max_attendance_percent = 100;
+    lecture.attendance = Math.floor(Math.random() * (max_attendance_percent - min_attendance_percent) + min_attendance_percent);
+    lecture.lecture_link = 'https://mitwpu.instructure.com/';
     return (
         <motion.li layout onClick={toggleOpen} initial={{ borderRadius: 10 }} className={classes.listItem}>
             <div className={classes.flexContainer}>
@@ -95,10 +98,10 @@ function Lecture(props) {
                 )}
                 <div>
                     <span>
-                        <b>{lecture.subject}</b>
+                        <b>{lecture.division.course.name}</b>
                     </span>
                     <br />
-                    <span>{`${lecture.start_time} - ${lecture.end_time}`}</span>
+                    <span>{`${lecture.time_slot.start_time} - ${lecture.time_slot.end_time}`}</span>
                 </div>
             </div>
             <AnimatePresence>
@@ -107,7 +110,7 @@ function Lecture(props) {
                         <div className={classes.divider} />
                         <div className={classes.flexContainer}>
                             <span>
-                                <b>{lecture.professor_name}</b>
+                                <b>{lecture.division.professor.user.full_name}</b>
                             </span>
                             <span style={{ fontSize: "24px", color: lecture.attendance >= 75 ? "green" : "red" }}>
                                 {lecture.attendance}%
