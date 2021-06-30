@@ -8,6 +8,7 @@ import TermSaga from "redux/term/saga";
 import AdminSaga from "redux/admin/saga";
 import CourseSaga from "redux/course/saga";
 import DivisionSaga from "redux/division/saga";
+import TimetableSaga from "redux/timetable/saga";
 
 const RootSaga = function* () {
     yield all([
@@ -19,6 +20,7 @@ const RootSaga = function* () {
         AdminSaga(),
         CourseSaga(),
         DivisionSaga(),
+        TimetableSaga(),
     ]);
 };
 
