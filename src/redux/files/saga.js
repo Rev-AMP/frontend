@@ -1,9 +1,10 @@
-import { all, put, takeEvery } from "redux-saga/effects";
+import { all, put, takeEvery, takeLatest } from "redux-saga/effects";
 
 import FileActionTypes from "./action.types";
 
 import {
     fetchFileFailure,
+    fetchFiles as ActionFetchFiles,
     fetchFilesCourseFailure,
     fetchFilesCourseSuccess,
     fetchFilesFailure,
@@ -114,8 +115,22 @@ function* updateFile() {
     });
 }
 
+function* refreshFiles() {
+    yield takeLatest([FileActionTypes.UPDATE_FILE_SUCCESS, FileActionTypes.UPLOAD_FILE_SUCCESS], function* (action) {
+        yield put(ActionFetchFiles());
+    });
+}
+
 function* fileMethods() {
-    yield all([fetchFiles(), fetchFilesCourse(), fetchFilesSubmission(), fetchFile(), uploadFile(), updateFile()]);
+    yield all([
+        fetchFiles(),
+        fetchFilesCourse(),
+        fetchFilesSubmission(),
+        fetchFile(),
+        uploadFile(),
+        updateFile(),
+        refreshFiles(),
+    ]);
 }
 
 export default fileMethods;

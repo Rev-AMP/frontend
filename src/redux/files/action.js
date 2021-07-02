@@ -18,8 +18,9 @@ export const fetchFilesCourse = () => ({
     type: FileActionTypes.FETCH_FILES_COURSE,
 });
 
-export const fetchFilesCourseSuccess = () => ({
+export const fetchFilesCourseSuccess = (files) => ({
     type: FileActionTypes.FETCH_FILES_COURSE_SUCCESS,
+    payload: files,
 });
 
 export const fetchFilesCourseFailure = (errors) => ({

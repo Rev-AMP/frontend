@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { IconButton, Tooltip, withStyles } from "@material-ui/core";
 
-import { fetchFiles } from "redux/files/action";
+import { fetchFiles, fetchFilesCourse } from "redux/files/action";
 import FileModal from "../components/FileModal";
 import DataPage from "components/DataPage";
 import { Download } from "mdi-material-ui";
@@ -92,7 +92,11 @@ class Materials extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchFiles();
+        if (this.props.currentUser.type === "professor") {
+            this.props.fetchFiles();
+        } else {
+            this.props.fetchFilesCourse();
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -135,4 +139,4 @@ const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchFiles })(Materials)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchFiles, fetchFilesCourse })(Materials)));
