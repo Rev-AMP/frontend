@@ -18,6 +18,7 @@ import {
     BookOpenPageVariant,
     CalendarMultiple,
     CalendarToday,
+    FileWord,
     File,
     ShieldAccount,
     Table,
@@ -73,16 +74,13 @@ const SideBar = ({ drawerOpen, switchDrawer, currentUser }) => {
     const listItemTextProps = { align: "left", variant: "button" };
 
     let navigation = [];
-    if (currentUser.type === "student") {
+    if (currentUser.type === "professor" || currentUser.type === "student") {
         navigation = navigation.concat([
             [{ key: "timetable", to: "/timetable", icon: <Table color="primary" /> }],
-            [{ key: "assignments", to: "/", icon: <File color="primary" /> }],
-        ]);
-    }
-    if (currentUser.type === "professor") {
-        navigation = navigation.concat([
-            [{ key: "timetable", to: "/timetable", icon: <Table color="primary" /> }],
-            [{ key: "assignments", to: "/", icon: <File color="primary" /> }],
+            [
+                { key: "assignments", to: "/assignments", icon: <FileWord color="primary" /> },
+                { key: "materials", to: "/materials", icon: <File color="primary" /> },
+            ],
         ]);
     }
     if (currentUser.is_admin) {

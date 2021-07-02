@@ -4,6 +4,8 @@ import UserActionTypes from "./action.types";
 import {
     createUserFailure,
     createUserSuccess,
+    fetchProfessorDivisionsFailure,
+    fetchProfessorDivisionsSuccess,
     fetchProfessorsFailure,
     fetchProfessorsSuccess,
     fetchUserFailure,
@@ -157,6 +159,21 @@ function* fetchProfessors() {
     });
 }
 
+function* fetchProfessorDivisions() {
+    yield takeEvery(UserActionTypes.FETCH_PROFESSOR_DIVISIONS, function* (action) {
+        try {
+            // get token and user to update
+            let selectedUser = yield select((state) => state.user.selectedUser);
+            let divisions = yield APICall(`/api/v1/professors/${selectedUser.id}/divisions`, {
+                method: "GET",
+            });
+            yield put(fetchProfessorDivisionsSuccess(divisions));
+        } catch (error) {
+            yield put(fetchProfessorDivisionsFailure(error.detail));
+        }
+    });
+}
+
 function* refreshUserList() {
     yield takeLatest([UserActionTypes.UPDATE_USER_SUCCESS, UserActionTypes.CREATE_USER_SUCCESS], function* (action) {
         yield put(ActionFetchUsers());
@@ -173,6 +190,7 @@ function* fetchUserMethods() {
         createUser(),
         fetchProfessors(),
         refreshUserList(),
+        fetchProfessorDivisions(),
     ]);
 }
 

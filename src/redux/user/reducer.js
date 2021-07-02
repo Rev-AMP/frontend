@@ -7,6 +7,7 @@ const initState = {
     selectedUser: null,
     users: [],
     professors: [],
+    professorDivisions: [],
 };
 
 const UserReducer = (state = initState, action) => {
@@ -19,7 +20,6 @@ const UserReducer = (state = initState, action) => {
                 isLoading: true,
                 selectedUser: null,
             };
-
         case UserActionTypes.FETCH_USER_ME_SUCCESS:
             return {
                 ...state,
@@ -28,7 +28,6 @@ const UserReducer = (state = initState, action) => {
                 isLoading: false,
                 selectedUser: null,
             };
-
         case UserActionTypes.FETCH_USER_ME_FAILURE:
             return {
                 ...state,
@@ -45,7 +44,6 @@ const UserReducer = (state = initState, action) => {
                 errors: [],
                 selectedUser: null,
             };
-
         case UserActionTypes.UPDATE_USER_ME_SUCCESS:
             return {
                 ...state,
@@ -54,7 +52,6 @@ const UserReducer = (state = initState, action) => {
                 isLoading: false,
                 selectedUser: null,
             };
-
         case UserActionTypes.UPDATE_USER_ME_FAILURE:
             return {
                 ...state,
@@ -70,7 +67,6 @@ const UserReducer = (state = initState, action) => {
                 errors: [],
                 isLoading: true,
             };
-
         case UserActionTypes.FETCH_USER_SUCCESS:
             return {
                 ...state,
@@ -78,7 +74,6 @@ const UserReducer = (state = initState, action) => {
                 errors: [],
                 isLoading: false,
             };
-
         case UserActionTypes.FETCH_USER_FAILURE:
             return {
                 ...state,
@@ -89,7 +84,6 @@ const UserReducer = (state = initState, action) => {
 
         case UserActionTypes.FETCH_USERS:
             return { ...state, errors: [], isLoading: true, users: [] };
-
         case UserActionTypes.FETCH_USERS_SUCCESS:
             return {
                 ...state,
@@ -97,7 +91,6 @@ const UserReducer = (state = initState, action) => {
                 errors: [],
                 isLoading: false,
             };
-
         case UserActionTypes.FETCH_USERS_FAILURE:
             return {
                 ...state,
@@ -108,7 +101,6 @@ const UserReducer = (state = initState, action) => {
 
         case UserActionTypes.UPDATE_USER:
             return { ...state, errors: [], isLoading: true };
-
         case UserActionTypes.UPDATE_USER_SUCCESS:
             return {
                 ...state,
@@ -116,13 +108,11 @@ const UserReducer = (state = initState, action) => {
                 errors: [],
                 isLoading: false,
             };
-
         case UserActionTypes.UPDATE_USER_FAILURE:
             return { ...state, errors: action.payload, isLoading: false };
 
         case UserActionTypes.CREATE_USER:
             return { ...state, errors: [], isLoading: true };
-
         case UserActionTypes.CREATE_USER_SUCCESS:
             return {
                 ...state,
@@ -130,7 +120,6 @@ const UserReducer = (state = initState, action) => {
                 isLoading: false,
                 selectedUser: action.payload,
             };
-
         case UserActionTypes.CREATE_USER_FAILURE:
             return { ...state, errors: action.payload, isLoading: false };
 
@@ -140,7 +129,6 @@ const UserReducer = (state = initState, action) => {
                 errors: [],
                 isLoading: true,
             };
-
         case UserActionTypes.FETCH_PROFESSORS_SUCCESS:
             return {
                 ...state,
@@ -148,8 +136,27 @@ const UserReducer = (state = initState, action) => {
                 isLoading: false,
                 professors: action.payload,
             };
-
         case UserActionTypes.FETCH_PROFESSORS_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case UserActionTypes.FETCH_PROFESSOR_DIVISIONS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+        case UserActionTypes.FETCH_PROFESSOR_DIVISIONS_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: false,
+                professorDivisions: action.payload,
+            };
+        case UserActionTypes.FETCH_PROFESSOR_DIVISIONS_FAILURE:
             return {
                 ...state,
                 errors: action.payload,

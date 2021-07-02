@@ -101,3 +101,17 @@ export const fetchProfessorsFailure = (errors) => ({
     type: UserActionTypes.FETCH_PROFESSORS_FAILURE,
     payload: errors,
 });
+
+export const fetchProfessorDivisions = () => ({
+    type: UserActionTypes.FETCH_PROFESSOR_DIVISIONS,
+});
+
+export const fetchProfessorDivisionsSuccess = (professors) => ({
+    type: UserActionTypes.FETCH_PROFESSOR_DIVISIONS_SUCCESS,
+    payload: professors,
+});
+
+export const fetchProfessorDivisionsFailure = (errors) => ({
+    type: UserActionTypes.FETCH_PROFESSOR_DIVISIONS_FAILURE,
+    payload: errors,
+});

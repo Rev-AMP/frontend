@@ -34,9 +34,9 @@ function* fetchFiles() {
 }
 
 function* fetchFilesCourse() {
-    yield takeEvery(FileActionTypes.FETCH_FILES, function* (action) {
+    yield takeEvery(FileActionTypes.FETCH_FILES_COURSE, function* (action) {
         try {
-            const files = yield APICall(`/api/v1/files/course/${action.payload}`, {
+            const files = yield APICall(`/api/v1/files/course`, {
                 method: "GET",
             });
             files.forEach((file, index) => {
@@ -50,7 +50,7 @@ function* fetchFilesCourse() {
 }
 
 function* fetchFilesSubmission() {
-    yield takeEvery(FileActionTypes.FETCH_FILES, function* (action) {
+    yield takeEvery(FileActionTypes.FETCH_FILES_SUBMISSION_ID, function* (action) {
         try {
             const files = yield APICall(`/api/v1/files/submission/${action.payload}`, {
                 method: "GET",
@@ -66,7 +66,7 @@ function* fetchFilesSubmission() {
 }
 
 function* fetchFile() {
-    yield takeEvery(FileActionTypes.FETCH_FILES, function* (action) {
+    yield takeEvery(FileActionTypes.FETCH_FILE, function* (action) {
         try {
             const file = yield APICall(`/api/v1/files/${action.payload}`, {
                 method: "GET",
@@ -82,9 +82,16 @@ function* fetchFile() {
 function* uploadFile() {
     yield takeEvery(FileActionTypes.UPLOAD_FILE, function* (action) {
         try {
-            const file = yield APICall(`/api/v1/files/`, {
+            const formData = new FormData();
+            formData.append("file", action.payload.file);
+
+            let endpoint = `/api/v1/files/${action.payload.course_id}?
+                            file_type=${action.payload.file_type}&
+                            description=${action.payload.description}`;
+            if (action.payload.submission_id) endpoint += `&submission_id=${action.payload.submission_id}`;
+            const file = yield APICall(endpoint, {
                 method: "POST",
-                body: JSON.stringify(action.payload),
+                body: formData,
             });
             file.url = addFileURL(file);
             yield put(uploadFileSuccess(file));

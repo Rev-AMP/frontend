@@ -16,6 +16,7 @@ import Admins from "pages/admins";
 import Divisions from "pages/divisions";
 import Timetable from "pages/timetable";
 import TimeSlots from "pages/timeslots";
+import Materials from "pages/files/materials";
 
 const useStyles = (theme) => ({
     content: {
@@ -69,6 +70,7 @@ class Dashboard extends Component {
                             <AuthenticatedRoute exact path={"/admins"} component={Admins} permission="admin" />
                             <AuthenticatedRoute exact path={"/timetable"} component={Timetable} />
                             <AuthenticatedRoute exact path={"/timeslots"} component={TimeSlots} permission="school" />
+                            <AuthenticatedRoute exact path={"/materials"} component={Materials} />
                             <AuthenticatedRoute exact path={"/"} component={Homepage} />
                         </Switch>
                     </Grid>
