@@ -26,8 +26,17 @@ class DataPage extends React.Component {
     );
 
     render() {
-        const { classes, objects, columns, title, openModal, isLoading, modalIsOpen, PopupModal, disableCreate } =
-            this.props;
+        const {
+            classes,
+            objects,
+            columns,
+            title,
+            openModal,
+            isLoading,
+            modalIsOpen,
+            PopupModal,
+            disableCreate,
+        } = this.props;
 
         if (objects) {
             return (

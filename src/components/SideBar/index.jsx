@@ -9,18 +9,17 @@ import {
     ListItemText,
     makeStyles,
     useMediaQuery,
+    useTheme,
 } from "@material-ui/core";
-import { useTheme } from "@material-ui/core";
 import {
     Account,
     BookEducation,
     BookMultiple,
     CalendarMultiple,
     CalendarToday,
+    File,
     ShieldAccount,
     Table,
-    File,
-    BookOpenPageVariant,
 } from "mdi-material-ui";
 import { Link } from "react-router-dom";
 
