@@ -122,7 +122,7 @@ function* createUser() {
             const { profile_picture: profilePicture, ...payload } = action.payload;
 
             // create new user
-            let user = yield APICall(`/api/v1/users`, {
+            let user = yield APICall(`/api/v1/users/`, {
                 method: "POST",
                 body: JSON.stringify(payload),
             });
