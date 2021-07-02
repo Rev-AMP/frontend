@@ -80,7 +80,7 @@ class Assignments extends React.Component {
                     </Tooltip>
                     {this.props.currentUser.type === "student" && (
                         <Tooltip title="Upload Submission">
-                            <IconButton color={"primary"} onClick={() => this.uploadSubmission(params.row.id)}>
+                            <IconButton color={"primary"} onClick={() => this.uploadSubmission(params)}>
                                 <Upload />
                             </IconButton>
                         </Tooltip>

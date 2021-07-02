@@ -45,7 +45,9 @@ class FileModal extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchProfessorDivisions();
+        if (this.props.currentUser.type === "professor") {
+            this.props.fetchProfessorDivisions();
+        }
         switch (this.props.type) {
             case "materials":
                 this.setState({ meow: "Study Materials" });
