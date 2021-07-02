@@ -64,6 +64,13 @@ class Submissions extends React.Component {
             flex: 2,
         },
         {
+            field: "marks",
+            headerName: "Marks",
+            headerAlign: "center",
+            align: "center",
+            flex: 1,
+        },
+        {
             field: "actions",
             headerName: "Actions",
             headerAlign: "center",

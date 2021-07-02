@@ -116,7 +116,7 @@ class Assignments extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.files.length === 0 && this.props.files.length !== 0) {
+        if (prevProps.files !== this.props.files && this.props.files.length !== 0) {
             let assignments = [];
             this.props.files.forEach((file) => {
                 if (file.file_type === "assignment") assignments.push(file);
