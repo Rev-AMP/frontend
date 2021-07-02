@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { Divider, MenuItem, TextField, Typography, withStyles } from "@material-ui/core";
 
-import { fetchFile, uploadFile } from "redux/files/action";
+import { fetchFile, uploadFile, updateFile } from "redux/files/action";
 import { fetchProfessorDivisions } from "redux/user/action";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";
@@ -31,9 +31,11 @@ class FileModal extends React.Component {
         this.state = {
             file: {
                 file_type: this.props.type,
+                submissionId: this.props.submissionId,
             },
             submit: {
                 file_type: this.props.type,
+                submissionId: this.props.submissionId,
             },
             courses: [],
             meow: "",
@@ -49,6 +51,10 @@ class FileModal extends React.Component {
 
             case "assignment":
                 this.setState({ meow: "Assignments" });
+                break;
+
+            case "submission":
+                this.setState({ meow: "Marks" });
                 break;
 
             default:
@@ -92,9 +98,7 @@ class FileModal extends React.Component {
         if (["course_id", "file_type", "description", "file"].every((key) => submit[key])) {
             this.props.uploadFile(submit);
         } else {
-            toast.error("Please add email, type and password 😓", {
-                position: toast.POSITION.TOP_CENTER,
-            });
+            this.props.updateFile(submit);
         }
     };
 
@@ -112,35 +116,50 @@ class FileModal extends React.Component {
                 <Divider style={{ marginBottom: "1rem" }} />
 
                 <form onSubmit={this.handleSubmit} className={classes.form}>
-                    <TextField
-                        select
-                        name="course_id"
-                        label="Course"
-                        value={this.state.file.course_id ?? ""}
-                        onChange={this.handleInputChange}
-                        required
-                    >
-                        {this.state.courses.map((course) => (
-                            <MenuItem value={course.id}>{course.name}</MenuItem>
-                        ))}
-                    </TextField>
-                    <TextField
-                        type="text"
-                        name="description"
-                        label="Description"
-                        value={this.state.file.description ?? ""}
-                        onChange={this.handleInputChange}
-                    />
-                    <Button color="primary" component="label">
-                        {this.state.file.file ? this.state.file.file.name : "Upload"}
-                        <input
-                            type="file"
-                            name="file"
-                            accept="application/pdf"
+                    {type === "submission" ? (
+                        <TextField
+                            type="number"
+                            name="marks"
+                            label="Marks"
+                            value={this.state.file.marks ?? ""}
                             onChange={this.handleInputChange}
-                            hidden
+                            required
                         />
-                    </Button>
+                    ) : (
+                        <>
+                            <TextField
+                                select
+                                name="course_id"
+                                label="Course"
+                                value={this.state.file.course_id ?? ""}
+                                onChange={this.handleInputChange}
+                                required
+                            >
+                                {this.state.courses.map((course) => (
+                                    <MenuItem value={course.id}>{course.name}</MenuItem>
+                                ))}
+                            </TextField>
+                            <TextField
+                                type="text"
+                                name="description"
+                                label="Description"
+                                value={this.state.file.description ?? ""}
+                                onChange={this.handleInputChange}
+                                required
+                            />
+                            <Button color="primary" component="label">
+                                {this.state.file.file ? this.state.file.file.name : "Upload"}
+                                <input
+                                    type="file"
+                                    name="file"
+                                    accept="application/pdf"
+                                    onChange={this.handleInputChange}
+                                    hidden
+                                    required
+                                />
+                            </Button>
+                        </>
+                    )}
                     <Button type="submit" color="primary" variant="contained">
                         Submit
                     </Button>
@@ -157,5 +176,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default withStyles(styles)(
-    connect(mapStateToProps, { fetchFile, uploadFile, fetchProfessorDivisions })(FileModal)
+    connect(mapStateToProps, { fetchFile, uploadFile, fetchProfessorDivisions, updateFile })(FileModal)
 );

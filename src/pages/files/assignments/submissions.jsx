@@ -3,16 +3,16 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { IconButton, Tooltip, withStyles } from "@material-ui/core";
 
-import { fetchFiles } from "redux/files/action";
+import { fetchFilesSubmissionId } from "redux/files/action";
 import FileModal from "../components/FileModal";
 import DataPage from "components/DataPage";
-import { Download, Eye } from "mdi-material-ui";
+import { Download, Check } from "mdi-material-ui";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
 });
 
-class Assignments extends React.Component {
+class Submissions extends React.Component {
     columns = [
         {
             field: "id",
@@ -30,6 +30,7 @@ class Assignments extends React.Component {
             align: "center",
             flex: 1,
             valueGetter: (params) => params.value.course.name,
+            hide: true,
         },
         {
             field: "course_id",
@@ -71,15 +72,11 @@ class Assignments extends React.Component {
             filterable: false,
             renderCell: (params) => (
                 <div className={this.props.classes.centerItem}>
-                    {this.props.currentUser.type === "professor" && (
-                        <Tooltip title="View Submissions">
-                            <Link to={`${this.props.match.url}/${params.row.id}`}>
-                                <IconButton color={"primary"}>
-                                    <Eye />
-                                </IconButton>
-                            </Link>
-                        </Tooltip>
-                    )}
+                    <Tooltip title="Mark Submission">
+                        <IconButton color={"primary"} onClick={() => this.openModal(params.row.id)}>
+                            <Check />
+                        </IconButton>
+                    </Tooltip>
                     <Tooltip title="Download">
                         <a href={params.row.url} target="_blank" rel="noreferrer noopener">
                             <IconButton color={"primary"}>
@@ -97,17 +94,18 @@ class Assignments extends React.Component {
         this.state = {
             modalIsOpen: false,
             files: [],
+            submissionId: null,
         };
     }
 
     componentDidMount() {
-        this.props.fetchFiles();
+        this.props.fetchFilesSubmissionId(this.props.match.params.submissionId);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!prevProps.files && this.props.files !== prevProps.files) {
             this.props.files.forEach((file) => {
-                if (file.type === "assignment") this.state.files.push(file);
+                this.state.files.push(file);
             });
         }
     }
@@ -116,18 +114,25 @@ class Assignments extends React.Component {
         this.setState({ modalIsOpen: false });
     };
 
-    openModal = () => {
-        this.setState({ modalIsOpen: true });
+    openModal = (id) => {
+        this.setState({ modalIsOpen: true, submissionId: id });
     };
 
     render() {
         return (
             <DataPage
-                title="List of Assignments"
+                title="List of Submissions"
                 isLoading={this.props.isLoading}
                 modalIsOpen={this.state.modalIsOpen}
                 openModal={this.openModal}
-                PopupModal={<FileModal isOpen={this.state.modalIsOpen} onClose={this.closeModal} type="assignment" />}
+                PopupModal={
+                    <FileModal
+                        isOpen={this.state.modalIsOpen}
+                        onClose={this.closeModal}
+                        type="submission"
+                        submissionId={this.state.submissionId}
+                    />
+                }
                 objects={this.state.files}
                 columns={this.columns}
             />
@@ -141,4 +146,4 @@ const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchFiles })(Assignments)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchFilesSubmissionId })(Submissions)));
