@@ -102,7 +102,7 @@ function* uploadFile() {
 }
 
 function* updateFile() {
-    yield takeEvery(FileActionTypes.UPLOAD_FILE, function* (action) {
+    yield takeEvery(FileActionTypes.UPDATE_FILE, function* (action) {
         try {
             const file = yield APICall(`/api/v1/files/${action.payload.submissionId}`, {
                 method: "PUT",

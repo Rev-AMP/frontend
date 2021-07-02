@@ -66,7 +66,9 @@ class FileModal extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.divisions !== prevProps.divisions && this.props.divisions) {
-            this.props.division.forEach((division) => this.state.courses.push(division.course));
+            let { courses } = this.state;
+            this.props.divisions.forEach((division) => courses.push(division.course));
+            this.setState({ courses });
         }
         if (this.props.selectedFile !== prevProps.selectedFile && this.props.selectedFile) {
             toast.success(`${this.state.meow} created successfully 🙌`, {

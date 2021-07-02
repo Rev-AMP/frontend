@@ -163,8 +163,8 @@ function* fetchProfessorDivisions() {
     yield takeEvery(UserActionTypes.FETCH_PROFESSOR_DIVISIONS, function* (action) {
         try {
             // get token and user to update
-            let selectedUser = yield select((state) => state.user.selectedUser);
-            let divisions = yield APICall(`/api/v1/professors/${selectedUser.id}/divisions`, {
+            let currentUser = yield select((state) => state.user.currentUser);
+            let divisions = yield APICall(`/api/v1/professors/${currentUser.id}/divisions`, {
                 method: "GET",
             });
             yield put(fetchProfessorDivisionsSuccess(divisions));
