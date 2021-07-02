@@ -66,13 +66,13 @@ const useStyles = (theme) => ({
 });
 
 function TimetableCard(props) {
-    const { day, classes, lectures, editable } = props;
+    const { day, classes, lectures, editable, onEdit } = props;
     return (
         <AnimateSharedLayout>
             <motion.ul layout initial={{ borderRadius: 25 }} className={classes.unorderedList}>
                 <h2 className={classes.dayOfTheWeek}>{day}</h2>
                 {lectures.map((key, index) => (
-                    <StyledLecture key={index} lecture={key} editable={editable} />
+                    <StyledLecture key={index} lecture={key} editable={editable} onEdit={onEdit} />
                 ))}
             </motion.ul>
         </AnimateSharedLayout>
@@ -83,7 +83,7 @@ function Lecture(props) {
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = () => setIsOpen(!isOpen);
 
-    const { classes, lecture, editable } = props;
+    const { classes, lecture, editable, onEdit } = props;
     const min_attendance_percent = 60;
     const max_attendance_percent = 100;
     lecture.attendance = Math.floor(
@@ -93,7 +93,7 @@ function Lecture(props) {
 
     const expanded = editable ? (
         <div>
-            <Button variant="contained" className={classes.joinLecture}>
+            <Button variant="contained" className={classes.joinLecture} onClick={() => onEdit(lecture.id)}>
                 Edit Lecture
             </Button>
         </div>

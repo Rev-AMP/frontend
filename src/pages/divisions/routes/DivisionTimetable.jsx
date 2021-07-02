@@ -62,6 +62,7 @@ class Timetable extends React.Component {
                                 day={key.charAt(0).toUpperCase() + key.slice(1)}
                                 lectures={timetable[key]}
                                 editable={true}
+                                onEdit={this.onEdit}
                             />
                         ))
                     ) : (
