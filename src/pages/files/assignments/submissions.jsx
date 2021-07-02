@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { IconButton, Tooltip, withStyles } from "@material-ui/core";
 
 import { fetchFilesSubmissionId } from "redux/files/action";
 import FileModal from "../components/FileModal";
 import DataPage from "components/DataPage";
-import { Download, Check } from "mdi-material-ui";
+import { Check, Download } from "mdi-material-ui";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -135,6 +135,7 @@ class Submissions extends React.Component {
                 }
                 objects={this.state.files}
                 columns={this.columns}
+                disableCreate
             />
         );
     }
