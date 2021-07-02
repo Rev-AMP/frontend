@@ -94,6 +94,7 @@ const SideBar = ({ drawerOpen, switchDrawer, currentUser }) => {
             ],
             [
                 { key: "schools", to: "/schools", icon: <BookEducation color="primary" /> },
+                { key: "timeslots", to: "/timeslots", icon: <Table color="primary" /> },
                 { key: "years", to: "/years", icon: <CalendarToday color="primary" /> },
                 { key: "terms", to: "/terms", icon: <CalendarMultiple color="primary" /> },
                 { key: "courses", to: "/courses", icon: <BookMultiple color="primary" /> },

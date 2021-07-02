@@ -11,6 +11,7 @@ import AdminReducer from "redux/admin/reducer";
 import CourseReducer from "redux/course/reducer";
 import DivisionReducer from "redux/division/reducer";
 import TimetableReducer from "redux/timetable/reducer";
+import TimeSlotReducer from "redux/timeslots/reducer";
 
 const persistConfig = {
     key: "revamp",
@@ -28,6 +29,7 @@ const MainReducer = persistCombineReducers(persistConfig, {
     course: CourseReducer,
     division: DivisionReducer,
     timetable: TimetableReducer,
+    timeslot: TimeSlotReducer,
 });
 
 const RootReducer = (state, action) => {
