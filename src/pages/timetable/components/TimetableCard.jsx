@@ -40,7 +40,7 @@ const useStyles = (theme) => ({
     },
     flexContainer: {
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         alignItems: "center",
     },
     divider: {
@@ -66,13 +66,13 @@ const useStyles = (theme) => ({
 });
 
 function TimetableCard(props) {
-    const { day, classes, lectures } = props;
+    const { day, classes, lectures, editable } = props;
     return (
         <AnimateSharedLayout>
             <motion.ul layout initial={{ borderRadius: 25 }} className={classes.unorderedList}>
                 <h2 className={classes.dayOfTheWeek}>{day}</h2>
                 {lectures.map((key, index) => (
-                    <StyledLecture key={index} lecture={key} />
+                    <StyledLecture key={index} lecture={key} editable={editable} />
                 ))}
             </motion.ul>
         </AnimateSharedLayout>
@@ -83,13 +83,39 @@ function Lecture(props) {
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = () => setIsOpen(!isOpen);
 
-    const { classes, lecture } = props;
+    const { classes, lecture, editable } = props;
     const min_attendance_percent = 60;
     const max_attendance_percent = 100;
     lecture.attendance = Math.floor(
         Math.random() * (max_attendance_percent - min_attendance_percent) + min_attendance_percent
     );
     lecture.lecture_link = "https://mitwpu.instructure.com/";
+
+    const expanded = editable ? (
+        <div>
+            <Button variant="contained" className={classes.joinLecture}>
+                Edit Lecture
+            </Button>
+        </div>
+    ) : (
+        <div>
+            <div className={classes.divider} />
+            <div className={classes.flexContainer}>
+                <span>
+                    <b>{lecture.division.professor.user.full_name}</b>
+                </span>
+                <span style={{ fontSize: "24px", color: lecture.attendance >= 75 ? "green" : "red" }}>
+                    {lecture.attendance}%
+                </span>
+            </div>
+            <a href={`${lecture.lecture_link}`} target="_blank" rel="noreferrer">
+                <Button variant="contained" className={classes.joinLecture}>
+                    Join Lecture
+                </Button>
+            </a>
+        </div>
+    );
+
     return (
         <motion.li layout onClick={toggleOpen} initial={{ borderRadius: 10 }} className={classes.listItem}>
             <div className={classes.flexContainer}>
@@ -100,7 +126,7 @@ function Lecture(props) {
                 )}
                 <div>
                     <span>
-                        <b>{lecture.division.course.name}</b>
+                        <b>{editable ? lecture.type : lecture.division.course.name}</b>
                     </span>
                     <br />
                     <span>{`${lecture.time_slot.start_time} - ${lecture.time_slot.end_time}`}</span>
@@ -109,20 +135,7 @@ function Lecture(props) {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                        <div className={classes.divider} />
-                        <div className={classes.flexContainer}>
-                            <span>
-                                <b>{lecture.division.professor.user.full_name}</b>
-                            </span>
-                            <span style={{ fontSize: "24px", color: lecture.attendance >= 75 ? "green" : "red" }}>
-                                {lecture.attendance}%
-                            </span>
-                        </div>
-                        <a href={`${lecture.lecture_link}`} target="_blank" rel="noreferrer">
-                            <Button variant="contained" className={classes.joinLecture}>
-                                Join Lecture
-                            </Button>
-                        </a>
+                        {expanded}
                     </motion.div>
                 )}
             </AnimatePresence>

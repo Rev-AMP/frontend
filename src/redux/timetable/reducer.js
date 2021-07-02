@@ -30,6 +30,28 @@ const TimetableReducer = (state = initState, action) => {
                 isLoading: false,
             };
 
+        case TimetableActionTypes.FETCH_TIMETABLE_DIVISION:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+
+        case TimetableActionTypes.FETCH_TIMETABLE_DIVISION_SUCCESS:
+            return {
+                ...state,
+                timetable: action.payload,
+                errors: [],
+                isLoading: false,
+            };
+
+        case TimetableActionTypes.FETCH_TIMETABLE_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
         default:
             return state;
     }

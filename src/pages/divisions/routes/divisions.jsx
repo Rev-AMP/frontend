@@ -12,7 +12,7 @@ import {
     DialogActions,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Eye, Delete, Pencil } from "mdi-material-ui";
+import { Eye, Delete, Pencil, Table } from "mdi-material-ui";
 
 import { fetchDivisions, deleteDivision } from "redux/division/action";
 
@@ -110,6 +110,13 @@ class DivisionPage extends React.Component {
                         <Link to={`${this.props.match.url}/${params.row.id}`}>
                             <IconButton color={"primary"}>
                                 <Eye />
+                            </IconButton>
+                        </Link>
+                    </Tooltip>
+                    <Tooltip title="View Timetable">
+                        <Link to={`${this.props.match.url}/${params.row.id}/timetable`}>
+                            <IconButton color={"primary"}>
+                                <Table />
                             </IconButton>
                         </Link>
                     </Tooltip>
