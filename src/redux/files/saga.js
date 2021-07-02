@@ -85,9 +85,7 @@ function* uploadFile() {
             const formData = new FormData();
             formData.append("file", action.payload.file);
 
-            let endpoint = `/api/v1/files/${action.payload.course_id}?
-                            file_type=${action.payload.file_type}&
-                            description=${action.payload.description}`;
+            let endpoint = `/api/v1/files/${action.payload.course_id}?file_type=${action.payload.file_type}&description=${action.payload.description}`;
             if (action.payload.submission_id) endpoint += `&submission_id=${action.payload.submission_id}`;
             const file = yield APICall(endpoint, {
                 method: "POST",
