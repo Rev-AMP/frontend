@@ -1,10 +1,11 @@
-import { all, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import FileActionTypes from "./action.types";
 
 import {
     fetchFileFailure,
     fetchFiles as ActionFetchFiles,
+    fetchFilesCourse as ActionFetchFilesCourse,
     fetchFilesCourseFailure,
     fetchFilesCourseSuccess,
     fetchFilesFailure,
@@ -117,7 +118,12 @@ function* updateFile() {
 
 function* refreshFiles() {
     yield takeLatest([FileActionTypes.UPDATE_FILE_SUCCESS, FileActionTypes.UPLOAD_FILE_SUCCESS], function* (action) {
-        yield put(ActionFetchFiles());
+        let currentUser = yield select((state) => state.user.currentUser);
+        if (currentUser.type === "professor") {
+            yield put(ActionFetchFiles());
+        } else {
+            yield put(ActionFetchFilesCourse());
+        }
     });
 }
 
