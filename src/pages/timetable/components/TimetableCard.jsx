@@ -130,7 +130,7 @@ function Lecture(props) {
                         <b>{editable ? lecture.type : lecture.division.course.name}</b>
                     </span>
                     <br />
-                    <span>{`${lecture.time_slot.start_time} - ${lecture.time_slot.end_time}`}</span>
+                    <span>{`${lecture.time_slot.start_time} - ${lecture.time_slot.end_time}, ${lecture.room_number}`}</span>
                 </div>
             </div>
             <AnimatePresence>
