@@ -5,8 +5,26 @@ import { fetchCourses } from "redux/course/action";
 import DataSelect from "components/DataSelect";
 
 class CourseSelect extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            meow: [],
+        };
+    }
+
     componentDidMount() {
         this.props.fetchCourses();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.terms !== prevProps.courses && this.props.courses) {
+            let meow = this.state.meow;
+            this.props.courses.forEach((course, index) => {
+                course.name += ` : ${course.term.name} : ${course.term.year.school.name}`;
+                meow.push(course);
+            });
+            this.setState({ meow });
+        }
     }
 
     render() {
