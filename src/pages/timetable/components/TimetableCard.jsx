@@ -40,7 +40,8 @@ const useStyles = (theme) => ({
     },
     flexContainer: {
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "flex-start",
+        gap: "1rem",
         alignItems: "center",
     },
     divider: {
