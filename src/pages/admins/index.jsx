@@ -116,17 +116,30 @@ class Admins extends React.Component {
                 ),
         },
         {
-            field: "cbcs",
-            headerName: "CBCS",
+            field: "student",
+            headerName: "Student",
             headerAlign: "center",
             flex: 1,
             renderCell: (params) =>
-                params.row.permissions.isAllowed("cbcs") ? (
+                params.row.permissions.isAllowed("student") ? (
                     <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
                 ) : (
                     <Close color="error" className={this.props.classes.centerItem} />
                 ),
-            valueFormatter: (params) => params.row.permissions.isAllowed("cbcs"),
+            valueFormatter: (params) => params.row.permissions.isAllowed("student"),
+        },
+        {
+            field: "professor",
+            headerName: "Professor",
+            headerAlign: "center",
+            flex: 1,
+            renderCell: (params) =>
+                params.row.permissions.isAllowed("professor") ? (
+                    <Check className={clsx(this.props.classes.centerItem, this.props.classes.green)} />
+                ) : (
+                    <Close color="error" className={this.props.classes.centerItem} />
+                ),
+            valueFormatter: (params) => params.row.permissions.isAllowed("professor"),
         },
         {
             field: "actions",

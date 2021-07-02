@@ -83,7 +83,7 @@ class AdminModal extends React.Component {
         const { classes, isLoading, isOpen, onClose } = this.props;
         const { adminPerms } = this.state;
 
-        const perms = ["user", "admin", "school", "year", "term", "course", "cbcs"];
+        const perms = ["user", "admin", "school", "year", "term", "course", "student", "professor"];
 
         return (
             <PopupModal isLoading={isLoading} isOpen={isOpen} onClose={onClose}>
@@ -107,7 +107,7 @@ class AdminModal extends React.Component {
                                         color="primary"
                                     />
                                 }
-                                label={perm === "cbcs" ? perm.toUpperCase() : capitalize(perm)}
+                                label={capitalize(perm)}
                                 labelPlacement="top"
                                 key={perm}
                             />

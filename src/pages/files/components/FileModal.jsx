@@ -36,11 +36,24 @@ class FileModal extends React.Component {
                 file_type: this.props.type,
             },
             courses: [],
+            meow: "",
         };
     }
 
     componentDidMount() {
         this.props.fetchProfessorDivisions();
+        switch (this.props.type) {
+            case "materials":
+                this.setState({ meow: "Study Materials" });
+                break;
+
+            case "assignment":
+                this.setState({ meow: "Assignments" });
+                break;
+
+            default:
+                break;
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -48,8 +61,7 @@ class FileModal extends React.Component {
             this.props.division.forEach((division) => this.state.courses.push(division.course));
         }
         if (this.props.selectedFile !== prevProps.selectedFile && this.props.selectedFile) {
-            const meow = this.props.type === "material" ? "Study Material" : "Assignment";
-            toast.success(`${meow} created successfully 🙌`, {
+            toast.success(`${this.state.meow} created successfully 🙌`, {
                 position: toast.POSITION.TOP_CENTER,
             });
             this.props.onClose();
@@ -88,13 +100,12 @@ class FileModal extends React.Component {
 
     render() {
         const { classes, isLoading, isOpen, onClose, type } = this.props;
-        const meow = type === "material" ? "Study Material" : "Assignment";
 
         return (
             <PopupModal isLoading={isLoading} isOpen={isOpen} onClose={onClose}>
                 <div style={{ textAlign: "center" }}>
                     <Typography color="primary" variant="h3">
-                        Upload {meow}
+                        Upload {this.state.meow}
                     </Typography>
                 </div>
 

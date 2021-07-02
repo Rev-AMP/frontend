@@ -11,7 +11,7 @@ const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
 });
 
-class Materials extends React.Component {
+class Assignments extends React.Component {
     columns = [
         {
             field: "id",
@@ -78,7 +78,7 @@ class Materials extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!prevProps.files && this.props.files !== prevProps.files) {
             this.props.files.forEach((file) => {
-                if (file.type === "material") this.state.files.push(file);
+                if (file.type === "assignment") this.state.files.push(file);
             });
         }
     }
@@ -94,11 +94,11 @@ class Materials extends React.Component {
     render() {
         return (
             <DataPage
-                title="List of Study Material"
+                title="List of Assignments"
                 isLoading={this.props.isLoading}
                 modalIsOpen={this.state.modalIsOpen}
                 openModal={this.openModal}
-                PopupModal={<FileModal isOpen={this.state.modalIsOpen} onClose={this.closeModal} type="material" />}
+                PopupModal={<FileModal isOpen={this.state.modalIsOpen} onClose={this.closeModal} type="assignment" />}
                 objects={this.state.files}
                 columns={this.columns}
             />
@@ -111,4 +111,4 @@ const mapStateToProps = (state) => ({
     isLoading: state.file.isLoading,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchFiles })(Materials)));
+export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchFiles })(Assignments)));
