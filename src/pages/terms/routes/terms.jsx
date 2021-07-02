@@ -74,7 +74,6 @@ class TermPage extends React.Component {
             align: "center",
             width: 350,
             valueFormatter: (params) => params.row.year.school.name,
-            hide: true,
         },
         {
             field: "start_date",
