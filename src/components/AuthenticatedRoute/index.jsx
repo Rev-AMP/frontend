@@ -8,16 +8,8 @@ import { fetchUserMe } from "redux/user/action";
 import { fetchAdminMe } from "redux/admin/action";
 
 function AuthenticatedRoute(props) {
-    const {
-        rehydrated,
-        isLoggedIn,
-        currentUser,
-        currentAdmin,
-        fetchUserMe,
-        permission,
-        fetchAdminMe,
-        ...otherProps
-    } = props;
+    const { rehydrated, isLoggedIn, currentUser, currentAdmin, fetchUserMe, permission, fetchAdminMe, ...otherProps } =
+        props;
     const selfDataLoading = isLoggedIn && !currentUser;
 
     useEffect(() => {
