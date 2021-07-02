@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { IconButton, Tooltip, withStyles } from "@material-ui/core";
 
-import { fetchFilesSubmissionId } from "redux/files/action";
+import { fetchFilesSubmissionId, fetchFiles } from "redux/files/action";
 import FileModal from "../components/FileModal";
 import DataPage from "components/DataPage";
 import { Check, Download } from "mdi-material-ui";
@@ -72,11 +72,13 @@ class Submissions extends React.Component {
             filterable: false,
             renderCell: (params) => (
                 <div className={this.props.classes.centerItem}>
-                    <Tooltip title="Mark Submission">
-                        <IconButton color={"primary"} onClick={() => this.openModal(params.row.id)}>
-                            <Check />
-                        </IconButton>
-                    </Tooltip>
+                    {this.props.currentUser.type === "professor" && (
+                        <Tooltip title="Mark Submission">
+                            <IconButton color={"primary"} onClick={() => this.openModal(params.row.id)}>
+                                <Check />
+                            </IconButton>
+                        </Tooltip>
+                    )}
                     <Tooltip title="Download">
                         <a href={params.row.url} target="_blank" rel="noreferrer noopener">
                             <IconButton color={"primary"}>
@@ -99,13 +101,17 @@ class Submissions extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchFilesSubmissionId(this.props.match.params.submissionId);
+        if (this.props.currentUser.type === "professor") {
+            this.props.fetchFilesSubmissionId(this.props.match.params.submissionId);
+        } else {
+            this.props.fetchFiles();
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!prevProps.files && this.props.files !== prevProps.files) {
             this.props.files.forEach((file) => {
-                this.state.files.push(file);
+                if (file.file_type === "submission") this.state.files.push(file);
             });
         }
     }
@@ -147,4 +153,6 @@ const mapStateToProps = (state) => ({
     currentUser: state.user.currentUser,
 });
 
-export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchFilesSubmissionId })(Submissions)));
+export default withRouter(
+    withStyles(styles)(connect(mapStateToProps, { fetchFilesSubmissionId, fetchFiles })(Submissions))
+);

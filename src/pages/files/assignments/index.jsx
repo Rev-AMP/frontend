@@ -6,7 +6,7 @@ import { IconButton, Tooltip, withStyles } from "@material-ui/core";
 import { fetchFiles } from "redux/files/action";
 import FileModal from "../components/FileModal";
 import DataPage from "components/DataPage";
-import { Download, Eye } from "mdi-material-ui";
+import { Download, Eye, Upload } from "mdi-material-ui";
 
 const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
@@ -71,13 +71,18 @@ class Assignments extends React.Component {
             filterable: false,
             renderCell: (params) => (
                 <div className={this.props.classes.centerItem}>
-                    {this.props.currentUser.type === "professor" && (
-                        <Tooltip title="View Submissions">
-                            <Link to={`${this.props.match.url}/${params.row.id}`}>
-                                <IconButton color={"primary"}>
-                                    <Eye />
-                                </IconButton>
-                            </Link>
+                    <Tooltip title="View Submissions">
+                        <Link to={`${this.props.match.url}/${params.row.id}`}>
+                            <IconButton color={"primary"}>
+                                <Eye />
+                            </IconButton>
+                        </Link>
+                    </Tooltip>
+                    {this.props.currentUser.type === "student" && (
+                        <Tooltip title="Upload Submission">
+                            <IconButton color={"primary"} onClick={() => this.uploadSubmission(params.row.id)}>
+                                <Upload />
+                            </IconButton>
                         </Tooltip>
                     )}
                     <Tooltip title="Download">
@@ -97,6 +102,8 @@ class Assignments extends React.Component {
         this.state = {
             modalIsOpen: false,
             files: [],
+            submissionId: null,
+            type: "assignment",
         };
     }
 
@@ -120,6 +127,15 @@ class Assignments extends React.Component {
         this.setState({ modalIsOpen: true });
     };
 
+    uploadSubmission = (params) => {
+        this.setState({
+            modalIsOpen: true,
+            type: "submission",
+            submissionId: params.row.id,
+            courseId: params.row.course_id,
+        });
+    };
+
     render() {
         return (
             <DataPage
@@ -127,9 +143,18 @@ class Assignments extends React.Component {
                 isLoading={this.props.isLoading}
                 modalIsOpen={this.state.modalIsOpen}
                 openModal={this.openModal}
-                PopupModal={<FileModal isOpen={this.state.modalIsOpen} onClose={this.closeModal} type="assignment" />}
+                PopupModal={
+                    <FileModal
+                        isOpen={this.state.modalIsOpen}
+                        onClose={this.closeModal}
+                        type={this.state.type}
+                        submissionId={this.state.submissionId}
+                        courseId={this.state.courseId}
+                    />
+                }
                 objects={this.state.files}
                 columns={this.columns}
+                disableCreate={this.props.currentUser.type === "student"}
             />
         );
     }

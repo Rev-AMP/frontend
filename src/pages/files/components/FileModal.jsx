@@ -31,11 +31,13 @@ class FileModal extends React.Component {
         this.state = {
             file: {
                 file_type: this.props.type,
-                submissionId: this.props.submissionId,
+                submission_id: this.props.submissionId,
+                course_id: this.props.courseId,
             },
             submit: {
                 file_type: this.props.type,
-                submissionId: this.props.submissionId,
+                submission_id: this.props.submissionId,
+                course_id: this.props.courseId,
             },
             courses: [],
             meow: "",
@@ -103,7 +105,7 @@ class FileModal extends React.Component {
     };
 
     render() {
-        const { classes, isLoading, isOpen, onClose, type } = this.props;
+        const { classes, isLoading, isOpen, onClose, type, currentUser } = this.props;
 
         return (
             <PopupModal isLoading={isLoading} isOpen={isOpen} onClose={onClose}>
@@ -116,7 +118,7 @@ class FileModal extends React.Component {
                 <Divider style={{ marginBottom: "1rem" }} />
 
                 <form onSubmit={this.handleSubmit} className={classes.form}>
-                    {type === "submission" ? (
+                    {type === "submission" && currentUser.type === "professor" ? (
                         <TextField
                             type="number"
                             name="marks"
@@ -127,18 +129,20 @@ class FileModal extends React.Component {
                         />
                     ) : (
                         <>
-                            <TextField
-                                select
-                                name="course_id"
-                                label="Course"
-                                value={this.state.file.course_id ?? ""}
-                                onChange={this.handleInputChange}
-                                required
-                            >
-                                {this.state.courses.map((course) => (
-                                    <MenuItem value={course.id}>{course.name}</MenuItem>
-                                ))}
-                            </TextField>
+                            {currentUser.type === "professor" && (
+                                <TextField
+                                    select
+                                    name="course_id"
+                                    label="Course"
+                                    value={this.state.file.course_id ?? ""}
+                                    onChange={this.handleInputChange}
+                                    required
+                                >
+                                    {this.state.courses.map((course) => (
+                                        <MenuItem value={course.id}>{course.name}</MenuItem>
+                                    ))}
+                                </TextField>
+                            )}
                             <TextField
                                 type="text"
                                 name="description"
@@ -173,6 +177,7 @@ const mapStateToProps = (state) => ({
     selectedFile: state.file.selectedFile,
     divisions: state.user.professorDivisions,
     isLoading: state.file.isLoading || state.user.isLoading,
+    currentUser: state.user.currentUser,
 });
 
 export default withStyles(styles)(

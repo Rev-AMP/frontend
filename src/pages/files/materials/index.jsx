@@ -121,6 +121,7 @@ class Materials extends React.Component {
                 PopupModal={<FileModal isOpen={this.state.modalIsOpen} onClose={this.closeModal} type="material" />}
                 objects={this.state.files}
                 columns={this.columns}
+                disableCreate={this.props.currentUser.type === "student"}
             />
         );
     }
@@ -129,6 +130,7 @@ class Materials extends React.Component {
 const mapStateToProps = (state) => ({
     files: state.file.files,
     isLoading: state.file.isLoading,
+    currentUser: state.user.currentUser,
 });
 
 export default withRouter(withStyles(styles)(connect(mapStateToProps, { fetchFiles })(Materials)));
