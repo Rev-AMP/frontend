@@ -9,6 +9,8 @@ import {
     fetchSchoolsFailure,
     fetchSchoolsSuccess,
     fetchSchoolSuccess,
+    fetchSchoolTimeSlotsSuccess,
+    fetchSchoolTimeSlotsFailure,
     updateSchoolFailure,
     updateSchoolSuccess,
     deleteSchoolFailure,
@@ -38,6 +40,19 @@ function* fetchSchool() {
             yield put(fetchSchoolSuccess(school));
         } catch (error) {
             yield put(fetchSchoolFailure(error.detail));
+        }
+    });
+}
+
+function* fetchSchoolTimeSlots() {
+    yield takeEvery(SchoolActionTypes.FETCH_SCHOOLS, function* (action) {
+        try {
+            const schools = yield APICall(`/api/v1/schools/${action.payload}/timeslots`, {
+                method: "GET",
+            });
+            yield put(fetchSchoolTimeSlotsSuccess(schools));
+        } catch (error) {
+            yield put(fetchSchoolTimeSlotsFailure(error.detail));
         }
     });
 }
@@ -98,7 +113,15 @@ function* refreshSchoolList() {
 }
 
 function* schoolMethods() {
-    yield all([fetchSchool(), fetchSchools(), updateSchool(), createSchool(), deleteSchool(), refreshSchoolList()]);
+    yield all([
+        fetchSchool(),
+        fetchSchools(),
+        updateSchool(),
+        createSchool(),
+        deleteSchool(),
+        refreshSchoolList(),
+        fetchSchoolTimeSlots(),
+    ]);
 }
 
 export default schoolMethods;

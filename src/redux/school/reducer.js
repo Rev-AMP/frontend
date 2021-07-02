@@ -5,6 +5,7 @@ const initState = {
     isLoading: false,
     selectedSchool: null,
     schools: [],
+    timeslots: [],
 };
 
 const SchoolReducer = (state = initState, action) => {
@@ -51,6 +52,28 @@ const SchoolReducer = (state = initState, action) => {
                 selectedSchool: null,
                 errors: action.payload,
                 isLoading: false,
+            };
+
+        case SchoolActionTypes.FETCH_SCHOOL_TIME_SLOTS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+                timeslots: [],
+            };
+        case SchoolActionTypes.FETCH_SCHOOL_TIME_SLOTS_SUCCESS:
+            return {
+                ...state,
+                timeslots: action.payload,
+                errors: [],
+                isLoading: false,
+            };
+        case SchoolActionTypes.FETCH_SCHOOL_TIME_SLOTS_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+                timeslots: [],
             };
 
         case SchoolActionTypes.UPDATE_SCHOOL:

@@ -29,6 +29,21 @@ export const fetchSchoolFailure = (errors) => ({
     payload: errors,
 });
 
+export const fetchSchoolTimeSlots = (id) => ({
+    type: SchoolActionTypes.FETCH_SCHOOL_TIME_SLOTS,
+    payload: id,
+});
+
+export const fetchSchoolTimeSlotsSuccess = (timeslots) => ({
+    type: SchoolActionTypes.FETCH_SCHOOL_TIME_SLOTS_SUCCESS,
+    payload: timeslots,
+});
+
+export const fetchSchoolTimeSlotsFailure = (errors) => ({
+    type: SchoolActionTypes.FETCH_SCHOOL_TIME_SLOTS_FAILURE,
+    payload: errors,
+});
+
 export const updateSchool = (schoolUpdate) => ({
     type: SchoolActionTypes.UPDATE_SCHOOL,
     payload: schoolUpdate,
