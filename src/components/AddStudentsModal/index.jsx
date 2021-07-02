@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Typography, Divider, withStyles } from "@material-ui/core";
+import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";

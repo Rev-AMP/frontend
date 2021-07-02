@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import { withStyles } from "@material-ui/core";
 import { BookOpen, HammerWrench } from "mdi-material-ui";
 import Button from "components/Button";

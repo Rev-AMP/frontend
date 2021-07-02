@@ -1,7 +1,7 @@
 import React from "react";
-import { TextField, Typography, Divider, withStyles } from "@material-ui/core";
+import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
-import { fetchDivision, createDivision, updateDivision } from "redux/division/action";
+import { createDivision, fetchDivision, updateDivision } from "redux/division/action";
 import { getUpdatedInfo } from "services/get-updated-info";
 import { toast } from "react-toastify";
 

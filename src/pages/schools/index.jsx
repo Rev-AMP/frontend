@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { Delete, Pencil } from "mdi-material-ui";
 
-import { fetchSchools, deleteSchool } from "redux/school/action";
+import { deleteSchool, fetchSchools } from "redux/school/action";
 import SchoolModal from "./components/SchoolModal";
 import DataPage from "components/DataPage";
 import Button from "components/Button";

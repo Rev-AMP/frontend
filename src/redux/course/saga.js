@@ -4,15 +4,15 @@ import CourseActionTypes from "./action.types";
 import {
     createCourseFailure,
     createCourseSuccess,
-    fetchCourseSuccess,
+    deleteCourseFailure,
+    deleteCourseSuccess,
     fetchCourseFailure,
     fetchCourses as ActionFetchCourses,
     fetchCoursesFailure,
     fetchCoursesSuccess,
+    fetchCourseSuccess,
     updateCourseFailure,
     updateCourseSuccess,
-    deleteCourseSuccess,
-    deleteCourseFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 

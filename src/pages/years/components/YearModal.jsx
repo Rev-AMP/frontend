@@ -5,7 +5,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
-import { fetchYear, createYear, updateYear } from "redux/year/action";
+import { createYear, fetchYear, updateYear } from "redux/year/action";
 import { getUpdatedInfo } from "services/get-updated-info";
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";

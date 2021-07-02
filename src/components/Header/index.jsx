@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { AppBar, Box, IconButton, makeStyles, Toolbar } from "@material-ui/core";
-import { Menu, ExitToApp } from "mdi-material-ui";
+import { ExitToApp, Menu } from "mdi-material-ui";
 
 import { logout } from "redux/auth/action";
 

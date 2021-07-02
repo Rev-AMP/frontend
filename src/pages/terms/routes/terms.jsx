@@ -3,19 +3,19 @@ import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-    withStyles,
-    Tooltip,
-    IconButton,
     Dialog,
-    DialogTitle,
-    Typography,
+    DialogActions,
     DialogContent,
     DialogContentText,
-    DialogActions,
+    DialogTitle,
+    IconButton,
+    Tooltip,
+    Typography,
+    withStyles,
 } from "@material-ui/core";
-import { Close, Check, Pencil, Delete, Eye } from "mdi-material-ui";
+import { Check, Close, Delete, Eye, Pencil } from "mdi-material-ui";
 
-import { fetchTerms, deleteTerm } from "redux/term/action";
+import { deleteTerm, fetchTerms } from "redux/term/action";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 import TermModal from "../components/TermModal";

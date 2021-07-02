@@ -1,5 +1,5 @@
 import { call, put, select } from "redux-saga/effects";
-import { logout, loginSuccess } from "redux/auth/action";
+import { loginSuccess, logout } from "redux/auth/action";
 
 const parseErrorDetail = (detail) => {
     if (Array.isArray(detail)) {

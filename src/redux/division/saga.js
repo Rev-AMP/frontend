@@ -1,26 +1,26 @@
-import { all, put, takeEvery, takeLatest, select } from "redux-saga/effects";
+import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import DivisionActionTypes from "./action.types";
 
 import {
-    fetchDivisions as ActionFetchDivisions,
-    fetchDivisionsSuccess,
-    fetchDivisionsFailure,
-    deleteDivisionSuccess,
-    deleteDivisionFailure,
-    fetchDivisionSuccess,
-    fetchDivisionFailure,
-    createDivisionSuccess,
-    createDivisionFailure,
-    updateDivisionSuccess,
-    updateDivisionFailure,
-    fetchStudentsForSelectedDivisionSuccess,
-    fetchStudentsForSelectedDivisionFailure,
-    fetchStudentsForSelectedDivision as ActionFetchStudents,
-    deleteStudentFromSelectedDivisionSuccess,
-    deleteStudentFromSelectedDivisionFailure,
-    addStudentsToSelectedDivisionSuccess,
     addStudentsToSelectedDivisionFailure,
+    addStudentsToSelectedDivisionSuccess,
+    createDivisionFailure,
+    createDivisionSuccess,
+    deleteDivisionFailure,
+    deleteDivisionSuccess,
+    deleteStudentFromSelectedDivisionFailure,
+    deleteStudentFromSelectedDivisionSuccess,
+    fetchDivisionFailure,
+    fetchDivisions as ActionFetchDivisions,
+    fetchDivisionsFailure,
+    fetchDivisionsSuccess,
+    fetchDivisionSuccess,
+    fetchStudentsForSelectedDivision as ActionFetchStudents,
+    fetchStudentsForSelectedDivisionFailure,
+    fetchStudentsForSelectedDivisionSuccess,
+    updateDivisionFailure,
+    updateDivisionSuccess,
 } from "./action";
 import { APICall } from "services/http-client";
 

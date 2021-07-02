@@ -1,19 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-    IconButton,
-    Typography,
-    withStyles,
     Dialog,
+    DialogActions,
+    DialogContent,
     DialogContentText,
     DialogTitle,
-    DialogContent,
-    DialogActions,
+    IconButton,
     Tooltip,
+    Typography,
+    withStyles,
 } from "@material-ui/core";
-import { Pencil, Delete } from "mdi-material-ui";
+import { Delete, Pencil } from "mdi-material-ui";
 
-import { fetchYears, deleteYear } from "redux/year/action";
+import { deleteYear, fetchYears } from "redux/year/action";
 import DataPage from "components/DataPage";
 import Button from "components/Button";
 import YearModal from "./components/YearModal";

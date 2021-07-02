@@ -2,21 +2,21 @@ import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import UserActionTypes from "./action.types";
 import {
+    createUserFailure,
+    createUserSuccess,
+    fetchProfessorsFailure,
+    fetchProfessorsSuccess,
+    fetchUserFailure,
     fetchUserMeFailure,
     fetchUserMeSuccess,
-    updateUserMeSuccess,
-    updateUserMeFailure,
-    fetchUserFailure,
-    fetchUserSuccess,
     fetchUsers as ActionFetchUsers,
-    fetchUsersSuccess,
     fetchUsersFailure,
-    updateUserSuccess,
+    fetchUsersSuccess,
+    fetchUserSuccess,
     updateUserFailure,
-    createUserSuccess,
-    createUserFailure,
-    fetchProfessorsSuccess,
-    fetchProfessorsFailure,
+    updateUserMeFailure,
+    updateUserMeSuccess,
+    updateUserSuccess,
 } from "./action";
 import { addProfilePictureURL, setProfilePicture } from "services/profile-picture";
 import { APICall } from "services/http-client";

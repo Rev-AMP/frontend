@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { Delete, Pencil } from "mdi-material-ui";
 
-import { fetchTimeSlots, deleteTimeSlot } from "redux/timeslots/action";
+import { deleteTimeSlot, fetchTimeSlots } from "redux/timeslots/action";
 import TimeSlotModal from "./components/TimeSlotModal";
 import DataPage from "components/DataPage";
 import Button from "components/Button";

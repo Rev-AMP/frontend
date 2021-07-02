@@ -1,7 +1,7 @@
-import { takeEvery, put, call } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 
 import AuthActionTypes from "./action.types";
-import { loginSuccess, loginFailure } from "./action";
+import { loginFailure, loginSuccess } from "./action";
 import { httpClient } from "services/http-client";
 
 function* login() {

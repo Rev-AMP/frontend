@@ -4,6 +4,7 @@ const initState = {
     timetable: null,
     isLoading: false,
     errors: [],
+    lecture: null,
 };
 
 const TimetableReducer = (state = initState, action) => {
@@ -46,6 +47,66 @@ const TimetableReducer = (state = initState, action) => {
             };
 
         case TimetableActionTypes.FETCH_TIMETABLE_DIVISION_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case TimetableActionTypes.FETCH_LECTURE:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+        case TimetableActionTypes.FETCH_LECTURE_SUCCESS:
+            return {
+                ...state,
+                lecture: action.payload,
+                errors: [],
+                isLoading: false,
+            };
+        case TimetableActionTypes.FETCH_LECTURE_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case TimetableActionTypes.UPDATE_LECTURE:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+        case TimetableActionTypes.UPDATE_LECTURE_SUCCESS:
+            return {
+                ...state,
+                lecture: action.payload,
+                errors: [],
+                isLoading: false,
+            };
+        case TimetableActionTypes.UPDATE_LECTURE_FAILURE:
+            return {
+                ...state,
+                errors: action.payload,
+                isLoading: false,
+            };
+
+        case TimetableActionTypes.CREATE_LECTURE:
+            return {
+                ...state,
+                errors: [],
+                isLoading: true,
+            };
+        case TimetableActionTypes.CREATE_LECTURE_SUCCESS:
+            return {
+                ...state,
+                errors: [],
+                isLoading: false,
+                lecture: action.payload,
+            };
+        case TimetableActionTypes.CREATE_LECTURE_FAILURE:
             return {
                 ...state,
                 errors: action.payload,

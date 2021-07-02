@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { Modal, Paper, Grid, CircularProgress, withStyles } from "@material-ui/core";
+import { CircularProgress, Grid, Modal, Paper, withStyles } from "@material-ui/core";
 
 import CenterContent from "components/CenterContent";
 

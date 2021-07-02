@@ -9,7 +9,7 @@ import Button from "components/Button";
 import PopupModal from "components/PopupModal";
 import SchoolSelect from "../../schools/components/SchoolSelect";
 import DateFnsUtils from "@date-io/date-fns";
-import { TimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider, TimePicker } from "@material-ui/pickers";
 
 const styles = (theme) => ({
     form: {

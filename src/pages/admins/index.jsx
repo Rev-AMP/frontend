@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { IconButton, Tooltip, withStyles } from "@material-ui/core";
-import { Close, Check, Pencil } from "mdi-material-ui";
+import { Check, Close, Pencil } from "mdi-material-ui";
 
 import { fetchAdmins } from "redux/admin/action";
 import DataPage from "components/DataPage";

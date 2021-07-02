@@ -2,24 +2,24 @@ import { all, put, select, takeEvery, takeLatest } from "redux-saga/effects";
 
 import TermActionTypes from "./action.types";
 import {
+    addStudentsToSelectedTermFailure,
+    addStudentsToSelectedTermSuccess,
     createTermFailure,
     createTermSuccess,
-    fetchTermSuccess,
+    deleteStudentFromSelectedTermFailure,
+    deleteStudentFromSelectedTermSuccess,
+    deleteTermFailure,
+    deleteTermSuccess,
+    fetchStudentsForSelectedTerm as ActionFetchStudents,
+    fetchStudentsForSelectedTermFailure,
+    fetchStudentsForSelectedTermSuccess,
     fetchTermFailure,
     fetchTerms as ActionFetchTerms,
     fetchTermsFailure,
     fetchTermsSuccess,
+    fetchTermSuccess,
     updateTermFailure,
     updateTermSuccess,
-    deleteTermSuccess,
-    deleteTermFailure,
-    fetchStudentsForSelectedTerm as ActionFetchStudents,
-    fetchStudentsForSelectedTermSuccess,
-    fetchStudentsForSelectedTermFailure,
-    deleteStudentFromSelectedTermSuccess,
-    deleteStudentFromSelectedTermFailure,
-    addStudentsToSelectedTermSuccess,
-    addStudentsToSelectedTermFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 

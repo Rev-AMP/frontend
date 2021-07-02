@@ -1,20 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-    withStyles,
-    Tooltip,
-    IconButton,
     Dialog,
-    DialogTitle,
-    Typography,
+    DialogActions,
     DialogContent,
     DialogContentText,
-    DialogActions,
+    DialogTitle,
+    IconButton,
+    Tooltip,
+    Typography,
+    withStyles,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Eye, Delete, Pencil, Table } from "mdi-material-ui";
+import { Delete, Eye, Pencil, Table } from "mdi-material-ui";
 
-import { fetchDivisions, deleteDivision } from "redux/division/action";
+import { deleteDivision, fetchDivisions } from "redux/division/action";
 
 import DataPage from "components/DataPage";
 import Button from "components/Button";

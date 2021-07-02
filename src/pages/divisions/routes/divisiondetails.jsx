@@ -14,10 +14,10 @@ import {
 import { Delete } from "mdi-material-ui";
 
 import {
+    addStudentsToSelectedDivision,
+    deleteStudentFromSelectedDivision,
     fetchDivision,
     fetchStudentsForSelectedDivision,
-    deleteStudentFromSelectedDivision,
-    addStudentsToSelectedDivision,
 } from "redux/division/action";
 
 import DataPage from "components/DataPage";

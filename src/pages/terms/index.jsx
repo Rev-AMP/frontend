@@ -1,7 +1,7 @@
 import React from "react";
 import TermPage from "./routes/terms";
 import TermDetails from "./routes/termdetails";
-import { withRouter, Switch, Route } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 
 function Terms(props) {
     return (

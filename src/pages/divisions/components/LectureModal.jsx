@@ -1,14 +1,13 @@
 import React from "react";
-import { TextField, Typography, Divider, withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
-import { fetchDivision, createDivision, updateDivision } from "redux/division/action";
-import { getUpdatedInfo } from "services/get-updated-info";
 import { toast } from "react-toastify";
+import { Divider, MenuItem, TextField, Typography, withStyles } from "@material-ui/core";
 
-import PopupModal from "components/PopupModal";
-import CourseSelect from "pages/courses/components/CourseSelect";
-import ProfessorSelect from "pages/users/components/ProfessorSelect";
+import { createLecture, fetchLecture, updateLecture } from "redux/timetable/action";
+import { getUpdatedInfo } from "services/get-updated-info";
 import Button from "components/Button";
+import PopupModal from "components/PopupModal";
+import TimeSlotSelect from "../../timeslots/components/TimeSlotSelect";
 
 const styles = (theme) => ({
     form: {
@@ -20,101 +19,65 @@ const styles = (theme) => ({
     centerItem: theme.styles.centerItem,
 });
 
-class DivisionModal extends React.Component {
+class LectureModal extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            division: {},
-            submit: {},
-            errors: {
-                division_code: "",
-                number_of_batches: "",
+            lecture: {
+                division_id: this.props.divisionId,
+            },
+            submit: {
+                division_id: this.props.divisionId,
             },
             formSubmitted: false,
         };
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.selectedDivision !== prevProps.selectedDivision) {
-            const { selectedDivision, divisionId } = this.props;
+    componentDidMount() {
+        if (this.props.lectureId !== null && this.props.lectureId) {
+            this.props.fetchLecture(this.props.lectureId);
+        }
+    }
 
-            let division = { ...selectedDivision } ?? {};
-            this.setState({ division }, () => console.log(this.state));
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.selectedLecture !== prevProps.selectedLecture) {
+            this.setState({
+                lecture: { ...this.props.selectedLecture } ?? {},
+            });
 
             if (this.state.formSubmitted) {
-                toast.success(
-                    `Division with code: ${selectedDivision.division_code} ${
-                        divisionId ? "updated" : "created"
-                    } successfully 🙌`,
-                    {
-                        position: toast.POSITION.TOP_CENTER,
-                    }
-                );
+                const action = this.props.lectureId ? "updated" : "created";
+                toast.success(`Lecture ${action} successfully 🙌`, {
+                    position: toast.POSITION.TOP_CENTER,
+                });
                 this.props.onClose();
             }
         }
     }
 
-    componentDidMount() {
-        if (this.props.divisionId) {
-            this.props.fetchDivision(this.props.divisionId);
-        }
-    }
-
-    validateInput = (event) => {
-        const { errors } = this.state;
+    handleInputChange = (event) => {
+        let lecture = this.state.lecture;
+        let submit = this.state.submit;
         const { name, value } = event.target;
 
-        switch (name) {
-            case "division_code":
-                errors.division_code = value ? "" : "Division Code cannot be empty";
-                break;
+        // update value in submit and lecture
+        submit[name] = value;
+        lecture[name] = value;
 
-            case "number_of_batches":
-                errors.number_of_batches = value > 0 ? "" : "Number of batches should be greater than 0";
-                break;
-
-            default:
-                break;
-        }
-
-        this.setState({ errors });
-    };
-
-    handleInputChange = (event) => {
-        let { division, submit, errors } = this.state;
-        let { name, value } = event.target;
-        // set value of division regardless of validity
-        division[name] = value;
-        // validate input
-        this.validateInput(event);
-        // update submit if it is valid
-        if (!errors[name]) {
-            submit[name] = value;
-        }
-
-        this.setState({ division, submit });
+        this.setState({ lecture, submit });
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
 
-        const { submit, errors } = this.state;
+        const { submit } = this.state;
 
-        // make sure there are no errors
-        if (errors.division_code || errors.number_of_batches) {
-            toast.error("Empty Fields 💔", {
-                position: toast.POSITION.TOP_CENTER,
-            });
-            return;
-        }
-        const { divisionId, selectedDivision } = this.props;
+        const { lectureId, selectedLecture } = this.props;
 
-        if (divisionId) {
-            const updatedInfo = getUpdatedInfo(selectedDivision, submit);
+        if (lectureId) {
+            const updatedInfo = getUpdatedInfo(selectedLecture, submit);
             if (Object.keys(updatedInfo).length) {
-                this.props.updateDivision(updatedInfo);
+                this.props.updateLecture(submit);
                 this.setState({ formSubmitted: true });
             } else {
                 toast.error("Please update some information 😓", {
@@ -122,57 +85,66 @@ class DivisionModal extends React.Component {
                 });
             }
         } else {
-            this.props.createDivision(submit);
+            this.props.createLecture(submit);
             this.setState({ formSubmitted: true });
         }
     };
 
     render() {
-        const { isLoading, isOpen, onClose, divisionId, classes } = this.props;
-        const { division, errors } = this.state;
-        const action = divisionId ? "Update" : "Create";
+        const { classes, lectureId, isLoading, isOpen, onClose } = this.props;
+        const { lecture } = this.state;
+        const action = lectureId ? "Update" : "Create";
 
         return (
             <PopupModal isLoading={isLoading} isOpen={isOpen} onClose={onClose}>
                 <div style={{ textAlign: "center" }}>
                     <Typography color="primary" variant="h3">
-                        {action} Division
+                        {action} Lecture
                     </Typography>
                 </div>
 
                 <Divider style={{ marginBottom: "1rem" }} />
-                <form className={classes.form} onSubmit={this.handleSubmit}>
+
+                <form onSubmit={this.handleSubmit} className={classes.form}>
                     <TextField
-                        name="division_code"
-                        label="Division Code"
-                        type="number"
-                        value={division.division_code ?? ""}
-                        required
+                        select
+                        name="day"
+                        label="Day"
+                        value={lecture.day ?? ""}
                         onChange={this.handleInputChange}
-                        error={!!errors.division_code}
-                        helperText={errors.division_code}
+                        required
+                    >
+                        <MenuItem value="Monday">Monday</MenuItem>
+                        <MenuItem value="Tuesday">Tuesday</MenuItem>
+                        <MenuItem value="Wednesday">Wednesday</MenuItem>
+                        <MenuItem value="Thursday">Thursday</MenuItem>
+                        <MenuItem value="Friday">Friday</MenuItem>
+                        <MenuItem value="Saturday">Saturday</MenuItem>
+                    </TextField>
+                    <TimeSlotSelect
+                        name="time_slot_id"
+                        label="Time Slot"
+                        value={lecture.time_slot_id ?? ""}
+                        onChange={this.handleInputChange}
+                        schoolId={this.props.division.course.term.year.school.id}
+                        required
                     />
                     <TextField
-                        name="number_of_batches"
-                        label="Number of Batches"
-                        type="number"
-                        value={division.number_of_batches ?? ""}
-                        required
-                        onChange={this.handleInputChange}
-                        error={!!errors.number_of_batches}
-                        helperText={errors.number_of_batches}
-                    />
-                    <CourseSelect
-                        name="course_id"
-                        label="Course"
-                        value={division.course_id ?? ""}
+                        select
+                        name="type"
+                        label="Lecture Type"
+                        value={lecture.type ?? ""}
                         onChange={this.handleInputChange}
                         required
-                    />
-                    <ProfessorSelect
-                        name="professor_id"
-                        label="Professor"
-                        value={division.professor_id ?? ""}
+                    >
+                        <MenuItem value="theory">Theory</MenuItem>
+                        <MenuItem value="practical">Practical</MenuItem>
+                        <MenuItem value="tutorial">Tutorial</MenuItem>
+                    </TextField>
+                    <TextField
+                        name="room_number"
+                        label="Room Number"
+                        value={lecture.room_number ?? ""}
                         onChange={this.handleInputChange}
                         required
                     />
@@ -186,10 +158,11 @@ class DivisionModal extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    isLoading: state.division.isLoading,
-    selectedDivision: state.division.selectedDivision,
+    selectedLecture: state.timetable.lecture,
+    isLoading: state.timetable.isLoading,
+    division: state.division.selectedDivision,
 });
 
 export default withStyles(styles)(
-    connect(mapStateToProps, { fetchDivision, createDivision, updateDivision })(DivisionModal)
+    connect(mapStateToProps, { fetchLecture, createLecture, updateLecture })(LectureModal)
 );

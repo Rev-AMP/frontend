@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { toast } from "react-toastify";
 import { Divider, TextField, Typography, withStyles } from "@material-ui/core";
 
-import { fetchCourse, createCourse, updateCourse } from "redux/course/action";
+import { createCourse, fetchCourse, updateCourse } from "redux/course/action";
 import { getUpdatedInfo } from "services/get-updated-info";
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";

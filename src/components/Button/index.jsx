@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Button as Btn } from "@material-ui/core";
+import { Button as Btn, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({

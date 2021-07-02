@@ -2,15 +2,15 @@ import { all, put, takeEvery } from "redux-saga/effects";
 
 import AdminActionTypes from "./action.types";
 import {
+    fetchAdminFailure,
     fetchAdminMeFailure,
     fetchAdminMeSuccess,
-    fetchAdminsSuccess,
-    fetchAdminsFailure,
-    updateAdminSuccess,
-    updateAdminFailure,
-    fetchAdminSuccess,
-    fetchAdminFailure,
     fetchAdmins as actionFetchAdmins,
+    fetchAdminsFailure,
+    fetchAdminsSuccess,
+    fetchAdminSuccess,
+    updateAdminFailure,
+    updateAdminSuccess,
 } from "./action";
 import { APICall } from "services/http-client";
 import { AdminPermissions } from "services/admin";

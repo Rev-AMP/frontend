@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import { CameraPlus } from "mdi-material-ui";
 
-import { fetchUser, createUser, updateUser } from "redux/user/action";
+import { createUser, fetchUser, updateUser } from "redux/user/action";
 import { getUpdatedInfo } from "services/get-updated-info";
 import Button from "components/Button";
 import PopupModal from "components/PopupModal";

@@ -4,15 +4,15 @@ import YearActionTypes from "./action.types";
 import {
     createYearFailure,
     createYearSuccess,
-    fetchYearSuccess,
+    deleteYearFailure,
+    deleteYearSuccess,
     fetchYearFailure,
     fetchYears as ActionFetchYears,
     fetchYearsFailure,
     fetchYearsSuccess,
+    fetchYearSuccess,
     updateYearFailure,
     updateYearSuccess,
-    deleteYearSuccess,
-    deleteYearFailure,
 } from "./action";
 import { APICall } from "services/http-client";
 

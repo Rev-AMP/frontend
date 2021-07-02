@@ -4,17 +4,17 @@ import SchoolActionTypes from "./action.types";
 import {
     createSchoolFailure,
     createSchoolSuccess,
-    fetchSchools as ActionFetchSchools,
+    deleteSchoolFailure,
+    deleteSchoolSuccess,
     fetchSchoolFailure,
+    fetchSchools as ActionFetchSchools,
     fetchSchoolsFailure,
     fetchSchoolsSuccess,
     fetchSchoolSuccess,
-    fetchSchoolTimeSlotsSuccess,
     fetchSchoolTimeSlotsFailure,
+    fetchSchoolTimeSlotsSuccess,
     updateSchoolFailure,
     updateSchoolSuccess,
-    deleteSchoolFailure,
-    deleteSchoolSuccess,
 } from "./action";
 import { APICall } from "services/http-client";
 
@@ -45,12 +45,15 @@ function* fetchSchool() {
 }
 
 function* fetchSchoolTimeSlots() {
-    yield takeEvery(SchoolActionTypes.FETCH_SCHOOLS, function* (action) {
+    yield takeEvery(SchoolActionTypes.FETCH_SCHOOL_TIME_SLOTS, function* (action) {
         try {
-            const schools = yield APICall(`/api/v1/schools/${action.payload}/timeslots`, {
+            const timeslots = yield APICall(`/api/v1/schools/${action.payload}/timeslots`, {
                 method: "GET",
             });
-            yield put(fetchSchoolTimeSlotsSuccess(schools));
+            timeslots.forEach((value, index) => {
+                timeslots[index].name = `${value.start_time} - ${value.end_time}`;
+            });
+            yield put(fetchSchoolTimeSlotsSuccess(timeslots));
         } catch (error) {
             yield put(fetchSchoolTimeSlotsFailure(error.detail));
         }

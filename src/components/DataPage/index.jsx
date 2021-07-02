@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { DataGrid, GridToolbar, GridOverlay } from "@material-ui/data-grid";
-import { Grid, IconButton, Typography, withStyles, LinearProgress } from "@material-ui/core";
+import { DataGrid, GridOverlay, GridToolbar } from "@material-ui/data-grid";
+import { Grid, IconButton, LinearProgress, Typography, withStyles } from "@material-ui/core";
 import { PlusCircle } from "mdi-material-ui";
 
 const styles = (theme) => ({

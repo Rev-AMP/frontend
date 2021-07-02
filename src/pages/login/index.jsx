@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Paper, Grid, withStyles, TextField } from "@material-ui/core";
+import { Grid, Paper, TextField, withStyles } from "@material-ui/core";
 
 import Button from "components/Button";
 import Loader from "components/Loader";

@@ -4,15 +4,15 @@ import TimeSlotActionTypes from "./action.types";
 import {
     createTimeSlotFailure,
     createTimeSlotSuccess,
-    fetchTimeSlots as ActionFetchTimeSlots,
+    deleteTimeSlotFailure,
+    deleteTimeSlotSuccess,
     fetchTimeSlotFailure,
+    fetchTimeSlots as ActionFetchTimeSlots,
     fetchTimeSlotsFailure,
     fetchTimeSlotsSuccess,
     fetchTimeSlotSuccess,
     updateTimeSlotFailure,
     updateTimeSlotSuccess,
-    deleteTimeSlotFailure,
-    deleteTimeSlotSuccess,
 } from "./action";
 import { APICall } from "services/http-client";
 

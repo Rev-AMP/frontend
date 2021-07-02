@@ -1,7 +1,7 @@
 import React from "react";
 import DivisionPage from "./routes/divisions";
 import DivisionDetails from "./routes/divisiondetails";
-import { withRouter, Switch, Route } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import DivisionTimetable from "./routes/DivisionTimetable";
 
 function Divisions(props) {

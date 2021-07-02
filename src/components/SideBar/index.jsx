@@ -15,12 +15,12 @@ import {
     Account,
     BookEducation,
     BookMultiple,
+    BookOpenPageVariant,
     CalendarMultiple,
     CalendarToday,
     File,
     ShieldAccount,
     Table,
-    BookOpenPageVariant,
 } from "mdi-material-ui";
 import { Link } from "react-router-dom";
 

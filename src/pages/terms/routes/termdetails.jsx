@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
+    addStudentsToSelectedTerm,
     deleteStudentFromSelectedTerm,
     fetchStudentsForSelectedTerm,
     fetchTerm,
-    addStudentsToSelectedTerm,
 } from "redux/term/action";
 import { Delete } from "mdi-material-ui";
 import {

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { Grid, capitalize, Divider, FormControlLabel, Checkbox, Typography, withStyles } from "@material-ui/core";
+import { capitalize, Checkbox, Divider, FormControlLabel, Grid, Typography, withStyles } from "@material-ui/core";
 
 import { fetchAdmin, updateAdmin } from "redux/admin/action";
 import { getUpdatedInfo } from "services/get-updated-info";

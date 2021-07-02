@@ -5,7 +5,7 @@ import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { toast } from "react-toastify";
 
-import { fetchTerm, updateTerm, createTerm } from "redux/term/action";
+import { createTerm, fetchTerm, updateTerm } from "redux/term/action";
 import { getUpdatedInfo } from "services/get-updated-info";
 import PopupModal from "components/PopupModal";
 import Button from "components/Button";
