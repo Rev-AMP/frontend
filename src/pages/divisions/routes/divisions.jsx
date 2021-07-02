@@ -91,6 +91,15 @@ class DivisionPage extends React.Component {
             hide: true,
         },
         {
+            field: "term_name",
+            headerName: "Term",
+            headerAlign: "center",
+            align: "center",
+            width: 350,
+            hide: true,
+            valueFormatter: ({ row }) => `${row.course.term.name}`,
+        },
+        {
             field: "number_of_batches",
             headerName: "Number of Batches",
             headerAlign: "center",
