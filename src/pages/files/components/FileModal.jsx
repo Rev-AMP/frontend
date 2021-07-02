@@ -58,7 +58,7 @@ class FileModal extends React.Component {
                 break;
 
             case "submission":
-                this.setState({ meow: "Marks" });
+                this.setState({ meow: "Submission" });
                 break;
 
             default:
