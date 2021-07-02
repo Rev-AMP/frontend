@@ -38,6 +38,7 @@ class FileModal extends React.Component {
                 file_type: this.props.type,
                 submission_id: this.props.submissionId,
                 course_id: this.props.courseId,
+                assignmentId: this.props.assignmentId,
             },
             courses: [],
             meow: "",

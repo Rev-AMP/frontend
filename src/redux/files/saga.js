@@ -6,6 +6,7 @@ import {
     fetchFileFailure,
     fetchFiles as ActionFetchFiles,
     fetchFilesCourse as ActionFetchFilesCourse,
+    fetchFilesSubmissionId,
     fetchFilesCourseFailure,
     fetchFilesCourseSuccess,
     fetchFilesFailure,
@@ -15,6 +16,8 @@ import {
     fetchFileSuccess,
     uploadFileFailure,
     uploadFileSuccess,
+    updateFileFailure,
+    updateFileSuccess,
 } from "./action";
 import { APICall } from "services/http-client";
 import { addFileURL } from "../../services/files";
@@ -104,20 +107,21 @@ function* uploadFile() {
 function* updateFile() {
     yield takeEvery(FileActionTypes.UPDATE_FILE, function* (action) {
         try {
-            const file = yield APICall(`/api/v1/files/${action.payload.submissionId}`, {
+            const file = yield APICall(`/api/v1/files/${action.payload.submission_id}`, {
                 method: "PUT",
                 body: JSON.stringify(action.payload),
             });
             file.url = addFileURL(file);
-            yield put(uploadFileSuccess(file));
+            yield put(updateFileSuccess(file));
+            yield put(fetchFilesSubmissionId(action.payload.assignmentId));
         } catch (error) {
-            yield put(uploadFileFailure(error.detail));
+            yield put(updateFileFailure(error.detail));
         }
     });
 }
 
 function* refreshFiles() {
-    yield takeLatest([FileActionTypes.UPDATE_FILE_SUCCESS, FileActionTypes.UPLOAD_FILE_SUCCESS], function* (action) {
+    yield takeLatest([FileActionTypes.UPLOAD_FILE_SUCCESS], function* (action) {
         let currentUser = yield select((state) => state.user.currentUser);
         if (currentUser.type === "professor") {
             yield put(ActionFetchFiles());

@@ -29,7 +29,7 @@ class Submissions extends React.Component {
             headerAlign: "center",
             align: "center",
             flex: 1,
-            valueGetter: (params) => params.value.course.name,
+            valueGetter: (params) => params.row.course.name,
             hide: true,
         },
         {
@@ -46,7 +46,7 @@ class Submissions extends React.Component {
             headerAlign: "center",
             align: "center",
             flex: 1,
-            valueGetter: (params) => params.value.owner.name,
+            valueGetter: (params) => params.row.owner.full_name,
         },
         {
             field: "owner_id",
@@ -116,10 +116,12 @@ class Submissions extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!prevProps.files && this.props.files !== prevProps.files) {
+        if (this.props.files !== prevProps.files && this.props.files.length > 0) {
+            let submissions = [];
             this.props.files.forEach((file) => {
-                if (file.file_type === "submission") this.state.files.push(file);
+                if (file.file_type === "submission") submissions.push(file);
             });
+            this.setState({ files: submissions });
         }
     }
 
@@ -144,6 +146,7 @@ class Submissions extends React.Component {
                         onClose={this.closeModal}
                         type="submission"
                         submissionId={this.state.submissionId}
+                        assignmentId={this.props.match.params.submissionId}
                     />
                 }
                 objects={this.state.files}
