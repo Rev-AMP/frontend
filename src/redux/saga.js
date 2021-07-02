@@ -10,6 +10,7 @@ import CourseSaga from "redux/course/saga";
 import DivisionSaga from "redux/division/saga";
 import TimetableSaga from "redux/timetable/saga";
 import TimeSlotSaga from "redux/timeslots/saga";
+import FileSaga from "redux/files/saga";
 
 const RootSaga = function* () {
     yield all([
@@ -23,6 +24,7 @@ const RootSaga = function* () {
         DivisionSaga(),
         TimetableSaga(),
         TimeSlotSaga(),
+        FileSaga(),
     ]);
 };
 

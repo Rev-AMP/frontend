@@ -12,6 +12,7 @@ import CourseReducer from "redux/course/reducer";
 import DivisionReducer from "redux/division/reducer";
 import TimetableReducer from "redux/timetable/reducer";
 import TimeSlotReducer from "redux/timeslots/reducer";
+import FileReducer from "redux/files/reducer";
 
 const persistConfig = {
     key: "revamp",
@@ -30,6 +31,7 @@ const MainReducer = persistCombineReducers(persistConfig, {
     division: DivisionReducer,
     timetable: TimetableReducer,
     timeslot: TimeSlotReducer,
+    file: FileReducer,
 });
 
 const RootReducer = (state, action) => {
