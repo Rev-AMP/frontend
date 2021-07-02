@@ -29,7 +29,7 @@ class Materials extends React.Component {
             headerAlign: "center",
             align: "center",
             flex: 1,
-            valueGetter: (params) => params.value.course.name,
+            valueGetter: (params) => params.row.course.name,
         },
         {
             field: "course_id",
@@ -45,7 +45,7 @@ class Materials extends React.Component {
             headerAlign: "center",
             align: "center",
             flex: 1,
-            valueGetter: (params) => params.value.owner.name,
+            valueGetter: (params) => params.row.owner.full_name,
         },
         {
             field: "owner_id",
@@ -96,10 +96,12 @@ class Materials extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!prevProps.files && this.props.files !== prevProps.files) {
+        if (prevProps.files.length === 0 && this.props.files.length !== 0) {
+            let material = [];
             this.props.files.forEach((file) => {
-                if (file.type === "material") this.state.files.push(file);
+                if (file.file_type === "material") material.push(file);
             });
+            this.setState({ files: material });
         }
     }
 
