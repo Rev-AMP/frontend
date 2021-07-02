@@ -17,7 +17,7 @@ class CourseSelect extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.terms !== prevProps.courses && this.props.courses) {
+        if (this.props.courses !== prevProps.courses && this.props.courses) {
             let meow = this.state.meow;
             this.props.courses.forEach((course, index) => {
                 course.name += ` : ${course.term.name} : ${course.term.year.school.name}`;
